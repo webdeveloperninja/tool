@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
  
-
+var dbAuth = require('./node_modules/db-auth/db-auth.js');
 
 
 var express = require('express');
@@ -26,13 +26,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(new passportLocal.Strategy(function(username, password, done) {
-  
-  if (username === password) {
+  if (dbAuth.checkUserPass(username, password)) {
     done(null, {id: username, name: username});
   } else {
     done(null, null)
   }
-
 }));
 
 passport.serializeUser(function(user, done) {
