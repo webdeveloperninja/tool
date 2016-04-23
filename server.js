@@ -11,7 +11,7 @@ var shortid = require('shortid');
 
 var json2csv = require('json2csv');
 
-var dbAuth = require('./node_modules/db-auth/db-auth.js');
+var dbAuth = require('./db-auth.js');
 var express = require('express');
 
 const queryString = require('query-string');
