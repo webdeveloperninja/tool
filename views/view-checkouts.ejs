@@ -116,7 +116,7 @@
                  <div class="row">
                      <div class="col-md-8 col-md-offset-2">
                          <div class="video-container">
-                             <iframe width="560" height="315" src="https://www.youtube.com/embed/Gkd_KHGTYvw?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+                             <iframe width="560" height="315" src="https://www.youtube.com/embed/12rM7PztSDQ?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
                          </div>
                      </div>
                  </div>
@@ -165,36 +165,17 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <td>Tool Name</td>
-                                    <td>Tool Type</td>
-                                    <td>Tool Diameter</td>
-                                    <td>Tool Material</td>
-                                    <td>Tool Brand</td>
-                                    <td>Tool Qty</td>
+                                    <td>Checkout Date</td>
+                                    <td>Tool Id</td>
+                                    <td>Checkout Qty</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                 <% for (var i=0; i<tools.length; i++) {%>
-                                 
+                                 <% for (var i=0; i<checkouts.length; i++) {%>
                                 <tr>
-                                    <td><a href="/view/?toolId=<%= tools[i]._id %>"><p> <%= tools[i].diameter %>" <%= tools[i].toolType %></p></a></td>
-                                    <td><a href="/view/?toolId=<%= tools[i]._id %>"><p> <%= tools[i].toolType %> </p></a></td>
-                                    <td><a href="/view/?toolId=<%= tools[i]._id %>"><p> <%= tools[i].diameter %>"</p></a></td>
-                                    <td><a href="/view/?toolId=<%= tools[i]._id %>"><p> <%= tools[i].material %></p></a></td>
-                                    <td><a href="/view/?toolId=<%= tools[i]._id %>"><p> <%= tools[i].brand %> </p></a></td>
-                                    <td>
-                                        <p><a href="/view/?toolId=<%= tools[i]._id %>"> <%= tools[i].qty %> </a>
-                                        <a href="/remove/?toolId=<%= tools[i]._id %>" class="table-btn"><span class="glyphicon checkout-icon glyphicon-remove pull-right"></span></a>
-                                        <a href="/add/?toolId=<%= tools[i]._id %>" class="table-btn"><span class="glyphicon glyphicon glyphicon-plus glyphicon-add pull-right"></span></a>
-                                        <a class="btn btn-primary pull-right edit-btn table-btn" href="/edit/?toolId=<%= tools[i]._id %>">Edit</a>
-                                        <a class="btn btn-success pull-right table-btn" href="/checkout/?toolId=<%= tools[i]._id %>">Checkout</a>
-                                        </p>
-                                    </td>
-                                    <!--
-                                    <td>
-
-                                    </td>
-                                    -->
+                                    <td><p> <%= checkouts[i].checkoutDate %></p></td>
+                                    <td><p> <%= checkouts[i].toolId %></p></td>
+                                    <td><p> <%= checkouts[i].checkoutQty %></p></td> 
                                 </tr>
                                 <% } %>
                             </tbody>

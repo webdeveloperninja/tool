@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../styles.css" rel="stylesheet">
+    </head>
+    <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top __web-inspector-hide-shortcut__">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CloudCrib.io</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <% if (!isAuthenticated) { %>
+                <li><a href="/sign-up">Try It Free</a></li>
+                <li><a href="/login">Log in here</a></li>
+            <% } else { %>
+                        <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
+                        <a class="btn btn-primary" href="/logout">Log Out</a>
+                        <a href="/add-tool" class="btn btn-danger">Add Tool</a></p>
+            <% } %>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container">
+        <% if (!isAuthenticated) { %>
+            <h4 class="text-center">Please Go Back and Log in</h4>
+            <a href="/" class="btn btn-primary">Go Back</a>
+        <% } else { %>
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <div class="panel-group">
+                          <div class="panel panel-success">
+                            <div class="panel-heading">Add Tool</div>
+                            <div class="panel-body">
+                                <form action="" method="post">
+                                <div class="form-group">
+                                    <label>Tool Type:</label>
+                                    <select name="toolType" class="form-control" required>
+                                        <option value="">Choose Tool Type</option>
+                                        <option value="end mill">End Mill</option>
+                                        <option value="drill">Drill</option>
+                                        <option value="right turn tool">Right Turn Tool</option>
+                                        <option value="left turn tool">Left Turn Tool</option>
+                                        <option value="parting tool">Parting Tool</option>
+                                        <option value="center drill">Center Drill</option>
+                                        <option value="jobber drill">Jobber Drill</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Brand:</label>
+                                    <select name="brand" class="form-control" required>
+                                        <option value="">Choose Brand</option>
+                                        <option value="Imco">Imco</option>
+                                        <option value="Z-Carb">Z-Carb</option>
+                                        <option value="SGS">SGS</option>
+                                        <option value="Bassett">Bassett</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Material:</label>
+                                    <select name="material" class="form-control" required>
+                                        <option value="">Choose Material</option>
+                                        <option value="HSS">HSS</option>
+                                        <option value="Carbide">Carbide</option>
+                                        <option value="Cobalt">Cobalt</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tool Length:</label>
+                                    <input class="form-control" name="toolLength">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tool Diameter:</label>
+                                    <input class="form-control" name="toolDiameter">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tool Model Number:</label>
+                                    <input class="form-control" name="toolModelNumber">
+                                </div>
+                                <div class="form-group">
+                                    <label>Qty:</label>
+                                    <input type="number" class="form-control" name="qty">
+                                </div>
+                                <input type="text" name="userId" class="hidden" value="<%= user._id %>">
+                                <input class="btn btn-danger" type="submit" value="Save Tool">
+                                <a href="/" class="btn btn-default">Main Menu</a>
+                            </form> 
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+        <% } %>
+    </body>
+</html>

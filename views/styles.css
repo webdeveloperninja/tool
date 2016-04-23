@@ -1,3 +1,125 @@
 .container {
     margin-top: 20px;
 }
+
+body {
+    padding-top: 75px;
+    overflow-x: hidden;
+}
+
+table {
+}
+
+p.hello {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+
+.tool-name {
+    font-weight: bold;
+}
+
+.img-center {
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+p.small-quote {
+    font-size: 17px;
+}
+
+.quote-row {
+    margin-top: 25px;
+}
+
+.quote {
+    font-size: 27px;
+    color: #2ecc71;
+}
+
+.green {
+    color: #2ecc71;
+}
+
+.checkout-icon {
+    margin-top: 3px;
+    font-size: 26px !important;
+    color: #a94442;
+    margin-left: 20px;
+}
+
+.edit-btn {
+    margin-left: 10px;
+}
+
+.table-btn {
+    display: block;
+    float:right;
+}
+
+.view-checkouts-btn {
+    margin-left: 5px;
+}
+
+.checkout-icon:hover {
+    color: red;
+}
+
+.glyphicon-add {
+    margin-top: 3px;
+    font-size: 26px !important;
+    color: #5CB85C;
+    margin-left: 34px;
+}
+
+.glyphicon-add:hover {
+    color: green;
+}
+
+.footer-navbar {
+    margin-bottom: 0;
+    margin-top: 33px;
+    border-radius: 0;
+}
+
+.sign-up-btn {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}
+ 
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+thead {
+    font-weight: bold;
+}
+
+.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+    margin-left: -15px;
+    color: white;
+    font-size: 26px;
+}
+
+.panel-success>.panel-heading {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+}

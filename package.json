@@ -12,10 +12,14 @@
     "ejs": "^2.4.1",
     "express": "~3.2.4",
     "express-session": "^1.13.0",
+    "json-2-csv": "^2.0.18",
+    "json2csv": "^3.3.0",
     "mongoose": "^4.4.11",
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
+    "query-string": "^4.1.0",
+    "shortid": "^2.2.6",
     "socket.io": "~0.9.14"
   }
 }

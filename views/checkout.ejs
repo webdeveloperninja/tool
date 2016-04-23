@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../styles.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 10px;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <% if(qtyRemove == false) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <p class="text-center">Not Enough Tools</p>
+                    </div>
+                <% } else if (qtyRemove == true) { %>
+                    <div class="alert alert-success" role="alert">
+                        <p class="text-center">Successfully Checkout Tool</p>
+                    </div>            
+                <% } %>
+                        
+            </div>
+        </div>
+        <% if (!isAuthenticated) { %>
+            <h4 class="text-center">Please Go Back and Log in</h4>
+            <a href="/" class="btn btn-primary">Go Back</a>
+        <% } else { %>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="panel-group">
+                      <div class="panel panel-success">
+                        <div class="panel-heading">Checkout Tool</div>
+                        <div class="panel-body">
+                            <h5 class="text-center tool-name"><%= tool.diameter %> <%= tool.brand %> <%= tool.toolType %></h5>
+                            <h5 class="text-center"><strong>Qty: <%= tool.qty %></strong></h5>
+   
+                            <form action="" method="POST">
+                                <div class="form-group">
+                                    <label>Qty: </label>
+                                    <input type="number" class="form-control" name="removeQty"  min="0" required>
+                                </div>
+                                <input class="hidden" name="id" value="<%= tool.id %>">
+                                <input class="hidden" name="userId" value="<%= user.id %>">
+                                <input class="hidden" name="originalQty" value="<%= tool.qty %>">
+                                <input class="btn btn-danger" type="submit" value="Checkout">
+                                <a href="/" class="btn btn-default">Main Menu</a>
+                            </form>    
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </body>
+</html>
