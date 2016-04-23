@@ -19,6 +19,7 @@
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
     "query-string": "^4.1.0",
+    "dbAuth":"*",
     "shortid": "^2.2.6",
     "socket.io": "~0.9.14"
   }
