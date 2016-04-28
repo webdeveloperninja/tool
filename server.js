@@ -7,12 +7,15 @@ var passportLocal = require('passport-local');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
+
 var shortid = require('shortid');
 
 var json2csv = require('json2csv');
 
 var dbAuth = require('./db-auth.js');
 var express = require('express');
+
+var stripe = require("stripe")("sk_test_5xGwl5dqR8CvbMJZOaqjutIQ");
 
 const queryString = require('query-string');
   
@@ -82,14 +85,18 @@ app.get('/', function(req, res) {
 }); 
 
 app.get('/login', function(req, res) {
+  
     res.render('login',{
     isAuthenticated: req.isAuthenticated(),
-    user: req.user
+    user: req.user,
+    succesfullyCreateUser: false,
+    badPassword: false
   });
 }); 
 
-app.post('/login', passport.authenticate('local') , function(req, res) {
-  res.redirect('/');
+app.post('/login', passport.authenticate('local'), function(req, res) {
+   
+    res.redirect('/');
 });
 
 app.get('/logout', function(req, res) {
@@ -105,15 +112,18 @@ app.get('/sign-up', function(req, res) {
 });
 
 app.post('/sign-up', function(req, res) {
+    console.log('/sign-up route hit');
     console.log(req.body);
-    dbAuth.addNewUser(req.body, function(err) {
+    dbAuth.addNewUser(req.body, function(err, userId) {
       if (err) {
         console.log(err);
       } else {
-        res.redirect('/login');
+        console.log('Sign up route hit user id: ' + userId);
+        // save userId into session 
+        res.redirect('/choose-a-plan');
       }
     });
-    res.status(200);
+    //res.status(200);
 });
 
 
@@ -255,7 +265,6 @@ app.post('/add-tool', function(req, res) {
 
 app.post('/checkout', function(req, res) {
   var removeQty = req.body.removeQty;
-
   var toolId = req.body.id;
   var userId = req.body.userId;
   dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
@@ -281,13 +290,12 @@ app.post('/checkout', function(req, res) {
       if (err) {
         console.log('Error: ' + err);
       } else {
-
       var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
       var toolId = checkoutToolIdQuery(fullUrl);
       var userId = req.user._id;
       dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-  
-          dbAuth.saveCheckout(userId, toolId, removeQty, function(err) {
+          var shortName = tool.diameter + ' diameter ' + tool.material + " " + tool.toolType; 
+          dbAuth.saveCheckout(userId, toolId, removeQty, shortName, function(err) {
             if (err) {
               console.log('There was an error saving checkout to db: ' + err);
             } else {
@@ -348,7 +356,7 @@ app.get('/checkoutsCSV', function(req, res) {
 if (req.isAuthenticated()) {
     dbAuth.returnCheckoutData(req.user._id, function(err, checkouts) {
       console.log('Success tools');
-      json2csv({ data: checkouts, fields: ['_id', 'userId', 'toolId', 'checkoutQty', 'checkoutDate'] }, function(err, csv) {
+      json2csv({ data: checkouts, fields: ['_id', 'userId', 'toolId', 'checkoutQty', 'checkoutDate', 'shortName'] }, function(err, csv) {
         if (err) console.log(err);
         console.log(csv);
         res.set({
@@ -455,7 +463,196 @@ app.get('/view-checkouts', function(req, res) {
 });
 
 
+app.get('/auto-order', function(req, res) {
+  // if isAuthenticated 
+  if (req.isAuthenticated()) {
+    dbAuth.returnToolData(req.user._id, function(err, tools) {
+      console.log('Success tools');
+      console.log(tools);
+      res.render('auto-order', {
+        isAuthenticated: req.isAuthenticated(),
+        user: req.user,
+        tools: tools 
+      });
+    }); 
+  } else {
+    res.render('auto-order', {
+      isAuthenticated: req.isAuthenticated(),
+      user: req.user
+    });
+  }
+  // query tool collection for user id
+  
+});
 
+app.get('/choose-a-plan', function(req, res) {
+    console.log('Pay for plan hit');
+    res.render('choose-a-plan', {
+      isAuthenticated: req.isAuthenticated(),
+      user: req.user
+    });
+});
+
+app.post('/choose-a-plan', function(req, res) {
+    console.log('Choose a plan hit');
+    console.log('Token from stripe: ' + req.body.stripeToken);
+    // (Assuming you're using express - expressjs.com)
+    // Get the credit card details submitted by the form
+    var stripeToken = req.body.stripeToken;
+    
+    stripe.customers.create({
+      source: stripeToken,
+      plan: "00001",
+      email: req.body.email
+      // grab email from sign up form
+    }, function(err, customer) {
+      if (err) {
+        console.log(err);
+      } else {
+        
+        // find user id and add customer id for payment
+        console.log('Customer Id: ' + customer.id);  
+        // save user to database and redirect to succesfully sign up
+        var newUserObj = {
+          name: req.body.name,
+          email: req.body.email,
+          companyName: req.body.companyName,
+          username: req.body.username,
+          password: req.body.password,
+          stripeId: customer.id
+        }
+        
+        dbAuth.addNewUser(newUserObj, function(err, userId) {
+          if (err) {
+            console.log(err);
+          } else {
+            
+          // set session so I can flag user success created account
+          res.redirect('/login');
+
+          }
+        });
+
+      }
+    });
+    
+});
+
+app.get('/my-account', function(req, res) {
+      res.render('my-account', {
+        isAuthenticated: req.isAuthenticated(),
+        user: req.user,
+        accountUpdated: null,
+        addedJob: null,
+        addOperator: null
+      });
+});
+
+app.post('/my-account', function(req, res) {
+  console.log('My Account');
+  console.log(req.body);
+  res.render('my-account', {
+    isAuthenticated: req.isAuthenticated(),
+    user: req.user,
+    accountUpdated: true
+  });
+  
+  
+});
+
+app.post('/add-job', function(req, res) {
+    console.log('Add Job');
+    console.log(req.body);
+    var jobObj = {
+      companyName: req.body.companyName,
+      userId: req.user._id,
+      jobName: req.body.jobName,
+      contactName: req.body.contactName,
+      contactEmail: req.body.contactEmail,
+      dueDate: req.body.dueDate,
+      qtyDue: req.body.qtyDue
+    }
+    
+    console.log(jobObj);
+    dbAuth.addJob(jobObj, function(err) {
+      if (err) {
+        
+      } else {
+        console.log('Added Job');
+        res.render('my-account', {
+          isAuthenticated: req.isAuthenticated(),
+          user: req.user,
+          accountUpdated: null,
+          addedJob: true,
+          addOperator: null
+        });
+      }
+    });
+});
+
+
+app.get('/view-jobs', function(req, res) {
+  if (req.isAuthenticated()) {
+    dbAuth.returnJobsData(req.user._id, function(err, jobs) {
+      console.log(jobs);
+      res.render('view-jobs', {
+        isAuthenticated: req.isAuthenticated(),
+        user: req.user,
+        jobs: jobs 
+      });
+    }); 
+  } else {
+    res.render('view-checkouts', {
+      isAuthenticated: req.isAuthenticated(),
+      user: req.user
+    });
+  }
+    
+});
+
+app.post('/add-operator', function(req, res) {
+    console.log('Add Job');
+    console.log(req.body);
+    var operatorObj = {
+      userId: req.user._id,
+      operatorName: req.body.operatorName,
+      operatorId: req.body.operatorId
+    }
+    
+    dbAuth.addOperator(operatorObj, function(err) {
+      if (err) {
+        
+      } else {
+        console.log('Added Job');
+        res.render('my-account', {
+          isAuthenticated: req.isAuthenticated(),
+          user: req.user,
+          accountUpdated: null,
+          addedJob: null,
+          addOperator: true
+        });
+      }
+    });
+});
+
+app.get('/view-operators', function(req, res) {
+  if (req.isAuthenticated()) {
+    dbAuth.returnOperatorsData(req.user._id, function(err, operators) {
+      console.log(operators);
+      res.render('view-operators', {
+        isAuthenticated: req.isAuthenticated(),
+        user: req.user,
+        operators: operators 
+      });
+    }); 
+  } else {
+    res.render('index', {
+      isAuthenticated: req.isAuthenticated(),
+      user: req.user
+    });
+  }
+    
+});
 
 var checkoutToolIdQuery = function(uri) {
   var uri = uri;
@@ -466,6 +663,8 @@ var checkoutToolIdQuery = function(uri) {
   );
   return queryString['toolId']
 }
+
+
 
 server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
   var addr = server.address();

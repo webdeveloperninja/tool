@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../styles.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 10px;
+            }
+        </style>
+        <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+        <script type="text/javascript">
+          Stripe.setPublishableKey('pk_test_7ySNAoNYSJEwRZuD6xaPec4Z');
+          
+          
+            $(function() {
+              var $form = $('#payment-form');
+              $form.submit(function(event) {
+                // Disable the submit button to prevent repeated clicks:
+                $form.find('.submit').prop('disabled', true);
+            
+                // Request a token from Stripe:
+                Stripe.card.createToken($form, stripeResponseHandler);
+            
+                // Prevent the form from being submitted:
+                return false;
+              });
+              
+                function stripeResponseHandler(status, response) {
+                  // Grab the form:
+                  var $form = $('#payment-form');
+                
+                  if (response.error) { // Problem!
+                
+                    // Show the errors on the form:
+                    $form.find('.payment-errors').text(response.error.message);
+                    $form.find('.submit').prop('disabled', false); // Re-enable submission
+                
+                  } else { // Token was created!
+                
+                    // Get the token ID:
+                    var token = response.id;
+                
+                    // Insert the token ID into the form so it gets submitted to the server:
+                    $form.append($('<input type="hidden" name="stripeToken">').val(token));
+                
+                    // Submit the form:
+                    $form.get(0).submit();
+                  }
+                };
+              
+            });
+        </script>
+    </head>
+    <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top __web-inspector-hide-shortcut__">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CloudCrib.io</a>
+        </div>
+        <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <% if (!isAuthenticated) { %>
+                <li><a href="/choose-a-plan">Try It Free</a></li>
+                <li><a href="/login">Log in here</a></li>
+            <% } else { %>
+                        <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
+                        <a class="btn btn-primary" href="/logout">Log Out</a>
+                        <a href="/add-tool" class="btn btn-danger">Add Tool</a></p>
+            <% } %>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container">
+            <div class="row plan-row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="panel-group">
+                      <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h4 class="text-center options-heading">Starter Package</h4>
+                            <h4 class="text-center"><strong>0 - 49 Tools</strong></h4>
+                        </div>
+                        <div class="panel-body">
+                            <h4 class="text-center options-heading">$99.99/month</h4>
+                            <form action="" method="POST" id="payment-form">
+                                <div class="form-group">
+                                    <label>Name:</label>
+                                    <input class="form-control" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email:</label>
+                                    <input class="form-control" type="email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Company Name:</label>
+                                    <input class="form-control" name="companyName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Username:</label>
+                                    <input class="form-control" name="username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password:</label>
+                                    <input class="form-control" name="password" type="password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Re-Enter Password:</label>
+                                    <input class="form-control" name="reEnterPassword" type="password" required>
+                                </div>
+                                <div class="form-row">
+                                  <hr>
+                                  <h3 class="text-center">Payment</h3>
+                                  <span class="payment-errors"></span>
+                                </div>
+                              <div class="form-row">
+                                <label>
+                                  <span>Card Number</span>
+                                  <input type="text" size="20" data-stripe="number" class="form-control">
+                                </label>
+                              </div>
+                            
+                              <div class="form-row">
+                                <label>
+                                  <span>Expiration (MM/YY)</span>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <input type="text" size="2" data-stripe="exp_month" class="form-control">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <span class="mm-year-seperator"> / </span>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" size="2" data-stripe="exp_year" class="form-control">
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="form-row">
+                                <label>
+                                  <span>CVC</span>
+                                  <input type="text" size="4" data-stripe="cvc" class="form-control">
+                                </label>
+                              </div>
+                            
+                              <input type="submit" class="submit btn btn-primary" value="Submit Payment">
+                            </form>   
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../js/app.js"></script>
+    </body>
+</html>

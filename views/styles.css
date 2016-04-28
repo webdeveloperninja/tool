@@ -10,6 +10,50 @@ body {
 table {
 }
 
+.settings-row {
+    margin-top: 20px;
+}
+
+.tools-list-panel {
+    margin-top: 18px;
+}
+
+
+.panel-default>.panel-heading {
+    color: white;
+    background-color: #222;
+    border-color: #ddd;
+    font-size: 21px;
+    text-align: center;
+}
+
+.table-link {
+    color: black;
+}
+
+.table-link:hover {
+    color: black;
+}
+
+.tool-list-heading {
+    font-size: 17px;
+}
+p.table-value {
+    font-size: 19px;
+}
+
+.remove-glif {
+    float: right !important;
+}
+
+.navbar-brand {
+    margin-top: -13px;
+}
+
+.tool-list-table {
+    margin-top: 15px;
+}
+
 p.hello {
     font-size: 16px;
     font-weight: bold;
@@ -20,6 +64,10 @@ p.hello {
     font-weight: bold;
 }
 
+.plan-row {
+    margin-top: 70px;
+}
+
 .img-center {
     margin-left: auto; 
     margin-right: auto;
@@ -28,6 +76,21 @@ p.hello {
 p.small-quote {
     font-size: 17px;
 }
+
+h4.text-center.options-heading {
+    margin-top: 0px;
+    font-size: 22px;
+}
+
+input.submit.btn.btn-primary {
+    display: block;
+    width: 100%;
+}
+
+.mm-year-seperator {
+    font-size: 24px;
+}
+
 
 .quote-row {
     margin-top: 25px;
@@ -50,12 +113,12 @@ p.small-quote {
 }
 
 .edit-btn {
-    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .table-btn {
     display: block;
-    float:right;
+    float:left;
 }
 
 .view-checkouts-btn {
@@ -139,6 +202,21 @@ thead {
     /* Small Devices, Tablets */
     @media only screen and (max-width : 768px) {
 
+        .table-btn {
+            display: inline-block;
+            width: 100%;
+            margin-top: 5px;
+        }
+        
+
+
+    }
+    
+    @media only screen and (max-width: 588px) {
+        .user-nav-btn {
+            display: block;
+            margin-bottom: 10px;
+        }
     }
 
     /* Extra Small Devices, Phones */ 

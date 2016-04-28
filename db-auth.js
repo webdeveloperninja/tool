@@ -6,7 +6,7 @@ var usersSchema = new mongoose.Schema({
     username: String,
     password: String,
     companyName: String,
-    tools: Array
+    stripeId: String
 });
 
 
@@ -25,7 +25,24 @@ var checkoutsSchema = new mongoose.Schema({
     userId: String,
     toolId: String,
     checkoutQty: Number, 
+    shortName: String,
     checkoutDate: Date
+});
+
+var jobsSchema = new mongoose.Schema({
+    companyName: String,
+    userId: String,
+    jobName: String,
+    contactName: String,
+    contactEmail: String,
+    dueDate: Date,
+    qtyDue: Number
+});
+
+var operatorsSchema = new mongoose.Schema({
+    userId: String,
+    operatorName: String,
+    operatorId: String
 });
 
 
@@ -35,6 +52,10 @@ var users = mongoose.model('users', usersSchema);
 var tools = mongoose.model('tools', toolsSchema);
 
 var checkouts = mongoose.model('checkouts', checkoutsSchema);
+
+var jobs = mongoose.model('jobs', jobsSchema);
+
+var operators = mongoose.model('operators', operatorsSchema);
 
 var exports = module.exports = {
         checkUserPass: function(username, password, cb) {
@@ -110,7 +131,7 @@ var exports = module.exports = {
                 if(err) {
                   cb(err);
                 } else {
-                  cb(err);
+                  cb(err, newUser._id);
                 }
               });
             },
@@ -132,11 +153,13 @@ var exports = module.exports = {
                 }
               );
             },
-            saveCheckout: function(userId, toolId, removeQty, cb) {
+            saveCheckout: function(userId, toolId, removeQty, shortName, cb) {
+                console.log('Save Checkout');
                 var checkoutObj = {
                     userId: userId,
                     toolId: toolId,
                     checkoutQty: removeQty, 
+                    shortName: shortName,
                     checkoutDate: new Date()
                 }
                 var newCheckout = new checkouts(checkoutObj);
@@ -175,6 +198,52 @@ var exports = module.exports = {
                   }
                 }
               );
+            },
+            editSingleUser: function(userId, toolId, updatedUser, cb ) {
+                var query = {_id:userId};
+                users.findOneAndUpdate(query, updatedUser, {upsert:true}, function(err, doc){
+                    cb(err);
+                });
+            },
+            addJob: function(jobObj, cb) {
+                var newJob = new jobs(jobObj);
+                newJob.save(function(err, data) {
+                    if (err) {
+                        cb(err)
+                    } else {
+                        cb();
+                    }
+                });
+            },
+            returnJobsData: function(userId, cb) {
+                var allJobs = jobs.find( { userId: { $in: [ userId ] } }, function (err, jobs) {   
+                     if(err){
+                       cb(err, null)
+                     } else {
+                        // query db to find tools with user id
+                        cb(null , jobs);
+                     }
+                });
+            },            
+            addOperator: function(operatorObj, cb) {
+                var newOperator = new operators(operatorObj);
+                newOperator.save(function(err, data) {
+                    if (err) {
+                        cb(err)
+                    } else {
+                        cb();
+                    }
+                });
+            },
+            returnOperatorsData: function(userId, cb) {
+                var allOperators = operators.find( { userId: { $in: [ userId ] } }, function (err, operators) {   
+                     if(err){
+                       cb(err, null)
+                     } else {
+                        // query db to find tools with user id
+                        cb(null , operators);
+                     }
+                });
             }
 }
             

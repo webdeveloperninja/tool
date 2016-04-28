@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html ng-app="app">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+    </head>
+    <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top __web-inspector-hide-shortcut__">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CloudCrib.io</a>
+        </div>
+        <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <% if (!isAuthenticated) { %>
+                <li><a href="/sign-up">Try It Free</a></li>
+                <li><a href="/login">Log in here</a></li>
+            <% } else { %>
+                        <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
+                        <a class="btn btn-primary" href="/logout">Log Out</a>
+                        <a href="/add-tool" class="btn btn-danger">Add Tool</a></p>
+            <% } %>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container">
+    <% if (!isAuthenticated) { %>
+        <h4 class="text-center">Go Back and Log In</h4>
+    <% }  %>
+    <% if (isAuthenticated) { %>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="/toolsCSV" class="btn btn-default">Download Tools</a>
+                    <a href="/checkoutsCSV" class="btn btn-default">Download Checkouts</a>
+                </div>
+                <div class="col-md-6">
+                    <a href="/" class="btn btn-default pull-right view-checkouts-btn">Main Menu</a>
+                    <a href="/view-checkouts" class="btn btn-default pull-right view-checkouts-btn">View Checkouts</a>
+                    <a href="/auto-order" class="btn btn-default pull-right active">Auto Order</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                        <h3 class="text-center">Auto Order</h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                        <form class="form-inline" role="form">
+                                          <div class="form-group">
+                                            <input type="lowQty" class="form-control" value="" placeholder="email">
+                                          </div>
+                                          <button type="submit" class="btn btn-default">Save</button>
+                                        </form>
+                            </div>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <td>Tool Name</td>
+                                    <td>Tool Type</td>
+                                    <td>Tool Diameter</td>
+                                    <td>Tool Material</td>
+                                    <td>Tool Brand</td>
+                                    <td>Tool Qty</td>
+                                    <td>Auto Order Qty</td>
+                                    <td>Enable Auto Order</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 <% for (var i=0; i<tools.length; i++) {%>
+                                 
+                                <tr>
+                                    <td><a href="/view/?toolId=<%= tools[i]._id %>"><p> <%= tools[i].diameter %>" <%= tools[i].toolType %></p></a></td>
+                                    <td><a href="/view/?toolId=<%= tools[i]._id %>"><p> <%= tools[i].toolType %> </p></a></td>
+                                    <td><a href="/view/?toolId=<%= tools[i]._id %>"><p> <%= tools[i].diameter %>"</p></a></td>
+                                    <td><a href="/view/?toolId=<%= tools[i]._id %>"><p> <%= tools[i].material %></p></a></td>
+                                    <td><a href="/view/?toolId=<%= tools[i]._id %>"><p> <%= tools[i].brand %> </p></a></td>
+                                    <td><a href="/view/?toolId=<%= tools[i]._id %>"><p> <%= tools[i].qty %> </p></a></td>
+                                    <td>
+                                        <form class="form-inline" role="form">
+                                          <div class="form-group">
+                                            <input type="lowQty" class="form-control" value="">
+                                          </div>
+                                          <button type="submit" class="btn btn-default">Save</button>
+                                        </form>
+                                    </td>
+                                    <td class="text-center"><input type="checkbox"></td>
+                                    <!--
+                                    <td>
+
+                                    </td>
+                                    -->
+                                </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    <% } %>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="js/app.js"></script>
+        
+        
+
+        
+    </body>
+</html>

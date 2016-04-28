@@ -15,7 +15,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">CloudCrib.io</a>
+          <a class="navbar-brand" href="/">ToolingInventory.com</a>
         </div>
         <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -23,12 +23,11 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <% if (!isAuthenticated) { %>
-                <li><a href="/sign-up">Try It Free</a></li>
+                <li><a href="/choose-a-plan">Try It Free</a></li>
                 <li><a href="/login">Log in here</a></li>
             <% } else { %>
                         <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
                         <a class="btn btn-primary" href="/logout">Log Out</a>
-                        <a href="/add-tool" class="btn btn-danger">Add Tool</a></p>
             <% } %>
           </ul>
         </div><!--/.nav-collapse -->
@@ -111,7 +110,7 @@
                  </div>
                  <div class="row">
                      <div class="col-md-6 col-md-offset-3">
-                         <a href="/sign-up" class="btn btn-success sign-up-btn">Try It Free!</a>
+                         <a href="/choose-a-plan" class="btn btn-success sign-up-btn">Try It Free!</a>
                      </div>
                  </div>
                  <div class="row">
@@ -123,6 +122,7 @@
                  </div>
             </div>
         </div>
+    </div>
 <nav class="navbar navbar-inverse footer-navbar">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -131,7 +131,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">CloudCrib.io</a>
+          <a class="navbar-brand" href="#">ToolingInventory.com</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -139,7 +139,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             
-                <li><a href="/sign-up">Sign Up</a></li>
+                <li><a href="/choose-a-plan">Sign Up</a></li>
                 <li><a href="/login">Log in here</a></li>
             
           </ul>
@@ -150,57 +150,74 @@
     <% if (isAuthenticated) { %>
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <a href="/toolsCSV" class="btn btn-default">Download Tools</a>
-                    <a href="/checkoutsCSV" class="btn btn-default">Download Checkouts</a>
+                <div class="col-sm-4">
+                    <a href="/toolsCSV" class="btn btn-default user-nav-btn">Download Tools</a>
+                    <a href="/checkoutsCSV" class="btn btn-default user-nav-btn">Download Checkouts</a>
+                    <a href="/" class="btn btn-default view-checkouts-btn active hidden-xl hidden-lg hidden-md hidden-sm user-nav-btn">Main Menu</a>
+                    <a href="/view-checkouts" class="btn btn-default view-checkouts-btn hidden-xl hidden-lg hidden-md hidden-sm user-nav-btn">View Checkouts</a>
                 </div>
-                <div class="col-md-6">
-                    <a href="/" class="btn btn-default pull-right view-checkouts-btn">Main Menu</a>
-                    <a href="/view-checkouts" class="btn btn-default pull-right ">View Checkouts</a>
+                <div class="col-sm-8 hidden-xs">
+                    <a href="/add-tool" class="btn btn-danger pull-right view-checkouts-btn">Add Tool</a>
+                    <a href="/view-checkouts" class="btn btn-default pull-right view-checkouts-btn">View Checkouts</a>
+                    <a href="/view-jobs" class="btn btn-default pull-right view-checkouts-btn">View Jobs</a>
+                    <a href="/view-operators" class="btn btn-default pull-right view-checkouts-btn">View Operators</a>
+                    <a href="/my-account" class="btn btn-default pull-right view-checkouts-btn">My Account</a>
+                    <a href="/" class="btn btn-default pull-right view-checkouts-btn active">Tool List</a>
+                    <!--<a href="/auto-order" class="btn btn-default pull-right ">Auto Order</a>-->
                 </div>
             </div>
             <div class="row">
+  <div class="panel tools-list-panel panel-default">
+    <div class="panel-heading">Tool List</div>
+    <div class="panel-body ">
+        <div class="row">
                 <div class="col-md-12">
-                        <h3 class="text-center">Tool List</h3>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <td>Tool Name</td>
-                                    <td>Tool Type</td>
-                                    <td>Tool Diameter</td>
-                                    <td>Tool Material</td>
-                                    <td>Tool Brand</td>
-                                    <td>Tool Qty</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                 <% for (var i=0; i<tools.length; i++) {%>
-                                 
-                                <tr>
-                                    <td><a href="/view/?toolId=<%= tools[i]._id %>"><p> <%= tools[i].diameter %>" <%= tools[i].toolType %></p></a></td>
-                                    <td><a href="/view/?toolId=<%= tools[i]._id %>"><p> <%= tools[i].toolType %> </p></a></td>
-                                    <td><a href="/view/?toolId=<%= tools[i]._id %>"><p> <%= tools[i].diameter %>"</p></a></td>
-                                    <td><a href="/view/?toolId=<%= tools[i]._id %>"><p> <%= tools[i].material %></p></a></td>
-                                    <td><a href="/view/?toolId=<%= tools[i]._id %>"><p> <%= tools[i].brand %> </p></a></td>
-                                    <td>
-                                        <p><a href="/view/?toolId=<%= tools[i]._id %>"> <%= tools[i].qty %> </a>
-                                        <a href="/remove/?toolId=<%= tools[i]._id %>" class="table-btn"><span class="glyphicon checkout-icon glyphicon-remove pull-right"></span></a>
-                                        <a href="/add/?toolId=<%= tools[i]._id %>" class="table-btn"><span class="glyphicon glyphicon glyphicon-plus glyphicon-add pull-right"></span></a>
-                                        <a class="btn btn-primary pull-right edit-btn table-btn" href="/edit/?toolId=<%= tools[i]._id %>">Edit</a>
-                                        <a class="btn btn-success pull-right table-btn" href="/checkout/?toolId=<%= tools[i]._id %>">Checkout</a>
-                                        </p>
-                                    </td>
-                                    <!--
-                                    <td>
-
-                                    </td>
-                                    -->
-                                </tr>
-                                <% } %>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-striped tool-list-table">
+                                <thead>
+                                    <tr class="tool-list-heading">
+                                        <td>Tool Name</td>
+                                        <td>Tool Type</td>
+                                        <td>Tool Diameter</td>
+                                        <td>Tool Material</td>
+                                        <td>Tool Brand</td>
+                                        <td>Tool Qty</td>
+                                        <td>Actions</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                     <% for (var i=0; i<tools.length; i++) {%>
+                                     
+                                    <tr>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].diameter %>" <%= tools[i].toolType %></p></a></td>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].toolType %> </p></a></td>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].diameter %>"</p></a></td>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].material %></p></a></td>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].brand %> </p></a></td>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].qty %> </p></a></td>
+                                        <td>
+                                            <a class="btn btn-primary  edit-btn table-btn" href="/edit/?toolId=<%= tools[i]._id %>">Edit</a>
+                                            <a class="btn btn-success  table-btn" href="/checkout/?toolId=<%= tools[i]._id %>">Checkout</a>
+                                            <a href="/add/?toolId=<%= tools[i]._id %>" class="table-btn"><span class="glyphicon glyphicon glyphicon-plus glyphicon-add"></span></a>
+                                            <a href="/remove/?toolId=<%= tools[i]._id %>" class="table-btn pull-right"><span class="glyphicon checkout-icon glyphicon-remove hidden-xs hidden-sm pull-right remove-glif"></span></a>
+                                            </p>
+                                        </td>
+                                        <!--
+                                        <td>
+    
+                                        </td>
+                                        -->
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div><!-- end table responsive-->
                     <% } %>
-                </div>
+                </div>   
+        </div>
+    </div>
+  </div>
+
             </div>
             
         </div>
