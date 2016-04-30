@@ -28,6 +28,7 @@
             <% } else { %>
                         <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
                         <a class="btn btn-primary" href="/logout">Log Out</a>
+                        <a class="btn btn-default" href="/production">Production</a>
             <% } %>
           </ul>
         </div><!--/.nav-collapse -->
@@ -39,12 +40,12 @@
             <div class="col-md-8 col-md-offset-2">
                 <h1>Cloud tooling inventory control software. <strong class="green">Store, manage &amp; Report.</strong></h1>
                 <p>
-                    CloudCrib.io allows you to understand your machine shops tooling usage. With CloudCrib.io you will be 
+                    ToolingInventory.com allows you to understand your machine shops tooling usage. With ToolingInventory.com you will be 
                     able to utalize LEAN manufacturing principales to not keep excess tooling inventory and insure that when
                     a job comes through you have the proper tooling to complete the job.
                 </p>
                 <p>
-                    CloudCrib.io also allows you to keep track of inventry shrinkage and trends. Understanding that your 
+                    ToolingInventory.com also allows you to keep track of inventry shrinkage and trends. Understanding that your 
                     shop needs different tooling quantities during different times of the month and year will allow you to 
                     buy less tooling and keep your money invensting in your company, not on excess inventory. 
                 </p>
@@ -70,7 +71,7 @@
                  <div class="row quote-row">
                      <div class="col-md-12">
                          <p class="quote">
-                             <strong>CloudCrib.io</strong> has allowed us to compete with over seas manufactures by 
+                             <strong>ToolingInventory.com</strong> has allowed us to compete with over seas manufactures by 
                              streamlining our inventory and allowing us to run leaner and more efficeient!
                              <br>
                              <strong>Robert Smith</strong> - Agency Compliance Services
@@ -85,7 +86,7 @@
                  <div class="row">
                      <div class="col-md-4">
                          <p class="small-quote">
-                             We are AMAZED with the impact CloudCrib.io has had on our shop!<br>
+                             We are AMAZED with the impact ToolingInventory.com has had on our shop!<br>
                              <strong class="green">Nick James</strong> - Haven Manufacturing
                         </p>
                      </div>
@@ -98,7 +99,7 @@
                      </div>
                      <div class="col-md-4">
                          <p class="small-quote">
-                             Using CloudCrib.io's analytics we see tooling trends that we would never even have thought of.<br>
+                             Using ToolingInventory.com analytics we see tooling trends that we would never even have thought of.<br>
                              <strong class="green">Sandy Smith</strong> - Trusted Manufacturing
                          </p>
                      </div>
@@ -157,7 +158,7 @@
                     <a href="/view-checkouts" class="btn btn-default view-checkouts-btn hidden-xl hidden-lg hidden-md hidden-sm user-nav-btn">View Checkouts</a>
                 </div>
                 <div class="col-sm-8 hidden-xs">
-                    <a href="/add-tool" class="btn btn-danger pull-right view-checkouts-btn">Add Tool</a>
+                    <a href="/add-tool" class="btn btn-primary pull-right view-checkouts-btn">Add Tool</a>
                     <a href="/view-checkouts" class="btn btn-default pull-right view-checkouts-btn">View Checkouts</a>
                     <a href="/view-jobs" class="btn btn-default pull-right view-checkouts-btn">View Jobs</a>
                     <a href="/view-operators" class="btn btn-default pull-right view-checkouts-btn">View Operators</a>
@@ -196,10 +197,10 @@
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].brand %> </p></a></td>
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].qty %> </p></a></td>
                                         <td>
-                                            <a class="btn btn-primary  edit-btn table-btn" href="/edit/?toolId=<%= tools[i]._id %>">Edit</a>
+                                            <a class="btn btn-success table-btn" href="/edit/?toolId=<%= tools[i]._id %>">Edit</a>
                                             <a class="btn btn-success  table-btn" href="/checkout/?toolId=<%= tools[i]._id %>">Checkout</a>
-                                            <a href="/add/?toolId=<%= tools[i]._id %>" class="table-btn"><span class="glyphicon glyphicon glyphicon-plus glyphicon-add"></span></a>
-                                            <a href="/remove/?toolId=<%= tools[i]._id %>" class="table-btn pull-right"><span class="glyphicon checkout-icon glyphicon-remove hidden-xs hidden-sm pull-right remove-glif"></span></a>
+                                            <a class="btn btn-success table-btn" href="/add/?toolId=<%= tools[i]._id %>">Add Tool Qty</a>
+                                            <a class="btn btn-danger table-btn" href="/remove/?toolId=<%= tools[i]._id %>">Remove Tool</a>
                                             </p>
                                         </td>
                                         <!--

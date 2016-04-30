@@ -35,11 +35,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(new passportLocal.Strategy(function(username, password, done) {
-  
   dbAuth.checkUserPass(username, password, function(isAuthenticatedDB, DBid) {
       if (isAuthenticatedDB) {
          done(null, {id: DBid, name: username});
-        
       } else {
          done(null, null);
       } 
@@ -56,7 +54,7 @@ passport.deserializeUser(function(id, done) {
     //console.log(user);
     done(null, user)
   });
-})
+});
   
 var server = http.createServer(app);
 
@@ -95,7 +93,6 @@ app.get('/login', function(req, res) {
 }); 
 
 app.post('/login', passport.authenticate('local'), function(req, res) {
-   
     res.redirect('/');
 });
 
@@ -152,6 +149,7 @@ app.get('/remove', function(req, res) {
       });
     }
 });
+
 
 
 app.get('/add', function(req, res) {
@@ -229,7 +227,30 @@ app.get('/checkout', function(req, res) {
         isAuthenticated: req.isAuthenticated(),
         user: req.user,
         tool: tool,
-        qtyRemove: null
+        qtyRemove: null,
+        operatorFound: null,
+        jobFound: null
+      });
+    });
+});
+
+app.get('/checkout-production', function(req, res) {
+    // need to send tool id
+    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+    var toolId = checkoutToolIdQuery(fullUrl);
+    var userId = req.user._id;
+    req.body.qtyRemove = null;
+    dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
+      console.log('success');
+      console.log(tool);
+      // find tool and render tool 
+      res.render('checkout-production', {
+        isAuthenticated: req.isAuthenticated(),
+        user: req.user,
+        tool: tool,
+        qtyRemove: null,
+        operatorFound: null,
+        jobFound: null
       });
     });
 });
@@ -267,51 +288,107 @@ app.post('/checkout', function(req, res) {
   var removeQty = req.body.removeQty;
   var toolId = req.body.id;
   var userId = req.body.userId;
+  var operatorId = req.body.operatorId;
+  var jobId = req.body.jobId;
+  
+  
+  
+  console.log('Operator Id: ' + operatorId);
+  console.log('Job Id: ' + jobId);
+  
+  
   dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
       console.log('success');
       console.log(tool);
       // find tool and render tool 
       var originalQty = tool.qty;
       
-  if(removeQty > originalQty) {
-    dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-      console.log('success');
-      console.log(tool);
-      // find tool and render tool 
-      res.render('checkout', {
-        isAuthenticated: req.isAuthenticated(),
-        user: req.user,
-        tool: tool,
-        qtyRemove: false
-      });
-    });
-  } else {
-    dbAuth.checkoutTool(userId, toolId, removeQty, function(err) {
-      if (err) {
-        console.log('Error: ' + err);
-      } else {
-      var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-      var toolId = checkoutToolIdQuery(fullUrl);
-      var userId = req.user._id;
-      dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-          var shortName = tool.diameter + ' diameter ' + tool.material + " " + tool.toolType; 
-          dbAuth.saveCheckout(userId, toolId, removeQty, shortName, function(err) {
-            if (err) {
-              console.log('There was an error saving checkout to db: ' + err);
+      // see if userId exists in db
+      dbAuth.returnSingleOperator(userId, operatorId, function(operatorObj){
+        if (operatorObj.length == 0) {
+          console.log('Operator Not Found');
+            res.render('checkout', {
+              isAuthenticated: req.isAuthenticated(),
+                user: req.user,
+                tool: tool,
+                qtyRemove: null,
+                operatorFound: false,
+                jobFound: null
+              });
+        } else {
+          console.log('OPERATOR FOUND');
+          console.log(operatorObj);
+          // check for job number 
+          
+          dbAuth.returnSingleJob(userId, jobId, function(job){
+            if (job.length == 0) {
+              console.log('Jobs not found');
+              res.render('checkout', {
+                isAuthenticated: req.isAuthenticated(),
+                  user: req.user,
+                  tool: tool,
+                  qtyRemove: null,
+                  operatorFound: null,
+                  jobFound: false
+                });
             } else {
-              console.log('Checkout Saved to the db: ');
+              // ad job id field
+          if(removeQty > originalQty) {
+            dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
+              console.log('success');
+              console.log(tool);
+              // find tool and render tool 
               res.render('checkout', {
                 isAuthenticated: req.isAuthenticated(),
                 user: req.user,
                 tool: tool,
-                qtyRemove: true
+                qtyRemove: false,
+                operatorFound: null,
+                jobFound: null
               });
+            });
+          } else {
+            dbAuth.checkoutTool(userId, toolId, removeQty, function(err) {
+              if (err) {
+                console.log('Error: ' + err);
+              } else {
+              var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+              var toolId = checkoutToolIdQuery(fullUrl);
+              var userId = req.user._id;
+              dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
+                  var shortName = tool.diameter + ' diameter ' + tool.material + " " + tool.toolType; 
+                  console.log('///////////////////////////////');
+                  console.log();
+                  console.log(operatorObj);
+                  dbAuth.saveCheckout(userId, toolId, removeQty, shortName, job, operatorObj, function(err) {
+                    if (err) {
+                      console.log('There was an error saving checkout to db: ' + err);
+                    } else {
+                      console.log('Checkout Saved to the db: ');
+                      res.render('checkout', {
+                        isAuthenticated: req.isAuthenticated(),
+                        user: req.user,
+                        tool: tool,
+                        qtyRemove: true,
+                        operatorFound: null,
+                        jobFound: null
+                      });
+                    }
+                  });
+              });
+              }
+            });
+          }
+
+              
+              
             }
           });
+      
+        }
       });
-      }
-    });
-  }
+      
+      
 
     
   });
@@ -570,7 +647,8 @@ app.post('/add-job', function(req, res) {
       contactName: req.body.contactName,
       contactEmail: req.body.contactEmail,
       dueDate: req.body.dueDate,
-      qtyDue: req.body.qtyDue
+      qtyDue: req.body.qtyDue,
+      jobId: req.body.jobId
     }
     
     console.log(jobObj);
@@ -596,6 +674,25 @@ app.get('/view-jobs', function(req, res) {
     dbAuth.returnJobsData(req.user._id, function(err, jobs) {
       console.log(jobs);
       res.render('view-jobs', {
+        isAuthenticated: req.isAuthenticated(),
+        user: req.user,
+        jobs: jobs 
+      });
+    }); 
+  } else {
+    res.render('view-checkouts', {
+      isAuthenticated: req.isAuthenticated(),
+      user: req.user
+    });
+  }
+    
+});
+
+app.get('/view-jobs-production', function(req, res) {
+  if (req.isAuthenticated()) {
+    dbAuth.returnJobsData(req.user._id, function(err, jobs) {
+      console.log(jobs);
+      res.render('view-jobs-production', {
         isAuthenticated: req.isAuthenticated(),
         user: req.user,
         jobs: jobs 
@@ -654,6 +751,144 @@ app.get('/view-operators', function(req, res) {
     
 });
 
+app.get('/remove-operator', function(req, res) {
+    // need to send tool id
+    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+    // rename this function checkoutToolIdQuery
+    var operatorId = operatorIdQuery(fullUrl);
+    
+    var userId = req.user._id;
+
+    if (req.isAuthenticated()) {
+      dbAuth.removeSingleOperator(userId, operatorId, function(err) {
+        if(!err) {
+          res.redirect('/view-operators');
+        } else {
+          console.log(err);
+        }
+      });
+    } else {
+      res.render('index', {
+        isAuthenticated: req.isAuthenticated(),
+        user: req.user
+      });
+    }
+});
+
+
+app.get('/remove-job', function(req, res) {
+    // need to send tool id
+    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+    // rename this function checkoutToolIdQuery
+    var jobId = jobIdQuery(fullUrl);
+    
+    var userId = req.user._id;
+
+    if (req.isAuthenticated()) {
+      dbAuth.removeSingleJob(userId, jobId, function(err) {
+        if(!err) {
+          res.redirect('/view-jobs');
+        } else {
+          console.log(err);
+        }
+      });
+    } else {
+      res.render('index', {
+        isAuthenticated: req.isAuthenticated(),
+        user: req.user
+      });
+    }
+});
+
+
+
+app.get('/view-job-tooling', function(req, res) {
+    // need to send tool id
+    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+    // rename this function checkoutToolIdQuery
+    var jobId = jobIdQuery(fullUrl);
+    
+    var userId = req.user._id;
+
+    if (req.isAuthenticated()) {
+      dbAuth.viewSingleJobToolingUsage(userId, jobId, function(toolCheckouts) {
+        console.log(toolCheckouts);
+        res.render('view-checkouts-by-job', {
+          isAuthenticated: req.isAuthenticated(),
+          user: req.user,
+          checkouts: toolCheckouts,
+          jobNumber: jobId
+        });
+        
+      });
+    } else {
+      res.render('index', {
+        isAuthenticated: req.isAuthenticated(),
+        user: req.user
+      });
+    }
+});
+
+app.get('/view-operator-tooling', function(req, res) {
+    // need to send tool id
+    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+    // rename this function checkoutToolIdQuery
+    var operatorId = operatorIdQuery(fullUrl);
+    
+    var userId = req.user._id;
+
+    if (req.isAuthenticated()) {
+      dbAuth.viewSingleOperatorToolingUsage(userId, operatorId, function(toolCheckouts) {
+        console.log(toolCheckouts);
+        res.render('view-checkouts-by-operator', {
+          isAuthenticated: req.isAuthenticated(),
+          user: req.user,
+          checkouts: toolCheckouts,
+          operatorId: operatorId
+        });
+        
+      });
+    } else {
+      res.render('index', {
+        isAuthenticated: req.isAuthenticated(),
+        user: req.user
+      });
+    }
+});
+
+app.get('/production', function(req, res) {
+  // if isAuthenticated 
+  if (req.isAuthenticated()) {
+    dbAuth.returnToolData(req.user._id, function(err, tools) {
+      console.log('Success tools');
+      console.log(tools);
+      res.render('production', {
+        isAuthenticated: req.isAuthenticated(),
+        user: req.user,
+        tools: tools 
+      });
+    }); 
+  } else {
+    res.render('index', {
+      isAuthenticated: req.isAuthenticated(),
+      user: req.user
+    });
+  }
+});
+
+app.get('/clear-checkouts', function(req, res) {
+    console.log('Clear Checkouts');
+    dbAuth.clearCheckouts(req.user._id, function(err) {
+      if (err) {
+        console.log('Error' + err);
+      } else {
+        console.log('Removed Checkouts');
+        res.redirect('/view-checkouts');
+      }
+    });
+});
+
+
 var checkoutToolIdQuery = function(uri) {
   var uri = uri;
   var queryString = {};
@@ -663,6 +898,27 @@ var checkoutToolIdQuery = function(uri) {
   );
   return queryString['toolId']
 }
+
+var operatorIdQuery = function(uri) {
+  var uri = uri;
+  var queryString = {};
+  uri.replace(
+      new RegExp("([^?=&]+)(=([^&]*))?", "g"),
+      function($0, $1, $2, $3) { queryString[$1] = $3; }
+  );
+  return queryString['operatorId']
+}
+
+var jobIdQuery = function(uri) {
+  var uri = uri;
+  var queryString = {};
+  uri.replace(
+      new RegExp("([^?=&]+)(=([^&]*))?", "g"),
+      function($0, $1, $2, $3) { queryString[$1] = $3; }
+  );
+  return queryString['jobId']
+}
+
 
 
 

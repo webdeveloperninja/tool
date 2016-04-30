@@ -10,6 +10,10 @@ body {
 table {
 }
 
+h5 {
+    font-size: 19px;
+}
+
 .settings-row {
     margin-top: 20px;
 }
@@ -118,7 +122,8 @@ input.submit.btn.btn-primary {
 
 .table-btn {
     display: block;
-    float:left;
+    float: left;
+    margin-left: 5px;
 }
 
 .view-checkouts-btn {

@@ -152,48 +152,41 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
-                    <a href="/toolsCSV" class="btn btn-default user-nav-btn">Download Tools</a>
-                    <a href="/checkoutsCSV" class="btn btn-default user-nav-btn">Download Checkouts</a>
-                    <a href="/" class="btn btn-default view-checkouts-btn active hidden-xl hidden-lg hidden-md hidden-sm user-nav-btn">Main Menu</a>
-                    <a href="/view-checkouts" class="btn btn-default view-checkouts-btn hidden-xl hidden-lg hidden-md hidden-sm user-nav-btn">View Checkouts</a>
                 </div>
                 <div class="col-sm-8 hidden-xs">
-                    <a href="/add-tool" class="btn btn-primary pull-right view-checkouts-btn">Add Tool</a>
-                    <a href="/view-checkouts" class="btn btn-default pull-right view-checkouts-btn active">View Checkouts</a>
-                    <a href="/view-jobs" class="btn btn-default pull-right view-checkouts-btn">View Jobs</a>
-                    <a href="/view-operators" class="btn btn-default pull-right view-checkouts-btn">View Operators</a>
-                    <a href="/my-account" class="btn btn-default pull-right view-checkouts-btn">My Account</a>
-                    <a href="/" class="btn btn-default pull-right view-checkouts-btn">Tool List</a>
+                    <a href="/view-jobs" class="btn btn-default pull-right view-checkouts-btn active">View Jobs</a>
+                    <a href="/production" class="btn btn-default pull-right view-checkouts-btn">Tool List</a>
                     <!--<a href="/auto-order" class="btn btn-default pull-right ">Auto Order</a>-->
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                        <h3 class="text-center">Checkouts List</h3>
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <a href="/clear-checkouts" class="btn btn-danger">Clear Checkouts</a>
-                            </div>
-                        </div>
+                        <h3 class="text-center">Jobs List</h3>
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                     <tr class="tool-list-heading">
-                                        <td>Tool Short Name</td>
-                                        <td>Operator Name</td>
                                         <td>Job Name</td>
-                                        <td>Checkout Date</td>
-                                        <td>Checkout Qty</td>
+                                        <td>Job Id</td>
+                                        <td>Company Name</td>
+                                        <td>Qty Due</td>
+                                        <td>Due Date</td>
+                                        <td></td>
+    
                                     </tr>
                                 </thead>
                                 <tbody>
-                                     <% for (var i=0; i<checkouts.length; i++) {%>
+                                     <% for (var i=0; i<jobs.length; i++) {%>
+                                     
                                     <tr>
-                                        <td><p class="table-value"> <%= checkouts[i].shortName %></p></td>
-                                        <td><p class="table-value"> <%= checkouts[i].operatorName %></p></td>
-                                        <td><p class="table-value"> <%= checkouts[i].jobName %></p></td>
-                                        <td><p class="table-value"> <%= checkouts[i].checkoutDate.toLocaleDateString()  %></p></td>
-                                        <td><p class="table-value"> <%= checkouts[i].checkoutQty %></p></td> 
+                                        <td><p class="table-value"> <%= jobs[i].jobName %></p></td>
+                                        <td><p class="table-value"> <%= jobs[i].jobId %></p></td>
+                                        <td><p class="table-value"> <%= jobs[i].companyName %> </p></td>
+                                        <td><p class="table-value"> <%= jobs[i].qtyDue %></p></td>
+                                        <td><p class="table-value"> <%= jobs[i].dueDate.toLocaleDateString() %></p></td>
+                                        <td>
+                                        </td>
+                                        
                                     </tr>
                                     <% } %>
                                 </tbody>

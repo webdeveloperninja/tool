@@ -26,7 +26,11 @@ var checkoutsSchema = new mongoose.Schema({
     toolId: String,
     checkoutQty: Number, 
     shortName: String,
-    checkoutDate: Date
+    checkoutDate: Date,
+    jobId: Number,
+    jobName: String,
+    operatorId: Number,
+    operatorName: String
 });
 
 var jobsSchema = new mongoose.Schema({
@@ -36,7 +40,8 @@ var jobsSchema = new mongoose.Schema({
     contactName: String,
     contactEmail: String,
     dueDate: Date,
-    qtyDue: Number
+    qtyDue: Number,
+    jobId: Number
 });
 
 var operatorsSchema = new mongoose.Schema({
@@ -153,15 +158,21 @@ var exports = module.exports = {
                 }
               );
             },
-            saveCheckout: function(userId, toolId, removeQty, shortName, cb) {
-                console.log('Save Checkout');
+            saveCheckout: function(userId, toolId, removeQty, shortName, job, operator, cb) {
+            
                 var checkoutObj = {
                     userId: userId,
                     toolId: toolId,
                     checkoutQty: removeQty, 
                     shortName: shortName,
-                    checkoutDate: new Date()
+                    checkoutDate: new Date(),
+                    jobId: job[0].jobId,
+                    jobName: job[0].jobName,
+                    operatorId: operator[0].operatorId,
+                    operatorName: operator[0].operatorName
                 }
+                console.log('CHeckout obj');
+                console.log(checkoutObj);
                 var newCheckout = new checkouts(checkoutObj);
                 newCheckout.save(function(err, data) {
                     cb(err);
@@ -244,6 +255,50 @@ var exports = module.exports = {
                         cb(null , operators);
                      }
                 });
+            },
+            returnSingleOperator: function(userId, operatorId, cb) {
+                operators.find({ 'operatorId': operatorId, 'userId':userId }, function (err, operator) {
+                  cb(operator);
+                })
+            },
+            returnSingleJob: function(userId, jobId, cb) {
+                jobs.find({ 'userId': userId, 'jobId':jobId }, function (err, job) {
+                  cb(job);
+                })
+            },
+            removeSingleOperator: function(userId, operatorId, cb) {
+
+                  operators.remove({ operatorId: operatorId }, function(err, removed) {
+                      console.log('Successfully Removed Operator');
+                      cb(err);
+                  });
+                
+            },
+            removeSingleJob: function(userId, jobId, cb) {
+                  jobs.remove({ jobId: jobId }, function(err, removed) {
+                      console.log('Successfully Removed Operator');
+                      cb(err);
+                  });
+                
+            },
+            viewSingleJobToolingUsage: function(userId, jobId, cb) {
+                checkouts.find({ 'jobId': jobId, 'userId':userId }, function (err, checkouts) {
+                  if(err) {
+                      console.log
+                  }
+                  cb(checkouts);
+                })
+            },
+            viewSingleOperatorToolingUsage: function(userId, operatorId, cb) {
+                checkouts.find({ 'operatorId': operatorId, 'userId':userId }, function (err, checkouts) {
+                  if(err) {
+                      console.log
+                  }
+                  cb(checkouts);
+                })
+            },
+            clearCheckouts: function(userId, cb) {
+                checkouts.find({ userId:userId }).remove( cb );
             }
 }
             
