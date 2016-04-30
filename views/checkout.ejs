@@ -27,7 +27,8 @@
                 <li><a href="/login">Log in here</a></li>
             <% } else { %>
                         <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
-                        <a class="btn btn-primary" href="/logout">Log Out</a>
+                        <a class="btn btn-danger" href="/logout">Log Out</a>
+                        <a class="btn btn-default" href="/production">Production</a>
             <% } %>
           </ul>
         </div><!--/.nav-collapse -->
@@ -65,19 +66,19 @@
     <% if (isAuthenticated) { %>
         <div class="container">
             <div class="row">
-                <div class="col-sm-4">
-                    <a href="/toolsCSV" class="btn btn-default user-nav-btn">Download Tools</a>
-                    <a href="/checkoutsCSV" class="btn btn-default user-nav-btn">Download Checkouts</a>
+                <div class="col-sm-6">
+                    <a href="/my-account" class="btn btn-primary user-nav-btn">My Account</a>
+                    <a href="/toolsCSV" class="btn btn-default user-nav-btn">Download Tool List</a>
+                    <a href="/checkoutsCSV" class="btn btn-default user-nav-btn">Download Tool Usage</a>
                     <a href="/" class="btn btn-default view-checkouts-btn active hidden-xl hidden-lg hidden-md hidden-sm user-nav-btn">Main Menu</a>
                     <a href="/view-checkouts" class="btn btn-default view-checkouts-btn hidden-xl hidden-lg hidden-md hidden-sm user-nav-btn">View Checkouts</a>
                 </div>
-                <div class="col-sm-8 hidden-xs">
-                    <a href="/add-tool" class="btn btn-danger pull-right view-checkouts-btn">Add Tool</a>
+                <div class="col-sm-6 hidden-xs">
+                    <a href="/add-tool" class="btn btn-primary pull-right view-checkouts-btn">Add Tool</a>
                     <a href="/view-checkouts" class="btn btn-default pull-right view-checkouts-btn">View Checkouts</a>
                     <a href="/view-jobs" class="btn btn-default pull-right view-checkouts-btn">View Jobs</a>
                     <a href="/view-operators" class="btn btn-default pull-right view-checkouts-btn">View Operators</a>
-                    <a href="/my-account" class="btn btn-default pull-right view-checkouts-btn">My Account</a>
-                    <a href="/" class="btn btn-default pull-right view-checkouts-btn">Main Menu</a>
+                    <a href="/" class="btn btn-default pull-right view-checkouts-btn">Tool List</a>
                     <!--<a href="/auto-order" class="btn btn-default pull-right ">Auto Order</a>-->
                 </div>
             </div>
@@ -127,7 +128,7 @@
                                 <input class="hidden" name="id" value="<%= tool.id %>">
                                 <input class="hidden" name="userId" value="<%= user.id %>">
                                 <input class="hidden" name="originalQty" value="<%= tool.qty %>">
-                                <input class="btn btn-danger" type="submit" value="Checkout">
+                                <input class="btn btn-primary" type="submit" value="Checkout">
                                 <a href="/" class="btn btn-default">Main Menu</a>
                             </form>    
                                     </div>

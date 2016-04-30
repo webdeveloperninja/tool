@@ -40,14 +40,18 @@ h5 {
 }
 
 .tool-list-heading {
-    font-size: 17px;
+    font-size: 20px;
 }
 p.table-value {
-    font-size: 19px;
+    font-size: 21px;
 }
 
 .remove-glif {
     float: right !important;
+}
+
+.navbar-right {
+    font-size: 19px;
 }
 
 .navbar-brand {

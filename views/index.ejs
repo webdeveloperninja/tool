@@ -23,11 +23,12 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <% if (!isAuthenticated) { %>
+                <li><a href="/tutorials">Features</a></li>
                 <li><a href="/choose-a-plan">Try It Free</a></li>
                 <li><a href="/login">Log in here</a></li>
             <% } else { %>
                         <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
-                        <a class="btn btn-primary" href="/logout">Log Out</a>
+                        <a class="btn btn-danger" href="/logout">Log Out</a>
                         <a class="btn btn-default" href="/production">Production</a>
             <% } %>
           </ul>
@@ -39,6 +40,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h1>Cloud tooling inventory control software. <strong class="green">Store, manage &amp; Report.</strong></h1>
+                
                 <p>
                     ToolingInventory.com allows you to understand your machine shops tooling usage. With ToolingInventory.com you will be 
                     able to utalize LEAN manufacturing principales to not keep excess tooling inventory and insure that when
@@ -151,18 +153,22 @@
     <% if (isAuthenticated) { %>
         <div class="container">
             <div class="row">
-                <div class="col-sm-4">
-                    <a href="/toolsCSV" class="btn btn-default user-nav-btn">Download Tools</a>
-                    <a href="/checkoutsCSV" class="btn btn-default user-nav-btn">Download Checkouts</a>
+                <div class="col-sm-6">
+                    <a href="/my-account" class="btn btn-primary user-nav-btn">My Account</a>
+                    <a href="/toolsCSV" class="btn btn-default user-nav-btn">Download Tool List</a>
+                    <a href="/checkoutsCSV" class="btn btn-default user-nav-btn">Download Tool Usage</a>
                     <a href="/" class="btn btn-default view-checkouts-btn active hidden-xl hidden-lg hidden-md hidden-sm user-nav-btn">Main Menu</a>
                     <a href="/view-checkouts" class="btn btn-default view-checkouts-btn hidden-xl hidden-lg hidden-md hidden-sm user-nav-btn">View Checkouts</a>
                 </div>
-                <div class="col-sm-8 hidden-xs">
+                <div class="col-sm-6 hidden-xs">
                     <a href="/add-tool" class="btn btn-primary pull-right view-checkouts-btn">Add Tool</a>
+                    
+                    
+                    
+                    
                     <a href="/view-checkouts" class="btn btn-default pull-right view-checkouts-btn">View Checkouts</a>
                     <a href="/view-jobs" class="btn btn-default pull-right view-checkouts-btn">View Jobs</a>
                     <a href="/view-operators" class="btn btn-default pull-right view-checkouts-btn">View Operators</a>
-                    <a href="/my-account" class="btn btn-default pull-right view-checkouts-btn">My Account</a>
                     <a href="/" class="btn btn-default pull-right view-checkouts-btn active">Tool List</a>
                     <!--<a href="/auto-order" class="btn btn-default pull-right ">Auto Order</a>-->
                 </div>
@@ -177,13 +183,13 @@
                             <table class="table table-striped tool-list-table">
                                 <thead>
                                     <tr class="tool-list-heading">
-                                        <td>Tool Name</td>
-                                        <td>Tool Type</td>
-                                        <td>Tool Diameter</td>
-                                        <td>Tool Material</td>
-                                        <td>Tool Brand</td>
-                                        <td>Tool Qty</td>
-                                        <td>Actions</td>
+                                        <td>Name</td>
+                                        <td>Type</td>
+                                        <td>Diameter</td>
+                                        <td>Material</td>
+                                        <!--<td>Brand</td>-->
+                                        <td>Qty</td>
+                                        <td class="text-center">Actions</td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -194,10 +200,10 @@
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].toolType %> </p></a></td>
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].diameter %>"</p></a></td>
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].material %></p></a></td>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].brand %> </p></a></td>
+                                        <!--<td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].brand %> </p></a></td>-->
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].qty %> </p></a></td>
                                         <td>
-                                            <a class="btn btn-success table-btn" href="/edit/?toolId=<%= tools[i]._id %>">Edit</a>
+                                            <a class="btn btn-primary table-btn" href="/edit/?toolId=<%= tools[i]._id %>">Edit</a>
                                             <a class="btn btn-success  table-btn" href="/checkout/?toolId=<%= tools[i]._id %>">Checkout</a>
                                             <a class="btn btn-success table-btn" href="/add/?toolId=<%= tools[i]._id %>">Add Tool Qty</a>
                                             <a class="btn btn-danger table-btn" href="/remove/?toolId=<%= tools[i]._id %>">Remove Tool</a>
