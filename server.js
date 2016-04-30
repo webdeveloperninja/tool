@@ -397,6 +397,120 @@ app.post('/checkout', function(req, res) {
 });
 
 
+
+
+app.post('/checkout-production', function(req, res) {
+  var removeQty = req.body.removeQty;
+  var toolId = req.body.id;
+  var userId = req.body.userId;
+  var operatorId = req.body.operatorId;
+  var jobId = req.body.jobId;
+  
+  
+  
+  console.log('Operator Id: ' + operatorId);
+  console.log('Job Id: ' + jobId);
+  
+  
+  dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
+      console.log('success');
+      console.log(tool);
+      // find tool and render tool 
+      var originalQty = tool.qty;
+      
+      // see if userId exists in db
+      dbAuth.returnSingleOperator(userId, operatorId, function(operatorObj){
+        if (operatorObj.length == 0) {
+          console.log('Operator Not Found');
+            res.render('checkout', {
+              isAuthenticated: req.isAuthenticated(),
+                user: req.user,
+                tool: tool,
+                qtyRemove: null,
+                operatorFound: false,
+                jobFound: null
+              });
+        } else {
+          console.log('OPERATOR FOUND');
+          console.log(operatorObj);
+          // check for job number 
+          
+          dbAuth.returnSingleJob(userId, jobId, function(job){
+            if (job.length == 0) {
+              console.log('Jobs not found');
+              res.render('checkout-production', {
+                isAuthenticated: req.isAuthenticated(),
+                  user: req.user,
+                  tool: tool,
+                  qtyRemove: null,
+                  operatorFound: null,
+                  jobFound: false
+                });
+            } else {
+              // ad job id field
+          if(removeQty > originalQty) {
+            dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
+              console.log('success');
+              console.log(tool);
+              // find tool and render tool 
+              res.render('checkout-production', {
+                isAuthenticated: req.isAuthenticated(),
+                user: req.user,
+                tool: tool,
+                qtyRemove: false,
+                operatorFound: null,
+                jobFound: null
+              });
+            });
+          } else {
+            dbAuth.checkoutTool(userId, toolId, removeQty, function(err) {
+              if (err) {
+                console.log('Error: ' + err);
+              } else {
+              var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+              var toolId = checkoutToolIdQuery(fullUrl);
+              var userId = req.user._id;
+              dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
+                  var shortName = tool.diameter + ' diameter ' + tool.material + " " + tool.toolType; 
+                  console.log('///////////////////////////////');
+                  console.log();
+                  console.log(operatorObj);
+                  dbAuth.saveCheckout(userId, toolId, removeQty, shortName, job, operatorObj, function(err) {
+                    if (err) {
+                      console.log('There was an error saving checkout to db: ' + err);
+                    } else {
+                      console.log('Checkout Saved to the db: ');
+                      res.render('checkout-production', {
+                        isAuthenticated: req.isAuthenticated(),
+                        user: req.user,
+                        tool: tool,
+                        qtyRemove: true,
+                        operatorFound: null,
+                        jobFound: null
+                      });
+                    }
+                  });
+              });
+              }
+            });
+          }
+
+              
+              
+            }
+          });
+      
+        }
+      });
+      
+      
+
+    
+  });
+  
+  console.log('checkout');
+});
+
 app.get('/toolsCSV', function(req, res) {
   
 
