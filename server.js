@@ -3,6 +3,20 @@ var http = require('http');
 var path = require('path');
 var passport = require('passport');
 var passportLocal = require('passport-local');
+var forceSSL = require('express-force-ssl');
+var https = require('https');
+var fs = require('fs');
+
+var sslkey = fs.readFileSync('ssl-key.pem');
+var sslcert = fs.readFileSync('ssl-cert.pem')
+
+var options = {
+    key: sslkey,
+    cert: sslcert
+};
+
+
+
 
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -22,6 +36,10 @@ const queryString = require('query-string');
  
 var app = express();
 
+
+var secureServer = https.createServer(options, app);
+
+app.use(forceSSL);
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended : false }));
@@ -1033,4 +1051,6 @@ server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
   var addr = server.address();
   console.log("Chat server listening at", addr.address + ":" + addr.port);
 });
+
+secureServer.listen(443);
  
