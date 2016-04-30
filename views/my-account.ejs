@@ -47,7 +47,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">CloudCrib.io</a>
+          <a class="navbar-brand" href="#">ToolingInventory.com</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -108,21 +108,22 @@
                                         <form action="" method="POST">
                                             <div class="form-group">
                                                 <label>Company Name: </label>
-                                                <input class="form-control" name="companyName" value="<%= user.companyName %>">
+                                                <input class="form-control" name="companyName" value="<%= user.companyName %>" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>User Name: </label>
-                                                <input class="form-control" name="username" value="<%= user.username %>">
+                                                <input class="form-control" name="username" value="<%= user.username %>" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Password: </label>
-                                                <input class="form-control" name="password" value="<%= user.password %>" type="password">
+                                                <input class="form-control" name="password" value="<%= user.password %>" type="password" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Re-Enter Password: </label>
-                                                <input class="form-control" name="re-enterPassword" type="password">
+                                                <input class="form-control" name="re-enterPassword" type="password" required>
                                             </div>
-                                            <input type="submit" value="Update">
+                                            <input type="submit" class="btn btn-primary" value="Update">
+                                            <a href class="btn btn-danger pull-right">De-Activate Account</a>
                                         </form>
                                     </div>
                                 </div>
@@ -145,13 +146,13 @@
                                         <form action="/add-operator" method="POST">
                                             <div class="form-group">
                                                 <label>Operator Name: </label>
-                                                <input class="form-control" name="operatorName">
+                                                <input class="form-control" name="operatorName" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Operator Id: </label>
-                                                <input class="form-control" name="operatorId">
+                                                <input class="form-control" name="operatorId" required>
                                             </div>
-                                            <input type="submit" value="Update">
+                                            <input type="submit" class="btn btn-primary" value="Update">
                                         </form>
                                     </div>
                                 </div>
@@ -174,33 +175,33 @@
                                         <form action="/add-job" method="POST">
                                             <div class="form-group">
                                                 <label>Company Name: </label>
-                                                <input class="form-control" name="companyName">
+                                                <input class="form-control" name="companyName" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Job Name: </label>
-                                                <input class="form-control" name="jobName">
+                                                <input class="form-control" name="jobName" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Contact Name: </label>
-                                                <input class="form-control" name="contactName">
+                                                <input class="form-control" name="contactName" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Contact Email: </label>
-                                                <input class="form-control" name="contactEmail">
+                                                <input class="form-control" name="contactEmail" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Due Date: </label>
-                                                <input class="form-control" type="date" name="dueDate">
+                                                <input class="form-control" type="date" name="dueDate" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Job Id: </label>
-                                                <input class="form-control" type="number" name="jobId">
+                                                <input class="form-control" type="number" name="jobId" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Qty Due: </label>
-                                                <input class="form-control" name="qtyDue">
+                                                <input class="form-control" name="qtyDue" required>
                                             </div>
-                                            <input type="submit" value="Update">
+                                            <input type="submit" class="btn btn-primary" value="Update">
                                         </form>
                                     </div>
                                 </div>
