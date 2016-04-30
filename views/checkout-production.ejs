@@ -103,7 +103,7 @@
                             <h5 class="text-center tool-name"><%= tool.diameter %> <%= tool.brand %> <%= tool.toolType %></h5>
                             <h5 class="text-center"><strong>Qty: <%= tool.qty %></strong></h5>
    
-                            <form action="/checkout" method="POST">
+                            <form action="/checkout-production" method="POST">
                                 <div class="form-group">
                                     <label>Qty: </label>
                                     <input type="number" class="form-control" name="removeQty"  min="0" required>
@@ -119,8 +119,8 @@
                                 <input class="hidden" name="id" value="<%= tool.id %>">
                                 <input class="hidden" name="userId" value="<%= user.id %>">
                                 <input class="hidden" name="originalQty" value="<%= tool.qty %>">
-                                <input class="btn btn-danger" type="submit" value="Checkout">
-                                <a href="/" class="btn btn-default">Main Menu</a>
+                                <input class="btn btn-primary" type="submit" value="Checkout">
+                                <a href="/production" class="btn btn-default">Tool List</a>
                             </form>    
                                     </div>
                             </div>

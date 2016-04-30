@@ -422,7 +422,7 @@ app.post('/checkout-production', function(req, res) {
       dbAuth.returnSingleOperator(userId, operatorId, function(operatorObj){
         if (operatorObj.length == 0) {
           console.log('Operator Not Found');
-            res.render('checkout', {
+            res.render('checkout-production', {
               isAuthenticated: req.isAuthenticated(),
                 user: req.user,
                 tool: tool,
@@ -449,10 +449,6 @@ app.post('/checkout-production', function(req, res) {
             } else {
               // ad job id field
           if(removeQty > originalQty) {
-            dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-              console.log('success');
-              console.log(tool);
-              // find tool and render tool 
               res.render('checkout-production', {
                 isAuthenticated: req.isAuthenticated(),
                 user: req.user,
@@ -461,16 +457,13 @@ app.post('/checkout-production', function(req, res) {
                 operatorFound: null,
                 jobFound: null
               });
-            });
           } else {
             dbAuth.checkoutTool(userId, toolId, removeQty, function(err) {
               if (err) {
                 console.log('Error: ' + err);
               } else {
-              var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-              var toolId = checkoutToolIdQuery(fullUrl);
-              var userId = req.user._id;
               dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
+                  console.log();
                   var shortName = tool.diameter + ' diameter ' + tool.material + " " + tool.toolType; 
                   console.log('///////////////////////////////');
                   console.log();
