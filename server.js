@@ -63,17 +63,29 @@ passport.deserializeUser(function(id, done) {
   });
 });
   
+  
 var server = http.createServer(app);
 
 // create a server
 
+
+app.all(/.*/, function(req, res, next) {
+  var host = req.header("host");
+  if (host.match(/^www\..*/i)) {
+    next();
+  } else {
+    res.redirect(301, "http://www." + host);
+  }
+});
+
 /* At the top, with other redirect methods before other routes */
+/*
 app.get('*',function(req,res,next){
   if(req.headers['x-forwarded-proto']!='https')
     res.redirect('https://toolinginventory.com'+req.url)
   else
-    next() /* Continue to other routes if we're not redirecting */
 })
+*/
 
 
 app.get('/', function(req, res) {
