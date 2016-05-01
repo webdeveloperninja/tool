@@ -16,6 +16,9 @@ var options = {
 
 
 
+
+
+
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
@@ -70,8 +73,10 @@ passport.deserializeUser(function(id, done) {
 });
   
 var server = http.createServer(app);
-// Create an HTTPS service identical to the HTTP service.
-https.createServer(options, app);
+
+// create a server
+
+
 
 app.get('/', function(req, res) {
   // if isAuthenticated 
@@ -1039,8 +1044,6 @@ var jobIdQuery = function(uri) {
   );
   return queryString['jobId']
 }
-
-
 
 
 server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
