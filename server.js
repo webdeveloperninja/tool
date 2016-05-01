@@ -69,6 +69,14 @@ var server = http.createServer(app);
 // create a server
 
 
+app.all(/.*/, function(req, res, next) {
+  var host = req.header("host");
+  if (host.match(/^www\..*/i)) {
+    next();
+  } else {
+    res.redirect(301, "http://www." + host);
+  }
+});
 
 /* At the top, with other redirect methods before other routes */
 /*
