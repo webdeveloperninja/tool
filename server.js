@@ -42,11 +42,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(new passportLocal.Strategy(function(username, password, done) {
+  
   dbAuth.checkUserPass(username, password, function(isAuthenticatedDB, DBid) {
       if (isAuthenticatedDB) {
          done(null, {id: DBid, name: username});
       } else {
          done(null, null);
+         
       } 
   }); 
 }));
@@ -67,25 +69,6 @@ passport.deserializeUser(function(id, done) {
 var server = http.createServer(app);
 
 // create a server
-
-
-app.all(/.*/, function(req, res, next) {
-  var host = req.header("host");
-  if (host.match(/^www\..*/i)) {
-    next();
-  } else {
-    res.redirect(301, "http://www." + host);
-  }
-});
-
-/* At the top, with other redirect methods before other routes */
-/*
-app.get('*',function(req,res,next){
-  if(req.headers['x-forwarded-proto']!='https')
-    res.redirect('https://toolinginventory.com'+req.url)
-  else
-})
-*/
 
 
 app.get('/', function(req, res) {
@@ -112,18 +95,16 @@ app.get('/', function(req, res) {
 }); 
 
 app.get('/login', function(req, res) {
-  
     res.render('login',{
     isAuthenticated: req.isAuthenticated(),
     user: req.user,
     succesfullyCreateUser: false,
-    badPassword: false
+    badPassword: false,
+    noMatch: null
   });
 }); 
 
-app.post('/login', passport.authenticate('local'), function(req, res) {
-    res.redirect('/');
-});
+app.post('/login', passport.authenticate('local', {successRedirect: '/', failureRedirect: '/login'}));
 
 app.get('/logout', function(req, res) {
     req.logout();
@@ -142,7 +123,7 @@ app.post('/sign-up', function(req, res) {
     console.log(req.body);
     dbAuth.addNewUser(req.body, function(err, userId) {
       if (err) {
-        console.log(err);
+        console.log(err);;
       } else {
         console.log('Sign up route hit user id: ' + userId);
         // save userId into session 

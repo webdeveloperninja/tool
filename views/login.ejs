@@ -47,6 +47,11 @@
                         <p class="text-center">Wrong Username or Password!</p>
                     </div>
                 <% } %>
+                <% if(noMatch == true) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <p class="text-center">Wrong Username or Password!</p>
+                    </div>
+                <% } %>
             </div>
         </div>
             <div class="row">
