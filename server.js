@@ -4,20 +4,10 @@ var https = require('https');
 var path = require('path');
 var passport = require('passport');
 var passportLocal = require('passport-local');
-var enforce = require('express-sslify');
+
+var sslRedirect = require('heroku-ssl-redirect');
 
 var fs = require('fs');
-
-
-// This line is from the Node.js HTTPS documentation.
-var options = {
-  key: fs.readFileSync('./ssl-key.pem'),
-  cert: fs.readFileSync('./ssl-cert.pem')
-};
-
-
-
-
 
 
 var bodyParser = require('body-parser');
@@ -37,8 +27,7 @@ const queryString = require('query-string');
   
  
 var app = express();
-app.use(enforce.HTTPS({ trustProtoHeader: true }))
-
+app.use(sslRedirect());
 
 app.set('view engine', 'ejs');
 
