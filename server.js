@@ -1,20 +1,18 @@
 
 var http = require('http');
+var https = require('https');
 var path = require('path');
 var passport = require('passport');
 var passportLocal = require('passport-local');
-var forceSSL = require('express-force-ssl');
-var https = require('https');
+
 var fs = require('fs');
 
-var sslkey = fs.readFileSync('ssl-key.pem');
-var sslcert = fs.readFileSync('ssl-cert.pem')
 
+// This line is from the Node.js HTTPS documentation.
 var options = {
-    key: sslkey,
-    cert: sslcert
+  key: fs.readFileSync('./ssl-key.pem'),
+  cert: fs.readFileSync('./ssl-cert.pem')
 };
-
 
 
 
@@ -37,9 +35,6 @@ const queryString = require('query-string');
 var app = express();
 
 
-var secureServer = https.createServer(options, app);
-
-app.use(forceSSL);
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended : false }));
@@ -75,7 +70,8 @@ passport.deserializeUser(function(id, done) {
 });
   
 var server = http.createServer(app);
-
+// Create an HTTPS service identical to the HTTP service.
+https.createServer(options, app);
 
 app.get('/', function(req, res) {
   // if isAuthenticated 
@@ -1052,5 +1048,3 @@ server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
   console.log("Chat server listening at", addr.address + ":" + addr.port);
 });
 
-secureServer.listen(443);
- 
