@@ -16,6 +16,7 @@
     "express": "~3.2.4",
     "express-force-ssl": "^0.3.1",
     "express-session": "^1.13.0",
+    "express-sslify": "^1.0.1",
     "https": "^1.0.0",
     "json-2-csv": "^2.0.18",
     "json2csv": "^3.3.0",

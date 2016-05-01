@@ -4,6 +4,7 @@ var https = require('https');
 var path = require('path');
 var passport = require('passport');
 var passportLocal = require('passport-local');
+var enforce = require('express-sslify');
 
 var fs = require('fs');
 
@@ -36,6 +37,7 @@ const queryString = require('query-string');
   
  
 var app = express();
+app.use(enforce.HTTPS({ trustProtoHeader: true }))
 
 
 app.set('view engine', 'ejs');
