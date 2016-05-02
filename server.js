@@ -821,10 +821,7 @@ app.get('/view-jobs-production', function(req, res) {
       });
     }); 
   } else {
-    res.render('view-checkouts', {
-      isAuthenticated: req.isAuthenticated(),
-      user: req.user
-    });
+    res.redirect('/login');
   }
     
 });
@@ -865,10 +862,7 @@ app.get('/view-operators', function(req, res) {
       });
     }); 
   } else {
-    res.render('index', {
-      isAuthenticated: req.isAuthenticated(),
-      user: req.user
-    });
+    res.redirect('/login');
   }
     
 });
@@ -897,7 +891,6 @@ app.get('/remove-operator', function(req, res) {
     }
 });
 
-
 app.get('/remove-job', function(req, res) {
     // need to send tool id
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
@@ -922,17 +915,14 @@ app.get('/remove-job', function(req, res) {
     }
 });
 
-
-
 app.get('/view-job-tooling', function(req, res) {
-    // need to send tool id
-    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-    // rename this function checkoutToolIdQuery
-    var jobId = jobIdQuery(fullUrl);
-    
-    var userId = req.user._id;
-
     if (req.isAuthenticated()) {
+      // need to send tool id
+      var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+      // rename this function checkoutToolIdQuery
+      var jobId = jobIdQuery(fullUrl);
+      
+      var userId = req.user._id;
       dbAuth.viewSingleJobToolingUsage(userId, jobId, function(toolCheckouts) {
         console.log(toolCheckouts);
         res.render('view-checkouts-by-job', {
@@ -944,22 +934,18 @@ app.get('/view-job-tooling', function(req, res) {
         
       });
     } else {
-      res.render('index', {
-        isAuthenticated: req.isAuthenticated(),
-        user: req.user
-      });
+      res.redirect('/login');
     }
 });
 
 app.get('/view-operator-tooling', function(req, res) {
-    // need to send tool id
-    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-    // rename this function checkoutToolIdQuery
-    var operatorId = operatorIdQuery(fullUrl);
-    
-    var userId = req.user._id;
-
     if (req.isAuthenticated()) {
+      // need to send tool id
+      var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+      // rename this function checkoutToolIdQuery
+      var operatorId = operatorIdQuery(fullUrl);
+      
+      var userId = req.user._id;
       dbAuth.viewSingleOperatorToolingUsage(userId, operatorId, function(toolCheckouts) {
         console.log(toolCheckouts);
         res.render('view-checkouts-by-operator', {
@@ -971,15 +957,11 @@ app.get('/view-operator-tooling', function(req, res) {
         
       });
     } else {
-      res.render('index', {
-        isAuthenticated: req.isAuthenticated(),
-        user: req.user
-      });
+    res.redirect('/login');
     }
 });
 
 app.get('/production', function(req, res) {
-  // if isAuthenticated 
   if (req.isAuthenticated()) {
     dbAuth.returnToolData(req.user._id, function(err, tools) {
       console.log('Success tools');
@@ -991,9 +973,12 @@ app.get('/production', function(req, res) {
       });
     }); 
   } else {
-    res.render('index', {
+    res.render('login', {
       isAuthenticated: req.isAuthenticated(),
-      user: req.user
+      user: req.user,
+      succesfullyCreateUser : null,
+      badPassword: null,
+      noMatch: null
     });
   }
 });
