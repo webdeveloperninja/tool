@@ -70,7 +70,7 @@ passport.deserializeUser(function(id, done) {
   
 app.use(function(req, res, next) {
   if(!req.secure) {
-    return res.redirect(['https://www.', req.get('Host'), req.url].join(''));
+    return res.redirect(['https://', req.get('Host'), req.url].join(''));
   }
   next();
 });
