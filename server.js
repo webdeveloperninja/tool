@@ -116,13 +116,6 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
-app.get('/sign-up', function(req, res) {
-  res.render('sign-up', {
-    isAuthenticated: req.isAuthenticated(),
-    user: req.user
-  });
-});
-
 app.post('/sign-up', function(req, res) {
     console.log('/sign-up route hit');
     console.log(req.body);
@@ -140,12 +133,12 @@ app.post('/sign-up', function(req, res) {
 
 
 app.get('/remove', function(req, res) {
-    // need to send tool id
-    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-    var toolId = checkoutToolIdQuery(fullUrl);
-    var userId = req.user._id;
-    req.body.qtyRemove = null;
     if (req.isAuthenticated()) {
+      // need to send tool id
+      var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+      var toolId = checkoutToolIdQuery(fullUrl);
+      var userId = req.user._id;
+      req.body.qtyRemove = null;
       dbAuth.removeSingleTool(userId, toolId, function(err) {
         if(!err) {
           dbAuth.returnToolData(req.user._id, function(err, tools) {
@@ -158,31 +151,32 @@ app.get('/remove', function(req, res) {
         }
       });
     } else {
-      res.render('index', {
-        isAuthenticated: req.isAuthenticated(),
-        user: req.user
-      });
+      res.redirect('/login');
     }
 });
 
 
 
 app.get('/add', function(req, res) {
-    // need to send tool id
-    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-    var toolId = checkoutToolIdQuery(fullUrl);
-    var userId = req.user._id;
-    dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-      console.log('success');
-      console.log(tool);
-      // find tool and render tool 
-      res.render('add-tool-qty', {
-        isAuthenticated: req.isAuthenticated(),
-        user: req.user,
-        tool: tool,
-        addSuccess: false
+    if ( req.isAuthenticated() ) {
+      // need to send tool id
+      var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+      var toolId = checkoutToolIdQuery(fullUrl);
+      var userId = req.user._id;
+      dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
+        console.log('success');
+        console.log(tool);
+        // find tool and render tool 
+        res.render('add-tool-qty', {
+          isAuthenticated: req.isAuthenticated(),
+          user: req.user,
+          tool: tool,
+          addSuccess: false
+        });
       });
-    });
+    } else {
+      res.redirect('/login');
+    }
 });
 
 app.post('/add', function(req, res) {
