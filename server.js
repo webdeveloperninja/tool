@@ -14,6 +14,8 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
 
+var forceDomain = require('node-force-domain');
+
 var shortid = require('shortid');
 
 var json2csv = require('json2csv');
@@ -36,6 +38,11 @@ app.use(cookieParser());
 app.use(bodyParser.json({}));
 
 app.use(expressSession({ secret: 'secret', resave: false, saveUninitialized: false  }));
+
+app.use(forceDomain({
+  hostname: 'www.toolinginventory.com',
+  protocol: 'https'
+}));
  
 app.use(express.static(__dirname + '/views')); 
 app.use(passport.initialize());
@@ -67,14 +74,6 @@ passport.deserializeUser(function(id, done) {
   });
 });
   
-app.use(function (req, res, next) {
-  if (req.host.indexOf("www.") !== 0) {
-    res.redirect(301, req.protocol + "://www." + req.host + ":80" + req.originalUrl);
-  } else {
-    next();
-  }
-});
-
   
 var server = http.createServer(app);
 
