@@ -67,18 +67,16 @@ var exports = module.exports = {
             users.find(function(err, users) {
                     // if there is an error retrieving, send the error. nothing after res.send(err) will execute
                     if (err) {
-                        console.log(err);
+                        console.log(err); 
                     } else {
-                        console.log(users);
                         // see if username matches user
                         for (var i = 0; i < users.length; i++) {
                             if (users[i].username === username & users[i].password === password) {
                                 //console.log('match');
-                                cb(true, users[i]._id);
-                            } else {
-                                //console.log('no match');
+                                return cb(true, users[i]._id);
                             }
                         }
+                        return cb(false, false)
                     }
                 });
             },

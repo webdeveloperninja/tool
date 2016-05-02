@@ -41,15 +41,17 @@ app.use(express.static(__dirname + '/views'));
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new passportLocal.Strategy(function(username, password, done) {
-  
+passport.use(new passportLocal.Strategy(function( username, password, done) {
   dbAuth.checkUserPass(username, password, function(isAuthenticatedDB, DBid) {
+      console.log('Just Queried the Database!');
+      console.log('User Id: ' + DBid);
       if (isAuthenticatedDB) {
          done(null, {id: DBid, name: username});
       } else {
+         // somehow send flash message
+         console.log('Not Authenticated Server Side');
          done(null, null);
-         
-      } 
+      }
   }); 
 }));
 
@@ -104,7 +106,10 @@ app.get('/login', function(req, res) {
   });
 }); 
 
-app.post('/login', passport.authenticate('local', {successRedirect: '/', failureRedirect: '/login'}));
+
+app.post('/login', passport.authenticate('local', {successRedirect: '/', failureRedirect:'/login'}));
+
+
 
 app.get('/logout', function(req, res) {
     req.logout();
