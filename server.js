@@ -67,7 +67,13 @@ passport.deserializeUser(function(id, done) {
   });
 });
   
-  
+app.use(function (req, res, next) {
+  if (req.host.indexOf("www.") !== 0) {
+    res.redirect(301, req.protocol + "://www." + req.host + ":80" + req.originalUrl);
+  } else {
+    next();
+  }
+});
 
   
 var server = http.createServer(app);
