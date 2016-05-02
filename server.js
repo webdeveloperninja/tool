@@ -29,16 +29,7 @@ const queryString = require('query-string');
  
 var app = express();
 
-app.use(function(req, res, next) {
-    var schema = req.headers["x-forwarded-proto"];
- 
-    // --- Do nothing if schema is already https
-    if (schema === "https")
-        return next();
- 
-    // --- Redirect to https
-    res.redirect("https://" + req.headers.host + req.url);
-});
+
 app.use(sslRedirect());
 
 app.set('view engine', 'ejs');
