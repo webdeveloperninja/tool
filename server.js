@@ -43,6 +43,17 @@ app.use(express.static(__dirname + '/views'));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(function(req, res, next) {
+    var schema = req.headers["x-forwarded-proto"];
+ 
+    // --- Do nothing if schema is already https
+    if (schema === "https")
+        return next();
+ 
+    // --- Redirect to https
+    res.redirect("https://" + req.headers.host + req.url);
+});
+
 passport.use(new passportLocal.Strategy(function( username, password, done) {
   dbAuth.checkUserPass(username, password, function(isAuthenticatedDB, DBid) {
       console.log('Just Queried the Database!');
