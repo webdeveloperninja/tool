@@ -14,7 +14,6 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
 
-var forceDomain = require('node-force-domain');
 
 var shortid = require('shortid');
 
@@ -39,10 +38,6 @@ app.use(bodyParser.json({}));
 
 app.use(expressSession({ secret: 'secret', resave: false, saveUninitialized: false  }));
 
-app.use(forceDomain({
-  hostname: 'www.toolinginventory.com',
-  protocol: 'https'
-}));
  
 app.use(express.static(__dirname + '/views')); 
 app.use(passport.initialize());
