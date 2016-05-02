@@ -68,6 +68,13 @@ passport.deserializeUser(function(id, done) {
 });
   
   
+app.use(function(req, res, next) {
+  if(!req.secure) {
+    return res.redirect(['https://www.', req.get('Host'), req.url].join(''));
+  }
+  next();
+});
+  
 var server = http.createServer(app);
 
 // create a server
@@ -221,7 +228,7 @@ app.post('/add', function(req, res) {
 
 });
 
-
+/* Tool Checkout */
 app.get('/checkout', function(req, res) {
     // need to send tool id
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
@@ -241,56 +248,6 @@ app.get('/checkout', function(req, res) {
         jobFound: null
       });
     });
-});
-
-app.get('/checkout-production', function(req, res) {
-    // need to send tool id
-    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-    var toolId = checkoutToolIdQuery(fullUrl);
-    var userId = req.user._id;
-    req.body.qtyRemove = null;
-    dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-      console.log('success');
-      console.log(tool);
-      // find tool and render tool 
-      res.render('checkout-production', {
-        isAuthenticated: req.isAuthenticated(),
-        user: req.user,
-        tool: tool,
-        qtyRemove: null,
-        operatorFound: null,
-        jobFound: null
-      });
-    });
-});
-
-app.get('/add-tool', function(req, res) {
-      res.render('add-tool', {
-        isAuthenticated: req.isAuthenticated(),
-        user: req.user
-      });
-});
-
-app.post('/add-tool', function(req, res) {
-    var toolObj = {
-      userId: req.body.userId,
-      toolType: req.body.toolType,
-      brand: req.body.brand,
-      diameter: req.body.toolDiameter, 
-      toolLength: req.body.toolLength,
-      material: req.body.material,
-      modelNumber: req.body.toolModelNumber,
-      qty: req.body.qty
-    }
-    
-    dbAuth.addNewTool(toolObj, function(err) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log('Tool Successfully Saved To ');
-      }
-    });
-    res.redirect('/');
 });
 
 app.post('/checkout', function(req, res) {
@@ -405,113 +362,36 @@ app.post('/checkout', function(req, res) {
   console.log('checkout');
 });
 
-
-
-
-app.post('/checkout-production', function(req, res) {
-  var removeQty = req.body.removeQty;
-  var toolId = req.body.id;
-  var userId = req.body.userId;
-  var operatorId = req.body.operatorId;
-  var jobId = req.body.jobId;
-  
-  
-  
-  console.log('Operator Id: ' + operatorId);
-  console.log('Job Id: ' + jobId);
-  
-  
-  dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-      console.log('success');
-      console.log(tool);
-      // find tool and render tool 
-      var originalQty = tool.qty;
-      
-      // see if userId exists in db
-      dbAuth.returnSingleOperator(userId, operatorId, function(operatorObj){
-        if (operatorObj.length == 0) {
-          console.log('Operator Not Found');
-            res.render('checkout-production', {
-              isAuthenticated: req.isAuthenticated(),
-                user: req.user,
-                tool: tool,
-                qtyRemove: null,
-                operatorFound: false,
-                jobFound: null
-              });
-        } else {
-          console.log('OPERATOR FOUND');
-          console.log(operatorObj);
-          // check for job number 
-          
-          dbAuth.returnSingleJob(userId, jobId, function(job){
-            if (job.length == 0) {
-              console.log('Jobs not found');
-              res.render('checkout-production', {
-                isAuthenticated: req.isAuthenticated(),
-                  user: req.user,
-                  tool: tool,
-                  qtyRemove: null,
-                  operatorFound: null,
-                  jobFound: false
-                });
-            } else {
-              // ad job id field
-          if(removeQty > originalQty) {
-              res.render('checkout-production', {
-                isAuthenticated: req.isAuthenticated(),
-                user: req.user,
-                tool: tool,
-                qtyRemove: false,
-                operatorFound: null,
-                jobFound: null
-              });
-          } else {
-            dbAuth.checkoutTool(userId, toolId, removeQty, function(err) {
-              if (err) {
-                console.log('Error: ' + err);
-              } else {
-              dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-                  console.log();
-                  var shortName = tool.diameter + ' diameter ' + tool.material + " " + tool.toolType; 
-                  console.log('///////////////////////////////');
-                  console.log();
-                  console.log(operatorObj);
-                  dbAuth.saveCheckout(userId, toolId, removeQty, shortName, job, operatorObj, function(err) {
-                    if (err) {
-                      console.log('There was an error saving checkout to db: ' + err);
-                    } else {
-                      console.log('Checkout Saved to the db: ');
-                      res.render('checkout-production', {
-                        isAuthenticated: req.isAuthenticated(),
-                        user: req.user,
-                        tool: tool,
-                        qtyRemove: true,
-                        operatorFound: null,
-                        jobFound: null
-                      });
-                    }
-                  });
-              });
-              }
-            });
-          }
-
-              
-              
-            }
-          });
-      
-        }
+/* Add Tool */
+app.get('/add-tool', function(req, res) {
+      res.render('add-tool', {
+        isAuthenticated: req.isAuthenticated(),
+        user: req.user
       });
-      
-      
-
-    
-  });
-  
-  console.log('checkout');
 });
+
+app.post('/add-tool', function(req, res) {
+    var toolObj = {
+      userId: req.body.userId,
+      toolType: req.body.toolType,
+      brand: req.body.brand,
+      diameter: req.body.toolDiameter, 
+      toolLength: req.body.toolLength,
+      material: req.body.material,
+      modelNumber: req.body.toolModelNumber,
+      qty: req.body.qty
+    }
+    
+    dbAuth.addNewTool(toolObj, function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('Tool Successfully Saved To ');
+      }
+    });
+    res.redirect('/');
+});
+
 
 app.get('/toolsCSV', function(req, res) {
   
@@ -541,7 +421,6 @@ if (req.isAuthenticated()) {
 
 });
 
-
 app.get('/checkoutsCSV', function(req, res) {
   
 
@@ -570,6 +449,7 @@ if (req.isAuthenticated()) {
 
 });
 
+/* Update Tool */
 app.get('/edit', function(req, res) {
     // need to send tool id
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
@@ -584,8 +464,6 @@ app.get('/edit', function(req, res) {
       });
     });
 });
-
-
 app.post('/edit', function(req, res) {
     var toolObj = {
       userId: req.body.userId,
@@ -656,28 +534,6 @@ app.get('/view-checkouts', function(req, res) {
 });
 
 
-app.get('/auto-order', function(req, res) {
-  // if isAuthenticated 
-  if (req.isAuthenticated()) {
-    dbAuth.returnToolData(req.user._id, function(err, tools) {
-      console.log('Success tools');
-      console.log(tools);
-      res.render('auto-order', {
-        isAuthenticated: req.isAuthenticated(),
-        user: req.user,
-        tools: tools 
-      });
-    }); 
-  } else {
-    res.render('auto-order', {
-      isAuthenticated: req.isAuthenticated(),
-      user: req.user
-    });
-  }
-  // query tool collection for user id
-  
-});
-
 app.get('/choose-a-plan', function(req, res) {
     console.log('Pay for plan hit');
     res.render('choose-a-plan', {
@@ -731,6 +587,7 @@ app.post('/choose-a-plan', function(req, res) {
     
 });
 
+/* My Account */
 app.get('/my-account', function(req, res) {
       res.render('my-account', {
         isAuthenticated: req.isAuthenticated(),
@@ -740,7 +597,6 @@ app.get('/my-account', function(req, res) {
         addOperator: null
       });
 });
-
 app.post('/my-account', function(req, res) {
   console.log('My Account');
   console.log(req.body);
@@ -752,6 +608,7 @@ app.post('/my-account', function(req, res) {
   
   
 });
+
 
 app.post('/add-job', function(req, res) {
     console.log('Add Job');
@@ -955,6 +812,8 @@ app.get('/view-operator-tooling', function(req, res) {
     }
 });
 
+
+/* Production */ 
 app.get('/production', function(req, res) {
   if (req.isAuthenticated()) {
     dbAuth.returnToolData(req.user._id, function(err, tools) {
@@ -975,6 +834,132 @@ app.get('/production', function(req, res) {
       noMatch: null
     });
   }
+});
+
+app.get('/checkout-production', function(req, res) {
+    // need to send tool id
+    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+    var toolId = checkoutToolIdQuery(fullUrl);
+    var userId = req.user._id;
+    req.body.qtyRemove = null;
+    dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
+      console.log('success');
+      console.log(tool);
+      // find tool and render tool 
+      res.render('checkout-production', {
+        isAuthenticated: req.isAuthenticated(),
+        user: req.user,
+        tool: tool,
+        qtyRemove: null,
+        operatorFound: null,
+        jobFound: null
+      });
+    });
+});
+
+app.post('/checkout-production', function(req, res) {
+  var removeQty = req.body.removeQty;
+  var toolId = req.body.id;
+  var userId = req.body.userId;
+  var operatorId = req.body.operatorId;
+  var jobId = req.body.jobId;
+  
+  
+  
+  console.log('Operator Id: ' + operatorId);
+  console.log('Job Id: ' + jobId);
+  
+  
+  dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
+      console.log('success');
+      console.log(tool);
+      // find tool and render tool 
+      var originalQty = tool.qty;
+      
+      // see if userId exists in db
+      dbAuth.returnSingleOperator(userId, operatorId, function(operatorObj){
+        if (operatorObj.length == 0) {
+          console.log('Operator Not Found');
+            res.render('checkout-production', {
+              isAuthenticated: req.isAuthenticated(),
+                user: req.user,
+                tool: tool,
+                qtyRemove: null,
+                operatorFound: false,
+                jobFound: null
+              });
+        } else {
+          console.log('OPERATOR FOUND');
+          console.log(operatorObj);
+          // check for job number 
+          
+          dbAuth.returnSingleJob(userId, jobId, function(job){
+            if (job.length == 0) {
+              console.log('Jobs not found');
+              res.render('checkout-production', {
+                isAuthenticated: req.isAuthenticated(),
+                  user: req.user,
+                  tool: tool,
+                  qtyRemove: null,
+                  operatorFound: null,
+                  jobFound: false
+                });
+            } else {
+              // ad job id field
+          if(removeQty > originalQty) {
+              res.render('checkout-production', {
+                isAuthenticated: req.isAuthenticated(),
+                user: req.user,
+                tool: tool,
+                qtyRemove: false,
+                operatorFound: null,
+                jobFound: null
+              });
+          } else {
+            dbAuth.checkoutTool(userId, toolId, removeQty, function(err) {
+              if (err) {
+                console.log('Error: ' + err);
+              } else {
+              dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
+                  console.log();
+                  var shortName = tool.diameter + ' diameter ' + tool.material + " " + tool.toolType; 
+                  console.log('///////////////////////////////');
+                  console.log();
+                  console.log(operatorObj);
+                  dbAuth.saveCheckout(userId, toolId, removeQty, shortName, job, operatorObj, function(err) {
+                    if (err) {
+                      console.log('There was an error saving checkout to db: ' + err);
+                    } else {
+                      console.log('Checkout Saved to the db: ');
+                      res.render('checkout-production', {
+                        isAuthenticated: req.isAuthenticated(),
+                        user: req.user,
+                        tool: tool,
+                        qtyRemove: true,
+                        operatorFound: null,
+                        jobFound: null
+                      });
+                    }
+                  });
+              });
+              }
+            });
+          }
+
+              
+              
+            }
+          });
+      
+        }
+      });
+      
+      
+
+    
+  });
+  
+  console.log('checkout');
 });
 
 app.get('/clear-checkouts', function(req, res) {
