@@ -22,13 +22,12 @@ var json2csv = require('json2csv');
 var dbAuth = require('./db-auth.js');
 var express = require('express');
 
-var stripe = require("stripe")("sk_test_5xGwl5dqR8CvbMJZOaqjutIQ");
+var stripe = require("stripe")("sk_live_AhGykk1gWK5NiA1lJvO0a95Z");
 
 const queryString = require('query-string');
   
  
 var app = express();
-
 
 app.use(sslRedirect());
 
@@ -81,6 +80,7 @@ var server = http.createServer(app);
 app.get('/', function(req, res) {
   // if isAuthenticated 
   if (req.isAuthenticated()) {
+    // return stripe customer 
     dbAuth.returnToolData(req.user._id, function(err, tools) {
       console.log('Success tools');
       console.log(tools);
@@ -107,7 +107,8 @@ app.get('/login', function(req, res) {
     user: req.user,
     succesfullyCreateUser: false,
     badPassword: false,
-    noMatch: null
+    noMatch: null,
+    userCreated: null
   });
 }); 
 
@@ -575,7 +576,14 @@ app.post('/choose-a-plan', function(req, res) {
           } else {
             
           // set session so I can flag user success created account
-          res.redirect('/login');
+         /// res.redirect('/login');
+          res.render('login', {
+            userCreated: true,
+            noMatch: null,
+            badPassword: null,
+            succesfullyCreateUser: null,
+            isAuthenticated: req.isAuthenticated()
+          });
 
           }
         });
@@ -971,6 +979,40 @@ app.get('/clear-checkouts', function(req, res) {
       }
     });
 });
+
+
+/* Cancel Subscrption */
+
+app.get('/de-activate-account', function(req, res) {
+    // Find user id
+    if ( req.isAuthenticated() ) {
+      var userId = req.user._id;
+      dbAuth.returnUserData(userId, function(userObj){
+        var stripeId = userObj.stripeId;
+        stripe.customers.retrieve(
+          stripeId,
+          function(err, customer) {
+            // asynchronously called
+            if (!customer.subscriptions.data[0].id) {
+              console.log('Stirpe Customer not found');
+            } else {
+              var customerId = customer.id;
+              var subscriptionId = customer.subscriptions.data[0].id;
+              if ( !subscriptionId ) {
+                console.log('No Subscription');
+              } else {
+                console.log(customer);
+              }
+            }
+          }
+        );
+      });
+      
+      res.redirect('/come-back-soon');
+    } else {
+      res.redirect('/login');
+    }   
+})
 
 
 var checkoutToolIdQuery = function(uri) {

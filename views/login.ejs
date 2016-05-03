@@ -52,6 +52,11 @@
                         <p class="text-center">Wrong Username or Password!</p>
                     </div>
                 <% } %>
+                <% if(userCreated == true) { %>
+                    <div class="alert alert-success" role="alert">
+                        <p class="text-center">Account Created Please Login</p>
+                    </div>
+                <% } %>
             </div>
         </div>
             <div class="row">
@@ -60,7 +65,7 @@
                       <div class="panel panel-default">
                         <div class="panel-heading">Log In</div>
                         <div class="panel-body">
-                            <form action="" method="post">
+                            <form action="/login" method="post">
                                 <div class="form-group">
                                     <label>Username:</label>
                                     <input class="form-control" type="text" name="username" placeholder="username" required>
