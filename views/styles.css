@@ -31,6 +31,10 @@ h5 {
     text-align: center;
 }
 
+body > div.container {
+    margin-top: -4px;
+}
+
 .table-link {
     color: black;
 }
@@ -155,10 +159,25 @@ input.submit.btn.btn-primary {
     border-radius: 0;
 }
 
+.video-heading {
+    font-size: 20px;
+    color: #167ac6;
+}
+
+h4 {
+    font-size: 17px;
+}
+
+
+.tutorial-cta {
+    display: block;
+    margin-top: 26px;
+}
+
 .sign-up-btn {
     display: block;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: -4px;
 }
 
 .video-container {

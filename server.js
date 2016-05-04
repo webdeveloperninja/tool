@@ -122,6 +122,12 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
+app.get('/tutorials', function(req, res) {
+
+      res.render('tutorials');
+
+});
+
 
 app.post('/sign-up', function(req, res) {
     console.log('/sign-up route hit');
