@@ -371,7 +371,7 @@ app.get('/add-tool', function(req, res) {
 });
 
 app.post('/add-tool', function(req, res) {
-    var shortName = toolObj.diameter + ' ' + toolObj.toolType + ' ' + toolObj.toolTypeCustom;
+    var shortName = req.body.toolDiameter + ' ' + req.body.toolType + ' ' + req.body.toolTypeCustom;
     var toolObj = {
       userId: req.body.userId,
       toolType: req.body.toolType,
