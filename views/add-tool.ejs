@@ -63,10 +63,17 @@
                           <div class="panel panel-default">
                             <div class="panel-heading">Add Tool</div>
                             <div class="panel-body">
-                                <form action="" method="post">
+                                <form action="" method="post" novalidate>
                                 <div class="form-group">
-                                    <label>Tool Type:</label>
-                                    <select name="toolType" class="form-control" required>
+                                    <label>
+                                        <span class="pull-left">Tool Type:</span>
+                                        <br>
+                                        <span class="pull-right">Custom Tool Type 
+                                            <input id="custom-tool-type" type="checkbox">
+                                        </span>
+                                    </label>
+                                    <input name="toolTypeCustom" class="form-control" id="custom-tool-type-input">
+                                    <select name="toolType" id="select-type" class="form-control" required>
                                         <option value="">Choose Tool Type</option>
                                         <option value="end mill">End Mill</option>
                                         <option value="drill">Drill</option>
@@ -78,8 +85,15 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Brand:</label>
-                                    <select name="brand" class="form-control" required>
+                                    <label>
+                                        <span class="pull-left">Brand:</span>
+                                        <br>
+                                        <span class="pull-right">Custom Tool Brand 
+                                            <input id="custom-brand-checkbox" type="checkbox">
+                                        </span>
+                                    </label>
+                                    <input name="toolBrandCustom" class="form-control" id="custom-brand-input">
+                                    <select name="brand" id="brand-select" class="form-control" required>
                                         <option value="">Choose Brand</option>
                                         <option value="Imco">Imco</option>
                                         <option value="Z-Carb">Z-Carb</option>
@@ -88,8 +102,15 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Material:</label>
-                                    <select name="material" class="form-control" required>
+                                    <label>
+                                        <span class="pull-left">Material:</span>
+                                        <br>
+                                        <span class="pull-right">Custom Tool Material 
+                                            <input id="custom-material-checkbox" type="checkbox">
+                                        </span>
+                                    </label>
+                                    <input name="toolMaterialCustom" class="form-control" id="custom-material-input">
+                                    <select name="material" id="material-select" class="form-control" required>
                                         <option value="">Choose Material</option>
                                         <option value="HSS">HSS</option>
                                         <option value="Carbide">Carbide</option>
@@ -127,6 +148,7 @@
         <% } %>
         <script src="../bower_components/jquery/dist/jquery.min.js"></script>
         <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="../js/app.js"></script>
+        <script src="../js/add-tool.js"></script>
+        
     </body>
 </html>

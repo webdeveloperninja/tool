@@ -122,6 +122,7 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
+
 app.post('/sign-up', function(req, res) {
     console.log('/sign-up route hit');
     console.log(req.body);
@@ -370,16 +371,23 @@ app.get('/add-tool', function(req, res) {
 });
 
 app.post('/add-tool', function(req, res) {
+    var shortName = toolObj.diameter + ' ' + toolObj.toolType + ' ' + toolObj.toolTypeCustom;
     var toolObj = {
       userId: req.body.userId,
       toolType: req.body.toolType,
+      shortName: shortName,
+      toolTypeCustom: req.body.toolTypeCustom,
       brand: req.body.brand,
+      toolBrandCustom: req.body.toolBrandCustom,
       diameter: req.body.toolDiameter, 
       toolLength: req.body.toolLength,
       material: req.body.material,
+      toolMaterialCustom: req.body.toolMaterialCustom,
       modelNumber: req.body.toolModelNumber,
+      toolTypeCustom: req.body.toolTypeCustom,
       qty: req.body.qty
     }
+    
     
     dbAuth.addNewTool(toolObj, function(err) {
       if (err) {
@@ -928,7 +936,7 @@ app.post('/checkout-production', function(req, res) {
               } else {
               dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
                   console.log();
-                  var shortName = tool.diameter + ' diameter ' + tool.material + " " + tool.toolType; 
+                  var shortName = tool.diameter + ' diameter ' + tool.material + " " + tool.toolType + tool.toolTypeCustom; 
                   console.log('///////////////////////////////');
                   console.log();
                   console.log(operatorObj);

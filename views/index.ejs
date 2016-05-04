@@ -191,11 +191,11 @@
                                      <% for (var i=0; i<tools.length; i++) {%>
                                      
                                     <tr>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].diameter %>" <%= tools[i].toolType %></p></a></td>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].toolType %> </p></a></td>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].diameter %>" <%= tools[i].toolType %> <%= tools[i].toolTypeCustom %></p></a></td>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].toolType %> <%= tools[i].toolTypeCustom %> </p></a></td>
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].diameter %>"</p></a></td>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].material %></p></a></td>
-                                        <!--<td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].brand %> </p></a></td>-->
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].material %> <%= tools[i].toolMaterialCustom %></p></a></td>
+                                        <!--<td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].brand %> <%= tools[i].toolBrandCustom %> </p></a></td>-->
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].qty %> </p></a></td>
                                         <td>
                                             <a class="btn btn-primary table-btn" href="/edit/?toolId=<%= tools[i]._id %>">Edit</a>

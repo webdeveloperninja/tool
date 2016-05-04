@@ -75,38 +75,15 @@
                                 <form action="" method="post">
                                 <div class="form-group">
                                     <label>Tool Type:</label>
-                                    <select name="toolType" class="form-control" required>
-                                        <option value="<%=tool.toolType%>"><%=tool.toolType%></option>
-                                        <option value="">Choose Tool Type</option>
-                                        <option value="end mill">End Mill</option>
-                                        <option value="drill">Drill</option>
-                                        <option value="right turn tool">Right Turn Tool</option>
-                                        <option value="left turn tool">Left Turn Tool</option>
-                                        <option value="parting tool">Parting Tool</option>
-                                        <option value="center drill">Center Drill</option>
-                                        <option value="jobber drill">Jobber Drill</option>
-                                    </select>
+                                    <input class="form-control" name="toolType" value="<%=tool.toolType%> <%=tool.toolTypeCustom%>" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Brand:</label>
-                                    <select name="brand" class="form-control" required>
-                                        <option value="<%=tool.brand%>"><%=tool.brand%></option>
-                                        <option value="">Choose Brand</option>
-                                        <option value="Imco">Imco</option>
-                                        <option value="Z-Carb">Z-Carb</option>
-                                        <option value="SGS">SGS</option>
-                                        <option value="Bassett">Bassett</option>
-                                    </select>
+                                    <input class="form-control" name="brand" value="<%=tool.brand %> <%=tool.toolBrandCustom%>" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Material:</label>
-                                    <select name="material" class="form-control" required>
-                                        <option value="<%=tool.material%>"><%=tool.material%></option>
-                                        <option value="">Choose Material</option>
-                                        <option value="HSS">HSS</option>
-                                        <option value="Carbide">Carbide</option>
-                                        <option value="Cobalt">Cobalt</option>
-                                    </select>
+                                    <input class="form-control" name="material" value="<%=tool.material %> <%=tool.toolMaterialCustom%>" required>
                                 </div>
                                 <div class="form-group">Tool Length</label>
                                     <input class="form-control" name="toolLength" value="<%= tool.toolLength %>">
