@@ -18,6 +18,4 @@ $(document).ready(function() {
         $("#custom-material-input").toggle(this.checked);
         $("#material-select").toggle(!this.checked);
     });
-    
-    
 });
