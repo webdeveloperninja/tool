@@ -113,8 +113,7 @@ app.get('/login', function(req, res) {
 }); 
 
 
-app.post('/login', passport.authenticate('local', {successRedirect: '/', failureRedirect:'/login'}));
-
+app.post('/login', passport.authenticate('local', {successRedirect: '/production', failureRedirect:'/login'}));
 
 
 app.get('/logout', function(req, res) {
@@ -1024,7 +1023,22 @@ app.get('/de-activate-account', function(req, res) {
     } else {
       res.redirect('/login');
     }   
-})
+});
+
+app.post('/adminAuthenticate', function(req, res) {
+    console.log('Admin Authenticate');
+    
+    console.log(req.body);
+    var adminUsername = req.body.userName;
+    var adminPassword = req.body.password;
+    console.log(req.user._id);
+    dbAuth.checkUserPass(adminUsername, adminPassword, function(isAuthenticated, userObj){
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify({ isAuthenticated: isAuthenticated }));
+    });
+
+  
+});
 
 
 var checkoutToolIdQuery = function(uri) {

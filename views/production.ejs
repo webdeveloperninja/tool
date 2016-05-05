@@ -27,8 +27,8 @@
                 <li><a href="/login">Log in here</a></li>
             <% } else { %>
                         <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
-                        <a class="btn btn-primary" href="/logout">Log Out</a>
-                        <a class="btn btn-default" href="/">Admin</a>
+                        <a class="btn btn-danger" href="/logout">Log Out</a>
+                        <a class="btn btn-default" data-toggle="modal" data-target="#myModal">Admin</a>
             <% } %>
           </ul>
         </div><!--/.nav-collapse -->
@@ -169,28 +169,27 @@
                             <table class="table table-striped tool-list-table">
                                 <thead>
                                     <tr class="tool-list-heading">
-                                        <td>Tool Name</td>
-                                        <td>Tool Type</td>
-                                        <td>Tool Diameter</td>
-                                        <td>Tool Material</td>
-                                        <td>Tool Brand</td>
-                                        <td>Tool Qty</td>
-                                        <td>Actions</td>
+                                        <td>Name</td>
+                                        <td>Type</td>
+                                        <td>Diameter</td>
+                                        <td>Material</td>
+                                        <!--<td>Brand</td>-->
+                                        <td>Qty</td>
+                                        <td class="text-center">Actions</td>
                                     </tr>
                                 </thead>
                                 <tbody>
                                      <% for (var i=0; i<tools.length; i++) {%>
                                      
                                     <tr>
-                                        <td><p class="table-value"> <%= tools[i].diameter %>" <%= tools[i].toolType %></p></td>
-                                        <td><p class="table-value"> <%= tools[i].toolType %> </p></td>
-                                        <td><p class="table-value"> <%= tools[i].diameter %>"</p></td>
-                                        <td><p class="table-value"> <%= tools[i].material %></p></td>
-                                        <td><p class="table-value"> <%= tools[i].brand %> </p></td>
-                                        <td><p class="table-value"> <%= tools[i].qty %> </p></td>
-                                        <td>
-                                            <a class="btn btn-success  table-btn" href="/checkout-production/?toolId=<%= tools[i]._id %>">Checkout</a>
-                                            </p>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].diameter %>" <%= tools[i].toolType %> <%= tools[i].toolTypeCustom %></p></a></td>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].toolType %> <%= tools[i].toolTypeCustom %> </p></a></td>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].diameter %>"</p></a></td>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].material %> <%= tools[i].toolMaterialCustom %></p></a></td>
+                                        <!--<td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].brand %> <%= tools[i].toolBrandCustom %> </p></a></td>-->
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].qty %> </p></a></td>
+                                        <td class="text-center">
+                                            <a class="btn btn-success  table-btn production-checkout-btn" href="/checkout/?toolId=<%= tools[i]._id %>">Checkout</a>
                                         </td>
                                         <!--
                                         <td>
@@ -212,8 +211,77 @@
             
         </div>
     </div>
+    
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog model-dialog-admin">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Admin Login</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <label>Username:</label>
+            <input id="adminUsername" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input id="adminPassword" class="form-control" type="password">
+        </div>
+        <a  class="btn btn-primary" id="adminSubmit">Submit</a>
+        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+    
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                function authenticate(userName, password) {
+                    var adminFormData = {
+                        userName: userName,
+                        password: password
+                    }
+                    $.ajax
+                    ({
+                        type: "POST",
+                        //the url where you want to sent the userName and password to
+                        url: '/adminAuthenticate',
+                        dataType: 'json',
+                        async: false,
+                        //json object to sent to the authentication url
+                        data: adminFormData,
+                        success: function (returnObj) {
+                
+                            console.log(returnObj.isAuthenticated);
+                            if (returnObj.isAuthenticated) {
+                                window.location.href= '/';
+                            } else {
+                                window.location.href= '/production';
+                            }
+                        }
+                    });
+                }
+                $('#adminSubmit').click(function(){
+                    var adminUsername = $('#adminUsername').val();
+                    var adminPassword = $('#adminPassword').val();
+                    
+                    // make a db call to see if userName and Password Match
+                    
+                        authenticate(adminUsername, adminPassword);
+                        
+         
+
+                });
+                
+                
+            });
+        </script>
         <script src="js/app.js"></script>
         
         
