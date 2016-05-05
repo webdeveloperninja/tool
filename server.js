@@ -123,9 +123,7 @@ app.get('/logout', function(req, res) {
 });
 
 app.get('/tutorials', function(req, res) {
-
-      res.render('tutorials');
-
+    res.render('tutorials');
 });
 
 
