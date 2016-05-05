@@ -15,7 +15,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">ToolingInventory.com</a>
+          <a class="navbar-brand" href="/production">ToolingInventory.com</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -28,7 +28,7 @@
             <% } else { %>
                         <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
                         <a class="btn btn-danger" href="/logout">Log Out</a>
-                        <a class="btn btn-default" href="/">Admin</a>
+                        <a class="btn btn-default" data-toggle="modal" data-target="#myModal">Admin</a>
             <% } %>
           </ul>
         </div><!--/.nav-collapse -->
@@ -198,8 +198,75 @@
             </div>
             
         </div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog model-dialog-admin">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Admin Login</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <label>Username:</label>
+            <input id="adminUsername" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input id="adminPassword" class="form-control" type="password">
+        </div>
+        <a  class="btn btn-primary" id="adminSubmit">Submit</a>
+        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
         <script src="../bower_components/jquery/dist/jquery.min.js"></script>
         <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                function authenticate(userName, password) {
+                    var adminFormData = {
+                        userName: userName,
+                        password: password
+                    }
+                    $.ajax
+                    ({
+                        type: "POST",
+                        //the url where you want to sent the userName and password to
+                        url: '/adminAuthenticate',
+                        dataType: 'json',
+                        async: false,
+                        //json object to sent to the authentication url
+                        data: adminFormData,
+                        success: function (returnObj) {
+                
+                            console.log(returnObj.isAuthenticated);
+                            if (returnObj.isAuthenticated) {
+                                window.location.href= '/';
+                            } else {
+                                window.location.href= '/view-jobs-production';
+                            }
+                        }
+                    });
+                }
+                $('#adminSubmit').click(function(){
+                    var adminUsername = $('#adminUsername').val();
+                    var adminPassword = $('#adminPassword').val();
+                    
+                    // make a db call to see if userName and Password Match
+                    
+                        authenticate(adminUsername, adminPassword);
+                        
+         
+
+                });
+                
+                
+            });
+        </script>
         <script src="../js/app.js"></script>
         
         
