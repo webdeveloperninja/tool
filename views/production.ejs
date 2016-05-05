@@ -165,7 +165,12 @@
     <div class="panel-body ">
         <div class="row">
                 <div class="col-md-12">
-                        <div class="table-responsive">
+                        <div id="users" class="table-responsive">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input class="search form-control" placeholder="Search" />
+                                </div>
+                            </div>
                             <table class="table table-striped tool-list-table">
                                 <thead>
                                     <tr class="tool-list-heading">
@@ -178,11 +183,11 @@
                                         <td class="text-center">Actions</td>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="list">
                                      <% for (var i=0; i<tools.length; i++) {%>
                                      
                                     <tr>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].diameter %>" <%= tools[i].toolType %> <%= tools[i].toolTypeCustom %></p></a></td>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value name"> <%= tools[i].diameter %>" <%= tools[i].toolType %> <%= tools[i].toolTypeCustom %></p></a></td>
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].toolType %> <%= tools[i].toolTypeCustom %> </p></a></td>
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].diameter %>"</p></a></td>
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].material %> <%= tools[i].toolMaterialCustom %></p></a></td>
@@ -240,8 +245,16 @@
     
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="bower_components/list.js/dist/list.min.js"></script>
         <script>
             $(document).ready(function(){
+                
+            var options = {
+              valueNames: [ 'name' ]
+            };
+            
+            
+            var userList = new List('users', options);
                 function authenticate(userName, password) {
                     var adminFormData = {
                         userName: userName,
