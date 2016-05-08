@@ -294,15 +294,12 @@
                     });
                 }
                 $('#adminSubmit').click(function(){
-                    var adminUsername = $('#adminUsername').val();
-                    var adminPassword = $('#adminPassword').val();
+                    var adminUsername = $.trim($('#adminUsername').val());
+                    var adminPassword = $.trim($('#adminPassword').val());
                     
                     // make a db call to see if userName and Password Match
                     
                         authenticate(adminUsername, adminPassword);
-                        
-         
-
                 });
                 
                 
