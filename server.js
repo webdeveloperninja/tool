@@ -302,6 +302,7 @@ app.post('/checkout', function(req, res) {
               });
             });
           } else {
+            // checkoutTool include operator name and job name
             dbAuth.checkoutTool(userId, toolId, removeQty, function(err) {
               if (err) {
                 console.log('Error: ' + err);
@@ -420,8 +421,7 @@ app.get('/checkoutsCSV', function(req, res) {
   
 if (req.isAuthenticated()) {
     dbAuth.returnCheckoutData(req.user._id, function(err, checkouts) {
-      console.log('Success tools');
-      json2csv({ data: checkouts, fields: ['_id', 'userId', 'toolId', 'checkoutQty', 'checkoutDate', 'shortName'] }, function(err, csv) {
+      json2csv({ data: checkouts, fields: ['_id', 'userId', 'toolId', 'checkoutQty', 'checkoutDate', 'shortName', 'operatorName', 'jobName'] }, function(err, csv) {
         if (err) console.log(err);
         console.log(csv);
         res.set({
@@ -563,7 +563,11 @@ app.post('/choose-a-plan', function(req, res) {
           companyName: req.body.companyName,
           username: req.body.username,
           password: req.body.password,
-          stripeId: customer.id
+          stripeId: customer.id,
+          toolingRep: {
+            name: null,
+            email: null
+          }
         }
         
         dbAuth.addNewUser(newUserObj, function(err, userId) {

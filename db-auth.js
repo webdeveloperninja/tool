@@ -149,6 +149,7 @@ var exports = module.exports = {
                 }
               });
             },
+            // 
             checkoutTool: function(userId, toolId, removeQty, cb) {
                 
             tools.update(
