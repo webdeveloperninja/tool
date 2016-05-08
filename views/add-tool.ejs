@@ -3,6 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../js/bootstrap-switch.min.css" rel="stylesheet">
         <link href="../styles.css" rel="stylesheet">
     </head>
     <body>
@@ -72,7 +73,7 @@
                                             <input id="custom-tool-type" type="checkbox">
                                         </span>
                                     </label>
-                                    <input name="toolTypeCustom" class="form-control" id="custom-tool-type-input">
+                                    <input name="toolTypeCustom" class="form-control" id="custom-tool-type-input" required>
                                     <select name="toolType" id="select-type" class="form-control" required>
                                         <option value="">Choose Tool Type</option>
                                         <option value="end mill">End Mill</option>
@@ -92,7 +93,7 @@
                                             <input id="custom-brand-checkbox" type="checkbox">
                                         </span>
                                     </label>
-                                    <input name="toolBrandCustom" class="form-control" id="custom-brand-input">
+                                    <input name="toolBrandCustom" class="form-control" id="custom-brand-input" required>
                                     <select name="brand" id="brand-select" class="form-control" required>
                                         <option value="">Choose Brand</option>
                                         <option value="Imco">Imco</option>
@@ -109,7 +110,7 @@
                                             <input id="custom-material-checkbox" type="checkbox">
                                         </span>
                                     </label>
-                                    <input name="toolMaterialCustom" class="form-control" id="custom-material-input">
+                                    <input name="toolMaterialCustom" class="form-control" id="custom-material-input" required>
                                     <select name="material" id="material-select" class="form-control" required>
                                         <option value="">Choose Material</option>
                                         <option value="HSS">HSS</option>
@@ -119,19 +120,35 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Tool Length:</label>
-                                    <input class="form-control" name="toolLength">
+                                    <input class="form-control" name="toolLength" type="number" min="0" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Tool Diameter:</label>
-                                    <input class="form-control" name="toolDiameter">
+                                    <input class="form-control" name="toolDiameter" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Tool Model Number:</label>
-                                    <input class="form-control" name="toolModelNumber">
+                                    <input class="form-control" name="toolModelNumber" required>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                    <label>Auto Order Tool Qty:</label>
+                                    <input class="form-control" id="orderQty" name="autoOrderQty" type="number" min="0" required>          
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="text-center">Auto Order</p>
+                                            <input class="form-control" id="auto-order-box" type="checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Ideal Amount</label>
+                                    <input class="form-control" name="idealAmount" id="idealQty" type="number" min="0" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Qty:</label>
-                                    <input type="number" class="form-control" name="qty">
+                                    <input type="number" class="form-control" name="qty" min="0" required>
                                 </div>
                                 <input class="btn btn-primary" type="submit" value="Save Tool">
                                 <input type="text" name="userId" class="hidden" value="<%= user._id %>">
@@ -148,6 +165,7 @@
         <% } %>
         <script src="../bower_components/jquery/dist/jquery.min.js"></script>
         <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../js/bootstrap-switch.min.js"></script>
         <script src="../js/add-tool.js"></script>
         
     </body>

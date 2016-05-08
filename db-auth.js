@@ -6,7 +6,8 @@ var usersSchema = new mongoose.Schema({
     username: String,
     password: String,
     companyName: String,
-    stripeId: String
+    stripeId: String,
+    toolingRep: Object
 });
 
 
@@ -21,7 +22,9 @@ var toolsSchema = new mongoose.Schema({
     material: String,
     toolMaterialCustom: String,
     modelNumber: Number,
-    qty: Number
+    qty: Number,
+    autoOrderQty: Number,
+    idealAmount: Number
 });
 
 var checkoutsSchema = new mongoose.Schema({
@@ -92,6 +95,12 @@ var exports = module.exports = {
                      }
                 });
             },
+            editUser: function(userId, userObj, cb ) {
+                var query = {_id:userId};
+                users.findOneAndUpdate(query, userObj, {upsert:true}, function(err, doc){
+                    cb(err);
+                });
+            },
             returnToolData: function(userId, cb) {
                 // query db find user tools,
                 var allTools = tools.find( { userId: { $in: [ userId ] } }, function (err, tools) {   
@@ -113,7 +122,6 @@ var exports = module.exports = {
                 
             },
             addNewTool: function(toolObj, cb) {
-                console.log(toolObj);
                 
                 var newTool = new tools(toolObj);
                 newTool.save(function(err, data) {
@@ -172,8 +180,6 @@ var exports = module.exports = {
                     operatorId: operator[0].operatorId,
                     operatorName: operator[0].operatorName
                 }
-                console.log('CHeckout obj');
-                console.log(checkoutObj);
                 var newCheckout = new checkouts(checkoutObj);
                 newCheckout.save(function(err, data) {
                     cb(err);

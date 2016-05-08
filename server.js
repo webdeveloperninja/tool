@@ -20,6 +20,9 @@ var shortid = require('shortid');
 var json2csv = require('json2csv');
 
 var dbAuth = require('./db-auth.js');
+
+var autoEmailOrder = require('./auto-email-order.js');
+
 var express = require('express');
 
 var stripe = require("stripe")("sk_live_AhGykk1gWK5NiA1lJvO0a95Z");
@@ -165,8 +168,6 @@ app.get('/remove', function(req, res) {
     }
 });
 
-
-
 app.get('/add', function(req, res) {
     if ( req.isAuthenticated() ) {
       // need to send tool id
@@ -259,19 +260,9 @@ app.post('/checkout', function(req, res) {
   var userId = req.body.userId;
   var operatorId = req.body.operatorId;
   var jobId = req.body.jobId;
-  
-  
-  
-  console.log('Operator Id: ' + operatorId);
-  console.log('Job Id: ' + jobId);
-  
-  
   dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-      console.log('success');
-      console.log(tool);
       // find tool and render tool 
       var originalQty = tool.qty;
-      
       // see if userId exists in db
       dbAuth.returnSingleOperator(userId, operatorId, function(operatorObj){
         if (operatorObj.length == 0) {
@@ -285,10 +276,6 @@ app.post('/checkout', function(req, res) {
                 jobFound: null
               });
         } else {
-          console.log('OPERATOR FOUND');
-          console.log(operatorObj);
-          // check for job number 
-          
           dbAuth.returnSingleJob(userId, jobId, function(job){
             if (job.length == 0) {
               console.log('Jobs not found');
@@ -304,8 +291,6 @@ app.post('/checkout', function(req, res) {
               // ad job id field
           if(removeQty > originalQty) {
             dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-              console.log('success');
-              console.log(tool);
               // find tool and render tool 
               res.render('checkout', {
                 isAuthenticated: req.isAuthenticated(),
@@ -326,14 +311,17 @@ app.post('/checkout', function(req, res) {
               var userId = req.user._id;
               dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
                   var shortName = tool.diameter + ' diameter ' + tool.material + " " + tool.toolType; 
-                  console.log('///////////////////////////////');
-                  console.log();
-                  console.log(operatorObj);
                   dbAuth.saveCheckout(userId, toolId, removeQty, shortName, job, operatorObj, function(err) {
                     if (err) {
                       console.log('There was an error saving checkout to db: ' + err);
                     } else {
-                      console.log('Checkout Saved to the db: ');
+                      console.log('///////////////////oijoijoijoij/////////////////////////////');
+                      if ( tool.qty <= tool.autoOrderQty && (tool.autoOrderQty != null)) {
+                        // send email to tooling representative
+                        dbAuth.returnUserData(userId, function(userObj) {
+                            emailRepresentative(tool, userObj);
+                        });
+                      }
                       res.render('checkout', {
                         isAuthenticated: req.isAuthenticated(),
                         user: req.user,
@@ -356,13 +344,7 @@ app.post('/checkout', function(req, res) {
       
         }
       });
-      
-      
-
-    
   });
-  
-  console.log('checkout');
 });
 
 /* Add Tool */
@@ -388,9 +370,10 @@ app.post('/add-tool', function(req, res) {
       toolMaterialCustom: req.body.toolMaterialCustom,
       modelNumber: req.body.toolModelNumber,
       toolTypeCustom: req.body.toolTypeCustom,
-      qty: req.body.qty
+      qty: req.body.qty,
+      autoOrderQty: req.body.autoOrderQty,
+      idealAmount: req.body.idealAmount
     }
-    
     
     dbAuth.addNewTool(toolObj, function(err) {
       if (err) {
@@ -483,7 +466,9 @@ app.post('/edit', function(req, res) {
       toolLength: req.body.toolLength,
       material: req.body.material,
       modelNumber: req.body.toolModelNumber,
-      qty: req.body.qty
+      qty: req.body.qty,
+      autoOrderQty: req.body.autoOrderQty,
+      idealAmount: req.body.idealAmount
     }
     
     dbAuth.editSingleTool(toolObj.userId, req.body.toolId, toolObj, function(err){
@@ -611,19 +596,54 @@ app.get('/my-account', function(req, res) {
         user: req.user,
         accountUpdated: null,
         addedJob: null,
-        addOperator: null
+        addOperator: null,
+        successToolRep: null
       });
 });
+
 app.post('/my-account', function(req, res) {
   console.log('My Account');
   console.log(req.body);
   res.render('my-account', {
     isAuthenticated: req.isAuthenticated(),
     user: req.user,
-    accountUpdated: true
+    accountUpdated: true,
+    successToolRep: null
   });
   
   
+});
+
+
+app.post('/add-tooling-rep', function(req, res) {
+    var toolingRepObj = {
+      name: req.body.toolingRepName,
+      email: req.body.toolingRepEmail
+    }
+    
+    dbAuth.returnUserData(req.user._id, function(user) {
+        var newUserObj = user;
+        newUserObj.toolingRep = toolingRepObj;
+        console.log('Add Tooling Req');
+        console.log(newUserObj.toolingRep);
+        dbAuth.editUser(req.user._id, newUserObj, function(err){
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('Saved');
+              res.render('my-account', {
+                isAuthenticated: req.isAuthenticated(),
+                user: newUserObj,
+                accountUpdated: null,
+                addedJob: null,
+                addOperator: null,
+                successToolRep: true
+              });
+          }
+        });
+    });
+    
+    
 });
 
 
@@ -652,7 +672,8 @@ app.post('/add-job', function(req, res) {
           user: req.user,
           accountUpdated: null,
           addedJob: true,
-          addOperator: null
+          addOperator: null,
+          successToolRep: null
         });
       }
     });
@@ -713,7 +734,8 @@ app.post('/add-operator', function(req, res) {
           user: req.user,
           accountUpdated: null,
           addedJob: null,
-          addOperator: true
+          addOperator: true,
+          successToolRep: null
         });
       }
     });
@@ -882,14 +904,7 @@ app.post('/checkout-production', function(req, res) {
   var jobId = req.body.jobId;
   
   
-  
-  console.log('Operator Id: ' + operatorId);
-  console.log('Job Id: ' + jobId);
-  
-  
   dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-      console.log('success');
-      console.log(tool);
       // find tool and render tool 
       var originalQty = tool.qty;
       
@@ -906,8 +921,6 @@ app.post('/checkout-production', function(req, res) {
                 jobFound: null
               });
         } else {
-          console.log('OPERATOR FOUND');
-          console.log(operatorObj);
           // check for job number 
           
           dbAuth.returnSingleJob(userId, jobId, function(job){
@@ -938,16 +951,13 @@ app.post('/checkout-production', function(req, res) {
                 console.log('Error: ' + err);
               } else {
               dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-                  console.log();
                   var shortName = tool.diameter + ' diameter ' + tool.material + " " + tool.toolType + tool.toolTypeCustom; 
-                  console.log('///////////////////////////////');
-                  console.log();
-                  console.log(operatorObj);
                   dbAuth.saveCheckout(userId, toolId, removeQty, shortName, job, operatorObj, function(err) {
                     if (err) {
                       console.log('There was an error saving checkout to db: ' + err);
                     } else {
                       console.log('Checkout Saved to the db: ');
+                      
                       res.render('checkout-production', {
                         isAuthenticated: req.isAuthenticated(),
                         user: req.user,
@@ -1069,6 +1079,18 @@ var jobIdQuery = function(uri) {
       function($0, $1, $2, $3) { queryString[$1] = $3; }
   );
   return queryString['jobId']
+}
+
+
+
+var emailRepresentative = function(tool, userId) {
+  
+  // find tooling rep email 
+  
+  // send pre formated email
+  console.log('Email Representative YAY');
+  console.log(tool);
+  autoEmailOrder.emailOrder(tool, userId);
 }
 
 

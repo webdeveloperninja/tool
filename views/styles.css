@@ -159,11 +159,40 @@ input.submit.btn.btn-primary {
     border-radius: 0;
 }
 
+.bootstrap-switch {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    direction: ltr;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    position: relative;
+    text-align: left;
+    overflow: hidden;
+    line-height: 8px;
+    z-index: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    vertical-align: middle;
+    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
 .model-dialog-admin {
 }
 
 .production-checkout-btn {
     float: none;
+}
+
+.auto-email {
+    width: 130px;
+    display: inline-block;
+    margin-left: 30px;
 }
 
 .video-heading {
@@ -175,6 +204,18 @@ h4 {
     font-size: 17px;
 }
 
+.action-btns {
+    width: 378px;
+}
+
+.action-btn-td {
+    padding-top: 0px !important;
+}
+
+.action-btns>li {
+    float: left;
+    list-style-type: none;
+}
 
 .tutorial-cta {
     display: block;

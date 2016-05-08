@@ -156,6 +156,33 @@
                                         </form>
                                     </div>
                                 </div>
+                                <div class="panel panel-default" style="margin-top: 25px;">
+                                    <div class="panel-heading">Add Tooling Rep</div>
+                                    <div class="panel-body">
+                                            <% if(successToolRep == false) { %>
+                                                <div class="alert alert-danger" role="alert">
+                                                    <p class="text-center">Uh Oh Something Went Wrong</p>
+                                                </div>
+                                            <% } else if (successToolRep == true) { %>
+                                                <div class="alert alert-success" role="alert">
+                                                    <p class="text-center">Success</p>
+                                                </div>            
+                                            <% } else if (addedJob == null) { %> 
+                                            
+                                            <% } %>
+                                        <form action="/add-tooling-rep" method="POST">
+                                            <div class="form-group">
+                                                <label>Rep Name: </label>
+                                                <input class="form-control" name="toolingRepName" value="<%= user.toolingRep.name%>" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Rep Email: </label>
+                                                <input class="form-control" type="email" name="toolingRepEmail" value="<%= user.toolingRep.email%>"  required>
+                                            </div>
+                                            <input type="submit" class="btn btn-primary" value="Add">
+                                        </form>
+                                    </div>
+                                </div>
                             </div><!-- end col-md-4 -->
                             <div class="col-md-4">
                                 <div class="panel panel-default">

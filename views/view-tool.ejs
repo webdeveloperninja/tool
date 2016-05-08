@@ -91,6 +91,14 @@
                                     <label>Qty:</label>
                                     <input type="number" class="form-control" name="qty" value="<%= tool.qty %>" readonly>
                                 </div>
+                                <div class="form-group">
+                                    <label>Auto Order Qty</label>
+                                    <input type="number" class="form-control" name="autoOrderQty" value="<%= tool.autoOrderQty %>" min="0" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Ideal Qty</label>
+                                    <input type="number" class="form-control" name="idealAmount" value="<%= tool.idealAmount %>" min="0" readonly>
+                                </div>
                                 <input type="text" name="userId" class="hidden" value="<%= user._id %>">
                                 <a class="btn btn-primary pull-right table-btn pull-left" href="/checkout/?toolId=<%= tool._id %>">Checkout</a>
                                 <a href="/remove/?toolId=<%= tool._id %>" class="btn btn-danger table-btn pull-right">Remove Tool</a>
