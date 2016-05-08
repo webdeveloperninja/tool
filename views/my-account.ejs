@@ -92,38 +92,29 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="panel panel-default">
-                                    <div class="panel-heading">Settings</div>
+                                    <div class="panel-heading">Add Tooling Rep</div>
                                     <div class="panel-body">
-                                            <% if(accountUpdated == false) { %>
+                                            <% if(successToolRep == false) { %>
                                                 <div class="alert alert-danger" role="alert">
-                                                    <p class="text-center">Update Failed</p>
+                                                    <p class="text-center">Uh Oh Something Went Wrong</p>
                                                 </div>
-                                            <% } else if (accountUpdated == true) { %>
+                                            <% } else if (successToolRep == true) { %>
                                                 <div class="alert alert-success" role="alert">
-                                                    <p class="text-center">Successfully Updated</p>
+                                                    <p class="text-center">Success</p>
                                                 </div>            
-                                            <% } else if (accountUpdated == null) { %> 
+                                            <% } else if (addedJob == null) { %> 
                                             
                                             <% } %>
-                                        <form action="" method="POST">
+                                        <form action="/add-tooling-rep" method="POST">
                                             <div class="form-group">
-                                                <label>Company Name: </label>
-                                                <input class="form-control" name="companyName" value="<%= user.companyName %>" required>
+                                                <label>Rep Name: </label>
+                                                <input class="form-control" name="toolingRepName" value="<%= user.toolingRep.name%>" required>
                                             </div>
                                             <div class="form-group">
-                                                <label>User Name: </label>
-                                                <input class="form-control" name="username" value="<%= user.username %>" required>
+                                                <label>Rep Email: </label>
+                                                <input class="form-control" type="email" name="toolingRepEmail" value="<%= user.toolingRep.email%>"  required>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Password: </label>
-                                                <input class="form-control" name="password" value="<%= user.password %>" type="password" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Re-Enter Password: </label>
-                                                <input class="form-control" name="re-enterPassword" type="password" required>
-                                            </div>
-                                            <input type="submit" class="btn btn-primary" value="Update">
-                                            <a href="de-activate-account" class="btn btn-danger pull-right">De-Activate Account</a>
+                                            <input type="submit" class="btn btn-primary" value="Add">
                                         </form>
                                     </div>
                                 </div>
@@ -156,33 +147,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="panel panel-default" style="margin-top: 25px;">
-                                    <div class="panel-heading">Add Tooling Rep</div>
-                                    <div class="panel-body">
-                                            <% if(successToolRep == false) { %>
-                                                <div class="alert alert-danger" role="alert">
-                                                    <p class="text-center">Uh Oh Something Went Wrong</p>
-                                                </div>
-                                            <% } else if (successToolRep == true) { %>
-                                                <div class="alert alert-success" role="alert">
-                                                    <p class="text-center">Success</p>
-                                                </div>            
-                                            <% } else if (addedJob == null) { %> 
-                                            
-                                            <% } %>
-                                        <form action="/add-tooling-rep" method="POST">
-                                            <div class="form-group">
-                                                <label>Rep Name: </label>
-                                                <input class="form-control" name="toolingRepName" value="<%= user.toolingRep.name%>" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Rep Email: </label>
-                                                <input class="form-control" type="email" name="toolingRepEmail" value="<%= user.toolingRep.email%>"  required>
-                                            </div>
-                                            <input type="submit" class="btn btn-primary" value="Add">
-                                        </form>
-                                    </div>
-                                </div>
+
                             </div><!-- end col-md-4 -->
                             <div class="col-md-4">
                                 <div class="panel panel-default">
