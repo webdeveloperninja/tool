@@ -167,6 +167,12 @@
                 <div class="col-md-12">
                         <div id="users">
                             <div class="row">
+                                <div class="col-md-4 col-md-offset-4">
+                                    <div id="status-area">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-3">
                                     <input class="search form-control" placeholder="Search" />
                                 </div>
@@ -208,8 +214,7 @@
                                     <div style="display:none;">
                                       <!-- A template element is needed when list is empty, TODO: needs a better solution -->
                                       <tr id="hacker-item">
-                                       <h3 class="name"></h3>
-                                       <p class="city"></p>
+
                                       </tr>
                                     </div>
                                 </tbody>
@@ -236,7 +241,8 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Admin Login</h4>
       </div>
-      <div class="modal-body">
+      
+      <div class="modal-body" id="admin-modal">
         <div class="form-group">
             <label>Username:</label>
             <input id="adminUsername" class="form-control">
@@ -245,9 +251,10 @@
             <label>Password:</label>
             <input id="adminPassword" class="form-control" type="password">
         </div>
-        <a  class="btn btn-primary" id="adminSubmit">Submit</a>
-        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+        <a  class="btn btn-primary" id="adminSubmit">Log In</a>
+        <button type="button"  class="btn btn-default pull-right" data-dismiss="modal">Close</button>
       </div>
+     
     </div>
 
   </div>
@@ -288,7 +295,13 @@
                             if (returnObj.isAuthenticated) {
                                 window.location.href= '/';
                             } else {
-                                window.location.href= '/production';
+                                //window.location.href= '/production';
+                                $('#myModal').modal('hide');
+                                $('#status-area').flash_message({
+                                    text: 'Wrong Username or Password!',
+                                    how: 'append'
+                                });
+                            
                             }
                         }
                     });
@@ -301,6 +314,33 @@
                     
                         authenticate(adminUsername, adminPassword);
                 });
+                
+$.fn.flash_message = function(options) {
+      
+      options = $.extend({
+        text: 'Done',
+        time: 1000,
+        how: 'before',
+        class_name: ''
+      }, options);
+      
+      return $(this).each(function() {
+        if( $(this).parent().find('.flash_message').get(0) )
+          return;
+        
+        var message = $('<span />', {
+          'class': 'flash_message ' + options.class_name,
+          text: options.text
+        }).hide().fadeIn('fast');
+        
+        $(this)[options.how](message);
+        
+        message.delay(options.time).fadeOut('normal', function() {
+          $(this).remove();
+        });
+        
+      });
+    };
                 
                 
             });

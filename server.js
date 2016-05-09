@@ -9,6 +9,9 @@ var sslRedirect = require('heroku-ssl-redirect');
 
 var fs = require('fs');
 
+var flash = require('connect-flash');
+
+
 
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -33,6 +36,7 @@ const queryString = require('query-string');
 var app = express();
 
 app.use(sslRedirect());
+app.use(flash());
 
 app.set('view engine', 'ejs');
 
@@ -113,10 +117,11 @@ app.get('/login', function(req, res) {
     noMatch: null,
     userCreated: null
   });
+  
 }); 
 
 
-app.post('/login', passport.authenticate('local', {successRedirect: '/production', failureRedirect:'/login'}));
+app.post('/login', passport.authenticate('local', {successRedirect: '/production', failureRedirect:'/login?bad-cred',failureFlash : true }));
 
 
 app.get('/logout', function(req, res) {
@@ -900,6 +905,7 @@ app.get('/checkout-production', function(req, res) {
     });
 });
 
+
 app.post('/checkout-production', function(req, res) {
   var removeQty = req.body.removeQty;
   var toolId = req.body.id;
@@ -961,7 +967,12 @@ app.post('/checkout-production', function(req, res) {
                       console.log('There was an error saving checkout to db: ' + err);
                     } else {
                       console.log('Checkout Saved to the db: ');
-                      
+                      if ( tool.qty <= tool.autoOrderQty && (tool.autoOrderQty != null)) {
+                        // send email to tooling representative
+                        dbAuth.returnUserData(userId, function(userObj) {
+                            emailRepresentative(tool, userObj);
+                        });
+                      }
                       res.render('checkout-production', {
                         isAuthenticated: req.isAuthenticated(),
                         user: req.user,

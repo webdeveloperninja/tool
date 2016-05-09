@@ -63,7 +63,15 @@ p.table-value {
 }
 
 .tool-list-table {
-    margin-top: 15px;
+    margin-top: 0px;
+}
+
+.flash_message { 
+    font-size: 19px; 
+    color: red;
+    display:block;
+    margin-left:auto;margin-right:auto;
+    text-align: center;
 }
 
 p.hello {
@@ -189,10 +197,19 @@ input.submit.btn.btn-primary {
     float: none;
 }
 
+.search {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid rgba(81, 203, 238, 1);
+}
+
 .auto-email {
     width: 130px;
     display: inline-block;
-    margin-left: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
 .video-heading {

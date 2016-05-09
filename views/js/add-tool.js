@@ -1,5 +1,8 @@
 
 $(document).ready(function() {
+    
+    $('[data-toggle="tooltip"]').tooltip();
+    
     $('#custom-tool-type-input').hide();
     $('#custom-tool-type').click(function() {
         $("#custom-tool-type-input").toggle(this.checked);
