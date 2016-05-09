@@ -170,12 +170,24 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                        <h3 class="text-center">Checkouts List</h3>
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <a href="/clear-checkouts" class="btn btn-danger" onclick="return confirm('Are you sure you want to clear checkouts?')">Clear Checkouts</a>
+                    <div class="panel panel-default tools-list-panel">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4 text-center">
+                                    Checkouts List
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <a href="/clear-checkouts" class="btn btn-danger pull-right" onclick="return confirm('Are you sure you want to clear checkouts?')">Clear Checkouts</a>
+                                </div>
                             </div>
                         </div>
+                        <div class="panel-body" id="checkouts">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input class="search form-control" placeholder="Search" />
+                                </div>
+                            </div>
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
@@ -187,12 +199,12 @@
                                         <td>Checkout Qty</td>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="list">
                                      <% for (var i=0; i<checkouts.length; i++) {%>
                                     <tr>
-                                        <td><p class="table-value"> <%= checkouts[i].shortName %></p></td>
-                                        <td><p class="table-value"> <%= checkouts[i].operatorName %></p></td>
-                                        <td><p class="table-value"> <%= checkouts[i].jobName %></p></td>
+                                        <td><p class="table-value toolName"> <%= checkouts[i].shortName %></p></td>
+                                        <td><p class="table-value operatorName"> <%= checkouts[i].operatorName %></p></td>
+                                        <td><p class="table-value jobName"> <%= checkouts[i].jobName %></p></td>
                                         <td><p class="table-value"> <%= checkouts[i].checkoutDate.toLocaleDateString()  %></p></td>
                                         <td><p class="table-value"> <%= checkouts[i].checkoutQty %></p></td> 
                                     </tr>
@@ -200,6 +212,9 @@
                                 </tbody>
                             </table>
                         </div>
+                        </div>
+                    </div>
+
                     <% } %>
                 </div>
             </div>
@@ -207,7 +222,18 @@
         </div>
         <script src="../bower_components/jquery/dist/jquery.min.js"></script>
         <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="bower_components/list.js/dist/list.min.js"></script>
         <script src="../js/app.js"></script>
+
+        <script>
+                
+            var options = {
+              valueNames: [ 'toolName', 'operatorName', 'jobName' ]
+            };
+            
+            
+            var userList = new List('checkouts', options);
+        </script>
         
         
 

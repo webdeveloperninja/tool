@@ -149,8 +149,8 @@
       </div>
     </nav>
     <% }  %>
+    <div class="container">
     <% if (isAuthenticated) { %>
-        <div class="container">
             <div class="row">
                 <div class="col-sm-4">
                 </div>
@@ -161,12 +161,20 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
-                        <h3 class="text-center">Jobs List</h3>
-                            <div class="row">
+            
+<div class="panel tools-list-panel panel-default">
+    <div class="panel-heading">Jobs List</div>
+    <div class="panel-body">
+        <div id="jobs">
+                             <div class="row">
                                 <div class="col-md-4 col-md-offset-4">
                                     <div id="status-area">
                                     </div>
+                                </div>
+                            </div>   
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input class="search form-control" placeholder="Search" />
                                 </div>
                             </div>
                         <div class="table-responsive">
@@ -182,13 +190,13 @@
     
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="list">
                                      <% for (var i=0; i<jobs.length; i++) {%>
                                      
                                     <tr>
-                                        <td><p class="table-value"> <%= jobs[i].jobName %></p></td>
+                                        <td><p class="table-value name"> <%= jobs[i].jobName %></p></td>
                                         <td><p class="table-value"> <%= jobs[i].jobId %></p></td>
-                                        <td><p class="table-value"> <%= jobs[i].companyName %> </p></td>
+                                        <td><p class="table-value company"> <%= jobs[i].companyName %> </p></td>
                                         <td><p class="table-value"> <%= jobs[i].qtyDue %></p></td>
                                         <td><p class="table-value"> <%= jobs[i].dueDate.toLocaleDateString() %></p></td>
                                         <td>
@@ -197,13 +205,25 @@
                                     </tr>
                                     <% } %>
                                 </tbody>
+                                    <!-- This is Strang -->
+                                    <div style="display:none;">
+                                      <!-- A template element is needed when list is empty, TODO: needs a better solution -->
+                                      <tr id="hacker-item">
+
+                                      </tr>
+                                    </div>
                             </table>
                         </div>
+    </div>
+    </div>
+</div>
+
+
                     <% } %>
+                    
                 </div>
             </div>
             
-        </div>
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog model-dialog-admin">
@@ -234,6 +254,7 @@
 </div>
         <script src="../bower_components/jquery/dist/jquery.min.js"></script>
         <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="bower_components/list.js/dist/list.min.js"></script>
         <script>
             $(document).ready(function(){
             
@@ -277,7 +298,7 @@
                         authenticate(adminUsername, adminPassword);
                 });
                 
-    $.fn.flash_message = function(options) {
+                $.fn.flash_message = function(options) {
       
       options = $.extend({
         text: 'Done',
@@ -304,13 +325,16 @@
       });
     };
                 
+                $("form.productionLogin").submit(function(e){
+                    e.preventDefault();
+                });
                 
-                
-                
- //option A
-    $("form.productionLogin").submit(function(e){
-        e.preventDefault();
-    });
+            var options = {
+              valueNames: [ 'name', 'company' ]
+            };
+            
+            
+            var userList = new List('jobs', options);
                 
             });
         </script>
