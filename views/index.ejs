@@ -156,7 +156,13 @@
     <div class="panel-heading">
         Tool List
     </div>
-    <div class="panel-body ">
+    <div id="users">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3">
+                <input class="search form-control" placeholder="Search" />
+            </div>
+        </div>
         <div class="row">
                 <div class="col-md-12">
                         <div class="table-responsive">
@@ -173,14 +179,14 @@
                                         <td class="text-center">Min Amount</td>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="list">
                                      <% for (var i=0; i<tools.length; i++) {%>
                                      
                                     <tr>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].diameter %>" <%= tools[i].toolType %> <%= tools[i].toolTypeCustom %></p></a></td>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value name"> <%= tools[i].diameter %>" <%= tools[i].toolType %> <%= tools[i].toolTypeCustom %></p></a></td>
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].toolType %> <%= tools[i].toolTypeCustom %> </p></a></td>
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].diameter %>"</p></a></td>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].material %> <%= tools[i].toolMaterialCustom %></p></a></td>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value material"> <%= tools[i].material %> <%= tools[i].toolMaterialCustom %></p></a></td>
                                         <!--<td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].brand %> <%= tools[i].toolBrandCustom %> </p></a></td>-->
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].qty %> </p></a></td>
                                         <td class="action-btn-td">
@@ -201,6 +207,13 @@
                                         
                                     </tr>
                                     <% } %>
+                                    <!-- This is Strang -->
+                                    <div style="display:none;">
+                                      <!-- A template element is needed when list is empty, TODO: needs a better solution -->
+                                      <tr id="hacker-item">
+
+                                      </tr>
+                                    </div>
                                 </tbody>
                             </table>
                         </div><!-- end table responsive-->
@@ -208,6 +221,7 @@
                 </div>   
         </div>
     </div>
+    </div><!-- end #users -->
   </div>
 
             </div>
@@ -217,9 +231,21 @@
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="js/admin-tool-list.js"></script>
+        <script src="bower_components/list.js/dist/list.min.js"></script>
         <script src="js/app.js"></script>
         
-        
+        <script>
+            $(document).ready(function() {
+            var options = {
+              valueNames: [ 'name', 'material' ]
+            };
+            
+            
+            var userList = new List('users', options);
+            
+            
+            });
+        </script>
 
         
     </body>
