@@ -241,7 +241,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Admin Login</h4>
       </div>
-      
+      <form class="productionLogin">
       <div class="modal-body" id="admin-modal">
         <div class="form-group">
             <label>Username:</label>
@@ -251,9 +251,10 @@
             <label>Password:</label>
             <input id="adminPassword" class="form-control" type="password">
         </div>
-        <a  class="btn btn-primary" id="adminSubmit">Log In</a>
+        <button type="submit" class="btn btn-primary" id="adminSubmit">Log In</button>
         <button type="button"  class="btn btn-default pull-right" data-dismiss="modal">Close</button>
       </div>
+      </form>
      
     </div>
 
@@ -342,6 +343,13 @@ $.fn.flash_message = function(options) {
       });
     };
                 
+                
+                
+                
+ //option A
+    $("form.productionLogin").submit(function(e){
+        e.preventDefault();
+    });
                 
             });
         </script>
