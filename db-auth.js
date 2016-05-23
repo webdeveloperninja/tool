@@ -13,15 +13,7 @@ var usersSchema = new mongoose.Schema({
 
 var toolsSchema = new mongoose.Schema({
     userId: String,
-    toolType: String,
-    toolTypeCustom: String,
-    brand: String,
-    toolBrandCustom: String,
-    diameter: Number,
-    toolLength: Number,
-    material: String,
-    toolMaterialCustom: String,
-    modelNumber: Number,
+    toolName: String,
     qty: Number,
     autoOrderQty: Number,
     idealAmount: Number

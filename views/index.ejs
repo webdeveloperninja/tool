@@ -182,9 +182,6 @@
                                 <thead>
                                     <tr class="tool-list-heading">
                                         <td>Name</td>
-                                        <td>Type</td>
-                                        <td>Diameter</td>
-                                        <td>Material</td>
                                         <!--<td>Brand</td>-->
                                         <td>Qty</td>
                                         <td class="text-center">Actions</td>
@@ -195,26 +192,22 @@
                                      <% for (var i=0; i<tools.length; i++) {%>
                                      
                                     <tr>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value name"> <%= tools[i].diameter %>" <%= tools[i].toolType %> <%= tools[i].toolTypeCustom %></p></a></td>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].toolType %> <%= tools[i].toolTypeCustom %> </p></a></td>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].diameter %>"</p></a></td>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value material"> <%= tools[i].material %> <%= tools[i].toolMaterialCustom %></p></a></td>
-                                        <!--<td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].brand %> <%= tools[i].toolBrandCustom %> </p></a></td>-->
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].qty %> </p></a></td>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value name"> <%= tools[i].toolName %></p></a></td>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value name"> <%= tools[i].qty %></p></a></td>
                                         <td class="action-btn-td">
                                             <div class="text-center">
                                                 <ul class="action-btns">
                                                   <li><a class="btn btn-primary table-btn" href="/edit/?toolId=<%= tools[i]._id %>">Edit</a></li>
-                                                  <li><a class="btn btn-success  table-btn" href="/checkout/?toolId=<%= tools[i]._id %>">Checkout</a></li>
-                                                  <li><a class="btn btn-success table-btn" href="/add/?toolId=<%= tools[i]._id %>">Add Qty</a></li>
+                                                  <li><a class="btn btn-primary  table-btn" href="/checkout/?toolId=<%= tools[i]._id %>">Checkout</a></li>
+                                                  <li><a class="btn btn-primary table-btn" href="/add/?toolId=<%= tools[i]._id %>">Add Qty</a></li>
                                                   <li><a class="btn btn-danger table-btn" href="/remove/?toolId=<%= tools[i]._id %>" onclick="return confirm('Are you sure you want to remove tool?')">Remove Tool</a></li>
                                                 </ul>
                                             </div>
                                         
                                         </td>
 
-                                        <td>
-                                            <input class="form-control auto-email" placeholder="No Min Amount" readonly value="<%= tools[i].autoOrderQty %>" data-toggle="tooltip" data-placement="bottom" title="When tool qty reaches this point more tools will be ordered.">
+                                        <td class="text-center">
+                                            <a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value name"><% if(!tools[i].autoOrderQty) {%> No Auto Order<% } %> <%= tools[i].autoOrderQty %></p></a>
                                         </td>
                                         
                                     </tr>

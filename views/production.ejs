@@ -182,9 +182,6 @@
                                 <thead>
                                     <tr class="tool-list-heading">
                                         <td>Name</td>
-                                        <td>Type</td>
-                                        <td>Diameter</td>
-                                        <td>Material</td>
                                         <!--<td>Brand</td>-->
                                         <td>Qty</td>
                                         <td class="text-center">Actions</td>
@@ -194,11 +191,7 @@
                                      <% for (var i=0; i<tools.length; i++) {%>
                                      
                                     <tr>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value name"> <%= tools[i].diameter %>" <%= tools[i].toolType %> <%= tools[i].toolTypeCustom %></p></a></td>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].toolType %> <%= tools[i].toolTypeCustom %> </p></a></td>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].diameter %>"</p></a></td>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value material"> <%= tools[i].material %> <%= tools[i].toolMaterialCustom %></p></a></td>
-                                        <!--<td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].brand %> <%= tools[i].toolBrandCustom %> </p></a></td>-->
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value name"><%= tools[i].toolName %></p></a></td>
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].qty %> </p></a></td>
                                         <td class="text-center">
                                             <a class="btn btn-success  table-btn production-checkout-btn" href="/checkout-production/?toolId=<%= tools[i]._id %>">Checkout</a>

@@ -75,27 +75,8 @@
         <% } %>
                                 <form action="" method="post">
                                 <div class="form-group">
-                                    <label>Tool Type:</label>
-                                    <input class="form-control" name="toolType" value="<%=tool.toolType%> <%=tool.toolTypeCustom%>" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Brand:</label>
-                                    <input class="form-control" name="brand" value="<%=tool.brand %> <%=tool.toolBrandCustom%>" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Material:</label>
-                                    <input class="form-control" name="material" value="<%=tool.material %> <%=tool.toolMaterialCustom%>" required>
-                                </div>
-                                <div class="form-group">Tool Length</label>
-                                    <input class="form-control" name="toolLength" value="<%= tool.toolLength %>" min="0">
-                                </div>
-                                <div class="form-group">
-                                    <label>Tool Diameter:</label>
-                                    <input class="form-control" name="toolDiameter" value="<%= tool.diameter %>" min="0">
-                                </div>
-                                <div class="form-group">
-                                    <label>Tool Model Number:</label>
-                                    <input class="form-control" name="toolModelNumber" value="<%= tool.modelNumber %>" min="0">
+                                    <label>Tool Name:</label>
+                                    <input class="form-control"value="<%= tool.toolName %>" name="toolName" required>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">

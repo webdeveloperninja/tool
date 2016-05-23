@@ -355,26 +355,21 @@ app.post('/checkout', function(req, res) {
 
 /* Add Tool */
 app.get('/add-tool', function(req, res) {
+    // return properties 
+    if (req.isAuthenticated()) {
       res.render('add-tool', {
         isAuthenticated: req.isAuthenticated(),
         user: req.user
       });
+    } else {
+      res.redirect('/login');
+    }
 });
 
 app.post('/add-tool', function(req, res) {
-    var shortName = req.body.toolDiameter + ' ' + req.body.toolType + ' ' + req.body.toolTypeCustom;
     var toolObj = {
       userId: req.body.userId,
-      toolType: req.body.toolType,
-      shortName: shortName,
-      toolTypeCustom: req.body.toolTypeCustom,
-      brand: req.body.brand,
-      toolBrandCustom: req.body.toolBrandCustom,
-      diameter: req.body.toolDiameter, 
-      toolLength: req.body.toolLength,
-      material: req.body.material,
-      toolMaterialCustom: req.body.toolMaterialCustom,
-      modelNumber: req.body.toolModelNumber,
+      toolName: req.body.toolName,
       toolTypeCustom: req.body.toolTypeCustom,
       qty: req.body.qty,
       autoOrderQty: req.body.autoOrderQty,
@@ -449,49 +444,55 @@ if (req.isAuthenticated()) {
 
 /* Update Tool */
 app.get('/edit', function(req, res) {
-    // need to send tool id
-    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-    var toolId = checkoutToolIdQuery(fullUrl);
-    var userId = req.user._id;
-    dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-      res.render('update-tool', {
-        isAuthenticated: req.isAuthenticated(),
-        user: req.user,
-        tool: tool,
-        updateSuccess: false
+    if (req.isAuthenticated()) {
+      // need to send tool id
+      var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+      var toolId = checkoutToolIdQuery(fullUrl);
+      var userId = req.user._id;
+      dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
+        res.render('update-tool', {
+          isAuthenticated: req.isAuthenticated(),
+          user: req.user,
+          tool: tool,
+          updateSuccess: false
+        });
       });
-    });
+    } else {
+      res.redirect('/login');
+    }
+
 });
 app.post('/edit', function(req, res) {
-    var toolObj = {
-      userId: req.body.userId,
-      toolType: req.body.toolType,
-      brand: req.body.brand,
-      diameter: req.body.toolDiameter, 
-      toolLength: req.body.toolLength,
-      material: req.body.material,
-      modelNumber: req.body.toolModelNumber,
-      qty: req.body.qty,
-      autoOrderQty: req.body.autoOrderQty,
-      idealAmount: req.body.idealAmount
+    if (req.isAuthenticated()) {
+      var toolObj = {
+        userId: req.body.userId,
+        toolName: req.body.toolName,
+        qty: req.body.qty,
+        autoOrderQty: req.body.autoOrderQty,
+        idealAmount: req.body.idealAmount
+      }
+      
+      dbAuth.editSingleTool(toolObj.userId, req.body.toolId, toolObj, function(err){
+        if (err) {
+          console.log(err);  
+        } else {
+        console.log('Updated Successfully');
+        
+          dbAuth.returnSingleTool(toolObj.userId, req.body.toolId, function(err, tool) {
+            res.render('update-tool', {
+              isAuthenticated: req.isAuthenticated(),
+              user: req.user,
+              tool: tool,
+              updateSuccess: true
+            });
+          });
+        }
+      });
+    } else {
+      res.redirect('/login');
     }
     
-    dbAuth.editSingleTool(toolObj.userId, req.body.toolId, toolObj, function(err){
-      if (err) {
-        console.log(err);  
-      } else {
-      console.log('Updated Successfully');
-      
-        dbAuth.returnSingleTool(toolObj.userId, req.body.toolId, function(err, tool) {
-          res.render('update-tool', {
-            isAuthenticated: req.isAuthenticated(),
-            user: req.user,
-            tool: tool,
-            updateSuccess: true
-          });
-        });
-      }
-    });
+
     
     
 });
