@@ -4,7 +4,10 @@
 
 body {
     padding-top: 75px;
+    background-image: url("http://www.preventon.com/wp-content/uploads/2014/03/background-cloud.jpg");
     overflow-x: hidden;
+    background-repeat: no-repeat;
+    background-repeat: repeat-x;
 }
 
 table {
