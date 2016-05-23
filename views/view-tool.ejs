@@ -64,28 +64,10 @@
                             <div class="panel-heading">View Tool</div>
                             <div class="panel-body">
                                 <form action="" method="post">
+
                                 <div class="form-group">
-                                    <label>Tool Type:</label>
-                                    <input class="form-control" name="toolLength" value="<%= tool.toolType || tool.toolTypeCustom %>" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label>Brand:</label>
-                                    <input class="form-control" name="toolLength" value="<%= tool.brand || tool.toolBrandCustom %>" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label>Material:</label>
-                                    <input class="form-control" name="toolLength" value="<%= tool.material || tool.toolMaterialCustom %>" readonly>
-                                </div>
-                                <div class="form-group">Tool Length</label>
-                                    <input class="form-control" name="toolLength" value="<%= tool.toolLength %>" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label>Tool Diameter:</label>
-                                    <input class="form-control" name="toolDiameter" value="<%= tool.diameter %>" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label>Tool Model Number:</label>
-                                    <input class="form-control" name="toolModelNumber" value="<%= tool.modelNumber %>" readonly>
+                                    <label>Tool Name:</label>
+                                    <input class="form-control" name="toolName" value="<%= tool.toolName %>" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Qty:</label>
