@@ -4,6 +4,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="styles.css" rel="stylesheet">
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        
+          ga('create', 'UA-77516816-1', 'auto');
+          ga('send', 'pageview');
+        
+        </script>
     </head>
     <body>
     <nav class="navbar navbar-inverse navbar-fixed-top __web-inspector-hide-shortcut__">
@@ -24,7 +35,7 @@
           <ul class="nav navbar-nav navbar-right">
             <% if (!isAuthenticated) { %>
                 <li><a href="/tutorials">Features</a></li>
-                <li><a href="/choose-a-plan">Try It Free</a></li>
+                <!--<li><a href="/choose-a-plan">Try It Free</a></li>-->
                 <li><a href="/login">Log in here</a></li>
             <% } else { %>
                         <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
@@ -101,7 +112,7 @@
                         <div class="video-container">
                             <iframe width="560" height="315" src="https://www.youtube.com/embed/Q5iWelPDc1Q?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
                         </div><br>
-                        <a href="/choose-a-plan" class="btn btn-success sign-up-btn">Start your 10 Day Trial!</a>
+                        <!--<a href="/choose-a-plan" class="btn btn-success sign-up-btn">Start your 10 Day Trial!</a>-->
                       </div>
                     </div>
                      </div>
@@ -152,9 +163,18 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-12">
   <div class="panel tools-list-panel panel-default">
-    <div class="panel-heading">Tool List</div>
-    <div class="panel-body ">
+    <div class="panel-heading">
+        Tool List
+    </div>
+    <div id="users">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3">
+                <input class="search form-control" placeholder="Search" />
+            </div>
+        </div>
         <div class="row">
                 <div class="col-md-12">
                         <div class="table-responsive">
@@ -168,32 +188,44 @@
                                         <!--<td>Brand</td>-->
                                         <td>Qty</td>
                                         <td class="text-center">Actions</td>
+                                        <td class="text-center">Min Amount</td>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="list">
                                      <% for (var i=0; i<tools.length; i++) {%>
                                      
                                     <tr>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].diameter %>" <%= tools[i].toolType %> <%= tools[i].toolTypeCustom %></p></a></td>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value name"> <%= tools[i].diameter %>" <%= tools[i].toolType %> <%= tools[i].toolTypeCustom %></p></a></td>
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].toolType %> <%= tools[i].toolTypeCustom %> </p></a></td>
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].diameter %>"</p></a></td>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].material %> <%= tools[i].toolMaterialCustom %></p></a></td>
+                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value material"> <%= tools[i].material %> <%= tools[i].toolMaterialCustom %></p></a></td>
                                         <!--<td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].brand %> <%= tools[i].toolBrandCustom %> </p></a></td>-->
                                         <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].qty %> </p></a></td>
-                                        <td>
-                                            <a class="btn btn-primary table-btn" href="/edit/?toolId=<%= tools[i]._id %>">Edit</a>
-                                            <a class="btn btn-success  table-btn" href="/checkout/?toolId=<%= tools[i]._id %>">Checkout</a>
-                                            <a class="btn btn-success table-btn" href="/add/?toolId=<%= tools[i]._id %>">Add Tool Qty</a>
-                                            <a class="btn btn-danger table-btn" href="/remove/?toolId=<%= tools[i]._id %>" onclick="return confirm('Are you sure you want to remove tool?')">Remove Tool</a>
-                                            </p>
+                                        <td class="action-btn-td">
+                                            <div class="text-center">
+                                                <ul class="action-btns">
+                                                  <li><a class="btn btn-primary table-btn" href="/edit/?toolId=<%= tools[i]._id %>">Edit</a></li>
+                                                  <li><a class="btn btn-success  table-btn" href="/checkout/?toolId=<%= tools[i]._id %>">Checkout</a></li>
+                                                  <li><a class="btn btn-success table-btn" href="/add/?toolId=<%= tools[i]._id %>">Add Qty</a></li>
+                                                  <li><a class="btn btn-danger table-btn" href="/remove/?toolId=<%= tools[i]._id %>" onclick="return confirm('Are you sure you want to remove tool?')">Remove Tool</a></li>
+                                                </ul>
+                                            </div>
+                                        
                                         </td>
-                                        <!--
+
                                         <td>
-    
+                                            <input class="form-control auto-email" placeholder="No Min Amount" readonly value="<%= tools[i].autoOrderQty %>" data-toggle="tooltip" data-placement="bottom" title="When tool qty reaches this point more tools will be ordered.">
                                         </td>
-                                        -->
+                                        
                                     </tr>
                                     <% } %>
+                                    <!-- This is Strang -->
+                                    <div style="display:none;">
+                                      <!-- A template element is needed when list is empty, TODO: needs a better solution -->
+                                      <tr id="hacker-item">
+
+                                      </tr>
+                                    </div>
                                 </tbody>
                             </table>
                         </div><!-- end table responsive-->
@@ -201,6 +233,8 @@
                 </div>   
         </div>
     </div>
+    </div><!-- end #users -->
+  </div>
   </div>
 
             </div>
@@ -209,9 +243,22 @@
     </div>
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="js/admin-tool-list.js"></script>
+        <script src="bower_components/list.js/dist/list.min.js"></script>
         <script src="js/app.js"></script>
         
-        
+        <script>
+            $(document).ready(function() {
+            var options = {
+              valueNames: [ 'name', 'material' ]
+            };
+            
+            
+            var userList = new List('users', options);
+            
+            
+            });
+        </script>
 
         
     </body>
