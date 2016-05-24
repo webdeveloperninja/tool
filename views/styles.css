@@ -21,6 +21,10 @@ h5 {
     margin-top: 20px;
 }
 
+p {
+    font-size: 20px;
+}
+
 .tools-list-panel {
     margin-top: 18px;
     border: 1px solid black;

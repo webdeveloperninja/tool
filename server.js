@@ -791,6 +791,7 @@ app.get('/remove-operator', function(req, res) {
 });
 
 app.get('/remove-job', function(req, res) {
+  
     // need to send tool id
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     // rename this function checkoutToolIdQuery
@@ -874,35 +875,33 @@ app.get('/production', function(req, res) {
       });
     }); 
   } else {
-    res.render('login', {
-      isAuthenticated: req.isAuthenticated(),
-      user: req.user,
-      succesfullyCreateUser : null,
-      badPassword: null,
-      noMatch: null
-    });
+    res.redirect('login');
   }
 });
 
 app.get('/checkout-production', function(req, res) {
-    // need to send tool id
-    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-    var toolId = checkoutToolIdQuery(fullUrl);
-    var userId = req.user._id;
-    req.body.qtyRemove = null;
-    dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-      console.log('success');
-      console.log(tool);
-      // find tool and render tool 
-      res.render('checkout-production', {
-        isAuthenticated: req.isAuthenticated(),
-        user: req.user,
-        tool: tool,
-        qtyRemove: null,
-        operatorFound: null,
-        jobFound: null
-      });
-    });
+    if (req.isAuthenticated()) {
+        // need to send tool id
+        var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+        var toolId = checkoutToolIdQuery(fullUrl);
+        var userId = req.user._id;
+        req.body.qtyRemove = null;
+        dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
+          console.log('success');
+          console.log(tool);
+          // find tool and render tool 
+          res.render('checkout-production', {
+            isAuthenticated: req.isAuthenticated(),
+            user: req.user,
+            tool: tool,
+            qtyRemove: null,
+            operatorFound: null,
+            jobFound: null
+          });
+        }); 
+    } else {
+        res.redirect('login')
+    }
 });
 
 
@@ -961,8 +960,7 @@ app.post('/checkout-production', function(req, res) {
                 console.log('Error: ' + err);
               } else {
               dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-                  var shortName = tool.diameter + ' diameter ' + tool.material + " " + tool.toolType + tool.toolTypeCustom; 
-                  dbAuth.saveCheckout(userId, toolId, removeQty, shortName, job, operatorObj, function(err) {
+                  dbAuth.saveCheckout(userId, toolId, removeQty, tool.toolName, job, operatorObj, function(err) {
                     if (err) {
                       console.log('There was an error saving checkout to db: ' + err);
                     } else {

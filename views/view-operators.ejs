@@ -35,120 +35,6 @@
       </div>
     </nav>
     <div class="container">
-    <% if (!isAuthenticated) { %>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h1>Cloud tooling inventory control software. <strong class="green">Store, manage &amp; Report.</strong></h1>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non neque ac ex condimentum 
-                    condimentum id id est. Vestibulum nec orci dolor. Vivamus nisi neque, ornare nec porta sed, 
-                    accumsan a risus. Donec luctus ultrices euismod. In laoreet mi vitae tincidunt congue. Nunc 
-                    varius massa nec enim accumsan, ac semper justo viverra. Fusce pharetra pharetra odio, et 
-                    mattis dui pharetra id. Mauris ac ipsum purus. Aliquam eleifend mattis commodo. Sed fermentum
-                    eu risus quis finibus. Integer non nisl ligula. In mattis eget elit quis elementum. Pellentes
-                    que placerat velit vitae aliquam elementum. Suspendisse aliquam placerat augue et efficitur. 
-                    Ut eget aliquam metus. Nam quis rutrum velit.
-                </p>
-                 <div class="row">
-                     <div class="col-md-4">
-                         <h2 class="text-center">Store</h2>
-                         <img src="images/storage.jpg" class="img-responsive thumbnail img-center">
-                     </div>
-                     <div class="col-md-4">
-                         <h2 class="text-center">Manage</h2>
-                         <img src="images/managment.jpg" class="img-responsive thumbnail img-center">
-                     </div>
-                     <div class="col-md-4">
-                         <h2 class="text-center">Report</h2>
-                         <img src="images/report.jpg" class="img-responsive thumbnail img-center">
-                     </div>
-                 </div>
-                 <div class="row">
-                     <div class="col-md-6 col-md-offset-3">
-                         <hr>
-                     </div>
-                 </div>
-                 <div class="row quote-row">
-                     <div class="col-md-12">
-                         <p class="quote">
-                             <strong>CloudCrib.io</strong> has allowed us to compete with over seas manufactures by 
-                             streamlining our inventory and allowing us to run leaner and more efficeient!
-                             <br>
-                             <strong>Robert Smith</strong> - Agency Compliance Services
-                         </p>
-                     </div>
-                 </div>
-                 <div class="row">
-                     <div class="col-md-6 col-md-offset-3">
-                         <hr>
-                     </div>
-                 </div>
-                 <div class="row">
-                     <div class="col-md-4">
-                         <p class="small-quote">
-                             We are AMAZED with the impact CloudCrib.io has had on our shop!<br>
-                             <strong class="green">Nick James</strong> - Haven Manufacturing
-                        </p>
-                     </div>
-                     <div class="col-md-4">
-                         <p class="small-quote">
-                             Looking to more accuratly keep track of tooling cost per job? CloudCrib.io is the
-                             tool for you.<br>
-                             <strong class="green">Dave Mullinix</strong> - Weldmonger
-                        </p>
-                     </div>
-                     <div class="col-md-4">
-                         <p class="small-quote">
-                             Using CloudCrib.io's analytics we see tooling trends that we would never even have thought of.<br>
-                             <strong class="green">Sandy Smith</strong> - Trusted Manufacturing
-                         </p>
-                     </div>
-                 </div>
-                 <div class="row">
-                     <div class="col-md-6 col-md-offset-3">
-                         <hr>
-                     </div>
-                 </div>
-                 <div class="row">
-                     <div class="col-md-6 col-md-offset-3">
-                         <a href="/sign-up" class="btn btn-success sign-up-btn">Try It Free!</a>
-                     </div>
-                 </div>
-                 <div class="row">
-                     <div class="col-md-8 col-md-offset-2">
-                         <div class="video-container">
-                             <iframe width="560" height="315" src="https://www.youtube.com/embed/12rM7PztSDQ?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-                         </div>
-                     </div>
-                 </div>
-            </div>
-        </div>
-</div>
-<nav class="navbar navbar-inverse footer-navbar">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">ToolingInventory.com</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            
-                <li><a href="/sign-up">Sign Up</a></li>
-                <li><a href="/login">Log in here</a></li>
-            
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-    <% }  %>
     <% if (isAuthenticated) { %>
         <div class="container">
             <div class="row">
@@ -174,8 +60,8 @@
                                     <div class="panel-heading">View Operators</div>
                                     <div class="panel-body" id="operators">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <input class="search form-control" placeholder="Search" />
+                                <div class="col-md-6">
+                                    <input class="search form-control home-search" placeholder="Search" />
                                 </div>
                             </div>
                                         <div class="table-responsive">
