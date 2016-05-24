@@ -26,6 +26,14 @@ h5 {
     border: 1px solid black;
 }
 
+.row.tools-row {
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+
+.tools-row:nth-child(odd) {background: rgba(51, 122, 183, 0.19);}
+
 
 .panel-default>.panel-heading {
     color: white;
@@ -51,7 +59,8 @@ body > div.container {
     font-size: 20px;
 }
 p.table-value {
-    font-size: 21px;
+    font-size: 32px;
+    margin: 0;
 }
 
 .remove-glif {
@@ -199,6 +208,13 @@ input.submit.btn.btn-primary {
 
 .production-checkout-btn {
     float: none;
+    font-size: 22px;
+}
+
+.production-search {
+    font-size: 50px;
+    height: 59px;
+    margin-bottom: 20px !important;
 }
 
 .search {

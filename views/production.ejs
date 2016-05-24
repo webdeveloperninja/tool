@@ -173,46 +173,26 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3">
-                                    <input class="search form-control" placeholder="Search" />
+                                <div class="col-md-6">
+                                    <input class="search form-control production-search" placeholder="Search" />
                                 </div>
                             </div>
-                            <div class="table-responsive">
-                            <table class="table table-striped tool-list-table">
-                                <thead>
-                                    <tr class="tool-list-heading">
-                                        <td>Name</td>
-                                        <!--<td>Brand</td>-->
-                                        <td>Qty</td>
-                                        <td class="text-center">Actions</td>
-                                    </tr>
-                                </thead>
-                                <tbody class="list">
-                                     <% for (var i=0; i<tools.length; i++) {%>
-                                     
-                                    <tr>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value name"><%= tools[i].toolName %></p></a></td>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].qty %> </p></a></td>
-                                        <td class="text-center">
+                            <div class="list">
+                                <% for (var i=0; i<tools.length; i++) {%>
+                                    <div class="row tools-row">
+                                        <div class="col-md-7">
+                                            <a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value name"><%= tools[i].toolName %></p></a>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> <%= tools[i].qty %> </p></a>
+                                        </div>
+                                        <div class="col-md-3">
                                             <a class="btn btn-success  table-btn production-checkout-btn" href="/checkout-production/?toolId=<%= tools[i]._id %>">Checkout</a>
-                                        </td>
-                                        <!--
-                                        <td>
-    
-                                        </td>
-                                        -->
-                                    </tr>
-                                    <% } %>
-                                    <!-- This is Strang -->
-                                    <div style="display:none;">
-                                      <!-- A template element is needed when list is empty, TODO: needs a better solution -->
-                                      <tr id="hacker-item">
-
-                                      </tr>
+                                        </div>
                                     </div>
-                                </tbody>
-                            </table>
+                                <% } %>
                             </div>
+
                         </div><!-- end table responsive-->
                     <% } %>
                 </div>   
