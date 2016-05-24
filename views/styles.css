@@ -31,8 +31,20 @@ h5 {
     padding-bottom: 13px;
 }
 
+.tools-row-admin {
+
+}
+
+.admin-header {
+    font-size: 21px;
+    font-weight: bold;
+}
 
 .tools-row:nth-child(odd) {background: rgba(51, 122, 183, 0.19);}
+
+.table-btn-p {
+    font-size: 23px !important;
+}
 
 
 .panel-default>.panel-heading {
@@ -243,12 +255,17 @@ input.submit.btn.btn-primary {
     color: #167ac6;
 }
 
+.name-title {
+    text-align: left;
+}
+
 h4 {
     font-size: 17px;
 }
 
 .action-btns {
-    width: 378px;
+    width: 379px !important;
+    margin-top: -11px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -308,11 +325,27 @@ thead {
     font-size: 18px;
 }
 
+
+
     /*==========  Non-Mobile First Method  ==========*/
 
     /* Large Devices, Wide Screens */
     @media only screen and (max-width : 1200px) {
-
+        .action-btns {
+            margin-left: none;
+            margin-right: none;
+            width: 100% !important;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        
+        .action-btns>li {
+            float: none;
+        }
+        
+        .name-title {
+            text-align: center;
+        }
     }
 
     /* Medium Devices, Desktops */

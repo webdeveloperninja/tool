@@ -150,8 +150,6 @@
                     <a href="/my-account" class="btn btn-primary user-nav-btn">My Account</a>
                     <a href="/toolsCSV" class="btn btn-default user-nav-btn">Download Tool List</a>
                     <a href="/checkoutsCSV" class="btn btn-default user-nav-btn">Download Tool Usage</a>
-                    <a href="/" class="btn btn-default view-checkouts-btn active hidden-xl hidden-lg hidden-md hidden-sm user-nav-btn">Main Menu</a>
-                    <a href="/view-checkouts" class="btn btn-default view-checkouts-btn hidden-xl hidden-lg hidden-md hidden-sm user-nav-btn">View Checkouts</a>
                 </div>
                 <div class="col-sm-6 hidden-xs">
                     <a href="/add-tool" class="btn btn-primary pull-right view-checkouts-btn">Add Tool</a>
@@ -159,7 +157,6 @@
                     <a href="/view-jobs" class="btn btn-default pull-right view-checkouts-btn">View Jobs</a>
                     <a href="/view-operators" class="btn btn-default pull-right view-checkouts-btn">View Operators</a>
                     <a href="/" class="btn btn-default pull-right view-checkouts-btn active">Tool List</a>
-                    <!--<a href="/auto-order" class="btn btn-default pull-right ">Auto Order</a>-->
                 </div>
             </div>
             <div class="row">
@@ -175,54 +172,41 @@
                 <input class="search form-control home-search" placeholder="Search" />
             </div>
         </div>
+            <div class="row admin-header hidden-xs hidden-sm">
+                <div class="col-md-5">Name</div>
+                <div class="col-md-1 text-center">Qty</div>
+                <div class="col-md-1 text-center">Min</div>
+                <div class="col-md-5 text-center">Actions</div>
+            </div>
+            <div class="list">
+                <% for (var i=0; i<tools.length; i++) {%>
+                    <div class="row tools-row tools-row-admin">
+                        <div class="col-md-5">
+                            <a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value table-btn-p name name-title"> <%= tools[i].toolName %></p></a>
+                        </div>
+                        <div class="col-md-1 text-center">
+                            <a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value table-btn-p name"><span class="hidden-xl hidden-lg hidden-md">Qty: </span> <%= tools[i].qty %></p></a>
+                        </div>
+                        <div class="col-md-1 text-center">
+                            <a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value table-btn-p name"><span class="hidden-xl hidden-lg hidden-md">Min: </span><% if(!tools[i].autoOrderQty) {%> None <% } %> <%= tools[i].autoOrderQty %></p></a>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="text-center">
+                                <ul class="action-btns">
+                                    <li><a class="btn btn-primary table-btn" href="/edit/?toolId=<%= tools[i]._id %>">Edit</a></li>
+                                    <li><a class="btn btn-primary  table-btn" href="/checkout/?toolId=<%= tools[i]._id %>">Checkout</a></li>
+                                    <li><a class="btn btn-primary table-btn" href="/add/?toolId=<%= tools[i]._id %>">Add Qty</a></li>
+                                    <li><a class="btn btn-danger table-btn" href="/remove/?toolId=<%= tools[i]._id %>" onclick="return confirm('Are you sure you want to remove tool?')">Remove Tool</a></li>
+                                </ul>
+                            </div>
+                        </div>                    
+                    </div>
+                <% } %>              
+            </div>
+
         <div class="row">
                 <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table class="table table-striped tool-list-table">
-                                <thead>
-                                    <tr class="tool-list-heading">
-                                        <td>Name</td>
-                                        <!--<td>Brand</td>-->
-                                        <td>Qty</td>
-                                        <td class="text-center">Min Amount</td>
-                                        <td class="text-center">Actions</td>
-                                    </tr>
-                                </thead>
-                                <tbody class="list">
-                                     <% for (var i=0; i<tools.length; i++) {%>
-                                     
-                                    <tr>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value name"> <%= tools[i].toolName %></p></a></td>
-                                        <td><a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value name"> <%= tools[i].qty %></p></a></td>
 
-
-                                        <td class="text-center">
-                                            <a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value name"><% if(!tools[i].autoOrderQty) {%> No Auto Order<% } %> <%= tools[i].autoOrderQty %></p></a>
-                                        </td>
-                                        
-                                        <td class="action-btn-td">
-                                            <div class="text-center">
-                                                <ul class="action-btns">
-                                                  <li><a class="btn btn-primary table-btn" href="/edit/?toolId=<%= tools[i]._id %>">Edit</a></li>
-                                                  <li><a class="btn btn-primary  table-btn" href="/checkout/?toolId=<%= tools[i]._id %>">Checkout</a></li>
-                                                  <li><a class="btn btn-primary table-btn" href="/add/?toolId=<%= tools[i]._id %>">Add Qty</a></li>
-                                                  <li><a class="btn btn-danger table-btn" href="/remove/?toolId=<%= tools[i]._id %>" onclick="return confirm('Are you sure you want to remove tool?')">Remove Tool</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        
-                                    </tr>
-                                    <% } %>
-                                    <!-- This is Strang -->
-                                    <div style="display:none;">
-                                      <!-- A template element is needed when list is empty, TODO: needs a better solution -->
-                                      <tr id="hacker-item">
-
-                                      </tr>
-                                    </div>
-                                </tbody>
-                            </table>
-                        </div><!-- end table responsive-->
                     <% } %>
                 </div>   
         </div>
