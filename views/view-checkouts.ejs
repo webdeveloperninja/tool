@@ -192,7 +192,7 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr class="tool-list-heading">
-                                        <td>Tool Short Name</td>
+                                        <td>Tool Name</td>
                                         <td>Operator Name</td>
                                         <td>Job Name</td>
                                         <td>Checkout Date</td>
@@ -202,7 +202,7 @@
                                 <tbody class="list">
                                      <% for (var i=0; i<checkouts.length; i++) {%>
                                     <tr>
-                                        <td><p class="table-value toolName"> <%= checkouts[i].shortName %></p></td>
+                                        <td><p class="table-value toolName"> <%= checkouts[i].toolName %></p></td>
                                         <td><p class="table-value operatorName"> <%= checkouts[i].operatorName %></p></td>
                                         <td><p class="table-value jobName"> <%= checkouts[i].jobName %></p></td>
                                         <td><p class="table-value"> <%= checkouts[i].checkoutDate.toLocaleDateString()  %></p></td>

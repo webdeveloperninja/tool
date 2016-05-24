@@ -23,7 +23,7 @@ var checkoutsSchema = new mongoose.Schema({
     userId: String,
     toolId: String,
     checkoutQty: Number, 
-    shortName: String,
+    toolName: String,
     checkoutDate: Date,
     jobId: Number,
     jobName: String,
@@ -160,13 +160,13 @@ var exports = module.exports = {
                 }
               );
             },
-            saveCheckout: function(userId, toolId, removeQty, shortName, job, operator, cb) {
+            saveCheckout: function(userId, toolId, removeQty, toolName, job, operator, cb) {
             
                 var checkoutObj = {
                     userId: userId,
                     toolId: toolId,
                     checkoutQty: removeQty, 
-                    shortName: shortName,
+                    toolName: toolName,
                     checkoutDate: new Date(),
                     jobId: job[0].jobId,
                     jobName: job[0].jobName,

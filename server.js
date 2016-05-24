@@ -316,8 +316,7 @@ app.post('/checkout', function(req, res) {
               var toolId = checkoutToolIdQuery(fullUrl);
               var userId = req.user._id;
               dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-                  var shortName = tool.diameter + ' diameter ' + tool.material + " " + tool.toolType; 
-                  dbAuth.saveCheckout(userId, toolId, removeQty, shortName, job, operatorObj, function(err) {
+                  dbAuth.saveCheckout(userId, toolId, removeQty, tool.toolName, job, operatorObj, function(err) {
                     if (err) {
                       console.log('There was an error saving checkout to db: ' + err);
                     } else {
