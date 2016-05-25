@@ -28,7 +28,7 @@ var autoEmailOrder = require('./auto-email-order.js');
 
 var express = require('express');
 
-var stripe = require("stripe")("sk_test_5xGwl5dqR8CvbMJZOaqjutIQ");
+var stripe = require("stripe")("sk_live_AhGykk1gWK5NiA1lJvO0a95Z");
 
 const queryString = require('query-string');
   
@@ -544,7 +544,6 @@ app.get('/choose-a-plan', function(req, res) {
 
 app.post('/choose-a-plan', function(req, res) {
     console.log('Choose a plan hit');
-
     
     // (Assuming you're using express - expressjs.com)
     // Get the credit card details submitted by the form
