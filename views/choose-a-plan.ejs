@@ -72,8 +72,9 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <% if (!isAuthenticated) { %>
+            <li><a href="/choose-a-plan">Sign Up</a></li>
             <li><a href="/tutorials">Features</a></li>
-                <li><a href="/choose-a-plan">Try It Free</a></li>
+                <!--<li><a href="/choose-a-plan">Try It Free</a></li>-->
                 <li><a href="/login">Log in here</a></li>
             <% } else { %>
                         <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
@@ -187,6 +188,10 @@
         $('.validation').addClass($('.has-error').length ? 'text-danger' : 'text-success');
       });
     });
+    
+    
+    Stripe.setPublishableKey('pk_live_WAT0XAXb4Hw3KJvnZQVl2IuX');
+    
   </script>
     </body>
 </html>
