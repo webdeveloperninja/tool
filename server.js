@@ -28,7 +28,7 @@ var autoEmailOrder = require('./auto-email-order.js');
 
 var express = require('express');
 
-var stripe = require("stripe")("sk_live_AhGykk1gWK5NiA1lJvO0a95Z");
+var stripe = require("stripe")("sk_test_5xGwl5dqR8CvbMJZOaqjutIQ");
 
 const queryString = require('query-string');
   
@@ -544,7 +544,8 @@ app.get('/choose-a-plan', function(req, res) {
 
 app.post('/choose-a-plan', function(req, res) {
     console.log('Choose a plan hit');
-    console.log('Token from stripe: ' + req.body.stripeToken);
+
+    
     // (Assuming you're using express - expressjs.com)
     // Get the credit card details submitted by the form
     var stripeToken = req.body.stripeToken;
@@ -560,7 +561,6 @@ app.post('/choose-a-plan', function(req, res) {
       } else {
         
         // find user id and add customer id for payment
-        console.log('Customer Id: ' + customer.id);  
         // save user to database and redirect to succesfully sign up
         var newUserObj = {
           name: req.body.name,
@@ -574,6 +574,8 @@ app.post('/choose-a-plan', function(req, res) {
             email: null
           }
         }
+        
+        console.log(newUserObj);
         
         dbAuth.addNewUser(newUserObj, function(err, userId) {
           if (err) {
@@ -595,7 +597,6 @@ app.post('/choose-a-plan', function(req, res) {
 
       }
     });
-    
 });
 
 /* My Account */
