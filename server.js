@@ -393,7 +393,7 @@ app.get('/toolsCSV', function(req, res) {
 if (req.isAuthenticated()) {
     dbAuth.returnToolData(req.user._id, function(err, tools) {
       console.log('Success tools');
-      json2csv({ data: tools, fields: ['toolType', 'brand', 'diameter', 'toolLength', 'material', 'modelNumber', 'qty'] }, function(err, csv) {
+      json2csv({ data: tools, fields: ['toolName', 'qty'] }, function(err, csv) {
         if (err) console.log(err);
         console.log(csv);
         res.set({
