@@ -15,11 +15,10 @@ var exports = module.exports = {
         console.log(tool);
         var amountNeeded = tool.idealAmount - tool.qty;
         var email = {
-          from: 'AutoOrder@toolinginventory.com',
+          from: 'ToolAlert@toolinginventory.com',
           to: userObj.toolingRep.email,
-          subject:  userObj.companyName + ' Needs Tooling',
-          html: '<b>' + userObj.companyName + ' needs ' + amountNeeded  + '</b>' + 
-                    '<p>' + tool.toolName + '</p><br>'
+          subject:  'Your Tool is Running Low',
+          html: '<p>Your tool: ' + tool.toolName + ' is running low.</p><br>'
         };
         
         client.sendMail(email, function(err, info){
