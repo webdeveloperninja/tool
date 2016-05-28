@@ -2,7 +2,6 @@ var nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport');
 
 var exports = module.exports = {
-    
     emailOrder: function(tool, userObj) {
         var options = {
           auth: {
@@ -12,8 +11,7 @@ var exports = module.exports = {
         }
         
         var client = nodemailer.createTransport(sgTransport(options));
-        console.log(tool);
-        var amountNeeded = tool.idealAmount - tool.qty;
+
         var email = {
           from: 'ToolAlert@toolinginventory.com',
           to: userObj.toolingRep.email,

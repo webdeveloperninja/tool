@@ -1,38 +1,21 @@
-
 var http = require('http');
 var https = require('https');
 var path = require('path');
 var passport = require('passport');
 var passportLocal = require('passport-local');
-
 var sslRedirect = require('heroku-ssl-redirect');
-
 var fs = require('fs');
-
 var flash = require('connect-flash');
-
-
-
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
-
-
 var shortid = require('shortid');
-
 var json2csv = require('json2csv');
-
 var dbAuth = require('./db-auth.js');
-
 var autoEmailOrder = require('./auto-email-order.js');
-
 var express = require('express');
-
 var stripe = require("stripe")("sk_live_AhGykk1gWK5NiA1lJvO0a95Z");
-
 const queryString = require('query-string');
-  
- 
 var app = express();
 
 app.use(sslRedirect());
@@ -50,7 +33,6 @@ app.use(expressSession({ secret: 'secret', resave: false, saveUninitialized: fal
 app.use(express.static(__dirname + '/views')); 
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 passport.use(new passportLocal.Strategy(function( username, password, done) {
   dbAuth.checkUserPass(username, password, function(isAuthenticatedDB, DBid) {
@@ -78,11 +60,7 @@ passport.deserializeUser(function(id, done) {
   });
 });
   
-  
 var server = http.createServer(app);
-
-// create a server
-
 
 app.get('/', function(req, res) {
   // if isAuthenticated 
@@ -120,9 +98,7 @@ app.get('/login', function(req, res) {
   
 }); 
 
-
 app.post('/login', passport.authenticate('local', {successRedirect: '/production', failureRedirect:'/login?bad-cred',failureFlash : true }));
-
 
 app.get('/logout', function(req, res) {
     req.logout();
@@ -132,7 +108,6 @@ app.get('/logout', function(req, res) {
 app.get('/tutorials', function(req, res) {
     res.render('tutorials');
 });
-
 
 app.post('/sign-up', function(req, res) {
     console.log('/sign-up route hit');
@@ -148,7 +123,6 @@ app.post('/sign-up', function(req, res) {
     });
     //res.status(200);
 });
-
 
 app.get('/remove', function(req, res) {
     if (req.isAuthenticated()) {
@@ -237,7 +211,6 @@ app.post('/add', function(req, res) {
 
 });
 
-/* Tool Checkout */
 app.get('/checkout', function(req, res) {
     // need to send tool id
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
@@ -352,7 +325,6 @@ app.post('/checkout', function(req, res) {
   });
 });
 
-/* Add Tool */
 app.get('/add-tool', function(req, res) {
     // return properties 
     if (req.isAuthenticated()) {
@@ -384,7 +356,6 @@ app.post('/add-tool', function(req, res) {
     });
     res.redirect('/');
 });
-
 
 app.get('/toolsCSV', function(req, res) {
   
@@ -441,7 +412,6 @@ if (req.isAuthenticated()) {
 
 });
 
-/* Update Tool */
 app.get('/edit', function(req, res) {
     if (req.isAuthenticated()) {
       // need to send tool id
@@ -461,6 +431,7 @@ app.get('/edit', function(req, res) {
     }
 
 });
+
 app.post('/edit', function(req, res) {
     if (req.isAuthenticated()) {
       var toolObj = {
@@ -496,8 +467,6 @@ app.post('/edit', function(req, res) {
     
 });
 
-
-
 app.get('/view', function(req, res) {
     // need to send tool id
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
@@ -532,7 +501,6 @@ app.get('/view-checkouts', function(req, res) {
     });
   }
 });
-
 
 app.get('/choose-a-plan', function(req, res) {
     console.log('Pay for plan hit');
@@ -598,7 +566,6 @@ app.post('/choose-a-plan', function(req, res) {
     });
 });
 
-/* My Account */
 app.get('/my-account', function(req, res) {
       res.render('my-account', {
         isAuthenticated: req.isAuthenticated(),
@@ -622,7 +589,6 @@ app.post('/my-account', function(req, res) {
   
   
 });
-
 
 app.post('/add-tooling-rep', function(req, res) {
     var toolingRepObj = {
@@ -655,7 +621,6 @@ app.post('/add-tooling-rep', function(req, res) {
     
 });
 
-
 app.post('/add-job', function(req, res) {
     console.log('Add Job');
     console.log(req.body);
@@ -687,7 +652,6 @@ app.post('/add-job', function(req, res) {
       }
     });
 });
-
 
 app.get('/view-jobs', function(req, res) {
   if (req.isAuthenticated()) {
@@ -861,8 +825,6 @@ app.get('/view-operator-tooling', function(req, res) {
     }
 });
 
-
-/* Production */ 
 app.get('/production', function(req, res) {
   if (req.isAuthenticated()) {
     dbAuth.returnToolData(req.user._id, function(err, tools) {
@@ -903,7 +865,6 @@ app.get('/checkout-production', function(req, res) {
         res.redirect('login')
     }
 });
-
 
 app.post('/checkout-production', function(req, res) {
   var removeQty = req.body.removeQty;
@@ -1014,9 +975,6 @@ app.get('/clear-checkouts', function(req, res) {
     });
 });
 
-
-/* Cancel Subscrption */
-
 app.get('/de-activate-account', function(req, res) {
     // Find user id
     if ( req.isAuthenticated() ) {
@@ -1094,8 +1052,6 @@ var jobIdQuery = function(uri) {
   return queryString['jobId']
 }
 
-
-
 var emailRepresentative = function(tool, userId) {
   
   // find tooling rep email 
@@ -1105,7 +1061,6 @@ var emailRepresentative = function(tool, userId) {
   console.log(tool);
   autoEmailOrder.emailOrder(tool, userId);
 }
-
 
 server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
   var addr = server.address();
