@@ -350,10 +350,15 @@ thead {
         .name-title {
             text-align: center;
         }
+        
     }
 
     /* Medium Devices, Desktops */
     @media only screen and (max-width : 992px) {
+        
+        .operator-name {
+             text-align: center;   
+        }
 
     }
 

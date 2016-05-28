@@ -54,47 +54,47 @@
                     <!--<a href="/auto-order" class="btn btn-default pull-right ">Auto Order</a>-->
                 </div>
             </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="panel panel-default tools-list-panel">
-                                    <div class="panel-heading">View Operators</div>
-                                    <div class="panel-body" id="operators">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default tools-list-panel">
+                        <div class="panel-heading">View Operators</div>
+                            <div class="panel-body" id="operators">
                             <div class="row">
                                 <div class="col-md-6">
                                     <input class="search form-control home-search" placeholder="Search" />
                                 </div>
                             </div>
-                                        <div class="table-responsive">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr class="tool-list-heading">
-                                                        <td>Operator Name</td>
-                                                        <td>Operator Id</td>
-                                                        <td></td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="list">
-                                                    <% for ( var i=0; i<operators.length; i++ ) { %>
-                                                        <tr>
-                                                            <td><p class="table-value name"><%= operators[i].operatorName%></p></td>
-                                                            <td><p class="table-value operatorId"><%= operators[i].operatorId%></p></td>
-                                                            <td>
-                                                                <a href="/remove-operator/?operatorId=<%= operators[i].operatorId %>" class="btn btn-danger pull-right table-btn" onclick="return confirm('Are you sure you want to remove operator?')">Remove Operator</a>
-                                                                <a href="/view-operator-tooling/?operatorId=<%= operators[i].operatorId %>" class="btn btn-success pull-right table-btn">Tool Usage</a>
-                                                            </td>
-                                                        </tr>
-                                                    
-                                                    <% } %>
-                                                </tbody>
-                                    <!-- This is Strang -->
-                                    <div style="display:none;">
-                                      <!-- A template element is needed when list is empty, TODO: needs a better solution -->
-                                      <tr id="hacker-item">
-
-                                      </tr>
-                                    </div>
-                                            </table>
-                                        </div>  
+            <div class="row admin-header hidden-xs hidden-sm">
+                <div class="col-md-5">Name</div>
+                <div class="col-md-2 text-center">Operator Id</div>
+                <div class="col-md-5 text-center">Actions</div>
+            </div>
+            <div class="list">
+                <% for (var i=0; i<operators.length; i++) {%>
+                    <div class="row tools-row tools-row-admin">
+                        <div class="col-md-5">
+                            <p class="table-value table-btn-p name operator-name"><%= operators[i].operatorName%></p>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <p class="table-value table-btn-p operatorId"><span class="hidden-xl hidden-lg hidden-md">Operator Id: </span><%= operators[i].operatorId%></p>
+                        </div>
+                        <div class="col-md-5">
+                            <a href="/remove-operator/?operatorId=<%= operators[i].operatorId %>" class="btn btn-danger pull-right table-btn" onclick="return confirm('Are you sure you want to remove operator?')">Remove Operator</a>
+                            <a href="/view-operator-tooling/?operatorId=<%= operators[i].operatorId %>" class="btn btn-success pull-right table-btn">Tool Usage</a>
+                        </div>                    
+                    </div>
+                <% } %>   
+                                <!-- Go back to this hacky as f -->
+                                <div style="display:none;">
+                                  <!-- A template element is needed when list is empty, TODO: needs a better solution -->
+                                  <li id="hacker-item">
+                                   <h3 class="name"></h3>
+                                   <p class="city"></p>
+                                  </li>
+                                </div>
+            </div>
+                            
+                        
                                     </div>
                                 </div>
                             </div>
