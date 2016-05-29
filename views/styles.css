@@ -258,6 +258,10 @@ input.submit.btn.btn-primary {
     color: white;
 }
 
+.operator-p {
+    font-size: 23px !important;
+}
+
 .video-heading {
     font-size: 20px;
     color: #167ac6;
