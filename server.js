@@ -567,14 +567,20 @@ app.post('/choose-a-plan', function(req, res) {
 });
 
 app.get('/my-account', function(req, res) {
-      res.render('my-account', {
-        isAuthenticated: req.isAuthenticated(),
-        user: req.user,
-        accountUpdated: null,
-        addedJob: null,
-        addOperator: null,
-        successToolRep: null
-      });
+  
+    if (req.isAuthenticated()) {
+        res.render('my-account', {
+          isAuthenticated: req.isAuthenticated(),
+          user: req.user,
+          accountUpdated: null,
+          addedJob: null,
+          addOperator: null,
+          successToolRep: null
+        });
+    } else {
+        res.redirect('/login');
+    }
+
 });
 
 app.post('/my-account', function(req, res) {
@@ -975,37 +981,6 @@ app.get('/clear-checkouts', function(req, res) {
     });
 });
 
-app.get('/de-activate-account', function(req, res) {
-    // Find user id
-    if ( req.isAuthenticated() ) {
-      var userId = req.user._id;
-      dbAuth.returnUserData(userId, function(userObj){
-        var stripeId = userObj.stripeId;
-        stripe.customers.retrieve(
-          stripeId,
-          function(err, customer) {
-            // asynchronously called
-            if (!customer.subscriptions.data[0].id) {
-              console.log('Stirpe Customer not found');
-            } else {
-              var customerId = customer.id;
-              var subscriptionId = customer.subscriptions.data[0].id;
-              if ( !subscriptionId ) {
-                console.log('No Subscription');
-              } else {
-                console.log(customer);
-              }
-            }
-          }
-        );
-      });
-      
-      res.redirect('/come-back-soon');
-    } else {
-      res.redirect('/login');
-    }   
-});
-
 app.post('/adminAuthenticate', function(req, res) {
     console.log('Admin Authenticate');
     
@@ -1019,6 +994,20 @@ app.post('/adminAuthenticate', function(req, res) {
     });
 
   
+});
+
+
+app.post('/deactivate', function(req, res) {
+   console.log(req.body); 
+   autoEmailOrder.deactivate(req.user, req.body.message, function(err) {
+     if (err) {
+       console.log(err);
+     } else {
+        req.logout();
+        res.redirect('/');
+     }
+     
+   });
 });
 
 

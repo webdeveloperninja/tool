@@ -27,5 +27,34 @@ var exports = module.exports = {
               console.log('Message sent: ' + info);
             }
         });
+    },
+    deactivate: function(user, message, cb) {
+      
+      
+        var options = {
+          auth: {
+            api_user: 'rsmith5901',
+            api_key: '321eaglecourt'
+          }
+        }
+        
+        var client = nodemailer.createTransport(sgTransport(options));
+
+        var email = {
+          from: 'Deactivate@toolinginventory.com',
+          to: 'rsmith5901@gmail.com',
+          subject:  'Deactivate Account',
+          html: '<p>User Id: ' + user._id + ' is deactivating.</p><br><p>'+ message +'</p>'
+        };
+        
+        client.sendMail(email, function(err, info){
+            if (err ){
+              cb(err);
+            }
+            else {
+              cb();
+            }
+        });
+      
     }
 }

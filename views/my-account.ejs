@@ -74,7 +74,7 @@
                     <a href="/view-checkouts" class="btn btn-default view-checkouts-btn hidden-xl hidden-lg hidden-md hidden-sm user-nav-btn">View Checkouts</a>
                 </div>
                 <div class="col-sm-6 hidden-xs">
-                    <a href="/add-tool" class="btn btn-primary pull-right view-checkouts-btn">Add Tool</a>
+                    <a href="/add-tool" class="btn btn-default pull-right view-checkouts-btn">Add Tool</a>
                     <a href="/view-checkouts" class="btn btn-default pull-right view-checkouts-btn">View Checkouts</a>
                     <a href="/view-jobs" class="btn btn-default pull-right view-checkouts-btn">View Jobs</a>
                     <a href="/view-operators" class="btn btn-default pull-right view-checkouts-btn">View Operators</a>
@@ -118,6 +118,7 @@
                                         </form>
                                     </div>
                                 </div>
+                                <a class="btn btn-dagner" data-toggle="modal" data-target="#myModal">Deactivate</a>
                             </div><!-- end col-md-4 -->
                             <div class="col-md-4">
                                 <div class="panel panel-default">
@@ -204,6 +205,39 @@
             </div>
             
         </div>
+        
+        
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+        
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">We are sorry you are leaving. <span style="color: red;">Your data will be lost.</span></h4>
+              </div>
+              <div class="modal-body">
+                 
+                <p>Please let us know how we could improve...</p>
+                <form action="/deactivate" method="POST">
+                    <div class="form-group">
+                        <label>Message:</label>
+                        <textarea name="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-danger" style="margin-top: 15px;">Deactivate</button>
+                </form>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+        
+          </div>
+        </div>
+        
+        
         <script src="../bower_components/jquery/dist/jquery.min.js"></script>
         <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="../js/app.js"></script>
