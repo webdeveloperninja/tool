@@ -153,19 +153,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <a href="/my-account" class="btn btn-primary user-nav-btn">My Account</a>
-                    <a href="/toolsCSV" class="btn btn-default user-nav-btn">Download Tool List</a>
-                    <a href="/checkoutsCSV" class="btn btn-default user-nav-btn">Download Tool Usage</a>
-                    <a href="/" class="btn btn-default view-checkouts-btn active hidden-xl hidden-lg hidden-md hidden-sm user-nav-btn">Main Menu</a>
-                    <a href="/view-checkouts" class="btn btn-default view-checkouts-btn hidden-xl hidden-lg hidden-md hidden-sm user-nav-btn">View Checkouts</a>
+                    <a href="/my-account" class="btn btn-primary table-btn user-nav-btn">My Account</a>
+                    <a href="/toolsCSV" class="btn btn-default table-btn user-nav-btn">Download Tool List</a>
+                    <a href="/checkoutsCSV" class="btn btn-default table-btn user-nav-btn">Download Tool Usage</a>
                 </div>
-                <div class="col-sm-6 hidden-xs">
-                    <a href="/add-tool" class="btn btn-primary pull-right view-checkouts-btn">Add Tool</a>
-                    <a href="/view-checkouts" class="btn btn-default pull-right view-checkouts-btn active">View Checkouts</a>
-                    <a href="/view-jobs" class="btn btn-default pull-right view-checkouts-btn">View Jobs</a>
-                    <a href="/view-operators" class="btn btn-default pull-right view-checkouts-btn">View Operators</a>
-                    <a href="/" class="btn btn-default pull-right view-checkouts-btn">Tool List</a>
-                    <!--<a href="/auto-order" class="btn btn-default pull-right ">Auto Order</a>-->
+                <div class="col-sm-6">
+                    <a href="/add-tool" class="btn btn-default table-btn pull-right view-checkouts-btn">Add Tool</a>
+                    <a href="/view-checkouts" class="btn table-btn btn-default pull-right view-checkouts-btn active">View Checkouts</a>
+                    <a href="/view-jobs" class="btn btn-default  table-btn pull-right view-checkouts-btn">View Jobs</a>
+                    <a href="/view-operators" class="btn btn-default table-btn pull-right view-checkouts-btn">View Operators</a>
+                    <a href="/" class="btn btn-default pull-right table-btn view-checkouts-btn ">Tool List</a>
                 </div>
             </div>
             <div class="row">
@@ -184,34 +181,40 @@
                         </div>
                         <div class="panel-body" id="checkouts">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <input class="search form-control" placeholder="Search" />
+                                <div class="col-md-6">
+                                    <input class="search form-control home-search" placeholder="Search" />
                                 </div>
                             </div>
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr class="tool-list-heading">
-                                        <td>Tool Name</td>
-                                        <td>Operator Name</td>
-                                        <td>Job Name</td>
-                                        <td>Checkout Date</td>
-                                        <td>Checkout Qty</td>
-                                    </tr>
-                                </thead>
-                                <tbody class="list">
-                                     <% for (var i=0; i<checkouts.length; i++) {%>
-                                    <tr>
-                                        <td><p class="table-value toolName"> <%= checkouts[i].toolName %></p></td>
-                                        <td><p class="table-value operatorName"> <%= checkouts[i].operatorName %></p></td>
-                                        <td><p class="table-value jobName"> <%= checkouts[i].jobName %></p></td>
-                                        <td><p class="table-value"> <%= checkouts[i].checkoutDate.toLocaleDateString()  %></p></td>
-                                        <td><p class="table-value"> <%= checkouts[i].checkoutQty %></p></td> 
-                                    </tr>
-                                    <% } %>
-                                </tbody>
-                            </table>
+                            
+            <div class="list">
+                <% for (var i=0; i<checkouts.length; i++) {%>
+                    <div class="row tools-row tools-row-admin">
+                        <div class="col-md-4">
+                            <p class="table-value table-btn-p name operator-name"><%= checkouts[i].toolName%></p>
                         </div>
+                        <div class="col-md-2">
+                            <p class="table-value table-btn-p  operator-name"><%= checkouts[i].operatorName%></p>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="table-value table-btn-p jobName operator-name"><%= checkouts[i].jobName%></p>
+                        </div>   
+                        <div class="col-md-2">
+                            <p class="table-value table-btn-p  operator-name"><%= checkouts[i].checkoutDate.toLocaleDateString()%></p>
+                        </div>
+                        <div class="col-md-1">
+                            <p class="table-value table-btn-p operator-name"><%= checkouts[i].checkoutQty%></p>
+                        </div>
+                    </div>
+                <% } %>   
+                                <!-- Go back to this hacky as f -->
+                                <div style="display:none;">
+                                  <!-- A template element is needed when list is empty, TODO: needs a better solution -->
+                                  <li id="hacker-item">
+                                   <h3 class="name"></h3>
+                                   <p class="city"></p>
+                                  </li>
+                                </div>
+            </div>
                         </div>
                     </div>
 
@@ -228,7 +231,7 @@
         <script>
                 
             var options = {
-              valueNames: [ 'toolName', 'operatorName', 'jobName' ]
+              valueNames: [ 'name', 'operatorName', 'jobName' ]
             };
             
             
