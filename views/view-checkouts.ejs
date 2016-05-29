@@ -185,24 +185,30 @@
                                     <input class="search form-control home-search" placeholder="Search" />
                                 </div>
                             </div>
-                            
+            <div class="row admin-header hidden-xs hidden-sm">
+                <div class="col-md-4">Tool</div>
+                <div class="col-md-2 text-center">Operator</div>
+                <div class="col-md-3 text-center">Job</div>
+                <div class="col-md-2">Date</div>
+                <div class="col-md-1">Qty</div>
+            </div>
             <div class="list">
                 <% for (var i=0; i<checkouts.length; i++) {%>
                     <div class="row tools-row tools-row-admin">
                         <div class="col-md-4">
-                            <p class="table-value table-btn-p name operator-name"><%= checkouts[i].toolName%></p>
+                            <p class="table-value table-btn-p name "><%= checkouts[i].toolName%></p>
                         </div>
                         <div class="col-md-2">
                             <p class="table-value table-btn-p  operator-name"><%= checkouts[i].operatorName%></p>
                         </div>
                         <div class="col-md-3">
-                            <p class="table-value table-btn-p jobName operator-name"><%= checkouts[i].jobName%></p>
+                            <p class="table-value table-btn-p jobName"><%= checkouts[i].jobName%></p>
                         </div>   
                         <div class="col-md-2">
-                            <p class="table-value table-btn-p  operator-name"><%= checkouts[i].checkoutDate.toLocaleDateString()%></p>
+                            <p class="table-value table-btn-p"><%= checkouts[i].checkoutDate.toLocaleDateString()%></p>
                         </div>
                         <div class="col-md-1">
-                            <p class="table-value table-btn-p operator-name"><%= checkouts[i].checkoutQty%></p>
+                            <p class="table-value table-btn-p"><%= checkouts[i].checkoutQty%></p>
                         </div>
                     </div>
                 <% } %>   

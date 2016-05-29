@@ -254,6 +254,10 @@ input.submit.btn.btn-primary {
     display: block;
 }
 
+.header-phone {
+    color: white;
+}
+
 .video-heading {
     font-size: 20px;
     color: #167ac6;
