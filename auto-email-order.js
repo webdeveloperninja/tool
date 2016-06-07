@@ -33,8 +33,8 @@ var exports = module.exports = {
       
         var options = {
           auth: {
-            api_user: 'rsmith5901',
-            api_key: '321eaglecourt'
+            api_user: null /* username*/,
+            api_key: null /*password*/
           }
         }
         
