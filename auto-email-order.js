@@ -5,8 +5,8 @@ var exports = module.exports = {
     emailOrder: function(tool, userObj) {
         var options = {
           auth: {
-            api_user: /* global sendgrid user */,
-            api_key: /* global sengrid key */
+            api_user: 'rsmith5901',
+            api_key: '321Eaglecourt'
           }
         }
         
@@ -33,8 +33,8 @@ var exports = module.exports = {
       
         var options = {
           auth: {
-            api_user: null /* username*/,
-            api_key: null /*password*/
+            api_user: 'rsmith5901',
+            api_key: '321Eaglecourt!'
           }
         }
         
