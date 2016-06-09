@@ -391,7 +391,7 @@ app.get('/checkoutsCSV', function(req, res) {
   
 if (req.isAuthenticated()) {
     dbAuth.returnCheckoutData(req.user._id, function(err, checkouts) {
-      json2csv({ data: checkouts, fields: ['checkoutQty', 'checkoutDate', 'shortName', 'operatorName', 'jobName'] }, function(err, csv) {
+      json2csv({ data: checkouts, fields: ['checkoutQty', 'checkoutDate', 'toolName', 'operatorName', 'jobName'] }, function(err, csv) {
         if (err) console.log(err);
         console.log(csv);
         res.set({
