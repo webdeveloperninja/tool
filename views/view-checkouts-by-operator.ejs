@@ -22,14 +22,9 @@
 
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <% if (!isAuthenticated) { %>
-                <li><a href="/sign-up">Try It Free</a></li>
-                <li><a href="/login">Log in here</a></li>
-            <% } else { %>
-                        <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
-                        <a class="btn btn-danger" href="/logout">Log Out</a>
-                        <a class="btn btn-default" href="/production">Production</a>
-            <% } %>
+              <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
+              <a class="btn btn-danger" href="/logout">Log Out</a>
+              <a class="btn btn-default" href="/production">Production</a>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

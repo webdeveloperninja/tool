@@ -22,23 +22,14 @@
 
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <% if (!isAuthenticated) { %>
-                <li><a href="/sign-up">Try It Free</a></li>
-                <li><a href="/login">Log in here</a></li>
-            <% } else { %>
-                        <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
-                        <a class="btn btn-danger" href="/logout">Log Out</a>
-                        <a class="btn btn-default" href="/production">Production</a>
-            <% } %>
+              <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
+              <a class="btn btn-danger" href="/logout">Log Out</a>
+              <a class="btn btn-default" href="/production">Production</a>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
     <div class="container">
-        <% if (!isAuthenticated) { %>
-            <h4 class="text-center">Please Go Back and Log in</h4>
-            <a href="/" class="btn btn-primary">Go Back</a>
-        <% } else { %>
             <div class="container">
             <div class="row">
                 <div class="col-sm-6">
@@ -93,8 +84,6 @@
                 </div>
             </div>
         </div>
-        <% } %>
-        
         <script src="../bower_components/jquery/dist/jquery.min.js"></script>
         <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="../js/app.js"></script>

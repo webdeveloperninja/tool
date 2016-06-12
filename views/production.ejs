@@ -22,132 +22,14 @@
 
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <% if (!isAuthenticated) { %>
-                <li><a href="/choose-a-plan">Try It Free</a></li>
-                <li><a href="/login">Log in here</a></li>
-            <% } else { %>
-                        <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
-                        <a class="btn btn-danger" href="/logout">Log Out</a>
-                        <a class="btn btn-default" data-toggle="modal" data-target="#myModal">Admin</a>
-            <% } %>
+              <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
+              <a class="btn btn-danger" href="/logout">Log Out</a>
+              <a class="btn btn-default" data-toggle="modal" data-target="#myModal">Admin</a>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
     <div class="container">
-    <% if (!isAuthenticated) { %>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h1>Cloud tooling inventory control software. <strong class="green">Store, manage &amp; Report.</strong></h1>
-                <p>
-                    ToolingInventory.com allows you to understand your machine shops tooling usage. With ToolingInventory.com you will be 
-                    able to utalize LEAN manufacturing principales to not keep excess tooling inventory and insure that when
-                    a job comes through you have the proper tooling to complete the job.
-                </p>
-                <p>
-                    ToolingInventory.com also allows you to keep track of inventry shrinkage and trends. Understanding that your 
-                    shop needs different tooling quantities during different times of the month and year will allow you to 
-                    buy less tooling and keep your money invensting in your company, not on excess inventory. 
-                </p>
-                 <div class="row">
-                     <div class="col-md-4">
-                         <h2 class="text-center">Store</h2>
-                         <img src="images/storage.jpg" class="img-responsive thumbnail img-center">
-                     </div>
-                     <div class="col-md-4">
-                         <h2 class="text-center">Manage</h2>
-                         <img src="images/managment.jpg" class="img-responsive thumbnail img-center">
-                     </div>
-                     <div class="col-md-4">
-                         <h2 class="text-center">Report</h2>
-                         <img src="images/report.jpg" class="img-responsive thumbnail img-center">
-                     </div>
-                 </div>
-                 <div class="row">
-                     <div class="col-md-6 col-md-offset-3">
-                         <hr>
-                     </div>
-                 </div>
-                 <div class="row quote-row">
-                     <div class="col-md-12">
-                         <p class="quote">
-                             <strong>ToolingInventory.com</strong> has allowed us to compete with over seas manufactures by 
-                             streamlining our inventory and allowing us to run leaner and more efficeient!
-                             <br>
-                             <strong>Robert Smith</strong> - Agency Compliance Services
-                         </p>
-                     </div>
-                 </div>
-                 <div class="row">
-                     <div class="col-md-6 col-md-offset-3">
-                         <hr>
-                     </div>
-                 </div>
-                 <div class="row">
-                     <div class="col-md-4">
-                         <p class="small-quote">
-                             We are AMAZED with the impact ToolingInventory.com has had on our shop!<br>
-                             <strong class="green">Nick James</strong> - Haven Manufacturing
-                        </p>
-                     </div>
-                     <div class="col-md-4">
-                         <p class="small-quote">
-                             Looking to more accuratly keep track of tooling cost per job? CloudCrib.io is the
-                             tool for you.<br>
-                             <strong class="green">Dave Mullinix</strong> - Weldmonger
-                        </p>
-                     </div>
-                     <div class="col-md-4">
-                         <p class="small-quote">
-                             Using ToolingInventory.com analytics we see tooling trends that we would never even have thought of.<br>
-                             <strong class="green">Sandy Smith</strong> - Trusted Manufacturing
-                         </p>
-                     </div>
-                 </div>
-                 <div class="row">
-                     <div class="col-md-6 col-md-offset-3">
-                         <hr>
-                     </div>
-                 </div>
-                 <div class="row">
-                     <div class="col-md-6 col-md-offset-3">
-                         <a href="/choose-a-plan" class="btn btn-success sign-up-btn">Try It Free!</a>
-                     </div>
-                 </div>
-                 <div class="row">
-                     <div class="col-md-8 col-md-offset-2">
-                         <div class="video-container">
-                             <iframe width="560" height="315" src="https://www.youtube.com/embed/Gkd_KHGTYvw?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-                         </div>
-                     </div>
-                 </div>
-            </div>
-        </div>
-    </div>
-    <nav class="navbar navbar-inverse footer-navbar">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">ToolingInventory.com</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            
-                <li><a href="/choose-a-plan">Sign Up</a></li>
-                <li><a href="/login">Log in here</a></li>
-            
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-    <% }  %>
     <% if (isAuthenticated) { %>
         <div class="container">
             <div class="row">

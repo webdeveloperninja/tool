@@ -6,7 +6,7 @@ var exports = module.exports = {
         var options = {
           auth: {
             api_user: 'rsmith5901',
-            api_key: '321Eaglecourt'
+            api_key: '321Eaglecourt!'
           }
         }
         

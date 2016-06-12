@@ -22,23 +22,14 @@
 
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <% if (!isAuthenticated) { %>
-                <li><a href="/sign-up">Try It Free</a></li>
-                <li><a href="/login">Log in here</a></li>
-            <% } else { %>
-                        <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
-                        <a class="btn btn-primary" href="/logout">Log Out</a>
-                        <a href="/add-tool" class="btn btn-danger">Add Tool</a></p>
-            <% } %>
+              <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
+              <a class="btn btn-primary" href="/logout">Log Out</a>
+              <a href="/add-tool" class="btn btn-danger">Add Tool</a></p>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
     <div class="container">
-    <% if (!isAuthenticated) { %>
-        <h4 class="text-center">Go Back and Log In</h4>
-    <% }  %>
-    <% if (isAuthenticated) { %>
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -105,7 +96,7 @@
                                 <% } %>
                             </tbody>
                         </table>
-                    <% } %>
+
                 </div>
             </div>
             
