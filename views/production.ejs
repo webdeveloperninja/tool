@@ -4,6 +4,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="styles.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+        <style>
+            * {
+                font-family: 'Roboto', sans-serif !important;
+            }
+        </style>
     </head>
     <body>
     <nav class="navbar navbar-inverse navbar-fixed-top __web-inspector-hide-shortcut__">
@@ -54,25 +60,36 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            
+                            
+                            <div class="row newsearch">
                                 <div class="col-md-6">
-                                    <div class="form-wrapper cf">
-                                        <input class="search form-control production-search" placeholder="Search" />
-                                        <button type="submit">Search</button>
-                                    </div>
-
+                                    <form class="form-wrapper cf">
+                                      	<input class="search production-search" type="text" placeholder="Search here..." required>
+                                    	  <button class="search-flag" type="submit" disabled>Search</button>
+                                    </form>
                                 </div>
                             </div>
+                            
+                            <!--<div class="row">-->
+                            <!--    <div class="col-md-6">-->
+                            <!--        <div class="form-wrapper cf">-->
+                            <!--            <input class="search form-control production-search" placeholder="Search" />-->
+                            <!--            <button type="submit">Search</button>-->
+                            <!--        </div>-->
+
+                            <!--    </div>-->
+                            <!--</div>-->
                             <div class="list">
                                 <% for (var i=0; i<tools.length; i++) {%>
                                     <div class="row tools-row">
-                                        <div class="col-md-7">
+                                        <div class="col-md-6">
                                             <a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value name"><%= tools[i].toolName %></p></a>
                                         </div>
                                         <div class="col-md-2">
                                             <a href="/view/?toolId=<%= tools[i]._id %>" class="table-link"><p class="table-value"> Qty: <%= tools[i].qty %> </p></a>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <a class="btn btn-success  table-btn production-checkout-btn" href="/checkout-production/?toolId=<%= tools[i]._id %>">Checkout</a>
                                         </div>
                                     </div>
