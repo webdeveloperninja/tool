@@ -362,6 +362,10 @@ font-size: 72px;
     max-width: 278px;
 }
 
+.money {
+    padding-top: 40px;
+}
+
 .mid-banners .learn-more {
     margin-left: auto;
     margin-right: auto;
@@ -369,6 +373,10 @@ font-size: 72px;
         font-size: 22px;
         margin-top: 15px;
     max-width: 278px;
+}
+
+.payment-box {
+        box-shadow: 0px 0px 65px black;
 }
 
 hr {
