@@ -6,7 +6,7 @@
         <link href="../js/bootstrap-switch.min.css" rel="stylesheet">
         <link href="../styles.css" rel="stylesheet">
     </head>
-    <body>
+    <body >
     <nav class="navbar navbar-inverse navbar-fixed-top __web-inspector-hide-shortcut__">
       <div class="container">
         <div class="navbar-header">
@@ -46,7 +46,7 @@
                     <a href="/" class="btn btn-default pull-right table-btn view-checkouts-btn ">Tool List</a>
                 </div>
             </div>
-                <div class="row settings-row">
+                <div class="row settings-row edit-tool">
                     <div class="col-md-4 col-md-offset-4">
                         <div class="panel-group">
                           <div class="panel panel-default">
@@ -62,27 +62,29 @@
         <% } %>
                                 <form action="" method="post">
                                 <div class="form-group">
-                                    <label>Tool Name:</label>
+                                    <label><p>Tool Name:</p></label>
                                     <input class="form-control"value="<%= tool.toolName %>" name="toolName" required>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                    <label>Min Amount:</label>
+                                    <label><p>Min Amount:</p></label>
                                     <input class="form-control" id="orderQty" value="<%= tool.autoOrderQty %>" name="autoOrderQty" type="number" min="0" required>          
                                         </div>
                                         <div class="col-md-6">
-                                            <p class="text-center">Auto Order</p>
+                                            <label class="auto-order-label">
+                                                <p class="text-center">Auto Order</p>
+                                            </label>
                                             <input class="form-control" id="auto-order-box" type="checkbox">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Ideal Amount</label>
+                                    <label><p>Ideal Amount</p></label>
                                     <input class="form-control" name="idealAmount" value="<%= tool.idealAmount %>" id="idealQty" type="number" min="0" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Qty:</label>
+                                    <label><p>Qty:</p></label>
                                     <input type="number" class="form-control" name="qty" value="<%= tool.qty %>" min="0">
                                 </div>
                                 <input type="text" name="userId" class="hidden" value="<%= user._id %>">

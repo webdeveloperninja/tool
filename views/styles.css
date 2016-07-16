@@ -47,6 +47,8 @@ p {
     text-align: left;
     padding-top: 3px;
     padding-bottom: 3px;
+    border-top: .125px solid black;
+    border-bottom: 1px solid black;
 }
 
 .tools-row:nth-child(odd) {background: rgba(51, 122, 183, 0.19);}
@@ -521,6 +523,29 @@ thead {
   text-decoration:none;
 }
 /* end prototype */
+
+/* Start Updte Tool Styles */
+
+.edit-tool p {
+    color: black;
+}
+
+.edit-tool label {
+    float: left;
+}
+
+.edit-tool p {
+    color: black;
+    font-size: 19px;
+    font-weight: 300;
+    margin-bottom: 0px;
+}
+
+.edit-tool .auto-order-label {
+    float: none;
+}
+
+/* End Update Tool Styles */
 
 
 
