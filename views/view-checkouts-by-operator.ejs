@@ -4,8 +4,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="../styles.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     </head>
-    <body>
+    <body <%if(isAuthenticated) {%> class="authenticated" <% } %>>
     <nav class="navbar navbar-inverse navbar-fixed-top __web-inspector-hide-shortcut__">
       <div class="container">
         <div class="navbar-header">
@@ -22,34 +23,35 @@
 
           </ul>
           <ul class="nav navbar-nav navbar-right">
-              <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
-              <a class="btn btn-danger" href="/logout">Log Out</a>
-              <a class="btn btn-default" href="/production">Production</a>
+                        <p class="hello">Hello, <%= user.username %> from <%= user.companyName %></p>
+                        <a class="btn btn-sm btn-danger" href="/logout">Log Out</a>
+                        <a class="btn btn-sm btn-primary" href="/production">Production</a>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
+      <% if (isAuthenticated) { %>
+      <div class="container admin-fixed-header-nav">
+            <div class="row">
+                <div class="col-sm-6">
+                    <a href="/my-account" class="btn btn-primary table-btn user-nav-btn">My Account</a>
+                    <a href="/toolsCSV" class="btn btn-default table-btn user-nav-btn">Download Tool List</a>
+                    <a href="/checkoutsCSV" class="btn btn-default table-btn user-nav-btn">Download Tool Usage</a>
+                </div>
+                <div class="col-sm-6">
+                    <a href="/add-tool" class="btn btn-default table-btn pull-right view-checkouts-btn">Add Tool</a>
+                    <a href="/view-checkouts" class="btn table-btn btn-default pull-right view-checkouts-btn">View Checkouts</a>
+                    <a href="/view-jobs" class="btn btn-default  table-btn pull-right view-checkouts-btn">View Jobs</a>
+                    <a href="/view-operators" class="btn btn-default table-btn pull-right view-checkouts-btn">View Operators</a>
+                    <a href="/" class="btn btn-default pull-right table-btn view-checkouts-btn active">Tool List</a>
+                </div>
+            </div>          
+      </div>
+    <% } %>
     </nav>
     <div class="container">
    
     <% if (isAuthenticated) { %>
         <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <a href="/my-account" class="btn btn-primary user-nav-btn">My Account</a>
-                    <a href="/toolsCSV" class="btn btn-default user-nav-btn">Download Tool List</a>
-                    <a href="/checkoutsCSV" class="btn btn-default user-nav-btn">Download Tool Usage</a>
-                    <a href="/" class="btn btn-default view-checkouts-btn active hidden-xl hidden-lg hidden-md hidden-sm user-nav-btn">Main Menu</a>
-                    <a href="/view-checkouts" class="btn btn-default view-checkouts-btn hidden-xl hidden-lg hidden-md hidden-sm user-nav-btn">View Checkouts</a>
-                </div>
-                <div class="col-sm-6 hidden-xs">
-                    <a href="/add-tool" class="btn btn-primary pull-right view-checkouts-btn">Add Tool</a>
-                    <a href="/view-checkouts" class="btn btn-default pull-right view-checkouts-btn active">View Checkouts</a>
-                    <a href="/view-jobs" class="btn btn-default pull-right view-checkouts-btn">View Jobs</a>
-                    <a href="/view-operators" class="btn btn-default pull-right view-checkouts-btn">View Operators</a>
-                    <a href="/" class="btn btn-default pull-right view-checkouts-btn">Tool List</a>
-                    <!--<a href="/auto-order" class="btn btn-default pull-right ">Auto Order</a>-->
-                </div>
-            </div>
             
             
             <div class="row">
@@ -60,11 +62,14 @@
     </div>
     <div id="users">
     <div class="panel-body">
-        <div class="row">
-            <div class="col-md-6">
-                <input class="search form-control home-search" placeholder="Search" />
-            </div>
-        </div>
+                            <div class="row newsearch">
+                                <div class="col-md-6">
+                                    <form class="form-wrapper cf">
+                                      	<input class="search home-search" type="text" placeholder="Search here..." required>
+                                    	  <button class="search-flag" type="submit" disabled>Search</button>
+                                    </form>
+                                </div>
+                            </div>
             <div class="row admin-header hidden-xs hidden-sm">
                 <div class="col-md-3">Tool</div>
                 <div class="col-md-2 text-center">Operator</div>

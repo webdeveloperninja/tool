@@ -87,7 +87,7 @@
     </nav>
     <div class="container">
             <div class="row plan-row">
-                <div class="col-md-4 col-md-offset-4">
+                <div class="col-md-8 col-md-offset-2">
                     <div class="panel-group">
                       <div class="panel panel-default">
                         <div class="panel-heading">
@@ -96,40 +96,34 @@
                         <div class="panel-body">
                             <h4 class="text-center options-heading">$99.99/month</h4>
                             <form action="" method="POST" id="payment-form">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <h3 class="text-center">About You</h3>
                                 <div class="form-group">
-                                    <label>Name:</label>
-                                    <input class="form-control" name="name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Email:</label>
-                                    <input class="form-control" type="email" name="email" required>
+                                    <input placeholder="Name" class="form-control" name="name" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Company Name:</label>
-                                    <input class="form-control" name="companyName" required>
+                                    <input placeholder="Email" class="form-control" type="email" name="email" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Username:</label>
-                                    <input class="form-control" name="username" required>
+                                    <input placeholder="Company Name" class="form-control" name="companyName" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Password:</label>
-                                    <input class="form-control" name="password" type="password" required>
+                                    <input placeholder="User Name" class="form-control" name="username" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Re-Enter Password:</label>
-                                    <input class="form-control" name="reEnterPassword" type="password" required>
+                                    <input placeholder="Password" class="form-control" name="password" type="password" required>
                                 </div>
-                                <div class="form-row">
-                                  <hr>
-                                  <h3 class="text-center">Payment</h3>
-                                  <span class="payment-errors"></span>
+                                <div class="form-group">
+                                    <input placeholder="Re Enter Password" class="form-control" name="reEnterPassword" type="password" required>
                                 </div>
-                              <div class="form-row">
-                                <label>
-                                  <span>Card Number</span>
-                                  <input data-stripe="number" id="cc-number" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" required>
-                                </label>
+                                </div>
+                                <div class="col-md-6">
+                              <h3 class="text-center">Payment Method</h3>
+                              <div class="form-group">
+ 
+                                  <input placeholder="Card Number" data-stripe="number" id="cc-number" type="tel" class=" form-control cc-number" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" required>
+                      
                               </div>
                             
                               <div class="form-row">
@@ -138,24 +132,28 @@
                                 </label>
                                 <div class="row">
                                     <div class="col-md-5">
-                                        <input type="text" size="2" data-stripe="exp_month" class="form-control" required>
+                                        <input placeholder="MM" type="text" size="2" data-stripe="exp_month" class="form-control" required>
                                     </div>
                                     <div class="col-md-1">
                                         <span class="mm-year-seperator"> / </span>
                                     </div>
                                     <div class="col-md-5">
-                                        <input type="text" size="2" data-stripe="exp_year" class="form-control" required>
+                                        <input placeholder="YY" type="text" size="2" data-stripe="exp_year" class="form-control" required>
                                     </div>
                                 </div>
                               </div>
                               <div class="form-row">
                                 <label>
                                   <span>CVC</span>
-                                  <input data-stripe="cvc" id="cc-cvc" type="tel" class="input-lg form-control cc-cvc" autocomplete="off" placeholder="•••" required>
+                                  <input data-stripe="cvc" id="cc-cvc" type="tel" class=" form-control cc-cvc" autocomplete="off" placeholder="•••" required>
                                 </label>
                               </div>
                             
                               <input type="submit" class="submit btn btn-primary" value="Submit Payment">
+                                </div>
+                              </div>
+
+
                             </form>   
                         </div>
                       </div>

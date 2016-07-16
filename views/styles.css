@@ -164,7 +164,7 @@ input.submit.btn.btn-primary {
 }
 
 .quote {
-    font-size: 27px;
+    font-size: 27px !important;
     color: #2ecc71;
 }
 
@@ -305,7 +305,22 @@ h4 {
 
 .action-btn {
     display: inline-block;
+}
 
+
+.customer-home p {
+    font-size: 20px;
+    text-align: left;
+}
+
+
+.save-tool-btn {
+    width: 100%;
+}
+
+.home-container {
+    background-color: white;
+    box-shadow: 0px 0px 85px black;
 }
 
 .action-btn-td {
@@ -332,6 +347,81 @@ h4 {
     position: relative;
     padding-bottom: 56.25%;
     padding-top: 30px; height: 0; overflow: hidden;
+}
+
+.home-container h1 {
+font-size: 72px;
+    text-align: left;    
+}
+
+
+.mid-banners img {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 278px;
+}
+
+.mid-banners .learn-more {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+        font-size: 22px;
+        margin-top: 15px;
+    max-width: 278px;
+}
+
+hr {
+        margin-top: 50px;
+}
+.home-container h2 {
+        font-size: 42px;
+    text-align: left;
+}
+
+.cta {
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+    float: right;
+    margin-right: 176px;
+    box-shadow: 0px 0px 166px black;
+    margin-top: 60px;
+    font-size: 30px;
+}
+
+.cta:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+
+.hero-banner {
+    background-image: url("http://images.wisegeek.com/cnc-operator-programming-computer.jpg");
+   background-position: center top;
+    background-size: 100% auto;
+    height: 400px;
+        box-shadow: 0px 0px 166px white;
+    background-size: 100%;
+    margin-top: -20px;
+    margin-left: -15px;
+    padding: 15px;
+    margin-right: -15px;
 }
  
 .video-container iframe,

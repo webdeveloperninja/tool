@@ -5,7 +5,7 @@
         <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="../styles.css" rel="stylesheet">
     </head>
-    <body>
+    <body <%if(isAuthenticated) {%> class="authenticated" <% } %>>
     <nav class="navbar navbar-inverse navbar-fixed-top __web-inspector-hide-shortcut__">
       <div class="container">
         <div class="navbar-header">
@@ -26,16 +26,15 @@
                 <li><a href="/sign-up">Try It Free</a></li>
                 <li><a href="/login">Log in here</a></li>
             <% } else { %>
-                        <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
-                        <a class="btn btn-danger" href="/logout">Log Out</a>
-                        <a class="btn btn-default" href="/production">Production</a>
+                        <p class="hello">Hello, <%= user.username %> from <%= user.companyName %></p>
+                        <a class="btn btn-sm btn-danger" href="/logout">Log Out</a>
+                        <a class="btn btn-sm btn-primary" href="/production">Production</a>
             <% } %>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
-    </nav>
-    <div class="container">
-            <div class="container">
+      <% if (isAuthenticated) { %>
+      <div class="container admin-fixed-header-nav">
             <div class="row">
                 <div class="col-sm-6">
                     <a href="/my-account" class="btn btn-primary table-btn user-nav-btn">My Account</a>
@@ -43,13 +42,18 @@
                     <a href="/checkoutsCSV" class="btn btn-default table-btn user-nav-btn">Download Tool Usage</a>
                 </div>
                 <div class="col-sm-6">
-                    <a href="/add-tool" class="btn btn-default table-btn pull-right view-checkouts-btn ">Add Tool</a>
-                    <a href="/view-checkouts" class="btn table-btn btn-default pull-right view-checkouts-btn ">View Checkouts</a>
+                    <a href="/add-tool" class="btn btn-default table-btn pull-right view-checkouts-btn">Add Tool</a>
+                    <a href="/view-checkouts" class="btn table-btn btn-default pull-right view-checkouts-btn">View Checkouts</a>
                     <a href="/view-jobs" class="btn btn-default  table-btn pull-right view-checkouts-btn">View Jobs</a>
                     <a href="/view-operators" class="btn btn-default table-btn pull-right view-checkouts-btn">View Operators</a>
-                    <a href="/" class="btn btn-default pull-right table-btn view-checkouts-btn ">Tool List</a>
+                    <a href="/" class="btn btn-default pull-right table-btn view-checkouts-btn active">Tool List</a>
                 </div>
-            </div>
+            </div>          
+      </div>
+    <% } %>
+    </nav>
+    <div class="container">
+            <div class="container">
                 <div class="row settings-row">
                 <div class="col-md-4 col-md-offset-4">
                     <div class="panel-group">
