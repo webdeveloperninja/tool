@@ -23,12 +23,13 @@
 
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <p class="hello">Hello, <%= user.username %> from <%= user.companyName %></p>
-            <a class="btn btn-sm btn-danger" href="/logout">Log Out</a>
-            <a class="btn btn-sm btn-primary" href="/production">Production</a>
+                        <p class="hello">Hello, <%= user.username %> from <%= user.companyName %></p>
+                        <a class="btn btn-sm btn-danger" href="/logout">Log Out</a>
+                        <a class="btn btn-sm btn-primary" href="/production">Production</a>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
+      <% if (isAuthenticated) { %>
       <div class="container admin-fixed-header-nav">
             <div class="row">
                 <div class="col-sm-6">
@@ -45,6 +46,7 @@
                 </div>
             </div>          
       </div>
+    <% } %>
   
     </nav>
     <div class="container">
