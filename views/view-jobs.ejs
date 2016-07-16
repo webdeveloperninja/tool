@@ -52,14 +52,17 @@
                     <div class="panel panel-default tools-list-panel">
                         <div class="panel-heading">Jobs List</div>
                         <div class="panel-body" id="jobs">
-                            <div class="row">
+                            <div class="row newsearch">
                                 <div class="col-md-6">
-                                    <input class="search form-control home-search" placeholder="Search" />
+                                    <form class="form-wrapper cf">
+                                      	<input class="search home-search" type="text" placeholder="Search here..." required>
+                                    	  <button class="search-flag" type="submit" disabled>Search</button>
+                                    </form>
                                 </div>
                             </div>
             <div class="row admin-header hidden-xs hidden-sm">
                 <div class="col-md-3">Name</div>
-                <div class="col-md-1 text-center">Job Id</div>
+                <div class="col-md-1 text-center">Id</div>
                 <div class="col-md-3 text-center">Company Name</div>
                 <div class="col-md-1 text-center">Qty</div>
                 <div class="col-md-1 text-center">Due</div>
