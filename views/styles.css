@@ -10,6 +10,10 @@ body {
     background-repeat: repeat-x;
 }
 
+body.authenticated {
+    padding-top: 117px;
+}
+
 table {
 }
 
@@ -115,6 +119,12 @@ p.hello {
     font-size: 16px;
     font-weight: bold;
     color: white;
+    display: inline-block;
+    margin-right: 25px;
+}
+
+.admin-fixed-header-nav > .row {
+    margin-top: 9px;
 }
 
 .tool-name {
@@ -521,6 +531,11 @@ thead {
 .newsearch .byline p a{
   color:#d83c3c;
   text-decoration:none;
+}
+
+.admin-fixed-header-nav {
+margin-bottom: 20px;
+    margin-top: 0px;
 }
 /* end prototype */
 
