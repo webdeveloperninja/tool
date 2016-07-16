@@ -181,16 +181,27 @@ s0.parentNode.insertBefore(s1,s0);
     </div>
     <div id="users">
     <div class="panel-body">
-        <div class="row">
-            <div class="col-md-6">
-                <input class="search form-control home-search" placeholder="Search" />
-            </div>
-        </div>
+                            <div class="row newsearch">
+                                <div class="col-md-6">
+                                    <form class="form-wrapper cf">
+                                      	<input class="search home-search" type="text" placeholder="Search here..." required>
+                                    	  <button class="search-flag" type="submit" disabled>Search</button>
+                                    </form>
+                                </div>
+                            </div>
             <div class="row admin-header hidden-xs hidden-sm">
-                <div class="col-md-5">Name</div>
-                <div class="col-md-1 text-center">Qty</div>
-                <div class="col-md-1 text-center">Min</div>
-                <div class="col-md-5 text-center">Actions</div>
+                <div class="col-md-5">
+                    Name
+                </div>
+                <div class="col-md-1">
+                    Qty
+                </div>
+                <div class="col-md-1">
+                    Min
+                </div>
+                <div class="col-md-5 text-center">
+                    Actions
+                </div>
             </div>
             <div class="list">
                 <% for (var i=0; i<tools.length; i++) {%>

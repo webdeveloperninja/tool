@@ -40,8 +40,13 @@ p {
 }
 
 .admin-header {
-    font-size: 21px;
+    font-size: 25px;
     font-weight: bold;
+    background-color: #337ab7;
+    color: black !important;
+    text-align: left;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 .tools-row:nth-child(odd) {background: rgba(51, 122, 183, 0.19);}
@@ -281,7 +286,6 @@ h4 {
 }
 
 .action-btns {
-    width: 379px !important;
     margin-top: -11px;
     margin-left: auto;
     margin-right: auto;
