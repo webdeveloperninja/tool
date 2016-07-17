@@ -519,7 +519,7 @@ app.post('/choose-a-plan', function(req, res) {
     
     stripe.customers.create({
       source: stripeToken,
-      plan: "00001",
+      plan: "00002",
       email: req.body.email
       // grab email from sign up form
     }, function(err, customer) {
