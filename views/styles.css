@@ -769,6 +769,11 @@ margin-bottom: 20px;
     .mid-banner {
         height: auto;
     }
+    
+    .newsearch .form-wrapper input {
+        float: none;
+    }
+
 
     }
     
@@ -830,6 +835,12 @@ margin-bottom: 20px;
             box-shadow: 0px 0px 166px black;
             font-size: 30px;
             margin-top: 63px !important;
+        }
+        
+        .newsearch .form-wrapper input {
+            float: none;
+            width: 80%;
+            margin: 0 auto;
         }
         
     }
