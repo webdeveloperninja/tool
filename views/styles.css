@@ -251,6 +251,19 @@ input.submit.btn.btn-primary {
     margin-bottom: 20px !important;
 }
 
+
+
+.mid-banner {
+    position: relative;
+    height: 694px;
+}
+
+.mid-banner > .panel-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
 .production-search {
     font-size: 50px;
     height: 59px;
@@ -692,16 +705,52 @@ margin-bottom: 20px;
             text-align: center;
         }
         
+        .mid-banner {
+            height: 742px;
+        }
+        
+    
+        
     }
 
     /* Medium Devices, Desktops */
-    @media only screen and (max-width : 992px) {
+    @media only screen and (max-width : 991px) {
         
         .operator-name {
              text-align: center;   
         }
+        
+        .home-container h1 {
+            display: none;
+        }
+        
+
+
+        .cta {
+        
+            float: none !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            box-shadow: 0px 0px 166px black;
+            margin-top: 162px !important;
+            font-size: 30px;
+        }
+        
+        .mid-banner {
+            height: 581px;
+        }
 
     }
+.cta {
+
+    float: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-shadow: 0px 0px 166px black;
+    margin-top: 162px !important;
+    font-size: 30px;
+}
+
 
     /* Small Devices, Tablets */
     @media only screen and (max-width : 768px) {
@@ -712,8 +761,36 @@ margin-bottom: 20px;
             margin-top: 5px;
         }
         
+        .cta {
+
+    float: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-shadow: 0px 0px 166px black;
+    margin-top: 162px !important;
+    font-size: 30px;
+}
 
 
+    .mid-banner > .panel-footer {
+        position: static;
+    }
+    
+    .mid-banner {
+        height: auto;
+    }
+
+    }
+    
+    
+    @media only screen and (max-width: 628px) {
+        .mid-banner {
+            position: block;
+            height: auto;
+        }
+        .mid-banner > .panel-footer {
+            position: block;
+        }
     }
     
     @media only screen and (max-width: 588px) {
