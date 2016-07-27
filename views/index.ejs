@@ -44,8 +44,6 @@
                         <p class="hello">Hello, <%= user.username %> from <%= user.companyName %></p>
                         <a class="btn btn-sm btn-danger" href="/logout">Log Out</a>
                         <a class="btn btn-sm btn-primary" href="/production">Production</a>
-            <% } %>
-          </ul>
         <div class="row mobile-nav-admin">
         <div class="col-md-4 col-md-offset-4">
             <select class="form-control" onChange="window.location.href=this.value"> 
@@ -60,6 +58,8 @@
             </select>
         </div>
     </div>
+            <% } %>
+          </ul>
         </div><!--/.nav-collapse -->
       </div>
       <% if (isAuthenticated) { %>
