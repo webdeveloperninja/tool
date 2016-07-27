@@ -35,6 +35,20 @@
                         <p class="hello">Hello, <%= user.username %> from <%= user.companyName %></p>
                         <a class="btn btn-sm btn-danger" href="/logout">Log Out</a>
                         <a class="btn btn-sm btn-primary" href="/production">Production</a>
+        <div class="row mobile-nav-admin">
+        <div class="col-md-4 col-md-offset-4">
+            <select class="form-control" onChange="window.location.href=this.value"> 
+                <option data-icon="glyphicon-heart" value="/">Tool List</option>
+                <option data-icon="glyphicon-heart" value="/add-tool"><a href="/add-tool" class="">Add Tool</a></option>
+                <option data-icon="glyphicon-heart" value="/view-checkouts"><a href="/view-checkouts" class="">View Checkouts</a></option>
+                <option data-icon="glyphicon-heart" value="/view-jobs"><a href="/view-jobs" class="">View Jobs</a></option>
+                <option data-icon="glyphicon-heart" value="/view-operators"><a href="/view-operators" class="">View Operators</a></option>
+                <option data-icon="glyphicon-heart" value="/my-account"><a href="/my-account" class="">My Account</a></option>
+                <option data-icon="glyphicon-heart" value="/toolsCSV"><a href="/toolsCSV" class="">Download Tool List</a></loptioni>
+                <option data-icon="glyphicon-heart" value="/checkoutsCSV"><a href="/checkoutsCSV" class="">Download Tool Usage</a></option>
+            </select>
+        </div>
+    </div>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

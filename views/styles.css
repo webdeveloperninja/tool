@@ -711,6 +711,13 @@ margin-bottom: 20px;
             padding-right: 0;
         }
         
+.table-btn {
+    display: block;
+    float: left;
+    margin-left: 5px;
+    font-size: 11px;
+}
+        
         .action-btns>li {
             float: none;
         }
@@ -812,11 +819,18 @@ margin-bottom: 20px;
     
     .navbar-brand {
         float: none;
+    padding: 0;
+    display: block;
+    margin-top: -4px;
+    margin-right: auto;
     }
 
 
     }
     
+    .navbar-collapse {
+        overflow-x: hidden !important;
+    }
     
     @media only screen and (max-width: 628px) {
         .mid-banner {
@@ -918,3 +932,8 @@ margin-bottom: 20px;
         }     
     }
 
+    @media only screen and (max-width : 492px) {
+        .hello {
+            display: block;
+        }  
+    }
