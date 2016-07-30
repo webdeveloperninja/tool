@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 // db connection 
-mongoose.connect('mongodb://rsmith5901:321eaglecourt@ds019470.mlab.com:19470/tools');
+mongoose.connect('mongodb://rsmith5901:321eaglecourt@ds139065-a0.mlab.com:39065,ds139065-a1.mlab.com:39065/tools?replicaSet=rs-ds139065')
 
 var usersSchema = new mongoose.Schema({
     username: String,
