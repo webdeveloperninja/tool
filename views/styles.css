@@ -471,6 +471,19 @@ thead {
     float: none;
 }
 
+.login .panel {
+    text-align: left;
+}
+
+
+.my-account {
+    text-align: left;
+}
+
+.productionLogin {
+    text-align: left;
+}
+
 .navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
     margin-left: -15px;
     color: white;
