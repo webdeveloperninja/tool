@@ -248,6 +248,10 @@ input.submit.btn.btn-primary {
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
+.super-admin-row {
+    text-align: left;
+}
+
 .model-dialog-admin {
 }
 

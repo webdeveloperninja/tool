@@ -1010,6 +1010,39 @@ app.post('/deactivate', function(req, res) {
    });
 });
 
+app.get('/super-admin', function(req, res) {
+    if (req.isAuthenticated() && req.user._id == '579cb480a614e31e0e24ccbe') {
+    dbAuth.returnUsersData(function(err, users) {
+      console.log(users);
+        res.render('super-admin', {
+          isAuthenticated: req.isAuthenticated(),
+          user: req.user,
+          accountUpdated: null,
+          addedJob: null,
+          addOperator: null,
+          successToolRep: null,
+          users: users
+        });  
+    }); 
+    
+    } else {
+        res.redirect('/login');
+    }
+});
+
+app.post('/super-admin-sign-up', function(req, res) {
+    dbAuth.addNewUser(req.body, function(err, userId) {
+      if (err) {
+        console.log(err);;
+      } else {
+        console.log('Sign up route hit user id: ' + userId);
+        // save userId into session 
+        res.redirect('/super-admin');
+      }
+    });
+    res.status(200);
+});
+
 
 var checkoutToolIdQuery = function(uri) {
   var uri = uri;

@@ -7,7 +7,10 @@ var usersSchema = new mongoose.Schema({
     password: String,
     companyName: String,
     stripeId: String,
-    toolingRep: Object
+    toolingRep: Object,
+    superUser: Boolean,
+    email: String,
+    contactName: String
 });
 
 
@@ -299,6 +302,11 @@ var exports = module.exports = {
             },
             clearCheckouts: function(userId, cb) {
                 checkouts.find({ userId:userId }).remove( cb );
+            },
+            returnUsersData: function(cb) {
+                users.find(function(err, users) {
+                    cb(null, users);
+                });
             }
 }
             

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html ng-app="app">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-77516816-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+        <style>
+            * {
+                font-family: 'Roboto', sans-serif !important;
+            }
+        </style>
+    </head>
+    <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top __web-inspector-hide-shortcut__">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/production">ToolingInventory.com</a>
+        </div>
+        <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+              <p class="hello">Hello, <%= user.username %> from <%= user.companyName %>
+              <a class="btn btn-danger" href="/logout">Log Out</a>
+              <a class="btn btn-default" data-toggle="modal" data-target="#myModal">Admin</a>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-8 hidden-xs">
+                    <a data-toggle="modal" data-target="#modalCreateUser" class="btn btn-default pull-right view-checkouts-btn">Create Account</a>
+                    <!--<a href="/auto-order" class="btn btn-default pull-right ">Auto Order</a>-->
+                </div>
+            </div>
+            <div class="row">
+  <div class="panel tools-list-panel panel-default">
+    <div class="panel-heading">Super Admin</div>
+    <div class="panel-body ">
+        <div class="row">
+                        <div class="col-md-12">
+                            <table class="table-responsive table">
+                               <thead>
+                                  <tr>
+                                     <th>Company Name</th>
+                                     <th>Username</th>
+                                     <th>Password</th>
+                                     <th>Stripe Id</th>
+                                     <th>Deactivate</th>
+                                  </tr>
+                               </thead>
+                               <% for (var i=0; i<users.length; i++) {%>
+                                   <tr class="super-admin-row">
+                                       <td><%=users[i].companyName%></td>
+                                       <td><%=users[i].username%></td>
+                                       <td><%=users[i].password%></td>
+                                       <td><%=users[i].stripeId%></td>
+                                       <td><a href class="btn btn-danger">Deactivate</a></td>
+                                   </tr>
+                               <% } %>
+                            </table>
+                        </div>
+                    
+        </div>
+    </div>
+  </div>
+
+            </div>
+            
+        </div>
+    </div>
+    
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog model-dialog-admin">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Admin Login</h4>
+      </div>
+      <form class="productionLogin">
+      <div class="modal-body" id="admin-modal">
+        <div class="form-group">
+            <label>Username:</label>
+            <input id="adminUsername" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input id="adminPassword" class="form-control" type="password">
+        </div>
+        <button type="submit" class="btn btn-primary" id="adminSubmit">Log In</button>
+        <button type="button"  class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+      </div>
+      </form>
+     
+    </div>
+
+  </div>
+</div>
+    
+    
+<!-- Modal -->
+<div id="modalCreateUser" class="modal fade" role="dialog">
+  <div class="modal-dialog model-dialog-admin">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create User</h4>
+      </div>
+      <form method="post" action="/super-admin-sign-up" class="productionLogin">
+      <div class="modal-body" id="admin-modal">
+        <div class="form-group">
+            <label>Company:</label>
+            <input name="companyName" id="adminUsername" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Username:</label>
+            <input name="username" id="adminPassword" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input name="password" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Email:</label>
+            <input name="email" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Contact Name:</label>
+            <input name="contactName" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Super Admin:</label>
+            <input type="checkbox" name="superUser">
+        </div>
+        <button type="submit" class="btn btn-primary" id="adminSubmit">Create User</button>
+        <button type="button"  class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+      </div>
+      </form>
+     
+    </div>
+
+  </div>
+</div>
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="bower_components/list.js/dist/list.min.js"></script>
+        <script>
+        </script>
+        <script src="js/app.js"></script>
+    </body>
+</html>
