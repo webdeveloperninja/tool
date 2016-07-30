@@ -703,6 +703,11 @@ margin-bottom: 20px;
 
     /* Large Devices, Wide Screens */
     @media only screen and (max-width : 1200px) {
+        .newsearch .form-wrapper button {
+            width: 99px;
+            float: left;
+        }
+        
         .action-btns {
             margin-left: none;
             margin-right: none;
@@ -736,6 +741,12 @@ margin-bottom: 20px;
 
     /* Medium Devices, Desktops */
     @media only screen and (max-width : 991px) {
+        
+        .tools-list-panel .panel-heading a {
+            display: inline-block;
+            float: none !important;
+            margin-top: 20px;
+        }
         
         .operator-name {
              text-align: center;   

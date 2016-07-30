@@ -15,7 +15,7 @@
 
 </script>
     </head>
-    <body <%if(isAuthenticated) {%> class="authenticated" <% } %>>
+    <body <%if(isAuthenticated) {%> class="authenticated checkout-list" <% } %>>
     <nav class="navbar navbar-inverse navbar-fixed-top __web-inspector-hide-shortcut__">
       <div class="container">
         <div class="navbar-header">
@@ -53,7 +53,7 @@
         </div><!--/.nav-collapse -->
       </div>
       <% if (isAuthenticated) { %>
-      <div class="container admin-fixed-header-nav">
+      <div class="container admin-fixed-header-nav ">
             <div class="row">
                 <div class="col-sm-6">
                     <a href="/my-account" class="btn btn-primary table-btn user-nav-btn">My Account</a>
