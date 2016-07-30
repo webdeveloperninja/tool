@@ -68,7 +68,6 @@
                                      <th>Username</th>
                                      <th>Password</th>
                                      <th>Stripe Id</th>
-                                     <th>Deactivate</th>
                                   </tr>
                                </thead>
                                <% for (var i=0; i<users.length; i++) {%>
@@ -77,7 +76,6 @@
                                        <td><%=users[i].username%></td>
                                        <td><%=users[i].password%></td>
                                        <td><%=users[i].stripeId%></td>
-                                       <td><a href class="btn btn-danger">Deactivate</a></td>
                                    </tr>
                                <% } %>
                             </table>
