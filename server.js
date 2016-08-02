@@ -61,9 +61,9 @@ passport.deserializeUser(function(id, done) {
 });
   
 app.use(function requireHTTPS(req, res, next) {
-  if (!req.secure) {
+  
     return res.redirect('https://www.toolinginventory.com');
-  }
+  
   next();
 });
   
