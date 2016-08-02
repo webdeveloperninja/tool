@@ -21,6 +21,15 @@ var app = express();
 app.use(sslRedirect());
 app.use(flash());
 
+app.all(/.*/, function(req, res, next) {
+  var host = req.header("host");
+  if (host.match(/^www\..*/i)) {
+    next();
+  } else {
+    res.redirect(301, "https://www." + host);
+  }
+});
+
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended : false }));
