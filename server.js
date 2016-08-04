@@ -20,7 +20,7 @@ var app = express();
 
 
 app.use(flash());
-
+app.use(sslRedirect());
 
 app.set('view engine', 'ejs');
 
