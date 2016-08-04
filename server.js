@@ -21,9 +21,6 @@ var app = express();
 app.use(sslRedirect());
 app.use(flash());
 
-app.get('*',function(req,res){  
-    res.redirect('https://toolinginventory.com'+req.url)
-});
 
 app.set('view engine', 'ejs');
 
