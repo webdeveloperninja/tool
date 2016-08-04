@@ -18,7 +18,15 @@ var stripe = require("stripe")("sk_live_AhGykk1gWK5NiA1lJvO0a95Z");
 const queryString = require('query-string');
 var app = express();
 
-app.use(sslRedirect());
+function ensureSecure(req, res, next){
+  if(req.secure){
+    // OK, continue
+    return next();
+  };
+  res.redirect('https://'+req.host+req.url); // handle port numbers if you need non defaults
+};
+
+app.all('*', ensureSecure); // at top of routing calls
 app.use(flash());
 
 
