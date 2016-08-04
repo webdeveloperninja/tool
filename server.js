@@ -21,13 +21,8 @@ var app = express();
 app.use(sslRedirect());
 app.use(flash());
 
-app.all(/.*/, function(req, res, next) {
-  var host = req.header("host");
-  if (host.match(/^www\..*/i)) {
-    next();
-  } else {
-    res.redirect(301, "https://www." + host);
-  }
+app.get('*',function(req,res){  
+    res.redirect('https://toolinginventory.com'+req.url)
 });
 
 app.set('view engine', 'ejs');
