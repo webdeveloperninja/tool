@@ -3,7 +3,6 @@ var https = require('https');
 var path = require('path');
 var passport = require('passport');
 var passportLocal = require('passport-local');
-var sslRedirect = require('heroku-ssl-redirect');
 var fs = require('fs');
 var flash = require('connect-flash');
 var bodyParser = require('body-parser');
@@ -20,7 +19,6 @@ var app = express();
 
 
 app.use(flash());
-app.use(sslRedirect());
 
 app.set('view engine', 'ejs');
 
