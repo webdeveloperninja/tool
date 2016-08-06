@@ -29,6 +29,8 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.set('trust proxy', true);
+
 app.use(bodyParser.urlencoded({extended : false }));
 app.use(cookieParser());
 app.use(bodyParser.json({}));
