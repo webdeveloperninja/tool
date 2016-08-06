@@ -4,7 +4,191 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="../styles.css" rel="stylesheet">
+        <style>
+body {
+	background: #f4f4f4;
+}
 
+.filter-container {
+	width: 100%;
+	margin: auto;
+	padding: 3rem;
+	float: none;
+}
+
+.filter-container .cards-wrap {
+	width: auto;
+	max-width: 1200px;
+	margin: auto;
+	float: right;
+}
+
+.filter-container .cards-row {
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	-webkit-flex-wrap: nowrap;
+	-ms-flex-wrap: nowrap;
+	flex-wrap: nowrap;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-align-content: stretch;
+	-ms-flex-line-pack: stretch;
+	align-content: stretch;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+.card {
+	overflow: hidden;
+	height: 533px;
+	width: 100% !important;
+	max-width: 297px;
+	-webkit-order: 0;
+	-ms-flex-order: 0;
+	order: 0;
+	-webkit-flex: 0 1 auto;
+	-ms-flex: 0 1 auto;
+	flex: 0 1 auto;
+	-webkit-align-self: stretch;
+	-ms-flex-item-align: stretch;
+	align-self: stretch;
+}
+
+.clearfix {
+  overflow: auto;
+  zoom: 1;
+}
+
+.card .item-event-date {
+	font-size: 11px;
+	line-height: 1.4;
+	color: #7c868d;
+}
+
+.filters-body .card .card-inner {
+	min-height: 0;
+	height: auto;
+	padding-bottom: 105px;
+}
+
+.filters-body .card .card-inner .item-name {
+	font-size: 22px;
+	line-height: 1.4;
+	color: #0077bb;
+}
+
+.filters-body .card .card-inner .bar {
+	width: 90px;
+	background-color: #c2c2c2;
+	margin: 15px 0;
+}
+
+.filters-body .card footer {
+	background: #fff;
+	z-index: 10;
+	padding: 20px;
+}
+
+.filters-body .card footer .item-tags {
+	font-size: 11px;
+	line-height: 1.4;
+	color: #505050 !important;
+}
+
+.filters-body .card footer .item-social-share {
+	margin: 0 auto 30px;
+}
+
+.filters-body .card footer .item-social-share .share_icon {
+	height: 30px;
+	width: 30px;
+}
+
+.filters-body .card footer .item-social-share .share_icon:before {
+	font-size: 16px;
+	line-height: 1;
+	position: absolute;
+	top: 21%;
+	left: 25%;
+	vertical-align: middle;
+}
+
+.card .card-back-wrap {
+	transform: translateY(1000px);
+	display: block;
+	background-color: #d9e1e2;
+	width: 100%;
+	height: auto;
+	padding: 15px 20px;
+	position: absolute;
+	transition: transform .5s;
+	top: 0;
+	right: 0;
+	bottom: 105px;
+	left: 0;
+	font-size: 15px;
+	line-height: 1.6;
+	color: #222222;
+}
+
+.card .card-back-wrap .card-back-title {
+	font-size: 11px;
+	letter-spacing: 1.5px;
+	color: #4e758b;
+	margin: 0 auto 10px;
+	text-transform: capitalize;
+}
+
+.card .card-back-wrap .card-back-content {
+	font-size: 15px;
+	line-height: 1.6;
+	color: #222222;
+	margin: 0 auto 30px;
+}
+
+.card .card-back-wrap .card-back-btn {
+	margin: 0 auto 30px;
+	font-size: 14px;
+	letter-spacing: 1.5px;
+	color: #ffffff;
+	text-transform: capitalize;
+}
+
+.card .card-back-wrap .card-back-foot {
+	padding: 15px 0;
+	position: relative;
+	font-size: 11px;
+	line-height: 1.4;
+	color: #505050;
+	text-transform: capitalize !important;
+}
+
+.card .card-back-wrap .card-back-foot:before {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 90px;
+	border-top: 1px solid #505050;
+}
+
+.card:hover .card-back-wrap {
+	transform: translateY(0px);
+	height: 100%;
+}
+
+.card.live-event:hover .card-back-wrap {
+	transform: translateY(175px);
+}
+        </style>
     </head>
     <body>
     <nav class="navbar navbar-inverse navbar-fixed-top __web-inspector-hide-shortcut__">
@@ -34,6 +218,449 @@
       </div>
     </nav>
         <div class="container" style="margin-top: 20px;">
+                <div class="filter-container">
+                  <div class="filters-body">
+                    <div class="inner cards-wrap clearfix">
+                
+                      <div class="card">
+                        <a href="#" class="click-cover" title="Women in Leadership Panel: Disrupt the World, Create Outstanding Opportunities"></a>
+                
+                        <div class="card-inner-wrap">
+                          <div class="item-thumbnail">
+                            <img src="//play.vidyard.com/SQ5MUjB7TH1auRjuF3uA7p.jpg?small=1" alt="Women in Leadership Panel: Disrupt the World, Create Outstanding Opportunities">
+                            <!-- <span class="glyphicon glyphicon-play filter_play-btn"></span>
+                            <span class="time">0:45</span> -->
+                          </div>
+                          <div class="card-inner">
+                            <div class="item-event-type text-slate text-left salesforce-sans-bold">
+                              Coming Soon
+                            </div>
+                            <div class="item-name h3 text-link text-left salesforce-sans-light">
+                              Women in Leadership Panel: Disrupt the World, Create Outstanding Opportunities
+                            </div>
+                            <div class="bg-light bar-align-left bar"></div>
+                
+                            <div class="item-event-date">
+                              September 25, 2016, 12:00 P.M. PST
+                            </div>
+                          </div>
+                
+                          <div class="card-back-wrap">
+                            <h4 class="card-back-title">UPCOMING WEBINAR</h4>
+                            <div class="card-back-content">
+                              <p>At vero eos et accusamus et iusto odio dignissimos duc qui blanditiis praesentium. At vero eos et accusamus et iusto odio dignissimos duc qui blanditiis praesentium. At vero eos et accusamus et iusto.</p>
+                            </div>
+                            <!-- <div class="card-back-btn"><a class="btn btn-primary" href="#">Register</a></div> -->
+                            <div class="card-back-foot">September 25, 2016, 12:00 P.M. PST</div>
+                          </div>
+                
+                        </div>
+                
+                        <footer>
+                          <div class="item-social-share">
+                            <div class="share"><a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-facebook-inverted">Facebook</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-twitter-inverted">Twitter</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-linkedin-inverted">LinkedIn</a>
+                            </div>
+                          </div>
+                          <div class="item-tags">
+                            Session, Women in Technology
+                          </div>
+                        </footer>
+                      </div>
+                
+                
+                      <div class="card live-event">
+                        <a href="#" class="click-cover" title="Salesforce Design Leadership Conference Broadcast"></a>
+                
+                        <div class="card-inner-wrap">
+                          <div class="item-thumbnail">
+                            <img src="//play.vidyard.com/J9eMyvwqTV7k4ykCob4rxW.jpg?small=1" alt="Salesforce Design Leadership Conference Broadcast">
+                            <span class="glyphicon glyphicon-play filter_play-btn"></span>
+                            <span class="time">1:33</span>
+                          </div>
+                          <div class="card-inner">
+                            <div class="item-event-type text-slate text-left salesforce-sans-bold">
+                              Live Now
+                            </div>
+                            <div class="item-name h3 text-link text-left salesforce-sans-light">
+                              Salesforce Design Leadership Conference Broadcast
+                            </div>
+                
+                            <div class="bg-light bar-align-left bar"></div>
+                
+                            <div class="item-event-date">
+                              September 25, 2016, 12:00 P.M. PST
+                            </div>
+                          </div>
+                
+                          <!-- Card Back Hover Content -->
+                          <div class="card-back-wrap card-alt">
+                            <h4 class="card-back-title">Live Now</h4>
+                            <div class="card-back-content">
+                              <p>At vero eos et accusamus et iusto odio dignissimos duc qui blanditiis praesentium. At vero eos et.</p>
+                            </div>
+                            <!-- <div class="card-back-btn"><a class="btn btn-primary" href="#">Register</a></div> -->
+                            <div class="card-back-foot">September 25, 2016, 12:00 P.M. PST</div>
+                          </div>
+                        </div>
+                
+                        <footer>
+                          <div class="item-social-share">
+                            <div class="share"><a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-facebook-inverted">Facebook</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-twitter-inverted">Twitter</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-linkedin-inverted">LinkedIn</a>
+                            </div>
+                          </div>
+                          <div class="item-tags">
+                            Session
+                          </div>
+                        </footer>
+                      </div>
+                
+                
+                      <div class="card">
+                        <a href="#" class="click-cover" title="Seth Godin: Marketing That Fuels Spectacular Growth"></a>
+                
+                        <div class="card-inner-wrap">
+                          <div class="item-thumbnail">
+                            <img src="//play.vidyard.com/sMQv5TjPuZLioCMUdNqFX7.jpg?small=1" alt="Seth Godin: Marketing That Fuels Spectacular Growth">
+                            <span class="glyphicon glyphicon-play filter_play-btn"></span>
+                            <span class="time">39:51</span>
+                          </div>
+                          <div class="card-inner">
+                            <div class="item-event-type text-slate text-left salesforce-sans-bold">
+                
+                              On Demand
+                
+                            </div>
+                            <div class="item-name h3 text-link text-left salesforce-sans-light">
+                              Seth Godin: Marketing That Fuels Spectacular Growth
+                            </div>
+                
+                            <div class="bg-light bar-align-left bar"></div>
+                
+                            <div class="item-event-date">
+                              September 25, 2016, 12:00 P.M. PST
+                            </div>
+                          </div>
+                
+                          <!-- Card Back Hover Content -->
+                          <div class="card-back-wrap">
+                            <h4 class="card-back-title">UPCOMING WEBINAR</h4>
+                            <div class="card-back-content">
+                              <p>At vero eos et accusamus et iusto odio dignissimos duc qui blanditiis praesentium. At vero eos et accusamus et iusto odio dignissimos duc qui blanditiis praesentium. At vero eos et accusamus et iusto.</p>
+                            </div>
+                            <div class="card-back-btn"><a class="btn btn-primary" href="#">Register</a></div>
+                            <div class="card-back-foot">September 25, 2016, 12:00 P.M. PST</div>
+                          </div>
+                
+                        </div>
+                        <footer>
+                          <div class="item-social-share">
+                            <div class="share"><a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-facebook-inverted">Facebook</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-twitter-inverted">Twitter</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-linkedin-inverted">LinkedIn</a>
+                            </div>
+                          </div>
+                          <div class="item-tags">
+                            Session
+                          </div>
+                        </footer>
+                      </div>
+                
+                      <div class="card live-event">
+                        <a href="#" class="click-cover" title="Salesforce Design Leadership Conference Broadcast"></a>
+                
+                        <div class="card-inner-wrap">
+                          <div class="item-thumbnail">
+                            <img src="//play.vidyard.com/J9eMyvwqTV7k4ykCob4rxW.jpg?small=1" alt="Salesforce Design Leadership Conference Broadcast">
+                            <span class="glyphicon glyphicon-play filter_play-btn"></span>
+                            <span class="time">1:33</span>
+                          </div>
+                          <div class="card-inner">
+                            <div class="item-event-type text-slate text-left salesforce-sans-bold">
+                              Live Now
+                            </div>
+                            <div class="item-name h3 text-link text-left salesforce-sans-light">
+                              Salesforce Design Leadership Conference Broadcast
+                            </div>
+                
+                            <div class="bg-light bar-align-left bar"></div>
+                
+                            <div class="item-event-date">
+                              September 25, 2016, 12:00 P.M. PST
+                            </div>
+                          </div>
+                
+                          <!-- Card Back Hover Content -->
+                          <div class="card-back-wrap">
+                            <h4 class="card-back-title">Live Now</h4>
+                            <div class="card-back-content">
+                              <p>At vero eos. At vero eos et accusamus et iusto odio dignissimos duc qui blanditiis praesentium. At vero eos et accusamus et iusto.</p>
+                            </div>
+                            <!-- <div class="card-back-btn"><a class="btn btn-primary" href="#">Register</a></div> -->
+                            <div class="card-back-foot">September 25, 2016, 12:00 P.M. PST</div>
+                          </div>
+                
+                        </div>
+                        <footer>
+                          <div class="item-social-share">
+                            <div class="share"><a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-facebook-inverted">Facebook</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-twitter-inverted">Twitter</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-linkedin-inverted">LinkedIn</a>
+                            </div>
+                          </div>
+                          <div class="item-tags">
+                            Session
+                          </div>
+                        </footer>
+                      </div>
+                
+                      <div class="card">
+                        <a href="#" class="click-cover" title="TrailheaDX Keynote in 5 minutes"></a>
+                
+                        <div class="card-inner-wrap">
+                          <div class="item-thumbnail">
+                            <img src="//play.vidyard.com/koGsubGDfoi1QnFjhQfTMc.jpg?small=1" alt="TrailheaDX Keynote in 5 minutes">
+                            <span class="glyphicon glyphicon-play filter_play-btn"></span>
+                            <span class="time">5:34</span>
+                          </div>
+                          <div class="card-inner">
+                            <div class="item-event-type text-slate text-left salesforce-sans-bold">
+                              On Demand
+                            </div>
+                            <div class="item-name h3 text-link text-left salesforce-sans-light">
+                              TrailheaDX Keynote in 5 minutes
+                            </div>
+                
+                            <div class="bg-light bar-align-left bar"></div>
+                
+                            <div class="item-event-date">
+                              September 25, 2016, 12:00 P.M. PST
+                            </div>
+                          </div>
+                
+                          <!-- Card Back Hover Content -->
+                          <div class="card-back-wrap">
+                            <h4 class="card-back-title">UPCOMING WEBINAR</h4>
+                            <div class="card-back-content">
+                              <p>At vero eos et accusamus et iusto odio dignissimos duc qui blanditiis praesentium. At vero eos et accusamus et iusto odio dignissimos duc qui blanditiis praesentium. At vero eos et accusamus et iusto.</p>
+                            </div>
+                            <div class="card-back-btn"><a class="btn btn-primary" href="#">Register</a></div>
+                            <div class="card-back-foot">September 25, 2016, 12:00 P.M. PST</div>
+                          </div>
+                
+                        </div>
+                        <footer>
+                          <div class="item-social-share">
+                            <div class="share"><a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-facebook-inverted">Facebook</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-twitter-inverted">Twitter</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-linkedin-inverted">LinkedIn</a>
+                            </div>
+                          </div>
+                          <div class="item-tags">
+                            Session
+                          </div>
+                        </footer>
+                      </div>
+                
+                
+                      <div class="card">
+                        <a href="#" class="click-cover" title="Women in Leadership Panel: Disrupt the World, Create Outstanding Opportunities"></a>
+                
+                        <div class="card-inner-wrap">
+                          <div class="item-thumbnail">
+                            <img src="//play.vidyard.com/SQ5MUjB7TH1auRjuF3uA7p.jpg?small=1" alt="Women in Leadership Panel: Disrupt the World, Create Outstanding Opportunities">
+                            <!-- <span class="glyphicon glyphicon-play filter_play-btn"></span>
+                            <span class="time">0:45</span> -->
+                          </div>
+                          <div class="card-inner">
+                            <div class="item-event-type text-slate text-left salesforce-sans-bold">
+                              Coming Soon
+                            </div>
+                            <div class="item-name h3 text-link text-left salesforce-sans-light">
+                              Women in Leadership Panel: Disrupt the World, Create Outstanding Opportunities
+                            </div>
+                            <div class="bg-light bar-align-left bar"></div>
+                
+                            <div class="item-event-date">
+                              September 25, 2016, 12:00 P.M. PST
+                            </div>
+                          </div>
+                
+                          <div class="card-back-wrap">
+                            <h4 class="card-back-title">UPCOMING WEBINAR</h4>
+                            <div class="card-back-content">
+                              <p>At vero eos et accusamus et iusto odio dignissimos duc qui blanditiis praesentium. At vero eos et accusamus et iusto odio dignissimos duc qui blanditiis praesentium. At vero eos et accusamus et iusto.</p>
+                            </div>
+                            <div class="card-back-btn"><a class="btn btn-primary" href="#">Register</a></div>
+                            <div class="card-back-foot">September 25, 2016, 12:00 P.M. PST</div>
+                          </div>
+                
+                        </div>
+                        <footer>
+                          <div class="item-social-share">
+                            <div class="share"><a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-facebook-inverted">Facebook</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-twitter-inverted">Twitter</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-linkedin-inverted">LinkedIn</a>
+                            </div>
+                          </div>
+                          <div class="item-tags">
+                            Session, Women in Technology
+                          </div>
+                        </footer>
+                      </div>
+                
+                
+                      <div class="card">
+                        <a href="#" class="click-cover" title="Seth Godin: Marketing That Fuels Spectacular Growth"></a>
+                
+                        <div class="card-inner-wrap">
+                          <div class="item-thumbnail">
+                            <img src="//play.vidyard.com/sMQv5TjPuZLioCMUdNqFX7.jpg?small=1" alt="Seth Godin: Marketing That Fuels Spectacular Growth">
+                            <span class="glyphicon glyphicon-play filter_play-btn"></span>
+                            <span class="time">39:51</span>
+                          </div>
+                          <div class="card-inner">
+                            <div class="item-event-type text-slate text-left salesforce-sans-bold">
+                              On Demand
+                            </div>
+                            <div class="item-name h3 text-link text-left salesforce-sans-light">
+                              Seth Godin: Marketing That Fuels Spectacular Growth
+                            </div>
+                
+                            <div class="bg-light bar-align-left bar"></div>
+                
+                            <div class="item-event-date">
+                              September 25, 2016, 12:00 P.M. PST
+                            </div>
+                          </div>
+                          <!-- Card Back Hover Content -->
+                          <div class="card-back-wrap">
+                            <h4 class="card-back-title">UPCOMING WEBINAR</h4>
+                            <div class="card-back-content">
+                              <p>At vero eos et accusamus et iusto odio dignissimos duc qui blanditiis praesentium. At vero eos et accusamus et iusto odio dignissimos duc qui blanditiis praesentium. At vero eos et accusamus et iusto.</p>
+                            </div>
+                            <div class="card-back-btn"><a class="btn btn-primary" href="#">Register</a></div>
+                            <div class="card-back-foot">September 25, 2016, 12:00 P.M. PST</div>
+                          </div>
+                
+                        </div>
+                        <footer>
+                          <div class="item-social-share">
+                            <div class="share"><a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-facebook-inverted">Facebook</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-twitter-inverted">Twitter</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-linkedin-inverted">LinkedIn</a>
+                            </div>
+                          </div>
+                          <div class="item-tags">
+                            Session
+                          </div>
+                        </footer>
+                      </div>
+                
+                      <div class="card live-event">
+                        <a href="#" class="click-cover" title="Salesforce Design Leadership Conference Broadcast"></a>
+                
+                        <div class="card-inner-wrap">
+                          <div class="item-thumbnail">
+                            <img src="//play.vidyard.com/J9eMyvwqTV7k4ykCob4rxW.jpg?small=1" alt="Salesforce Design Leadership Conference Broadcast">
+                            <span class="glyphicon glyphicon-play filter_play-btn"></span>
+                            <span class="time">1:33</span>
+                          </div>
+                          <div class="card-inner">
+                            <div class="item-event-type text-slate text-left salesforce-sans-bold">
+                              Live Now
+                            </div>
+                            <div class="item-name h3 text-link text-left salesforce-sans-light">
+                              Salesforce Design Leadership Conference Broadcast
+                            </div>
+                
+                            <div class="bg-light bar-align-left bar"></div>
+                
+                            <div class="item-event-date">
+                              September 25, 2016, 12:00 P.M. PST
+                            </div>
+                          </div>
+                
+                          <!-- Card Back Hover Content -->
+                          <div class="card-back-wrap">
+                            <h4 class="card-back-title">Live Now</h4>
+                            <div class="card-back-content">
+                              <p>At vero eos et accusamus et iusto odio dignissimos duc qui blanditiis praesentium. At vero eos et accusamus et iusto odio dignissimos duc qui blanditiis praesentium. At vero eos et accusamus et iusto.</p>
+                            </div>
+                            <!-- <div class="card-back-btn"><a class="btn btn-primary" href="#">Register</a></div> -->
+                            <div class="card-back-foot">September 25, 2016, 12:00 P.M. PST</div>
+                          </div>
+                
+                        </div>
+                        <footer>
+                          <div class="item-social-share">
+                            <div class="share"><a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-facebook-inverted">Facebook</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-twitter-inverted">Twitter</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-linkedin-inverted">LinkedIn</a>
+                            </div>
+                          </div>
+                          <div class="item-tags">
+                            Session
+                          </div>
+                        </footer>
+                      </div>
+                
+                      <div class="card">
+                        <a href="#" class="click-cover" title="TrailheaDX Keynote in 5 minutes"></a>
+                
+                        <div class="card-inner-wrap">
+                          <div class="item-thumbnail">
+                            <img src="//play.vidyard.com/koGsubGDfoi1QnFjhQfTMc.jpg?small=1" alt="TrailheaDX Keynote in 5 minutes">
+                            <span class="glyphicon glyphicon-play filter_play-btn"></span>
+                            <span class="time">5:34</span>
+                          </div>
+                          <div class="card-inner">
+                            <div class="item-event-type text-slate text-left salesforce-sans-bold">
+                              On Demand
+                            </div>
+                            <div class="item-name h3 text-link text-left salesforce-sans-light">
+                              TrailheaDX Keynote in 5 minutes
+                            </div>
+                
+                            <div class="bg-light bar-align-left bar"></div>
+                
+                            <div class="item-event-date">
+                              September 25, 2016, 12:00 P.M. PST
+                            </div>
+                          </div>
+                
+                          <!-- Card Back Hover Content -->
+                          <div class="card-back-wrap">
+                            <h4 class="card-back-title">UPCOMING WEBINAR</h4>
+                            <div class="card-back-content">
+                              <p>At vero eos et accusamus et iusto odio dignissimos duc qui blanditiis praesentium. At vero eos et accusamus et iusto odio dignissimos duc qui blanditiis praesentium. At vero eos et accusamus et iusto.</p>
+                            </div>
+                            <div class="card-back-btn"><a class="btn btn-primary" href="#">Register</a></div>
+                            <div class="card-back-foot">September 25, 2016, 12:00 P.M. PST</div>
+                          </div>
+                
+                        </div>
+                
+                        <footer>
+                          <div class="item-social-share">
+                            <div class="share"><a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-facebook-inverted">Facebook</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-twitter-inverted">Twitter</a>
+                              <a data-exit="false" data-tracking-attr="socialshare-filteredsessions" href="#" target="_blank" class="share_icon icon-sfdc-icon-linkedin-inverted">LinkedIn</a>
+                            </div>
+                          </div>
+                          <div class="item-tags">
+                            Session
+                          </div>
+                        </footer>
+                
+                      </div>
+                
+                    </div>
+                  </div>
+                </div>
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                     <div class="panel panel-default">
