@@ -697,7 +697,7 @@ thead {
 }
 
 .admin-fixed-header-nav {
-margin-bottom: 20px;
+    margin-bottom: 11px;
     margin-top: 0px;
 }
 /* end prototype */
@@ -1138,5 +1138,10 @@ footer {
 
 .new-logo-app p.hello {
     color: black;
+}
+
+.admin-fixed-header-nav .row {
+    padding-top: 10px;
+    border-top: 1px solid #c1bbbb;
 }
 /* End App part of new header and logo */
