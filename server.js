@@ -3,7 +3,6 @@ var https = require('https');
 var path = require('path');
 var passport = require('passport');
 var passportLocal = require('passport-local');
-var sslRedirect = require('heroku-ssl-redirect');
 var fs = require('fs');
 var flash = require('connect-flash');
 var bodyParser = require('body-parser');
@@ -18,10 +17,19 @@ var stripe = require("stripe")("sk_live_AhGykk1gWK5NiA1lJvO0a95Z");
 const queryString = require('query-string');
 var app = express();
 
-app.use(sslRedirect());
+
 app.use(flash());
 
 app.set('view engine', 'ejs');
+
+app.use(function(req, res, next) {
+  if(!req.secure) {
+    return res.redirect(['https://', req.get('Host'), req.url].join(''));
+  }
+  next();
+});
+
+app.set('trust proxy', true);
 
 app.use(bodyParser.urlencoded({extended : false }));
 app.use(cookieParser());
@@ -59,8 +67,21 @@ passport.deserializeUser(function(id, done) {
     done(null, user)
   });
 });
-  
+
+// var https_redirect = function(req, res, next) {
+//     if (process.env.NODE_ENV === 'production') {
+//         if (req.headers['x-forwarded-proto'] != 'https') {
+//             return res.redirect('https://' + req.headers.host + req.url);
+//         } else {
+//             return next();
+//         }
+//     } else {
+//         return next();
+//     }
+// };
+
 var server = http.createServer(app);
+
 
 app.get('/', function(req, res) {
   // if isAuthenticated 
@@ -1008,6 +1029,39 @@ app.post('/deactivate', function(req, res) {
      }
      
    });
+});
+
+app.get('/super-admin', function(req, res) {
+    if (req.isAuthenticated() && req.user._id == '579cb480a614e31e0e24ccbe') {
+    dbAuth.returnUsersData(function(err, users) {
+      console.log(users);
+        res.render('super-admin', {
+          isAuthenticated: req.isAuthenticated(),
+          user: req.user,
+          accountUpdated: null,
+          addedJob: null,
+          addOperator: null,
+          successToolRep: null,
+          users: users
+        });  
+    }); 
+    
+    } else {
+        res.redirect('/login');
+    }
+});
+
+app.post('/super-admin-sign-up', function(req, res) {
+    dbAuth.addNewUser(req.body, function(err, userId) {
+      if (err) {
+        console.log(err);;
+      } else {
+        console.log('Sign up route hit user id: ' + userId);
+        // save userId into session 
+        res.redirect('/super-admin');
+      }
+    });
+    res.status(200);
 });
 
 

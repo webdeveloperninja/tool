@@ -43,11 +43,22 @@ p {
 
 }
 
+.checkouts-body {
+    position: relative;
+}
+
+.clear-checkouts {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 20px;
+}
+
 .admin-header {
     font-size: 25px;
     font-weight: bold;
     background-color: #337ab7;
-    color: black !important;
+    color: white !important;
     text-align: left;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -237,6 +248,10 @@ input.submit.btn.btn-primary {
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
+.super-admin-row {
+    text-align: left;
+}
+
 .model-dialog-admin {
 }
 
@@ -363,10 +378,14 @@ h4 {
 }
 
 .home-container h1 {
-font-size: 72px;
-    text-align: left;    
+    font-size: 64px;
+    text-align: left;
+    margin-left: 309px;
+    padding-left: 96px;
+    max-width: 647px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: light;
 }
-
 
 .mid-banners img {
     margin-left: auto;
@@ -718,6 +737,38 @@ margin-bottom: 20px;
 
     /* Large Devices, Wide Screens */
     @media only screen and (max-width : 1200px) {
+        
+        .cta {
+            background: #3498db;
+            background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+            background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+            background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+            background-image: -o-linear-gradient(top, #3498db, #2980b9);
+            background-image: linear-gradient(to bottom, #3498db, #2980b9);
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            border-radius: 0px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 20px;
+            padding: 10px 20px 10px 20px;
+            text-decoration: none;
+            float: right;
+            margin-right: 39px;
+            box-shadow: 0px 0px 166px black;
+            margin-top: 60px;
+            font-size: 30px;
+        }
+        
+        .home-container h1 {
+            font-size: 48px;
+            text-align: left;
+            margin-left: 309px;
+            padding-left: 18px;
+            max-width: 647px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: light;
+        }
         .newsearch .form-wrapper button {
             width: 99px;
             float: left;
@@ -756,6 +807,16 @@ margin-bottom: 20px;
 
     /* Medium Devices, Desktops */
     @media only screen and (max-width : 991px) {
+        
+.home-container h1 {
+    font-size: 44px;
+    text-align: left;
+    margin-left: 245px;
+    padding-left: 1px;
+    max-width: 647px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: light;
+}
         
         .tools-list-panel .panel-heading a {
             display: inline-block;
@@ -804,7 +865,6 @@ margin-bottom: 20px;
             position: relative;
             float: right;
             padding: 9px 10px;
-            margin-top: -14px;
             margin-right: 15px;
             margin-bottom: 2px;
             background-color: transparent;
@@ -821,7 +881,25 @@ margin-bottom: 20px;
 
     /* Small Devices, Tablets */
     @media only screen and (max-width : 768px) {
-
+        
+        .home-container h1 {
+            font-size: 44px;
+            text-align: left;
+            margin-left: 217px;
+            padding-left: 1px;
+            max-width: 447px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: light;
+        }
+.hero-banner a.cta {
+    float: none !important;
+    /* margin-left: auto !important; */
+    /* margin-right: auto !important; */
+    box-shadow: 0px 0px 166px black;
+    font-size: 25px;
+    margin-right: -210px;
+    margin-top: 23px !important;
+}
         .table-btn {
             display: inline-block;
             width: 100%;
@@ -837,6 +915,10 @@ margin-bottom: 20px;
     
     .mid-banner {
         height: auto;
+    }
+    
+    .clear-checkouts {
+        display: none;
     }
     
     .newsearch .form-wrapper input {
@@ -1005,16 +1087,17 @@ footer {
     .navbar {
         min-height: 68px;
     }
+    header {
+        margin-right: -15px;
+        margin-left: -15px;
+        margin-top: -21px;
+        padding-top: 21px;
+    }
 }
 
 @media only screen and (max-width : 430px) {
     .navbar {
-        min-height: 84px;
-    }
-}
-@media only screen and (max-width : 415px) {
-    .navbar {
-        min-height: 106px;
+        min-height: 71px;
     }
     
     .navbar-brand {
@@ -1022,11 +1105,12 @@ footer {
     }
     
     .navbar-brand img {
-        max-width: 305px;
+        max-width: 212px;
     }
     
     .navbar-header {
-        min-height: 85px;
+        min-height: 52px;
     }
 }
+
 /* End New Logo */

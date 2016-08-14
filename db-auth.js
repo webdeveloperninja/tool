@@ -1,13 +1,16 @@
 var mongoose = require('mongoose');
 // db connection 
-mongoose.connect('mongodb://rsmith5901:321eaglecourt@ds019470.mlab.com:19470/tools');
+mongoose.connect('mongodb://rsmith5901:321eaglecourt@ds139065-a0.mlab.com:39065,ds139065-a1.mlab.com:39065/tools?replicaSet=rs-ds139065')
 
 var usersSchema = new mongoose.Schema({
     username: String,
     password: String,
     companyName: String,
     stripeId: String,
-    toolingRep: Object
+    toolingRep: Object,
+    superUser: Boolean,
+    email: String,
+    contactName: String
 });
 
 
@@ -299,6 +302,11 @@ var exports = module.exports = {
             },
             clearCheckouts: function(userId, cb) {
                 checkouts.find({ userId:userId }).remove( cb );
+            },
+            returnUsersData: function(cb) {
+                users.find(function(err, users) {
+                    cb(null, users);
+                });
             }
 }
             
