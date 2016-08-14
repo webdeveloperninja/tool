@@ -963,3 +963,70 @@ margin-bottom: 20px;
             display: block;
         }  
     }
+
+
+/* New Logo */
+footer {
+    background-color: white;
+    padding-top: 20px;
+}
+
+.navbar-default {
+    border-bottom: 1px solid black;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: black;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+    color: #43BEA1;
+}
+
+   
+.navbar-brand img {
+    max-width: 407px;
+    margin-top: -21px;
+}
+
+@media only screen and (max-width : 992px) {
+    .navbar-brand img {
+        max-width: 319px;
+        margin-bottom: -40px;
+        margin-top: -34px;
+    }
+}
+@media only screen and (max-width : 768px) {
+    .navbar-brand img {
+        max-width: 321px;
+        margin-left: 20px;
+        margin-top: -16px;
+    }
+    .navbar {
+        min-height: 68px;
+    }
+}
+
+@media only screen and (max-width : 430px) {
+    .navbar {
+        min-height: 84px;
+    }
+}
+@media only screen and (max-width : 415px) {
+    .navbar {
+        min-height: 106px;
+    }
+    
+    .navbar-brand {
+        display: inline;
+    }
+    
+    .navbar-brand img {
+        max-width: 305px;
+    }
+    
+    .navbar-header {
+        min-height: 85px;
+    }
+}
+/* End New Logo */
