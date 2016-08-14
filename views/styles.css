@@ -1077,6 +1077,10 @@ footer {
         margin-bottom: -40px;
         margin-top: -34px;
     }
+    
+    .new-logo-app .navbar-brand img {
+        max-width: 269px !important;
+    }
 }
 @media only screen and (max-width : 768px) {
     .navbar-brand img {
@@ -1110,6 +1114,9 @@ footer {
     
     .navbar-header {
         min-height: 52px;
+    }
+    .new-logo-app .navbar-brand img {
+        max-width: 225px !important;
     }
 }
 
