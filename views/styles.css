@@ -1114,3 +1114,22 @@ footer {
 }
 
 /* End New Logo */
+
+/* App part of new header and logo */
+
+.app .navbar-brand img {
+    max-width: 362px;
+}
+
+.app p.hello {
+    color: black;
+}
+
+.new-logo-app .navbar-brand img {
+    max-width: 352px;
+}
+
+.new-logo-app p.hello {
+    color: black;
+}
+/* End App part of new header and logo */
