@@ -16,6 +16,13 @@
   ga('send', 'pageview');
 
 </script>
+<style>
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary {
+    color: #fff;
+    width: 44px !important;
+    background: #337ab7;
+}
+</style>
     </head>
     <body <%if(isAuthenticated) {%> class="authenticated" <% } %>>
     <nav class="navbar navbar-default navbar-fixed-top __web-inspector-hide-shortcut__ <%if(isAuthenticated) {%> new-logo-app <% } %>">
