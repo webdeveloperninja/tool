@@ -136,6 +136,7 @@ var exports = module.exports = {
             },
             addNewUser: function(userObj, cb) {
               var newUser = new users(userObj);
+              console.log(newUser);
               newUser.save(function(err, data){
                 if(err) {
                   cb(err);

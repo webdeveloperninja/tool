@@ -22,7 +22,7 @@
         <script src="../bower_components/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
         <script type="text/javascript">
-          Stripe.setPublishableKey('pk_test_7ySNAoNYSJEwRZuD6xaPec4Z');
+          
           
           
             $(function() {
@@ -108,7 +108,11 @@
                             <div class="row">
                                         <div class="col-md-12" style="margin-top:27px;">
                                                 <div id="notice" class="alert alert-danger" role="alert" style="display: none;">
-                                                    <p id="notice-text" class="text-center"></p>
+                                                    <p id="notice-text" class="text-center">
+                                                      <% if(paymentErr) { %>
+                                                        There was an error processing your payment
+                                                      <% } %>
+                                                    </p>
                                                 </div>
                                             
                                             
@@ -223,9 +227,19 @@
       });
     });
     
+    var stripeModeTest = true;
+    var stripeKey;
+    var stripeKeys = {
+      test: 'pk_test_7ySNAoNYSJEwRZuD6xaPec4Z',
+      live: 'pk_live_WAT0XAXb4Hw3KJvnZQVl2IuX'
+    }
+    if (stripeModeTest) {
+      stripeKey = stripeKeys.test
+    } else {
+      stripeKey = stripeKeys.live
+    }
     
-    Stripe.setPublishableKey('pk_live_WAT0XAXb4Hw3KJvnZQVl2IuX');
-    
+    Stripe.setPublishableKey(stripeKey);
   </script>
   <script src="./js/payment-app.js"></script>
     </body>
