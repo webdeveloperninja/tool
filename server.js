@@ -12,8 +12,20 @@ var shortid = require('shortid');
 var json2csv = require('json2csv');
 var dbAuth = require('./db-auth.js');
 var autoEmailOrder = require('./auto-email-order.js');
-var express = require('express'); 
-var stripe = require("stripe")("sk_live_AhGykk1gWK5NiA1lJvO0a95Z");
+var express = require('express');
+var stripeModeTest = true;
+var stripeKey;
+var stripeKeys = {
+  test: 'sk_test_5xGwl5dqR8CvbMJZOaqjutIQ',
+  live: 'sk_live_AhGykk1gWK5NiA1lJvO0a95Z'
+}
+if (stripeModeTest) {
+  stripeKey = stripeKeys.test
+} else {
+  stripeKey = stripeKeys.live
+}
+var stripe = require("stripe")(stripeKey);
+
 const queryString = require('query-string');
 var app = express();
 
@@ -527,7 +539,8 @@ app.get('/choose-a-plan', function(req, res) {
     console.log('Pay for plan hit');
     res.render('choose-a-plan', {
       isAuthenticated: req.isAuthenticated(),
-      user: req.user
+      user: req.user,
+      paymentErr: null
     });
 });
 
@@ -546,6 +559,11 @@ app.post('/choose-a-plan', function(req, res) {
     }, function(err, customer) {
       if (err) {
         console.log(err);
+        res.render('choose-a-plan', {
+          isAuthenticated: req.isAuthenticated(),
+          user: req.user,
+          paymentErr: err
+        });
       } else {
         
         // find user id and add customer id for payment
@@ -562,9 +580,7 @@ app.post('/choose-a-plan', function(req, res) {
             email: null
           }
         }
-        
-        console.log(newUserObj);
-        
+
         dbAuth.addNewUser(newUserObj, function(err, userId) {
           if (err) {
             console.log(err);
