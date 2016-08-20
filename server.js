@@ -11,6 +11,7 @@ var expressSession = require('express-session');
 var shortid = require('shortid');
 var json2csv = require('json2csv');
 var dbAuth = require('./db-auth.js');
+var email = require('./email.js');
 var autoEmailOrder = require('./auto-email-order.js');
 var express = require('express');
 var stripeModeTest = true;
@@ -546,9 +547,6 @@ app.get('/choose-a-plan', function(req, res) {
 
 app.post('/choose-a-plan', function(req, res) {
     console.log('Choose a plan hit');
-    
-    // (Assuming you're using express - expressjs.com)
-    // Get the credit card details submitted by the form
     var stripeToken = req.body.stripeToken;
     
     stripe.customers.create({
@@ -585,9 +583,34 @@ app.post('/choose-a-plan', function(req, res) {
           if (err) {
             console.log(err);
           } else {
+            /*
+              Getting Current Date in format 
+              mm/dd/yy
+            */
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
             
-          // set session so I can flag user success created account
-         /// res.redirect('/login');
+            if(dd<10) {
+                dd='0'+dd
+            } 
+            
+            if(mm<10) {
+                mm='0'+mm
+            } 
+            
+            today = mm+'/'+dd+'/'+yyyy;
+            /*
+              Creating HTML to email to myself when user signs up
+            */
+          var signupAlertEmailHtml = '<h3>New User: on ' + today + '</h3>' + 
+              '<p>Name: ' + newUserObj.name + '</p>' +
+              '<p>Email: ' + newUserObj.email + '</p>' +
+              '<p>User Name: ' + newUserObj.username + '</p>' +
+              '<p>Company Name: ' + newUserObj.companyName + '</p>';
+          email.mail(signupAlertEmailHtml, 'New User On ToolingInventory.com', 'rsmith5901@gmail.com');
+
           res.render('login', {
             userCreated: true,
             noMatch: null,
