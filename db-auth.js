@@ -308,6 +308,15 @@ var exports = module.exports = {
                 users.find(function(err, users) {
                     cb(null, users);
                 });
+            },
+            doesUsernameExistDb(username, cb) {
+                var exists = false;
+                users.find({ 'username': username }, function (err, user) {
+                    if (user.length > 0) {
+                        exists = true;
+                    }
+                    cb(exists);
+                })
             }
 }
             

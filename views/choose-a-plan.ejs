@@ -15,6 +15,9 @@
 
 </script>
         <style>
+            #notice {
+              display: block;
+            }
             body {
                 padding-top: 10px;
             }
@@ -107,10 +110,13 @@
 
                             <div class="row">
                                         <div class="col-md-12" style="margin-top:27px;">
-                                                <div id="notice" class="alert alert-danger" role="alert" style="display: none;">
+                                                <div id="notice" role="alert">
                                                     <p id="notice-text" class="text-center">
                                                       <% if(paymentErr) { %>
                                                         There was an error processing your payment
+                                                      <% } %>
+                                                      <% if(usernameExists) { %>
+                                                        Uh Oh the username you choses is already taken.. Please try again.
                                                       <% } %>
                                                     </p>
                                                 </div>
