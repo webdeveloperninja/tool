@@ -547,7 +547,13 @@ app.get('/choose-a-plan', function(req, res) {
 });
 
 app.post('/choose-a-plan', function(req, res) {
-  
+  /*
+    1) Check for existing user
+    2) If username does not exist 
+    3) Create stripe account
+    4) Create User object
+    5) Save user object to db
+  */
   dbAuth.doesUsernameExistDb(req.body.username, function(exist) {
     console.log('do I exist: ' + exist);
     if (!exist) {
