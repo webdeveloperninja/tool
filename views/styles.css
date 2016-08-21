@@ -279,6 +279,11 @@ input.submit.btn.btn-primary {
     width: 100%;
 }
 
+.g-recaptcha div {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .production-search {
     font-size: 50px;
     height: 59px;
@@ -312,6 +317,11 @@ input.submit.btn.btn-primary {
     display: none;
 }
 
+#notice-text {
+    color: #7b0000;
+    font-weight: bold;
+    margin-bottom: 0;
+}
 .video-heading {
     font-size: 20px;
     color: #167ac6;

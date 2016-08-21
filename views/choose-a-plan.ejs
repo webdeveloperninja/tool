@@ -99,7 +99,7 @@
     </nav>
     <div class="container">
             <div class="row plan-row">
-                <div class="col-md-8 col-md-offset-2 ">
+                <div class="col-lg-8 col-lg-offset-2 ">
                     <div class="panel-group payment-box">
                       <div class="panel panel-default">
                         <div class="panel-heading">
@@ -109,7 +109,7 @@
                             <h4 class="text-center options-heading">$1,250/year</h4>
 
                             <div class="row">
-                                        <div class="col-md-12" style="margin-top:27px;">
+                                        <div class="col-md-12" style="margin-top:0px;">
                                                 <div id="notice" role="alert">
                                                     <p id="notice-text" class="text-center">
                                                       <% if(paymentErr) { %>
@@ -128,7 +128,7 @@
                                     </div>
                             <form action="" method="POST" id="payment-form">
                               <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                   <h3 class="text-center">About You</h3>
                                 <div class="form-group">
                                     <input placeholder="Name" class="form-control" name="name" required>
@@ -149,7 +149,7 @@
                                     <input placeholder="Re Enter Password" class="form-control" id="password-match" name="reEnterPassword" type="password" required>
                                 </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                               <h3 class="text-center">Payment Method</h3>
                               <div class="form-group">
  
@@ -162,13 +162,13 @@
                                   <span>Expiration (MM/YY)</span>
                                 </label>
                                 <div class="row">
-                                    <div class="col-md-5">
+                                    <div class="col-sm-5">
                                         <input placeholder="MM" type="text" size="2" data-stripe="exp_month" class="form-control" required>
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-sm-1">
                                         <span class="mm-year-seperator"> / </span>
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-sm-5">
                                         <input placeholder="YY" type="text" size="2" data-stripe="exp_year" class="form-control" required>
                                     </div>
                                 </div>
