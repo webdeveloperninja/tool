@@ -1,0 +1,44 @@
+body {
+    text-align: left;
+}
+
+.videos-col {
+    background-color: white;
+    padding-top: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #1f1f1f;
+    box-shadow: 0px 0px 65px black;
+}
+
+.videos-col h3 {
+    margin-top: 0;   
+}
+
+a.tutorial-cta {
+    display: block;
+    width: 100%;
+    height: 50px;
+    background-color: #43bea1;
+    padding-top: 13px;
+    font-size: 20px;
+    color: white;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #1f1f1f;
+}
+
+a.tutorial-cta:hover {
+    text-decoration: none;
+    color: white;
+    background-color: #084e3e;
+}
+
+.video-container {
+    border: 1px solid black;
+}
+
+@media only screen and (max-width : 991px) { 
+    .videos-col h3 {
+        margin-top: 20px;
+    }
+}
