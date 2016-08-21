@@ -57,8 +57,8 @@ p {
 .admin-header {
     font-size: 25px;
     font-weight: bold;
-    background-color: #337ab7;
-    color: white !important;
+    background-color: #43bea1;
+    color: black !important;
     text-align: left;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -326,6 +326,54 @@ input.submit.btn.btn-primary {
     font-size: 20px;
     color: #167ac6;
 }
+.search-flag {
+    height: 40px;
+    width: 107px;
+    background-color: #43bea1;
+    border-right: 1px solid grey;
+    border-top: 1px solid grey;
+    color: black;
+    border-bottom: 1px solid grey;
+    display: block;
+    float: left;
+}
+.search-flag {
+	position: relative;
+	background: #43bea1;
+	border: 1px solid #808080;
+}
+.search-flag {
+    position: relative;
+    background: #43bea1;
+    padding-top: 8px;
+    font-weight: bold;
+    color: black;
+    font-size: 18px;
+    border: 1px solid #808080;
+}
+.search-flag:after, .search-flag:before {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.search-flag:after {
+	border-color: rgba(67, 190, 161, 0);
+	border-right-color: #43bea1;
+	border-width: 10px;
+	margin-top: -10px;
+}
+.search-flag:before {
+	border-color: rgba(128, 128, 128, 0);
+	border-right-color: #808080;
+	border-width: 11px;
+	margin-top: -11px;
+}
 
 .name-title {
     text-align: left;
@@ -500,6 +548,8 @@ thead {
     float: none;
 }
 
+
+
 .login .panel {
     text-align: left;
 }
@@ -611,28 +661,8 @@ thead {
         font-style: italic;
     }    
     
-    .newsearch .search-flag {
-        cursor: default !important;
-    }
-    
-.newsearch .search-flag button:hover {
-    overflow: visible !important;
-    position: relative !important;
-    float: right !important;
-    border: 0 !important;
-    padding: 0 !important;
-    cursor: pointer !important;
-    height: 40px !important;
-    width: 110px !important;
-    font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma' !important;
-    color: #fff !important;
-    text-transform: uppercase !important;
-    background: #d83c3c !important; 
-    -moz-border-radius: 0 3px 3px 0 !important;
-    -webkit-border-radius: 0 3px 3px 0 !important;
-    border-radius: 0 3px 3px 0 !important;
-    text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3) !important;
-}
+
+
     
  .newsearch   .form-wrapper button {
 		overflow: visible;
@@ -810,8 +840,10 @@ thead {
         .mid-banner {
             height: 742px;
         }
-        
-    
+        .search-flag {
+            width: 99px;
+        }
+           
         
     }
 
@@ -931,18 +963,14 @@ thead {
         display: none;
     }
     
-    .newsearch .form-wrapper input {
-        float: none;
-    }
     
     .navbar-brand {
         float: none;
-    padding: 0;
-    display: block;
-    margin-top: -4px;
-    margin-right: auto;
+        padding: 0;
+        display: block;
+        margin-top: -4px;
+        margin-right: auto;
     }
-
 
     }
     
@@ -1007,6 +1035,10 @@ thead {
             box-shadow: 0px 0px 166px black;
             font-size: 30px;
             margin-top: 63px !important;
+        }
+        
+        .search-flag {
+            display: none;
         }
         
         .newsearch .form-wrapper input {
