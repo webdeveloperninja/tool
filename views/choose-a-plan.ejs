@@ -46,9 +46,9 @@
                   var $form = $('#payment-form');
                 
                   if (response.error) { // Problem!
-                
                     // Show the errors on the form:
-                    $form.find('.payment-errors').text(response.error.message);
+                    alert(response.error.message);
+                    $form.find('.payment-errors').html(response.error.message);
                     $form.find('.submit').prop('disabled', false); // Re-enable submission
                 
                   } else { // Token was created!
@@ -110,8 +110,10 @@
 
                             <div class="row">
                                         <div class="col-md-12" style="margin-top:0px;">
+                                      
                                                 <div id="notice" role="alert">
                                                     <p id="notice-text" class="text-center">
+                                                      <span class="payment-errors"></span>
                                                       <% if(paymentErr) { %>
                                                         There was an error processing your payment
                                                       <% } %>
