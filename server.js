@@ -132,6 +132,33 @@ app.get('/login', function(req, res) {
   
 }); 
 
+app.get('/landing-form', function(req, res) {
+    res.render('landing-form',{
+    isAuthenticated: req.isAuthenticated(),
+    user: req.user,
+    succesfullyCreateUser: false,
+    badPassword: false,
+    noMatch: null,
+    userCreated: null
+  });
+}); 
+
+app.post('/landing-form', function(req, res) {
+  console.log('hit');
+  console.log(req.body);
+  var formHtml = '<h2>New Lead ToolingInventory.com</h2><br>' + 
+                 '<ul>' +
+                 '<li> First Name: ' + req.body.username[0] + '</li>' + 
+                 '<li> Last Name: ' + req.body.username[1] + '</li>' + 
+                 '<li> Job Title: ' + req.body.username[2] + '</li>' + 
+                 '<li> Email: ' + req.body.username[3] + '</li>' + 
+                 '<li> Phone: ' + req.body.username[4] + '</li>' + 
+                 '<li> Company: ' + req.body.username[5] + '</li>' + 
+                 '</ul>'
+  email.mail(formHtml, 'New Lead On ToolingInventory.com', 'rsmith5901@gmail.com');
+  res.render('thanks');
+});
+
 app.post('/login', passport.authenticate('local', {successRedirect: '/production', failureRedirect:'/login?bad-cred',failureFlash : true }));
 
 app.get('/logout', function(req, res) {
