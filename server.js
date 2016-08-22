@@ -132,6 +132,18 @@ app.get('/login', function(req, res) {
   
 }); 
 
+app.get('/landing-form', function(req, res) {
+    res.render('landing-form',{
+    isAuthenticated: req.isAuthenticated(),
+    user: req.user,
+    succesfullyCreateUser: false,
+    badPassword: false,
+    noMatch: null,
+    userCreated: null
+  });
+  
+}); 
+
 app.post('/login', passport.authenticate('local', {successRedirect: '/production', failureRedirect:'/login?bad-cred',failureFlash : true }));
 
 app.get('/logout', function(req, res) {

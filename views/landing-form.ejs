@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <link href="./landing-form.css" rel="stylesheet">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-77516816-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+    </head>
+    <body>
+
+        <div class="container-fluid login">
+            <div class="row">
+                <div class="col-md-9">
+                    <!--<h1>-->
+                    <!--    IBM watson analytics with ToolingInventory.com for tooling insites-->
+                    <!--</h1>-->
+                    <!--<ol>-->
+                    <!--    <li>Keep track of your tooling with ToolingInventory.com</li>-->
+                    <!--    <li>Download your tooling usage</li>-->
+                    <!--    <li>Upload your data into IBM's Watson Analytics software</li>-->
+                    <!--    <li>Find patterns, trends and more in your tooling data</li>-->
+                    <!--</ol>-->
+                    <a href="/tutorials">
+                        <img src="./images/ibm-wat.jpg" class="img-responsive">
+                    </a>
+                    <h1>See tooling insights with <a href="/" class="link">ToolingInventory.com</a> and Watson</h1>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel-group">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">Request more information</div>
+                        <div class="panel-body">
+                            <form action="" method="post">
+                                <div class="form-group">
+                                    <label>First Name:</label>
+                                    <input class="form-control" type="text" name="username" placeholder="First Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Last Name:</label>
+                                    <input class="form-control" type="text" name="username" placeholder="Last Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Job Title:</label>
+                                    <input class="form-control" type="text" name="username" placeholder="Job Title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email:</label>
+                                    <input class="form-control" type="text" name="username" placeholder="Email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone:</label>
+                                    <input class="form-control" type="text" name="username" placeholder="Phone" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Company:</label>
+                                    <input class="form-control" type="text" name="username" placeholder="Company" required>
+                                </div>
+                                <input class="btn btn-default" type="submit" value="Log In">
+                            </form>    
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="js/app.js"></script>
+        <script src="../js/login.js"></script>
+        <script>
+            $(document).ready(function() {
+                console.log(window.location.href);
+                var cred = window.location.href.split('?')[1];
+                if (cred) {
+                    $('#notice').show();
+                        setTimeout(function() { 
+                        $('#notice').fadeOut(); 
+                       }, 5000);
+                }
+            });
+        </script>
+    </body>
+</html>
