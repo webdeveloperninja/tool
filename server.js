@@ -144,8 +144,6 @@ app.get('/landing-form', function(req, res) {
 }); 
 
 app.post('/landing-form', function(req, res) {
-  console.log('hit');
-  console.log(req.body);
   var formHtml = '<h2>New Lead ToolingInventory.com</h2><br>' + 
                  '<ul>' +
                  '<li> First Name: ' + req.body.username[0] + '</li>' + 

@@ -571,6 +571,19 @@ thead {
     color: white;
     font-size: 26px;
 }
+.btn-success {
+    color: black;
+    background-color: #43BEA1;
+    border-color: #255625;
+}
+
+
+
+.btn-success:hover {
+    color: black;
+    background-color: #39b797;
+    border-color: #255625;
+}
 
 .panel-success>.panel-heading {
     color: #3c763d;
