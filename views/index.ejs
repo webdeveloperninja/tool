@@ -20,6 +20,9 @@
         </script>
     </head>
     <body <%if(isAuthenticated) {%> class="authenticated" <% } %> >
+    <div class="loader">
+        <img src="./images/gear-t.png" class="img-responsive">
+    </div>
     <nav class="navbar navbar-default navbar-fixed-top __web-inspector-hide-shortcut__ <%if(isAuthenticated) {%> new-logo-app <% } %>">
       <div class="container">
         <div class="navbar-header">
@@ -332,6 +335,9 @@ s0.parentNode.insertBefore(s1,s0);
             
             
             });
+            $(window).load(function() {
+            	$(".loader").fadeOut("slow");
+            })
         </script>
 
         

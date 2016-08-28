@@ -17,6 +17,9 @@
         <link href="../styles.css" rel="stylesheet">
     </head>
     <body <%if(isAuthenticated) {%> class="authenticated" <% } %>>
+    <div class="loader">
+        <img src="./images/gear-t.png" class="img-responsive">
+    </div>
 <nav class="navbar navbar-default navbar-fixed-top __web-inspector-hide-shortcut__  new-logo-app ">
       <div class="container">
         <div class="navbar-header">
@@ -138,5 +141,10 @@
         <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="../js/bootstrap-switch.min.js"></script>
         <script src="../js/update-tool.js"></script>
+        <script>
+            $(window).load(function() {
+            	$(".loader").fadeOut("slow");
+            })
+        </script>
     </body>
 </html>

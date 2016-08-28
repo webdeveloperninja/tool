@@ -17,6 +17,9 @@
     </head>
     <body class="my-account">
     <nav class="navbar navbar-default navbar-fixed-top __web-inspector-hide-shortcut__ <%if(isAuthenticated) {%> new-logo-app <% } %>">
+    <div class="loader">
+        <img src="./images/gear-t.png" class="img-responsive">
+    </div>
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -247,7 +250,11 @@
         <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="../js/app.js"></script>
         
-        
+        <script>
+            $(window).load(function() {
+            	$(".loader").fadeOut("slow");
+            })
+        </script>   
 
         
     </body>

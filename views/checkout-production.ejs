@@ -16,6 +16,9 @@
 </script>
     </head>
     <body>
+    <div class="loader">
+        <img src="./images/gear-t.png" class="img-responsive">
+    </div>
     <nav class="navbar navbar-inverse navbar-fixed-top __web-inspector-hide-shortcut__">
       <div class="container">
         <div class="navbar-header">
@@ -272,7 +275,11 @@
             });
         </script>        
         
-
+        <script>
+            $(window).load(function() {
+            	$(".loader").fadeOut("slow");
+            })
+        </script>
         
     </body>
 </html>
