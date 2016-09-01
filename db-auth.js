@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
-// db connection 
-mongoose.connect('mongodb://rsmith5901:321eaglecourt@ds139065-a0.mlab.com:39065,ds139065-a1.mlab.com:39065/tools?replicaSet=rs-ds139065')
+// db connection   
+
+// mongoose.connect('mongodb://rsmith5901:321eaglecourt@ds139065-a0.mlab.com:39065,ds139065-a1.mlab.com:39065/tools?replicaSet=rs-ds139065')
+mongoose.connect('mongodb://rsmith5901:321eaglecourt@ds139065-a0.mlab.com:39065,ds139065-a1.mlab.com:39065/tools?replicaSet=rs-ds139065');
 
 var usersSchema = new mongoose.Schema({
     username: String,
@@ -12,7 +14,6 @@ var usersSchema = new mongoose.Schema({
     email: String,
     contactName: String
 });
-
 
 var toolsSchema = new mongoose.Schema({
     userId: String,
