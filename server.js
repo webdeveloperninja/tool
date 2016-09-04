@@ -1078,6 +1078,28 @@ app.post('/checkout-production', function(req, res) {
   console.log('checkout');
 });
 
+app.get('/checkouts-per-job', function(req, res) {
+  
+    if (req.isAuthenticated()) {
+      var userId = req.user._id;
+      // need to send tool id
+      var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+      // rename this function checkoutToolIdQuery
+      var jobId = jobIdQuery(fullUrl);
+      dbAuth.viewSingleJobToolingUsage(userId, jobId, function(toolCheckouts) {
+        console.log('TOOLS CHECKOUT ' + toolCheckouts);
+        var obj = {
+          names: ['.125" Endmil'],
+          qty: [12]
+        }
+        res.send(JSON.stringify(toolCheckouts));
+      });
+    } else {
+      res.redirect('login')
+    }
+
+});
+
 app.get('/clear-checkouts', function(req, res) {
     console.log('Clear Checkouts');
     dbAuth.clearCheckouts(req.user._id, function(err) {

@@ -289,7 +289,7 @@ var exports = module.exports = {
             viewSingleJobToolingUsage: function(userId, jobId, cb) {
                 checkouts.find({ 'jobId': jobId, 'userId':userId }, function (err, checkouts) {
                   if(err) {
-                      console.log
+                      console.log(err);
                   }
                   cb(checkouts);
                 })
