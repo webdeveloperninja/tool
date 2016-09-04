@@ -19,6 +19,12 @@
         body {
             text-align: left;
         }
+        .panel-default>.panel-heading {
+            text-align: left;
+        }
+        .panel-heading .heading {
+            margin-top: 0;
+        }
     </style>
     </head>
     <body <%if(isAuthenticated) {%> class="authenticated" <% } %>>
@@ -94,8 +100,12 @@
                 <div class="col-md-12">
                     <div class="panel panel-default tools-list-panel">
                         <div class="panel-heading">
-                            <h3 class="text-center">Checkouts List</h3>
-                            <h4 class="text-center">Job Number: <%= jobNumber %></h4>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h2 class="heading">Checkouts List</h2>
+                                    <h4>Job Number: <%= jobNumber %></h4>
+                                </div>
+                            </div>
                         </div>
                         <div class="panel-body">
                         <div id="users">
@@ -121,7 +131,7 @@
                                 </div>
                             </div>
             <div class="row admin-header hidden-xs hidden-sm">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     Tool
                 </div>
                 <div class="col-md-2">
@@ -133,14 +143,14 @@
                 <div class="col-md-2">
                     Date
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-1">
                     Qty
                 </div>
             </div>
                             <div class="list">
                                 <% for (var i=0; i<checkouts.length; i++) {%>
                                     <div class="row tools-row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <p class="table-value name"> <%= checkouts[i].toolName %></p>
                                         </div>
                                         <div class="col-md-2">
@@ -151,7 +161,7 @@
                                         </div>
                                         <div class="col-md-2">
                                             <p class="table-value date"> <%= checkouts[i].checkoutDate.toLocaleDateString()  %></p>                                        </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-1">
                                             <p class="table-value"> <%= checkouts[i].checkoutQty %></p>
                                         </div>
                                     </div>
