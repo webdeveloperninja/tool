@@ -15,6 +15,11 @@
   ga('send', 'pageview');
 
 </script>
+    <style>
+        body {
+            text-align: left;
+        }
+    </style>
     </head>
     <body <%if(isAuthenticated) {%> class="authenticated" <% } %>>
     <div class="loader">
@@ -93,11 +98,12 @@
                             <h4 class="text-center">Job Number: <%= jobNumber %></h4>
                         </div>
                         <div class="panel-body">
+                        <div id="users">
                             <div class="row newsearch">
                                 <div class="col-md-6">
                                     <form class="form-wrapper cf">
-                                      	<input class="search home-search" type="text" placeholder="Search here..." required>
-                                    	<span class="search-flag">Search</span>
+                                      	<input class="search production-search" type="text" placeholder="Search here..." required>
+                                    	<span class="search-flag text-center">Search</span>
                                     </form>
                                 </div>
                                 <div class="col-md-4 col-md-offset-2">
@@ -105,30 +111,62 @@
                                     <button type="button" class="btn btn-success btn-sm hidden-xs hidden-sm hidden-md" id="graph" data-toggle="modal" data-target="#myModal">See your tooling usage</button>
                                 </div>
                             </div>
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr class="tool-list-heading">
-                                        <td>Tool Name</td>
-                                        <td>Operator Name</td>
-                                        <td>Job Name</td>
-                                        <td>Checkout Date</td>
-                                        <td>Checkout Qty</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                     <% for (var i=0; i<checkouts.length; i++) {%>
-                                    <tr>
-                                        <td><p class="table-value"> <%= checkouts[i].toolName %></p></td>
-                                        <td><p class="table-value"> <%= checkouts[i].operatorName %></p></td>
-                                        <td><p class="table-value"> <%= checkouts[i].jobName %></p></td>
-                                        <td><p class="table-value"> <%= checkouts[i].checkoutDate.toLocaleDateString()  %></p></td>
-                                        <td><p class="table-value"> <%= checkouts[i].checkoutQty %></p></td> 
-                                    </tr>
-                                    <% } %>
-                                </tbody>
-                            </table>
-                        </div>
+                            
+                            
+                        
+                            <div class="row">
+                                <div class="col-md-4 col-md-offset-4">
+                                    <div id="status-area">
+                                    </div>
+                                </div>
+                            </div>
+            <div class="row admin-header hidden-xs hidden-sm">
+                <div class="col-md-3">
+                    Tool
+                </div>
+                <div class="col-md-2">
+                    Operator
+                </div>
+                <div class="col-md-3">
+                    Job
+                </div>
+                <div class="col-md-2">
+                    Date
+                </div>
+                <div class="col-md-2">
+                    Qty
+                </div>
+            </div>
+                            <div class="list">
+                                <% for (var i=0; i<checkouts.length; i++) {%>
+                                    <div class="row tools-row">
+                                        <div class="col-md-3">
+                                            <p class="table-value name"> <%= checkouts[i].toolName %></p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p class="table-value operator"> <%= checkouts[i].operatorName %></p>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <p class="table-value job"> <%= checkouts[i].jobName %></p>                                        
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p class="table-value date"> <%= checkouts[i].checkoutDate.toLocaleDateString()  %></p>                                        </div>
+                                        <div class="col-md-2">
+                                            <p class="table-value"> <%= checkouts[i].checkoutQty %></p>
+                                        </div>
+                                    </div>
+                                <% } %>
+                                <!-- Go back to this hacky as f -->
+                                <div style="display:none;">
+                                  <!-- A template element is needed when list is empty, TODO: needs a better solution -->
+                                  <li id="hacker-item">
+                                   <h3 class="name"></h3>
+                                   <p class="city"></p>
+                                  </li>
+                                </div>
+                            </div>
+
+                        </div><!-- end table responsive-->
                         </div>
                     </div>
                     <% } %>
@@ -164,12 +202,22 @@
         <script src="../bower_components/jquery/dist/jquery.min.js"></script>
         <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+        <script src="../bower_components/list.js/dist/list.min.js"></script>
         <script src="../../graph.js"></script>
     
         <script>
             $(window).load(function() {
             	$(".loader").fadeOut("slow");
             })
+            
+            $(document).ready(function() {
+            var options = {
+              valueNames: [ 'name', 'operator', 'job', 'date' ]
+            };
+            
+            
+            var userList = new List('users', options); 
+            });
         </script>
         
     </body>
