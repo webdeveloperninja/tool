@@ -47,16 +47,22 @@ $(document).ready(function() {
         }
       // somehow get job id and userid set ajax headers 
       // api call
-      console.log(getParameterByName('jobId'));
         $.ajax({
           url: '../checkouts-per-job/?jobId=' + getParameterByName('jobId'),
           type: 'GET',
         //   data: { signature: authHeader },
           success: function(data) {
-        	//called when successful
+
+            if (data.length == 2) {
+            $('.bar-graph #error').html('<h1 class="text-center">No Checkouts for this job</h1>');
+             $('.loader').fadeOut();  
+            } else {
+            // if no data show text no checkouts for job 
+            
+              // else run this
+
         	data = jQuery.parseJSON(data);
         	var graphData = createGraphObject(data);
-        	console.log(graphData);
           var names =  graphData.names,
               hotdogs = graphData.qty,
               chart,
@@ -131,12 +137,12 @@ $(document).ready(function() {
             .attr("text-anchor", "start")
             .attr('class', 'name')
             .text(String);
-            $('.loader').fadeOut();
+            $('.loader').fadeOut();  
+            }
+    
           },
           error: function(e) {
         	//called when there is an error
-        	//console.log(e.message);
-        	console.log('There was an error getting checkout data' + e.message);
           }
         });
   });
@@ -172,7 +178,6 @@ $(document).ready(function() {
         */
         
         // console.log(graphData);
-        console.log('//////////////////////////');
         for (var c=0; c<data.length; c++) {
             for (var d=0; d<graphData.names.length; d++) {
                 if (graphData.names[d] == data[c].toolName) {
