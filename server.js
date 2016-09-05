@@ -153,7 +153,7 @@ app.post('/landing-form', function(req, res) {
                  '<li> Phone: ' + req.body.username[4] + '</li>' + 
                  '<li> Company: ' + req.body.username[5] + '</li>' + 
                  '</ul>'
-  email.mail(formHtml, 'New Lead On ToolingInventory.com', 'rsmith5901@gmail.com');
+  email.mail(formHtml, 'New Lead On ToolingInventory.com', 'robert@toolinginventory.com');
   res.render('thanks');
 });
 

@@ -17,28 +17,82 @@
 </script>
     </head>
     <body>
+<nav class="navbar navbar-default navbar-fixed-top __web-inspector-hide-shortcut__">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+              <!-- Logo here -->
+              <img src="./images/long-logo.png" class="img-responsive">
+          </a>
+        </div>
+        <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+          <ul class="nav navbar-nav">
 
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Home</a></li>
+            <li><a href="/choose-a-plan">Sign Up</a></li>
+            <li><a href="/tutorials">Features</a></li>
+            <li><a href="/login">Log in here</a></li>
+            <li><a href="/landing-form">Contact Us</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+      
+    </nav>
         <div class="container-fluid login">
             <div class="row">
                 <div class="col-md-9">
-                    <!--<h1>-->
-                    <!--    IBM watson analytics with ToolingInventory.com for tooling insites-->
-                    <!--</h1>-->
-                    <!--<ol>-->
-                    <!--    <li>Keep track of your tooling with ToolingInventory.com</li>-->
-                    <!--    <li>Download your tooling usage</li>-->
-                    <!--    <li>Upload your data into IBM's Watson Analytics software</li>-->
-                    <!--    <li>Find patterns, trends and more in your tooling data</li>-->
-                    <!--</ol>-->
-                    <a href="/tutorials">
-                        <img src="./images/ibm-wat.jpg" class="img-responsive">
-                    </a>
-                    <h1>See tooling insights with <a href="/" class="link">ToolingInventory.com</a> and Watson</h1>
-                </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-default mid-banner">
+                             <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    </h3><h2 class="text-center pn-heading">Manage</h2>
+                                
+                              </div>
+                              <div class="panel-body">
+                             <img src="images/store.png" class="img-responsive thumbnail img-center">
+                             <p class="hidden-xs">
+                                ToolingInventory.com allows you to understand your machine shops tooling usage. 
+                                With ToolingInventory.com you will be able to utilize LEAN manufacturing principiles 
+                                to avoid excess tooling inventory and insure that when a job comes in you have the 
+                                proper tooling to get it completed.
+                             </p>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-default mid-banner">
+                             <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    </h3><h2 class="text-center pn-heading">Report</h2>
+                                
+                              </div>
+                              <div class="panel-body">
+                             <img src="images/report.png" class="img-responsive thumbnail img-center">
+                             <p class="hidden-xs">
+                                ToolingInventory.com keeps track of inventry shrinkage and trends. Understanding 
+                                that your shop needs different tooling quantities during different times of the 
+                                month and year will allow you to buy less tooling and keep your money investing 
+                                in your company, not on excess inventory.
+                             </p>
+                              </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                 <div class="col-md-3">
-                    <div class="panel-group">
-                      <div class="panel panel-default">
-                        <div class="panel-heading">Request more information</div>
+                      <div class="panel panel-default mid-banner">
+                        <div class="panel-heading contact-heading">
+                            <h2 class="pn-heading">More Information</h2>
+                        </div>
                         <div class="panel-body">
                             <form action="" method="post">
                                 <div class="form-group">
@@ -65,14 +119,22 @@
                                     <label>Company:</label>
                                     <input class="form-control" type="text" name="username" placeholder="Company" required>
                                 </div>
-                                <input class="btn btn-default" type="submit" value="Log In">
+                                <input class="btn btn-default" type="submit" value="Send">
                             </form>    
                         </div>
                       </div>
-                    </div>
                 </div>
             </div>
         </div>
+        <footer>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <a class="footer-brand" href="/">
+                        <img src="./images/logo.png" class="img-responsive">
+                    </a>
+                </div>
+            </div>
+        </footer>
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="js/app.js"></script>

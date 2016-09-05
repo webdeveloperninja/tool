@@ -1,5 +1,5 @@
 body {
-    padding-top: 10px;
+    padding-top: 95px;
     background: white;
     text-align: left;
 }
@@ -39,3 +39,53 @@ a.link {
 a.link:hover {
     color: white;
 }
+
+.panel-default>.panel-heading {
+    color: black;
+    background-color: #222;
+    background: #43bea1 !important;
+}
+
+.contact-heading {
+    height: 84px;
+}
+
+.landing-logo {
+    max-width: 300px;
+}
+
+.mid-banner {
+    position: relative;
+    height: 579px;
+}
+
+    /*==========  Non-Mobile First Method  ==========*/
+
+    /* Large Devices, Wide Screens */
+    @media only screen and (max-width : 1200px) {
+        .panel-heading .pn-heading {
+            font-size: 24px !important;
+        }
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (max-width : 992px) {
+        .mid-banner {
+            height: auto;
+        }
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (max-width : 768px) {
+
+    }
+
+    /* Extra Small Devices, Phones */ 
+    @media only screen and (max-width : 480px) {
+
+    }
+
+    /* Custom, iPhone Retina */ 
+    @media only screen and (max-width : 320px) {
+        
+    }
