@@ -886,6 +886,11 @@ thead {
         .search-flag {
             width: 99px;
         }
+    .navbar-brand img {
+        max-width: 300px !important;
+        margin-top: -13px !important;
+    }
+
            
         
     }
@@ -1155,6 +1160,7 @@ footer {
     max-width: 407px;
     margin-top: -21px;
 }
+
 
 @media only screen and (max-width : 992px) {
     .navbar-brand img {
