@@ -515,7 +515,7 @@ hr {
 }
 
 .hero-banner {
-    background-image: url("http://images.wisegeek.com/cnc-operator-programming-computer.jpg");
+    background-image: url("../images/machine.jpg");
    background-position: center top;
     background-size: 100% auto;
     height: 400px;
