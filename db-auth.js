@@ -284,7 +284,11 @@ var exports = module.exports = {
                       console.log('Successfully Removed Operator');
                       cb(err);
                   });
-                
+            },
+            viewSingleJob: function(userId, jobId, cb) {
+                jobs.find({jobId: jobId}, function(err, job) {
+                    cb(job);
+                });
             },
             viewSingleJobToolingUsage: function(userId, jobId, cb) {
                 checkouts.find({ 'jobId': jobId, 'userId':userId }, function (err, checkouts) {

@@ -903,13 +903,19 @@ app.get('/view-job-tooling', function(req, res) {
       
       var userId = req.user._id;
       dbAuth.viewSingleJobToolingUsage(userId, jobId, function(toolCheckouts) {
-        console.log(toolCheckouts);
-        res.render('view-checkouts-by-job', {
-          isAuthenticated: req.isAuthenticated(),
-          user: req.user,
-          checkouts: toolCheckouts,
-          jobNumber: jobId
+
+        // lookup individual job
+        dbAuth.viewSingleJob(userId, jobId, function(job) {
+          res.render('view-checkouts-by-job', {
+            isAuthenticated: req.isAuthenticated(),
+            user: req.user,
+            checkouts: toolCheckouts,
+            jobNumber: jobId,
+            job: job
+          });
         });
+            // render page 
+      
         
       });
     } else {
