@@ -101,14 +101,14 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <h2 class="heading">Checkouts List</h2>
+                                    <h2 class="heading"><%= job[0].companyName %></h2>
                                     <h4>Job Number: <%= jobNumber %></h4>
                                     <h4>Job Name: <%= job[0].jobName %></h4>
                                 </div>
                                 <div class="col-md-3 col-md-offset-6">
-                                    <h4>Company: <%= job[0].companyName %></h4>
                                     <h4>Contact: <%= job[0].contactName %></h4>
                                     <h4>Email: <%= job[0].contactEmail %></h4>
+                                    <h4>Due Date: <%= job[0].dueDate.toLocaleDateString() %></h4>
                                 </div>
                             </div>
                         </div>
