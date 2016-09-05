@@ -168,6 +168,12 @@ app.get('/tutorials', function(req, res) {
     res.render('tutorials');
 });
 
+app.get('/keeping-track-of-your-tooling', function(req, res){
+  res.render('./blog/keeping-track-of-your-tooling');
+});
+app.get('/blog', function(req, res) {
+    res.render('blog');
+});
 app.post('/sign-up', function(req, res) {
     console.log('/sign-up route hit');
     console.log(req.body);
