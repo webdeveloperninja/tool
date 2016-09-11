@@ -1236,3 +1236,65 @@ footer {
     border-top: 1px solid #c1bbbb;
 }
 /* End App part of new header and logo */
+
+@media screen and (max-width: 991px){
+    .navbar-default{
+        border:0;
+        position:absolute;
+    }
+    .navbar-header {
+        margin-top: -29px;
+    }
+    
+    ul.nav {
+        width: 100%;
+        text-align: center;
+
+    }
+    .navbar-collapse{
+    }
+    .navbar-collapse.collapse{
+        display: none!important;
+        height: 0!important;
+        padding-bottom: 0;
+        overflow: hidden!important;
+    }
+    .navbar-toggle.collapsed{
+        display:block!important;    
+    }
+    .navbar-toggle{
+        display:block!important;
+        margin-top: 17px;
+    }
+    .navbar-collapse.collapse.in{
+        display:block!important;    
+        height:auto!important;
+        overflow:visible!important;
+    }
+    .navbar-nav>li,.navbar-header{
+        float:none; 
+    }
+    .navbar-default .navbar-toggle.collapsed{
+    }
+}
+
+@media screen and (max-width: 767px){
+    .navbar-header {
+        margin-top: 0px;
+    }
+    .navbar-toggle {
+        margin-top: -2px;
+    }
+}
+
+@media only screen and (max-width : 470px) {
+    .navbar-brand img {
+        max-width: 253px !important;
+    }
+}
+
+@media only screen and (max-width : 348px) {
+    .navbar-brand img {
+        max-width: 231px !important;
+    }
+}
