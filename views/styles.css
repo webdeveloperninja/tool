@@ -566,6 +566,7 @@ thead {
 
 .my-account {
     text-align: left;
+    padding-top: 118px;
 }
 
 
@@ -1180,6 +1181,10 @@ footer {
 
 
 @media only screen and (max-width : 992px) {
+.my-account {
+    text-align: left;
+    padding-top: 52px;
+}
     .navbar-brand img {
         max-width: 319px;
         margin-bottom: -40px;
