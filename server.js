@@ -157,7 +157,7 @@ app.post('/landing-form', function(req, res) {
   res.render('thanks');
 });
 
-app.post('/login', passport.authenticate('local', {successRedirect: '/production', failureRedirect:'/login?bad-cred',failureFlash : true }));
+app.post('/login', passport.authenticate('local', {successRedirect: '/', failureRedirect:'/login?bad-cred',failureFlash : true }));
 
 app.get('/logout', function(req, res) {
     req.logout();
