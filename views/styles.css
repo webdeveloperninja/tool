@@ -534,6 +534,19 @@ hr {
     padding: 15px;
     margin-right: -15px;
 }
+
+.ipad {
+    background-image: url("../images/ipad.png");
+   background-position: center top;
+    background-size: 100% auto;   
+    height: 500px;
+    left: -44px;
+    top: -43px;
+    width: 300px;
+    position: relative;
+    width: 100%;
+    z-index: 20;
+}
  
 .video-container iframe,
 .video-container object,
@@ -1314,5 +1327,76 @@ footer {
         margin-top: 0px !important;
         display: inline-block;
         float: left;
+    }
+}
+
+.ipad-wrap .homepage-hero-module {
+    border-right: none;
+    border-left: none;
+    position: relative;
+}
+.ipad-wrap .no-video .video-container video,
+.ipad-wrap .touch .video-container video {
+    display: none;
+}
+.ipad-wrap .no-video .video-container .poster,
+.ipad-wrap .touch .video-container .poster {
+    display: block !important;
+}
+.ipad-wrap .video-container {
+    position: relative;
+    bottom: 0%;
+    left: 0;
+    padding-bottom: 0;
+    max-width: 800px;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+.ipad-wrap .video-container .poster img {
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+}
+.ipad-wrap .video-container .filter {
+    z-index: 100;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+}
+.ipad-wrap .video-container video {
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+}
+.ipad-wrap .video-container video.fillWidth {
+    width: 100%;
+}
+
+.ipad-wrap .video-container video {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    /* bottom: 0; */
+}
+
+.ipad-wrap .vid-wrap {
+    width: 682px;
+    height: 377px;
+    left: 72px;
+    overflow: hidden;
+    position: absolute;
+}
+
+@media only screen and (max-width : 992px) {
+    .ipad-wrap .vid-wrap {
+        width: 624px;
+    }
+}
+
+@media only screen and (max-width : 767px) {
+    .ipad-wrap {
+        display: none;
     }
 }
