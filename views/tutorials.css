@@ -5,9 +5,10 @@ body {
 .videos-col {
     background-color: white;
     padding-top: 15px;
+    border-radius: 5px;
     margin-bottom: 10px;
-    border: 1px solid #1f1f1f;
-    box-shadow: 0px 0px 65px black;
+    border: 1px solid black;
+    box-shadow: 0px 0px 65px #c5c5c5;
 }
 
 .videos-col h3 {
