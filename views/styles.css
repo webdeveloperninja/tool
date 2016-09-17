@@ -213,6 +213,10 @@ input.submit.btn.btn-primary {
     color: red;
 }
 
+.navbar-nav {
+    margin: 7.5px 0px !important;
+}
+
 .glyphicon-add {
     margin-top: 3px;
     font-size: 26px !important;
