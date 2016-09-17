@@ -1103,9 +1103,6 @@ thead {
 
     /* Extra Small Devices, Phones */ 
     @media only screen and (max-width : 480px) {
-        body > div.container {
-            margin-top: 30px;
-        }
         .hero-banner a.cta {
             font-size: 23px;
         }
