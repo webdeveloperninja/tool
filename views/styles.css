@@ -1381,6 +1381,10 @@ footer {
     /* bottom: 0; */
 }
 
+.loader {
+    display: none !important;
+}
+
 .ipad-wrap .vid-wrap {
     width: 635px;
     height: 377px;
