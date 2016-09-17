@@ -969,6 +969,7 @@ thead {
         display: none;
         margin-top: 7px;
     }
+    
 
     /* Small Devices, Tablets */
     @media only screen and (max-width : 768px) {
@@ -1012,15 +1013,17 @@ thead {
         display: none;
     }
     
-    
-    .navbar-brand {
-        float: none;
-        padding: 0;
-        display: block;
-        margin-top: -4px;
-        margin-right: auto;
-    }
 
+    }
+    
+    @media only screen and (max-width: 767px) {
+        .navbar-brand {
+            float: none;
+            padding: 0;
+            display: block;
+            margin-top: -4px;
+            margin-right: auto;
+        }
     }
     
     .navbar-collapse {
@@ -1174,6 +1177,8 @@ footer {
         max-width: 269px !important;
     }
 }
+
+
 @media only screen and (max-width : 768px) {
     .navbar-brand img {
         max-width: 321px;
@@ -1288,14 +1293,11 @@ footer {
     }
 }
 
-@media only screen and (max-width : 470px) {
+@media only screen and (max-width : 445px) {
     .navbar-brand img {
-        max-width: 253px !important;
-    }
-}
-
-@media only screen and (max-width : 348px) {
-    .navbar-brand img {
-        max-width: 231px !important;
+        max-width: 222px !important;
+        margin-top: 0px !important;
+        display: inline-block;
+        float: left;
     }
 }
