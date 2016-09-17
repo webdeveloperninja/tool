@@ -982,6 +982,10 @@ thead {
     /* Small Devices, Tablets */
     @media only screen and (max-width : 768px) {
         
+body.authenticated {
+    padding-top: 92px;
+}
+        
         .home-container h1 {
             font-size: 44px;
             text-align: left;
