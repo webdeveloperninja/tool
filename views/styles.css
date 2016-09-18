@@ -914,13 +914,20 @@ thead {
         margin-top: -13px !important;
     }
 
-           
-        
+ .ipad-wrap .vid-wrap {
+    width: 480px !important;
+    
+  }          
+       .ipad-wrap .ipad {
+           height: 400px;
+       } 
     }
 
     /* Medium Devices, Desktops */
     @media only screen and (max-width : 991px) {
-        
+        .ipad-wrap .vid-wrap {
+    width: 579px !important;
+}
             .loader {
                 display: none !important;
             }
