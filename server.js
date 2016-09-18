@@ -171,6 +171,11 @@ app.get('/tutorials', function(req, res) {
 app.get('/keeping-track-of-your-tooling', function(req, res){
   res.render('./blog/keeping-track-of-your-tooling');
 });
+
+app.get('/how-to-make-money-with-garage-shop', function(req, res) {
+  res.render('./blog/how-to-make-money-with-garage-shop');
+});
+
 app.get('/what-is-tooling-inventory-cnc', function(req, res){
   res.render('./blog/what-is-tooling-inventory-cnc');
 });
