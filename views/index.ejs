@@ -178,7 +178,6 @@
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="js/admin-tool-list.js"></script>
         <script src="bower_components/list.js/dist/list.min.js"></script>
-        <script src="js/app.js"></script>
 
         <script>
             $(document).ready(function() {
@@ -230,8 +229,6 @@ function scaleBannerVideoSize(element){
     videoWidth,
     videoHeight;
 
-    console.log(windowHeight);
-
     $(element).each(function(){
         var videoAspectRatio = $(this).data('height')/$(this).data('width');
 
@@ -248,6 +245,7 @@ function scaleBannerVideoSize(element){
         $('.homepage-hero-module .video-container video').addClass('fadeIn animated');
 
             });
+}
             $(window).load(function() {
                 $(".loader").fadeOut("slow");
             });
