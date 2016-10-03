@@ -682,6 +682,37 @@ app.post('/choose-a-plan', function(req, res) {
   });
 });
 
+app.get('/complete-job', function(req, res) {
+  if (req.isAuthenticated()) {
+  var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+  var jobId = jobIdQuery(fullUrl);
+  var userId = req.user._id;
+  dbAuth.completeSingleJob(userId, jobId, function(err) {
+    if(!err) {
+      res.redirect('/view-jobs');
+    }
+  });
+  } else {
+    res.redirect('/login');
+  }
+});
+
+app.get('/tool-usage-overview', function(req, res) {
+   if (req.isAuthenticated()) {
+     var userId = req.user._id;
+     /* Query db for all checkouts */
+    dbAuth.returnCheckoutData(req.user._id, function(err, checkouts) {
+      if (!err) {
+        res.send(JSON.stringify(checkouts));
+      }
+      // res.send();
+    });
+     /* Sort data */
+   } else {
+     res.redirect('login');
+   } 
+});
+
 function doesUsernameExist(username) {
   var exist = dbAuth.doesUsernameExistDb(username, function(exist) {
     console.log('do I exist: ' + exist);

@@ -37,6 +37,7 @@ var checkoutsSchema = new mongoose.Schema({
 
 var jobsSchema = new mongoose.Schema({
     companyName: String,
+    isCompleted: Boolean,
     userId: String,
     jobName: String,
     contactName: String,
@@ -164,6 +165,14 @@ var exports = module.exports = {
                   }
                 }
               );
+            },
+            completeSingleJob: function(userId, jobId, cb) {
+                jobs.find({ 'userId': userId, 'jobId':jobId }, function (err, jobs) {
+                  jobs[0].isCompleted = true;
+                    jobs[0].save(function (err) {
+                        cb(err);
+                    });
+                })
             },
             saveCheckout: function(userId, toolId, removeQty, toolName, job, operator, cb) {
             

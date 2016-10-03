@@ -4,6 +4,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="../styles.css" rel="stylesheet">
+        <link href="../bar-graph.css" rel="stylesheet">
+        <style>
+            body > .container {
+                text-align: left;
+            }
+            
+            text.name {
+                cursor: pointer;
+            }
+            .bar-graph {
+                cursor: pointer;
+            }
+            .graph-panel {
+                margin-top: -340px;
+            }
+            
+            .graph-panel .panel-body {
+                height: 276px;
+                overflow: scroll;
+            }
+        </style>
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -121,7 +142,6 @@
                                         </form>
                                     </div>
                                 </div>
-                                <a class="btn btn-dagner" data-toggle="modal" data-target="#myModal">Deactivate</a>
                             </div><!-- end col-md-4 -->
                             <div class="col-md-4">
                                 <div class="panel panel-default">
@@ -203,6 +223,18 @@
                                 </div>
                             </div><!-- end col-md-4 -->
                         </div>
+                                <div class="row hidden-xs hidden-sm">
+                                    <div class="col-md-8">
+                                        <div class="panel graph-panel panel-default">
+                                            <div class="panel-heading">Checkouts by jobs overview</div>
+                                            <div class="panel-body">
+                                                <div id="error"></div>
+                                                <div id="step-5"></div>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="btn btn-dagner" data-toggle="modal" data-target="#myModal">Deactivate</a>
                     <% } %>
                 </div>
             </div>
@@ -243,12 +275,9 @@
         
         <script src="../bower_components/jquery/dist/jquery.min.js"></script>
         <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-        <script>
-            $(window).load(function() {
-            	$(".loader").fadeOut("slow");
-            })
-        </script>   
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+        <script src="../../js/checkouts-by-job-graph.js"></script>
+ 
 
         
     </body>
