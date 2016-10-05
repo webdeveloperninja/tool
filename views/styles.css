@@ -81,11 +81,15 @@ p {
 .panel-default>.panel-heading {
     color: white;
     background-color: #222;
-    border-color: #ddd;
+    border-color: black;
     font-size: 21px;
     text-align: center;
 }
 
+
+.panel-default {
+    border-color: black !important;
+}
 body > div.container {
     margin-top: -4px;
 }

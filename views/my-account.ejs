@@ -4,6 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="../styles.css" rel="stylesheet">
+        <link href="../my-account-styles.css" rel="stylesheet">
         <link href="../bar-graph.css" rel="stylesheet">
         <style>
             body > .container {
@@ -115,9 +116,19 @@
                 <div class="col-md-12">
                         <div class="row settings-row">
                             <div class="col-md-4">
-                                <div class="panel panel-default">
+                                <div class="panel panel-default alert-div">
                                     <div class="panel-heading">Email Alerts</div>
                                     <div class="panel-body">
+                                        <form action="/add-tooling-rep" method="POST">
+                                            <div class="form-group">
+                                                <label>Rep Name: </label>
+                                                <input class="form-control" name="toolingRepName" value="<%= user.toolingRep.name%>" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Rep Email: </label>
+                                                <input class="form-control" type="email" name="toolingRepEmail" value="<%= user.toolingRep.email%>"  required>
+                                            </div>
+                                            <input type="submit" class="btn btn-primary" value="Add">
                                             <% if(successToolRep == false) { %>
                                                 <div class="alert alert-danger" role="alert">
                                                     <p class="text-center">Uh Oh Something Went Wrong</p>
@@ -129,35 +140,15 @@
                                             <% } else if (addedJob == null) { %> 
                                             
                                             <% } %>
-                                        <form action="/add-tooling-rep" method="POST">
-                                            <div class="form-group">
-                                                <label>Rep Name: </label>
-                                                <input class="form-control" name="toolingRepName" value="<%= user.toolingRep.name%>" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Rep Email: </label>
-                                                <input class="form-control" type="email" name="toolingRepEmail" value="<%= user.toolingRep.email%>"  required>
-                                            </div>
-                                            <input type="submit" class="btn btn-primary" value="Add">
                                         </form>
                                     </div>
                                 </div>
                             </div><!-- end col-md-4 -->
                             <div class="col-md-4">
-                                <div class="panel panel-default">
+                                <div class="panel panel-default alert-div">
                                     <div class="panel-heading">Add Operator</div>
                                     <div class="panel-body">
-                                            <% if(addOperator == false) { %>
-                                                <div class="alert alert-danger" role="alert">
-                                                    <p class="text-center">Update Failed</p>
-                                                </div>
-                                            <% } else if (addOperator == true) { %>
-                                                <div class="alert alert-success" role="alert">
-                                                    <p class="text-center">Successfully Updated</p>
-                                                </div>            
-                                            <% } else if (addOperator == null) { %> 
-                                            
-                                            <% } %>
+
                                         <form action="/add-operator" method="POST">
                                             <div class="form-group">
                                                 <label>Operator Name: </label>
@@ -168,6 +159,17 @@
                                                 <input class="form-control" name="operatorId" required>
                                             </div>
                                             <input type="submit" class="btn btn-primary" value="Update">
+                                            <% if(addOperator == false) { %>
+                                                <div class="alert alert-danger" role="alert">
+                                                    <p class="text-center">Update Failed</p>
+                                                </div>
+                                            <% } else if (addOperator == true) { %>
+                                                <div class="alert alert-success" role="alert">
+                                                    <p class="text-center">Success</p>
+                                                </div>            
+                                            <% } else if (addOperator == null) { %> 
+                                            
+                                            <% } %>
                                         </form>
                                     </div>
                                 </div>
@@ -177,6 +179,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">Active Job</div>
                                     <div class="panel-body">
+                                        <span class="jobadd">
                                             <% if(addedJob == false) { %>
                                                 <div class="alert alert-danger" role="alert">
                                                     <p class="text-center">Add Job Failed</p>
@@ -188,6 +191,7 @@
                                             <% } else if (addedJob == null) { %> 
                                             
                                             <% } %>
+                                        </span>
                                         <form action="/add-job" method="POST">
                                             <div class="form-group">
                                                 <label>Company Name: </label>
@@ -278,7 +282,19 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
         <script src="../../js/checkouts-by-job-graph.js"></script>
  
-
+        <script>
+        window.addEventListener("load", function () {
+            animation();
+            setTimeout(otherOperation, 3000);
+        }, false);
+        
+        function animation() {
+            
+        }
+        function otherOperation() {
+            $('.alert').fadeOut();
+        }
+        </script>
         
     </body>
 </html>
