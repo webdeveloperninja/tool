@@ -18,6 +18,9 @@
         body {
             padding-top: 95px;
         }
+        body > div.container {
+            margin-top: 20px !important;
+        }
     </style>
     </head>
     <body>
@@ -113,7 +116,7 @@
                                 </div>
                                 <input type="text" name="userId" class="hidden" value="<%= user._id %>">
                                 <a class="btn btn-primary pull-right table-btn pull-left" href="/checkout/?toolId=<%= tool._id %>">Checkout</a>
-                                <a href="/remove/?toolId=<%= tool._id %>" class="btn btn-danger table-btn pull-right">Remove Tool</a>
+                                <a href="/remove/?toolId=<%= tool._id %>" class="btn btn-danger table-btn pull-right" onclick="return confirm('Are you sure you want to remove tool?')">Remove Tool</a>
                                 <a href="/" class="btn btn-default pull-right table-btn">Tool List</a>
                             </form> 
                             </div>
