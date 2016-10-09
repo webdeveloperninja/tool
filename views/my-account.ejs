@@ -220,6 +220,11 @@
                                             <% } else if (addedJob == null) { %> 
                                             
                                             <% } %>
+                                            <% if (jobIdExists == true) { %> 
+                                                <div style="width: 50%; float:right;" class="alert alert-danger" role="alert">
+                                                    <p class="text-center" style="font-size: 13px;">Job Id Exists</p>
+                                                </div>
+                                            <% } %>
                                         </form>
                                     </div>
                                 </div>

@@ -729,7 +729,8 @@ app.get('/my-account', function(req, res) {
           accountUpdated: null,
           addedJob: null,
           addOperator: null,
-          successToolRep: null
+          successToolRep: null,
+          jobIdExists: null
         });
     } else {
         res.redirect('/login');
@@ -744,7 +745,8 @@ app.post('/my-account', function(req, res) {
     isAuthenticated: req.isAuthenticated(),
     user: req.user,
     accountUpdated: true,
-    successToolRep: null
+    successToolRep: null,
+    jobIdExists: null
   });
   
   
@@ -772,7 +774,8 @@ app.post('/add-tooling-rep', function(req, res) {
                 accountUpdated: null,
                 addedJob: null,
                 addOperator: null,
-                successToolRep: true
+                successToolRep: true,
+                jobIdExists: null
               });
           }
         });
@@ -782,8 +785,6 @@ app.post('/add-tooling-rep', function(req, res) {
 });
 
 app.post('/add-job', function(req, res) {
-    console.log('Add Job');
-    console.log(req.body);
     var jobObj = {
       companyName: req.body.companyName,
       userId: req.user._id,
@@ -794,23 +795,50 @@ app.post('/add-job', function(req, res) {
       qtyDue: req.body.qtyDue,
       jobId: req.body.jobId
     }
-    
-    console.log(jobObj);
-    dbAuth.addJob(jobObj, function(err) {
-      if (err) {
-        
+    /*
+      Return all jobs 
+    */
+    dbAuth.returnJobsData(req.user._id, function(err, jobs) {
+      /* Loop through all jobs compare jobId */
+      var jobIdMatch = false;
+      for (var i=0; i<jobs.length; i++) {
+        if (jobs[i].jobId == jobObj.jobId) {
+          jobIdMatch = true;
+        }
+      }
+      if (jobIdMatch) {
+          console.log('match of job ids send error');
+          res.render('my-account', {
+            isAuthenticated: req.isAuthenticated(),
+            user: req.user,
+            accountUpdated: null,
+            addedJob: null,
+            addOperator: null,
+            successToolRep: null,
+            jobIdExists: true
+          });
       } else {
-        console.log('Added Job');
-        res.render('my-account', {
-          isAuthenticated: req.isAuthenticated(),
-          user: req.user,
-          accountUpdated: null,
-          addedJob: true,
-          addOperator: null,
-          successToolRep: null
+        dbAuth.addJob(jobObj, function(err) {
+          if (err) {
+            
+          } else {
+            res.render('my-account', {
+              isAuthenticated: req.isAuthenticated(),
+              user: req.user,
+              accountUpdated: null,
+              addedJob: true,
+              addOperator: null,
+              successToolRep: null,
+              jobIdExists: null
+            });
+          }
         });
       }
-    });
+    }); 
+    
+    /* This is the grand prize adding job to db */
+    
+
 });
 
 app.get('/view-jobs', function(req, res) {
@@ -868,7 +896,8 @@ app.post('/add-operator', function(req, res) {
           accountUpdated: null,
           addedJob: null,
           addOperator: true,
-          successToolRep: null
+          successToolRep: null,
+          jobIdExists: null
         });
       }
     });
