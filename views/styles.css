@@ -1004,6 +1004,11 @@ thead {
             border: 1px solid transparent;
             border-radius: 4px;
         }
+        
+        .c3-chart-arcs-title {
+            font-size: 35px;
+        }
+        
     }
 
     .mobile-nav-admin {

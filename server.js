@@ -96,6 +96,24 @@ passport.deserializeUser(function(id, done) {
 var server = http.createServer(app);
 
 
+app.get('/get-my-tools', function(req, res) {
+  if (req.isAuthenticated()) {
+    dbAuth.returnToolData(req.user._id, function(err, tools) {
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify(tools));
+    });
+  }
+});
+
+app.get('/my-crib', function(req, res) {
+  if (req.isAuthenticated()) {
+    res.render('my-crib', {
+      isAuthenticated: req.isAuthenticated(),
+      user: req.user
+    });
+  }
+});
+
 app.get('/', function(req, res) {
   // if isAuthenticated 
   if (req.isAuthenticated()) {
