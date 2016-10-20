@@ -173,9 +173,11 @@
         $.get("/get-my-tools", function(data) {
             var tools = data;
             var toolsGraphArr = [];
+            var toolsName = [];
             
             tools.forEach(function(item,index) {
                toolsGraphArr.push([item.toolName, item.qty]);
+               toolsName.push(item.toolName);
             });
             
             
@@ -183,36 +185,16 @@
                 bindto: '#chart',
                 data: {
                     columns: toolsGraphArr,
-                    type : 'donut',
+                    type : 'donut'
                 },
                     legend: {
-                    show: false
+                    show: true
                 },
                 donut: {
                     title: "See Your Tooling"
                 }
             });
-            d3.select('.container #jobs').insert('div', '.chart').attr('class', 'legend').selectAll('span')
-                .data(toolsGraphArr)
-              .enter().append('span')
-                .attr('data-id', function (id) { return id; })
-                .html(function (id) { return id; })
-                .each(function (id) {
-                    d3.select(this).style('background-color', chart.color(id));
-                })
-                .on('mouseover', function (id) {
-                    console.log('id: ' + id);
-                    chart.focus(id);
-                })
-                .on('mouseout', function (id) {
-                    chart.revert();
-                })
-                .on('click', function (id) {
-                    console.log('id: ' + id);
-                    $(this).toggleClass('non-active');
-                    chart.toggle(id);
-                });
-        });
+            });
 
         </script>
     </body>
