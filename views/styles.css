@@ -1430,3 +1430,83 @@ footer {
         display: none;
     }
 }
+
+
+
+            body.my-crib > .container {
+                text-align: left;
+            }
+            
+            .my-crib text.name {
+                cursor: pointer;
+            }
+            .my-crib .bar-graph {
+                cursor: pointer;
+            }
+            .my-crib .graph-panel {
+                margin-top: -340px;
+            }
+            
+            .my-crib .graph-panel .panel-body {
+                height: 276px;
+                overflow: scroll;
+            }
+            .my-crib .chart-crib {
+              width: 100%;
+              min-height: 600px;
+            }
+            .my-crib .c3-chart-arcs-title {
+                font-size: 40px;
+            }
+            .my-crib .c3-chart-arc path {
+                stroke: #333;
+            }
+
+            .my-crib .legend span {
+                width: 33.333333%;
+                display: inline-block;
+                text-align: center;
+                cursor: pointer;
+                margin: 2px;
+                width: 49%;
+                padding: 12px;
+                border: 1px solid black;
+                font-size: 22px;
+                /* stroke: black; */
+                color: white;
+                transition: all .2s ease-in-out;
+            }
+            
+            .my-crib .legend span:hover {
+                 transform: scale(1.01);
+            }
+            .my-crib .c3-chart-arc text {
+                fill: #fff;
+                font-size: 23px;
+            }
+            .my-crib .non-active {
+                background-color: rgba(127, 127, 127, 0.16) !important;
+                color: #777 !important;
+            }
+
+            @media (max-width: 500px) {
+              .my-crib .c3-chart-arcs-title {
+                display: none;
+              }
+            }
+            .my-crib .loader-1 {
+                display: block;
+                -webkit-animation: spin 2s linear infinite;
+                animation: spin 2s linear infinite;
+                margin-left:auto; margin-right: auto; max-width: 300px; display: inline-block;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 202px;
+                z-index: 22;
+                width: 100%;
+                display: inline-block;
+                width: auto;
+                margin: 0;
+                margin: 0 auto !important;
+            }
