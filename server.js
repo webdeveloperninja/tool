@@ -986,6 +986,27 @@ app.get('/remove-job', function(req, res) {
     }
 });
 
+app.get('/view-job-tooling-data', function(req, res) {
+    if (req.isAuthenticated()) {
+      // need to send tool id
+      var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+      // rename this function checkoutToolIdQuery
+      var jobId = jobIdQuery(fullUrl);
+      
+      var userId = req.user._id;
+      dbAuth.viewSingleJobToolingUsage(userId, jobId, function(toolCheckouts) {
+
+        // lookup individual job
+        dbAuth.viewSingleJob(userId, jobId, function(job) {
+          res.setHeader('Content-Type', 'application/json');
+          res.send(JSON.stringify(toolCheckouts));
+        });
+      });
+    } else {
+      res.redirect('/login');
+    }
+});
+
 app.get('/view-job-tooling', function(req, res) {
     if (req.isAuthenticated()) {
       // need to send tool id

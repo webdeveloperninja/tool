@@ -49,6 +49,14 @@
         .carousel-control {
             background: transparent;
             background-image: none !important;
+            color: black;
+        }
+        .carousel-control:hover {
+            color: grey;
+        }
+        .c3-chart-arcs-title {
+            dominant-baseline: middle;
+            font-size: 4.3em;
         }
     </style>
 </head>
@@ -111,7 +119,7 @@
                     </div>
                     <div class="col-sm-6">
                         <a href="/add-tool" class="btn btn-default table-btn pull-right view-checkouts-btn">Add Tool</a>
-                        <a href="/view-checkouts" class="btn table-btn btn-default pull-right view-checkouts-btn">View Checkouts</a>
+                        <a href="/my-crib" class="btn table-btn btn-default pull-right active view-checkouts-btn">My Crib</a>
                         <a href="/view-operators" class="btn btn-default table-btn pull-right view-checkouts-btn">View Operators</a>
                         <a href="/view-jobs" class="btn btn-default  table-btn pull-right view-checkouts-btn active">View Jobs</a>
                         <a href="/" class="btn btn-default pull-right table-btn view-checkouts-btn ">Tool List</a>
@@ -121,7 +129,7 @@
 
         </nav>
         <% if (isAuthenticated) { %>
-            <div class="container">
+            <div class="container" id="job-data" data-job-id="<%= jobNumber %>">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-default tools-list-panel">
@@ -367,17 +375,25 @@
                     };
 
                     var userList = new List('users', options);
-
-                    $.get("/get-my-tools", function(data) {
-                        var tools = data;
-                        var toolsGraphArr = [];
+                    var jobNumber = $('#job-data').data('job-id');
+                    $.get("/view-job-tooling-data/?jobId=" + jobNumber, function(data) {
+                        var checkouts = data;
                         var toolsName = [];
-
-                        tools.forEach(function(item, index) {
-                            toolsGraphArr.push([item.toolName, item.qty]);
-                            toolsName.push(item.toolName);
-                        });
-
+                        var toolsGraphArr = [];
+                        var graphTitle = 'Job: ' + jobNumber;
+                        
+                        for(var i=0; i<checkouts.length; i++) {
+                          var toolExists = false;
+                          for(var b=0; b<toolsGraphArr.length; b++) {
+                            if(toolsGraphArr[b][0] == checkouts[i].toolName) {
+                              toolExists = true;
+                              toolsGraphArr[b][1] += checkouts[i].checkoutQty;
+                            }
+                          }
+                          if(!toolExists) {
+                            toolsGraphArr.push([checkouts[i].toolName, checkouts[i].checkoutQty]);
+                          }
+                        }
 
                         var chart = c3.generate({
                             bindto: '#chart',
@@ -389,7 +405,7 @@
                                 show: true
                             },
                             donut: {
-                                title: "See Your Tooling"
+                                title: graphTitle
                             },
                             size: {
                                 height: 600
@@ -406,7 +422,7 @@
                                 show: true
                             },
                             donut: {
-                                title: "See Your Tooling"
+                                title: graphTitle
                             },
                             size: {
                                 height: 600
