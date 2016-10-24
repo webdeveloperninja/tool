@@ -107,8 +107,6 @@
                 <div class="col-md-3">Name</div>
                 <div class="col-md-1 text-center">Id</div>
                 <div class="col-md-3 text-center">Company Name</div>
-                <div class="col-md-1 text-center">Qty</div>
-                <div class="col-md-1 text-center">Due</div>
                 <div class="col-md-3 text-center">Actions</div>
             </div>
             <div class="list">
@@ -123,12 +121,6 @@
                         </div>
                         <div class="col-md-3">
                             <p class="table-value table-btn-p companyName operator-name"><%= jobs[i].companyName %></p>
-                        </div>
-                        <div class="col-md-1">
-                            <p class="table-value table-btn-p name operator-name"><span class="hidden-xl hidden-lg hidden-md">Qty Due: </span><%= jobs[i].qtyDue %></p>
-                        </div>
-                        <div class="col-md-1">
-                            <p class="table-value table-btn-p name operator-name"><%= jobs[i].dueDate.toLocaleDateString() %></p>
                         </div>
                         <div class="col-md-3">
                             <a data-job-id="<%= jobs[i].jobId %>" id="complete-job" href="/complete-job/?jobId=<%= jobs[i].jobId %>" class="btn btn-danger pull-right table-btn" onclick="return confirm('Are you sure you want to complete?')">Complete</a>
