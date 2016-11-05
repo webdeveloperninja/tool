@@ -4,7 +4,6 @@
 
 body {
     padding-top: 75px;
-    background-image: url("http://www.preventon.com/wp-content/uploads/2014/03/background-cloud.jpg");
     overflow-x: hidden;
     background-repeat: no-repeat;
     background-repeat: repeat-x;
@@ -789,10 +788,10 @@ thead {
     }
     
  body {
-        background: #555 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAB9JREFUeNpi/P//PwM6YGLAAuCCmpqacC2MRGsHCDAA+fIHfeQbO8kAAAAASUVORK5CYII=);
         font: 13px 'Lucida sans', Arial, Helvetica;
          font-family: 'Roboto', sans-serif !important;
         color: black;
+        background-color: grey;
         text-align: center;
     }
     

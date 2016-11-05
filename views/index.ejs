@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <% include ./partials/head.ejs %>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <% if (isAuthenticated) {%>
+        <% include ./partials/head.ejs %>
+    <% } else {%>
+        <link href="./dist/css/main.css" rel="stylesheet">
+    <% } %>
+    <style>
+        body {
+            text-align: left;
+        }
+    </style>
 </head>
 <body <%if(isAuthenticated) {%> class="authenticated"<% } %>>
-        <div class="loader">
-            <img src="./images/gear-t.png" class="img-responsive">
-        </div>
-        <nav class="navbar navbar-default navbar-fixed-top primary-nav <%if(isAuthenticated) {%> new-logo-app <% } %>">
+
+        <%if(isAuthenticated) {%>
+         <nav class="navbar navbar-default navbar-fixed-top primary-nav <%if(isAuthenticated) {%> new-logo-app <% } %>">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -79,7 +89,11 @@
                     </div>
                 </div>
                 <% } %>
-        </nav>
+        </nav>       
+        <% } %>
+        <% if(!isAuthenticated) {%>
+            <% include ./src/components/primary-nav.ejs %>
+        <% } %>
         <div class="container">
             <% if (!isAuthenticated) { %>
                 <% include ./partials/website-home.ejs %>

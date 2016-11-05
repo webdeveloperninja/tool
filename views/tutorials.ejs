@@ -15,216 +15,186 @@
 <link rel="icon" type="image/png" sizes="96x96" href="./images/icon/favicon-96x96.png">
 <link rel="icon" type="image/png" sizes="16x16" href="./images/icon/favicon-16x16.png">
 <link rel="manifest" href="/manifest.json">
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="../styles.css" rel="stylesheet">
         <link href="../tutorials.css" rel="stylesheet">
+        <link href="./dist/css/main.css" rel="stylesheet">
         <style>
 
         </style>
     </head>
-    <body>
-<nav class="navbar navbar-default navbar-fixed-top __web-inspector-hide-shortcut__">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">
-              <!-- Logo here -->
-              <img src="./images/long-logo.png" class="img-responsive">
-          </a>
-        </div>
-        <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
-          <ul class="nav navbar-nav">
-
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-        
-                            <li><a href="/">Home</a></li>
-                            <li><a href="http://blog.toolinginventory.com">Blog</a></li>
-                            <li><a href="/landing-form">Contact Us</a></li>
-                            <li><a href="/tutorials">Features</a></li>
-                            <li><a href="/choose-a-plan">Sign Up</a></li>
-                            <li><a href="/login">Log in</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-      
-    </nav>
-        <div class="container">
-            <div class="row desks-workstations-row" style="margin-top: 3%;">
-            	<div class="col-md-10 col-md-offset-1 videos-col">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="video-container">
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/Q5iWelPDc1Q?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-                            </div>
-                        </div><!-- end col-md-6 -->
-                        <div class="col-md-7">
-                        <h3 class="video-heading">
-                            ToolingInventory.com Live Demo
-                        </h3>
-                        <p>
-                            ToolingInventory.com allows you to keep track of your machine shops tooling inventory.
-                            Keeping track of your tooling is important to prevent running out of tools during production 
-                            jobs. Running out of tools can cause you to miss deadlines on your jobs costing your shop money.
-                            Keeping track of your tooling is also important so that you know exactly how much tooling is 
-                            being used on specific jobs. This data is vital to charge your customers the right amount for 
-                            a job.
-                        </p>
-                        </div><!-- end col-md-6 -->
-                    </div><!-- end row -->
-                          <div class="row desks-workstations-btn-row">
-                            	<div class="col-md-12 text-center">
-                                	<a href="./choose-a-plan" class="tutorial-cta">Start your free trial!</a>
-                                </div><!-- end col-md-12 -->
-                            </div><!-- end row -->
-                </div><!-- end col-md-8 col-md-offset-4 -->
+    <body style="background-color: grey;">
+<% include ./src/components/primary-nav.ejs %>
+        <div class="container features">
+            
+            <div class="jumbotron">
+                <div class="overlay"></div>
+              <div class="container">
+                <h1>"ToolingInventory.com has allowed us to worry less about tooling and focus more on business."</h1>
+                <h3>Bob Smith - ACS Machining.</h3>
+              </div>
             </div>
             
-            <div class="row desks-workstations-row" style="margin-top: 2%;">
-            	<div class="col-md-10 col-md-offset-1 videos-col">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="video-container">
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/excYffJ-Uns?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-                            </div>
-                        </div><!-- end col-md-6 -->
-                        <div class="col-md-7">
-                        <h3 class="video-heading">
-                            How to view tool usage by operator
-                        </h3>
-                        <p>
-                            With ToolingInventory.com you have the ability to know which operators are using which tools 
-                            for which jobs. This insight will let you know if some operators are using more tooling than 
-                            other operators. This might be an indication that a particular employee needs better trained 
-                            on a certain machine if they are using more tooling that others. Keeping track of your 
-                            tooling inventory also prevents costly tooling theft.
-                        </p>
-                        </div><!-- end col-md-6 -->
-                    </div><!-- end row -->
-                          <div class="row desks-workstations-btn-row">
-                            	<div class="col-md-12 text-center">
-                                    <a href="./choose-a-plan" class="tutorial-cta">Start your free trial!</a>
-                                </div><!-- end col-md-12 -->
-                            </div><!-- end row -->
-                </div><!-- end col-md-8 col-md-offset-4 -->
-            </div>        
-            <div class="row desks-workstations-row" style="margin-top: 2%;">
-            	<div class="col-md-10 col-md-offset-1 videos-col">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="video-container">
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/QExkIs_xMGU?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-                            </div>
-                        </div><!-- end col-md-6 -->
-                        <div class="col-md-7">
-                        <h3 class="video-heading">
-                            Download your tooling usage
-                        </h3>
-                        <p>
-                            ToolingInventory.com allows you to download your tooling usage data. This allows you to use 
-                            your tooling data in other software like Excel, and Watson Analytics to have insight into 
-                            your tooling usage. Watson Analytics analyzes your data and gives your relations such as 
-                            tooling usage by job presented to you with many great graphs.
-                        </p>
-                        </div><!-- end col-md-6 -->
-                    </div><!-- end row -->
-                          <div class="row desks-workstations-btn-row">
-                            	<div class="col-md-12 text-center">
-                                    <a href="./choose-a-plan" class="tutorial-cta">Start your free trial!</a>
-                                </div><!-- end col-md-12 -->
-                            </div><!-- end row -->
-                </div><!-- end col-md-8 col-md-offset-4 -->
-            </div>
-            <div class="row desks-workstations-row" style="margin-top: 2%;">
-            	<div class="col-md-10 col-md-offset-1 videos-col">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="video-container">
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/2tZD32zY988?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-                            </div>
-                        </div><!-- end col-md-6 -->
-                        <div class="col-md-7">
-                        <h3 class="video-heading">
-                            How to add a job
-                        </h3>
-                        <p>
-                            ToolingInventory.com doesnt just keep track of your machine shop tooling inventory, it also 
-                            keeps track of your tooling usage by jobs. Understanding exactly how many tools were used to 
-                            complete a job is vital to billing your customers correctly. Not understanding your tooling 
-                            usage by jobs could potentially cause you from charging enough to stay profitable.
-                        </p>
-                        </div><!-- end col-md-6 -->
-                    </div><!-- end row -->
-                          <div class="row desks-workstations-btn-row">
-                            	<div class="col-md-12 text-center">
-                                    <a href="./choose-a-plan" class="tutorial-cta">Start your free trial!</a>
-                                </div><!-- end col-md-12 -->
-                            </div><!-- end row -->
-                </div><!-- end col-md-8 col-md-offset-4 -->
-            </div>
-            <div class="row desks-workstations-row" style="margin-top: 2%;">
-            	<div class="col-md-10 col-md-offset-1 videos-col">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="video-container">
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/WqbNdj3UjYc?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-                            </div>
-                        </div><!-- end col-md-6 -->
-                        <div class="col-md-7">
-                        <h3 class="video-heading">
-                            How to view tool usage by job
-                        </h3>
-                        <p>
-                        <p>
-                            ToolingInventory.com doesnt just keep track of your machine shop tooling inventory, it also 
-                            keeps track of your tooling usage by jobs. Understanding exactly how many tools were used 
-                            to complete a job is vital to billing your customers correctly. Not understanding your 
-                            tooling usage by jobs could potentially cause you from charging enough to stay profitable.
-                        </p>                        </p>
-                        </div><!-- end col-md-6 -->
-                    </div><!-- end row -->
-                          <div class="row desks-workstations-btn-row">
-                            	<div class="col-md-12 text-center">
-                                    <a href="./choose-a-plan" class="tutorial-cta">Start your free trial!</a>
-                                </div><!-- end col-md-12 -->
-                            </div><!-- end row -->
-                </div><!-- end col-md-8 col-md-offset-4 -->
-            </div>
-            <div class="row desks-workstations-row" style="margin-top: 2%;">
-            	<div class="col-md-10 col-md-offset-1 videos-col">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="video-container">
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/lcLmGIwMCX8?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-                            </div>
-                        </div><!-- end col-md-6 -->
-                        <div class="col-md-7">
-                        <h3 class="video-heading">
-                            How to add a tool
-                        </h3>
-                        <p>
-                            Adding a tool with ToolingInventory.com is very easy and intuitive.
-                        </p>
-                        <ol>
-                            <li><p>From the admin panel click the add tool button in the upper right</p></li>
-                            <li><p>Enter your tooling information and choose if you want to use auto alerts</p></li>
-                            <li><p>Save your new tool</p></li>
-                        </ol>
-                        </div><!-- end col-md-6 -->
-                    </div><!-- end row -->
-                          <div class="row desks-workstations-btn-row">
-                            	<div class="col-md-12 text-center">
-                                    <a href="./choose-a-plan" class="tutorial-cta">Start your free trial!</a>
-                                </div><!-- end col-md-12 -->
-                            </div><!-- end row -->
-                </div><!-- end col-md-8 col-md-offset-4 -->
-            </div>
+            
+            
+            
+        <div class="row case-study-row">
+		  <div class="col-md-5 video-col">
+			  <div class="video-container">
+               	  <iframe width="560" height="315" src="https://www.youtube.com/embed/HyS011EwXUg" frameborder="0" allowfullscreen=""></iframe>
+              </div><!-- end video container -->
+          </div>
+		  <div class="col-md-7 client-info">
+            <h3 class="video-heading">
+                ToolingInventory.com Live Demo
+            </h3>
+            <p>
+                ToolingInventory.com allows you to keep track of your machine shops tooling inventory.
+                Keeping track of your tooling is important to prevent running out of tools during production 
+                jobs. Running out of tools can cause you to miss deadlines on your jobs costing your shop money.
+                Keeping track of your tooling is also important so that you know exactly how much tooling is 
+                being used on specific jobs. This data is vital to charge your customers the right amount for 
+                a job.
+            </p>
+            <div class="row desks-workstations-btn-row">
+            	<div class="col-md-12 text-center">
+                    <a href="./choose-a-plan" class="tutorial-cta">Start your free trial!</a>
+                </div><!-- end col-md-12 -->
+            </div><!-- end row -->
+	    </div>
+	  </div>
+            
+            
+        <div class="row case-study-row">
+		  <div class="col-md-5 video-col">
+			  <div class="video-container">
+               	  <iframe width="560" height="315" src="https://www.youtube.com/embed/excYffJ-Uns?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+              </div><!-- end video container -->
+          </div>
+		  <div class="col-md-7 client-info">
+            <h3 class="video-heading">
+                How to view tool usage by operator
+            </h3>
+            <p>
+                With ToolingInventory.com you have the ability to know which operators are using which tools 
+                for which jobs. This insight will let you know if some operators are using more tooling than 
+                other operators. This might be an indication that a particular employee needs better trained 
+                on a certain machine if they are using more tooling that others. Keeping track of your 
+                tooling inventory also prevents costly tooling theft.
+            </p>
+            <div class="row desks-workstations-btn-row">
+            	<div class="col-md-12 text-center">
+                    <a href="./choose-a-plan" class="tutorial-cta">Start your free trial!</a>
+                </div><!-- end col-md-12 -->
+            </div><!-- end row -->
+	    </div>
+	  </div>  
+	  
+	  
+	  
+        <div class="row case-study-row">
+		  <div class="col-md-5 video-col">
+			  <div class="video-container">
+               	   <iframe width="560" height="315" src="https://www.youtube.com/embed/QExkIs_xMGU?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+              </div><!-- end video container -->
+          </div>
+		  <div class="col-md-7 client-info">
+            <h3 class="video-heading">
+                Download your tooling usage
+            </h3>
+            <p>
+                ToolingInventory.com allows you to download your tooling usage data. This allows you to use 
+                your tooling data in other software like Excel, and Watson Analytics to have insight into 
+                your tooling usage. Watson Analytics analyzes your data and gives your relations such as 
+                tooling usage by job presented to you with many great graphs.
+            </p>
+            <div class="row desks-workstations-btn-row">
+            	<div class="col-md-12 text-center">
+                    <a href="./choose-a-plan" class="tutorial-cta">Start your free trial!</a>
+                </div><!-- end col-md-12 -->
+            </div><!-- end row -->
+	    </div>
+	  </div>  
+	  
+	  
+	  
+        <div class="row case-study-row">
+		  <div class="col-md-5 video-col">
+			  <div class="video-container">
+               	   <iframe width="560" height="315" src="https://www.youtube.com/embed/2tZD32zY988?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+              </div><!-- end video container -->
+          </div>
+		  <div class="col-md-7 client-info">
+            <h3 class="video-heading">
+                How to add a job
+            </h3>
+            <p>
+                ToolingInventory.com doesnt just keep track of your machine shop tooling inventory, it also 
+                keeps track of your tooling usage by jobs. Understanding exactly how many tools were used to 
+                complete a job is vital to billing your customers correctly. Not understanding your tooling 
+                usage by jobs could potentially cause you from charging enough to stay profitable.
+            </p>
+            <div class="row desks-workstations-btn-row">
+            	<div class="col-md-12 text-center">
+                    <a href="./choose-a-plan" class="tutorial-cta">Start your free trial!</a>
+                </div><!-- end col-md-12 -->
+            </div><!-- end row -->
+	    </div>
+	  </div>  
+	  
+	  
+        <div class="row case-study-row">
+		  <div class="col-md-5 video-col">
+			  <div class="video-container">
+               	   <iframe width="560" height="315" src="https://www.youtube.com/embed/WqbNdj3UjYc?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+              </div><!-- end video container -->
+          </div>
+		  <div class="col-md-7 client-info">
+            <h3 class="video-heading">
+                How to view tool usage by job
+            </h3>
+            <p>
+                ToolingInventory.com doesnt just keep track of your machine shop tooling inventory, it also 
+                keeps track of your tooling usage by jobs. Understanding exactly how many tools were used 
+                to complete a job is vital to billing your customers correctly. Not understanding your 
+                tooling usage by jobs could potentially cause you from charging enough to stay profitable.
+            </p>
+            <div class="row desks-workstations-btn-row">
+            	<div class="col-md-12 text-center">
+                    <a href="./choose-a-plan" class="tutorial-cta">Start your free trial!</a>
+                </div><!-- end col-md-12 -->
+            </div><!-- end row -->
+	    </div>
+	  </div>  
+	  
+	  
+        <div class="row case-study-row">
+		  <div class="col-md-5 video-col">
+			  <div class="video-container">
+               	   <iframe width="560" height="315" src="https://www.youtube.com/embed/lcLmGIwMCX8?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+              </div><!-- end video container -->
+          </div>
+		  <div class="col-md-7 client-info">
+            <h3 class="video-heading">
+                How to add a tool
+            </h3>
+            <p>
+                Adding a tool with ToolingInventory.com is very easy and intuitive.
+            </p>
+            <ol>
+                <li><p>From the admin panel click the add tool button in the upper right</p></li>
+                <li><p>Enter your tooling information and choose if you want to use auto alerts</p></li>
+                <li><p>Save your new tool</p></li>
+            </ol>
+            <div class="row desks-workstations-btn-row">
+            	<div class="col-md-12 text-center">
+                    <a href="./choose-a-plan" class="tutorial-cta">Start your free trial!</a>
+                </div><!-- end col-md-12 -->
+            </div><!-- end row -->
+	    </div>
+	  </div>  
+	  
         </div>
         <script src="../bower_components/jquery/dist/jquery.min.js"></script>
         <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
