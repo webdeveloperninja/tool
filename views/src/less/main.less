@@ -105,6 +105,17 @@ p {
         right:0;
         background-color: rgba(0, 0, 0, 0.26);
     }
+        @media (max-width: @screen-sm-max) {
+            .jumbotron {
+                h1 {
+                    font-size: 31px;
+                }
+                h1, h3 {
+                    position: relative;
+                    z-index: 10;
+                }
+            }  
+        }
 }
 
 .money {
