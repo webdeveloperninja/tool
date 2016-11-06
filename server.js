@@ -674,7 +674,8 @@ app.post('/choose-a-plan', function(req, res) {
                 '<p>Name: ' + newUserObj.name + '</p>' +
                 '<p>Email: ' + newUserObj.email + '</p>' +
                 '<p>User Name: ' + newUserObj.username + '</p>' +
-                '<p>Company Name: ' + newUserObj.companyName + '</p>';
+                '<p>Company Name: ' + newUserObj.companyName + '</p>'+
+                '<p>Reference Code: ' + req.body.referenceCode;
             email.mail(signupAlertEmailHtml, 'New User On ToolingInventory.com', 'rsmith5901@gmail.com');
   
             res.render('login', {
