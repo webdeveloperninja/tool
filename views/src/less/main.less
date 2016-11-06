@@ -53,6 +53,7 @@ p {
 }
 
 .contact {
+    box-shadow: 0px 0px 65px black;
     .jumbotron {
         background-image: url(../../images/mil.jpg);
         border-radius: 0;
@@ -80,6 +81,7 @@ p {
 .features {
     background-color: white;
     margin-top: -1px;
+    box-shadow: 0px 0px 65px black;
     .jumbotron {
         background-image: url(../../images/tooll.jpg);
         border-radius: 0;
@@ -107,6 +109,7 @@ p {
     }
         @media (max-width: @screen-sm-max) {
             .jumbotron {
+                 margin-top: -59px;
                 h1 {
                     font-size: 31px;
                 }
@@ -162,13 +165,25 @@ p {
     .panel-default {
         border-color: black !important;
     }
+        @media (max-width: @screen-sm-max) {
+            .jumbotron {
+                 margin-top: -59px;
+                h1 {
+                    font-size: 31px;
+                }
+                h1, h3 {
+                    position: relative;
+                    z-index: 10;
+                }
+            }  
+        }
 }
 
 
 .login {
     background-color: white;
+    height: 600px;
     box-shadow: 0px 0px 65px black;
-    height: 326px;
     .jumbotron {
         background-image: url(../../images/beatuiful-mill.jpg);
         border-radius: 0;
@@ -178,6 +193,7 @@ p {
         position: relative;
         margin-right: -15px;
         margin-bottom: 0;
+        
         h1 {
             font-size: 51px;
             color: black;
