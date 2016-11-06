@@ -629,7 +629,6 @@ app.post('/choose-a-plan', function(req, res) {
             paymentErr: err
           });
         } else {
-          
           // find user id and add customer id for payment
           // save user to database and redirect to succesfully sign up
           var newUserObj = {
