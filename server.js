@@ -14,7 +14,7 @@ var dbAuth = require('./db-auth.js');
 var email = require('./email.js');
 var autoEmailOrder = require('./auto-email-order.js');
 var express = require('express');
-var stripeModeTest = true;
+var stripeModeTest = false;
 var stripeKey;
 var stripeKeys = {
   test: 'sk_test_5xGwl5dqR8CvbMJZOaqjutIQ',
