@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="PaymentApp">
     <head>
 <link rel="apple-touch-icon" sizes="57x57" href="./images/icon/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="./images/icon/apple-icon-60x60.png">
@@ -93,7 +93,7 @@
 
 </script>
     </head>
-    <body class="money" style="background-color: grey;">
+    <body class="money" style="background-color: grey;" ng-controller="PaymentController">
     <% include ./src/components/primary-nav.ejs %>
     <div class="container" style="margin-top: 100px;background-color: white; box-shadow: 0px 0px 65px black;">
             <div class="jumbotron">
@@ -188,7 +188,7 @@
                               <div class="form-row" style="margin-bottom: 10px;">
                                 <label>
                                   <span>Reference Code</span>
-                                  <input name="referenceCode" class="form-control" placeholder="Reference Code ">
+                                  <input name="referenceCode" class="form-control" id="referenceCode" placeholder="Reference Code ">
                                 </label>
                               </div>
                               <input type="submit" class="submit btn btn-primary" value="Submit Payment">
@@ -231,7 +231,7 @@
       });
     });
     
-    var stripeModeTest = false;
+    var stripeModeTest = true;
     var stripeKey;
     var stripeKeys = {
       test: 'pk_test_7ySNAoNYSJEwRZuD6xaPec4Z',

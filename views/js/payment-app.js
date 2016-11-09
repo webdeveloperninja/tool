@@ -1,6 +1,17 @@
 $(document).ready(function() {
     var $password = $('#password');
     var $passwordMatch = $('#password-match');
+    var $referenceCode = $('#referenceCode');
+    
+    $referenceCode.change(function() {
+        var referenceCode = $referenceCode.val();
+        if (referenceCode == 'Machinist Talk') {
+            $('.options-heading').text('$1,000/year');
+        } else {
+            $('.options-heading').text('$1,250/year');
+        }
+    });
+    
     $password.change(function() {
         var password = $password.val();
         var passwordMatch = $passwordMatch.val();
@@ -25,4 +36,6 @@ $(document).ready(function() {
             }
         }
     });
+    
+    
 });

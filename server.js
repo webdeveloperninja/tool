@@ -14,7 +14,7 @@ var dbAuth = require('./db-auth.js');
 var email = require('./email.js');
 var autoEmailOrder = require('./auto-email-order.js');
 var express = require('express');
-var stripeModeTest = false;
+var stripeModeTest = true;
 var stripeKey;
 var stripeKeys = {
   test: 'sk_test_5xGwl5dqR8CvbMJZOaqjutIQ',
@@ -615,80 +615,165 @@ app.post('/choose-a-plan', function(req, res) {
     console.log('do I exist: ' + exist);
     if (!exist) {
       var stripeToken = req.body.stripeToken;
-      stripe.customers.create({
-        source: stripeToken,
-        plan: "00002",
-        email: req.body.email
-        // grab email from sign up form
-      }, function(err, customer) {
-        if (err) {
-          console.log(err);
-          res.render('choose-a-plan', {
-            isAuthenticated: req.isAuthenticated(),
-            user: req.user,
-            paymentErr: err
-          });
-        } else {
-          // find user id and add customer id for payment
-          // save user to database and redirect to succesfully sign up
-          var newUserObj = {
-            name: req.body.name,
-            email: req.body.email,
-            companyName: req.body.companyName,
-            username: req.body.username,
-            password: req.body.password,
-            stripeId: customer.id,
-            toolingRep: {
-              name: null,
-              email: null
-            }
-          }
-  
-          dbAuth.addNewUser(newUserObj, function(err, userId) {
-            if (err) {
-              console.log(err);
-            } else {
-              /*
-                Getting Current Date in format 
-                mm/dd/yy
-              */
-              var today = new Date();
-              var dd = today.getDate();
-              var mm = today.getMonth()+1; //January is 0!
-              var yyyy = today.getFullYear();
-              
-              if(dd<10) {
-                  dd='0'+dd
-              } 
-              
-              if(mm<10) {
-                  mm='0'+mm
-              } 
-              
-              today = mm+'/'+dd+'/'+yyyy;
-              /*
-                Creating HTML to email to myself when user signs up
-              */
-            var signupAlertEmailHtml = '<h3>New User: on ' + today + '</h3>' + 
-                '<p>Name: ' + newUserObj.name + '</p>' +
-                '<p>Email: ' + newUserObj.email + '</p>' +
-                '<p>User Name: ' + newUserObj.username + '</p>' +
-                '<p>Company Name: ' + newUserObj.companyName + '</p>'+
-                '<p>Reference Code: ' + req.body.referenceCode;
-            email.mail(signupAlertEmailHtml, 'New User On ToolingInventory.com', 'rsmith5901@gmail.com');
-  
-            res.render('login', {
-              userCreated: true,
-              noMatch: null,
-              badPassword: null,
-              succesfullyCreateUser: null,
-              isAuthenticated: req.isAuthenticated()
+      console.log('Req body' +  req.body.referenceCode);
+      if (req.body.referenceCode == 'Machinist Talk') {
+        /* Base Price */
+        stripe.customers.create({
+          source: stripeToken,
+          plan: "00003",
+          email: req.body.email
+          // grab email from sign up form
+        }, function(err, customer) {
+          if (err) {
+            console.log(err);
+            res.render('choose-a-plan', {
+              isAuthenticated: req.isAuthenticated(),
+              user: req.user,
+              paymentErr: err
             });
-  
+          } else {
+            // find user id and add customer id for payment
+            // save user to database and redirect to succesfully sign up
+            var newUserObj = {
+              name: req.body.name,
+              email: req.body.email,
+              companyName: req.body.companyName,
+              username: req.body.username,
+              password: req.body.password,
+              stripeId: customer.id,
+              toolingRep: {
+                name: null,
+                email: null
+              }
             }
-          });
-        }
-      });  
+    
+            dbAuth.addNewUser(newUserObj, function(err, userId) {
+              if (err) {
+                console.log(err);
+              } else {
+                /*
+                  Getting Current Date in format 
+                  mm/dd/yy
+                */
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth()+1; //January is 0!
+                var yyyy = today.getFullYear();
+                
+                if(dd<10) {
+                    dd='0'+dd
+                } 
+                
+                if(mm<10) {
+                    mm='0'+mm
+                } 
+                
+                today = mm+'/'+dd+'/'+yyyy;
+                /*
+                  Creating HTML to email to myself when user signs up
+                */
+              var signupAlertEmailHtml = '<h3>New User: on ' + today + '</h3>' + 
+                  '<p>Name: ' + newUserObj.name + '</p>' +
+                  '<p>Email: ' + newUserObj.email + '</p>' +
+                  '<p>User Name: ' + newUserObj.username + '</p>' +
+                  '<p>Company Name: ' + newUserObj.companyName + '</p>'+
+                  '<p>Reference Code: ' + req.body.referenceCode;
+              email.mail(signupAlertEmailHtml, 'New User On ToolingInventory.com', 'rsmith5901@gmail.com');
+    
+              res.render('login', {
+                userCreated: true,
+                noMatch: null,
+                badPassword: null,
+                succesfullyCreateUser: null,
+                isAuthenticated: req.isAuthenticated()
+              });
+    
+              }
+            });
+          }
+        });  
+        /* End Base Price */
+        
+      } else {
+        /* Base Price */
+        stripe.customers.create({
+          source: stripeToken,
+          plan: "00002",
+          email: req.body.email
+          // grab email from sign up form
+        }, function(err, customer) {
+          if (err) {
+            console.log(err);
+            res.render('choose-a-plan', {
+              isAuthenticated: req.isAuthenticated(),
+              user: req.user,
+              paymentErr: err
+            });
+          } else {
+            // find user id and add customer id for payment
+            // save user to database and redirect to succesfully sign up
+            var newUserObj = {
+              name: req.body.name,
+              email: req.body.email,
+              companyName: req.body.companyName,
+              username: req.body.username,
+              password: req.body.password,
+              stripeId: customer.id,
+              toolingRep: {
+                name: null,
+                email: null
+              }
+            }
+    
+            dbAuth.addNewUser(newUserObj, function(err, userId) {
+              if (err) {
+                console.log(err);
+              } else {
+                /*
+                  Getting Current Date in format 
+                  mm/dd/yy
+                */
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth()+1; //January is 0!
+                var yyyy = today.getFullYear();
+                
+                if(dd<10) {
+                    dd='0'+dd
+                } 
+                
+                if(mm<10) {
+                    mm='0'+mm
+                } 
+                
+                today = mm+'/'+dd+'/'+yyyy;
+                /*
+                  Creating HTML to email to myself when user signs up
+                */
+              var signupAlertEmailHtml = '<h3>New User: on ' + today + '</h3>' + 
+                  '<p>Name: ' + newUserObj.name + '</p>' +
+                  '<p>Email: ' + newUserObj.email + '</p>' +
+                  '<p>User Name: ' + newUserObj.username + '</p>' +
+                  '<p>Company Name: ' + newUserObj.companyName + '</p>'+
+                  '<p>Reference Code: ' + req.body.referenceCode;
+              email.mail(signupAlertEmailHtml, 'New User On ToolingInventory.com', 'rsmith5901@gmail.com');
+    
+              res.render('login', {
+                userCreated: true,
+                noMatch: null,
+                badPassword: null,
+                succesfullyCreateUser: null,
+                isAuthenticated: req.isAuthenticated()
+              });
+    
+              }
+            });
+          }
+        });  
+        /* End Base Price */        
+      }
+
+      
     } else {
       res.render('choose-a-plan', {
         isAuthenticated: req.isAuthenticated(),
