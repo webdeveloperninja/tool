@@ -628,7 +628,12 @@ app.post('/choose-a-plan', function(req, res) {
             res.render('choose-a-plan', {
               isAuthenticated: req.isAuthenticated(),
               user: req.user,
-              paymentErr: err
+              paymentErr: err,
+              userCreated: false,
+              noMatch: null,
+              usernameExists: null,
+              badPassword: null,
+              succesfullyCreateUser: null,
             });
           } else {
             // find user id and add customer id for payment
@@ -682,6 +687,7 @@ app.post('/choose-a-plan', function(req, res) {
               res.render('login', {
                 userCreated: true,
                 noMatch: null,
+                usernameExists: null,
                 badPassword: null,
                 succesfullyCreateUser: null,
                 isAuthenticated: req.isAuthenticated()

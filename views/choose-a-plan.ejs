@@ -119,7 +119,9 @@
                                                     <p id="notice-text" class="text-center">
                                                       <span class="payment-errors"></span>
                                                       <% if(paymentErr) { %>
-                                                        There was an error processing your payment
+                                                        <span class="payment-error-msg" style="color: red;">
+                                                          <%= paymentErr %>
+                                                        </span>
                                                       <% } %>
                                                       <% if(usernameExists) { %>
                                                         Uh Oh the username you choses is already taken.. Please try again.
