@@ -107,7 +107,7 @@
                     <div class="panel-group payment-box">
                       <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4 class="text-center"><strong>0 - 150 Unique Tools<br>Your card will not be billed unless you choose to stay!</strong></h4>
+                            <h4 class="text-center"><strong>Your card will not be billed unless you choose to stay!</strong></h4>
                         </div>
                         <div class="panel-body">
                             <h4 class="text-center options-heading">$1,250/year</h4>
@@ -163,7 +163,7 @@
                       
                               </div>
                             
-                              <div class="form-row">
+                              <div class="form-group">
                                 <label>
                                   <span>Expiration (MM/YY)</span>
                                 </label>
@@ -179,13 +179,13 @@
                                     </div>
                                 </div>
                               </div>
-                              <div class="form-row">
+                              <div class="form-group">
                                 <label>
                                   <span>CVC</span>
                                   <input data-stripe="cvc" id="cc-cvc" type="tel" class=" form-control cc-cvc" autocomplete="off" placeholder="•••" required>
                                 </label>
                               </div>
-                              <div class="form-row" style="margin-bottom: 10px;">
+                              <div class="form-group" style="margin-bottom: 10px;">
                                 <label>
                                   <span>Reference Code</span>
                                   <input name="referenceCode" class="form-control" id="referenceCode" placeholder="Reference Code ">
@@ -231,7 +231,7 @@
       });
     });
     
-    var stripeModeTest = false;
+    var stripeModeTest = true;
     var stripeKey;
     var stripeKeys = {
       test: 'pk_test_7ySNAoNYSJEwRZuD6xaPec4Z',

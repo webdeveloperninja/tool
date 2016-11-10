@@ -14,7 +14,7 @@ var dbAuth = require('./db-auth.js');
 var email = require('./email.js');
 var autoEmailOrder = require('./auto-email-order.js');
 var express = require('express');
-var stripeModeTest = false;
+var stripeModeTest = true;
 var stripeKey;
 var stripeKeys = {
   test: 'sk_test_5xGwl5dqR8CvbMJZOaqjutIQ',
@@ -615,8 +615,7 @@ app.post('/choose-a-plan', function(req, res) {
     console.log('do I exist: ' + exist);
     if (!exist) {
       var stripeToken = req.body.stripeToken;
-      console.log('Req body' +  req.body.referenceCode);
-      if (req.body.referenceCode == 'Machinist Talk') {
+      if (req.body.referenceCode.toLowerCase() == 'machinist talk') {
         /* Base Price */
         stripe.customers.create({
           source: stripeToken,

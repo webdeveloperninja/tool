@@ -4,8 +4,8 @@ $(document).ready(function() {
     var $referenceCode = $('#referenceCode');
     
     $referenceCode.change(function() {
-        var referenceCode = $referenceCode.val();
-        if (referenceCode == 'Machinist Talk') {
+        var referenceCode = $referenceCode.val().toLowerCase();
+        if (referenceCode == 'machinist talk') {
             $('.options-heading').text('$1,000/year');
         } else {
             $('.options-heading').text('$1,250/year');
