@@ -712,6 +712,7 @@ app.post('/choose-a-plan', function(req, res) {
             res.render('choose-a-plan', {
               isAuthenticated: req.isAuthenticated(),
               user: req.user,
+              usernameExists: null,
               paymentErr: err
             });
           } else {
@@ -765,6 +766,7 @@ app.post('/choose-a-plan', function(req, res) {
     
               res.render('login', {
                 userCreated: true,
+                usernameExists: null,
                 noMatch: null,
                 badPassword: null,
                 succesfullyCreateUser: null,
@@ -783,6 +785,7 @@ app.post('/choose-a-plan', function(req, res) {
       res.render('choose-a-plan', {
         isAuthenticated: req.isAuthenticated(),
         user: req.user,
+        usernameExists: null,
         paymentErr: null,
         usernameExists: true
       });
