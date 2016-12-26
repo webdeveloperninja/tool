@@ -128,7 +128,7 @@ app.get('/', function(req, res) {
       });
     }); 
   } else {
-    res.redirect('https://toolinginventory.com');
+    res.redirect('/landing-form');
   }
   // query tool collection for user id
   
