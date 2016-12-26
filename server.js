@@ -128,10 +128,7 @@ app.get('/', function(req, res) {
       });
     }); 
   } else {
-    res.render('index', {
-      isAuthenticated: req.isAuthenticated(),
-      user: req.user
-    });
+    res.redirect('https://toolinginventory.com');
   }
   // query tool collection for user id
   
