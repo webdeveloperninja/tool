@@ -79,7 +79,6 @@
                                 <div class="col-md-3">Job Name</div>
                                 <div class="col-md-2 text-center">Job Id</div>
                                 <div class="col-md-3 text-center">Company Name</div>
-                                <div class="col-md-2 text-center">Qty Due</div>
                             </div>
                             <div class="list">
                                 <% for (var i=0; i<jobs.length; i++) {%>
@@ -93,9 +92,7 @@
                                         <div class="col-md-3">
                                             <p class="table-value company-name"><span class="hidden-xl hidden-lg hidden-md">Company Name:</span> <%= jobs[i].companyName %> </p>
                                         </div>
-                                        <div class="col-md-2">
-                                            <p class="table-value" style="text-align:center;"><span class="hidden-xl hidden-lg hidden-md">Qty:</span> <%= jobs[i].qtyDue %> </p>
-                                        </div>
+                    
                                     </div>
                                 <% } %>
                                 <!-- Go back to this hacky as f -->
