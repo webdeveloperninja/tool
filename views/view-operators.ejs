@@ -118,8 +118,8 @@
                             <p class="table-value table-btn-p operatorId"><span class="hidden-xl hidden-lg hidden-md">Operator Id: </span><%= operators[i].operatorId%></p>
                         </div>
                         <div class="col-md-5 text-center">
-                            <a href="/remove-operator/?operatorId=<%= operators[i].operatorId %>" class="btn btn-danger action-btn" onclick="return confirm('Are you sure you want to remove operator?')">Remove Operator</a>
                             <a href="/view-operator-tooling/?operatorId=<%= operators[i].operatorId %>" class="btn btn-primary action-btn">Tool Usage</a>
+                            <a href="/remove-operator/?operatorId=<%= operators[i].operatorId %>" class="btn btn-danger action-btn" onclick="return confirm('Are you sure you want to remove operator?')">Remove Operator</a>
                         </div>                    
                     </div>
                 <% } %>   
