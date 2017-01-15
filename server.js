@@ -30,6 +30,10 @@ var stripe = require("stripe")(stripeKey);
 const queryString = require('query-string');
 var app = express();
 
+/*
+* Heroku pipelines is da bomb
+* */
+
 
 app.use(flash());
 
