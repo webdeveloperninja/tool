@@ -1412,7 +1412,7 @@ var jobIdQuery = function(uri) {
       function($0, $1, $2, $3) { queryString[$1] = $3; }
   );
   return queryString['jobId']
-}
+};
 
 var emailRepresentative = function(tool, userId) {
   
