@@ -128,7 +128,7 @@ app.get('/', function(req, res) {
       });
     }); 
   } else {
-    res.redirect('/landing-form');
+    res.redirect('/login');
   }
   // query tool collection for user id
   
