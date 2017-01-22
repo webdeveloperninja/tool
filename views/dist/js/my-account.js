@@ -1,5 +1,4 @@
 (function() {
-	console.log('my-account');
 	// Checkouts By Job
 	$.ajax({
 		/*
@@ -73,4 +72,6 @@
 				// });
 		}
 	});
+
+	setTimeout(function() { $('.my-account .panel-body .alert').fadeOut() }, 5000);
 })();
