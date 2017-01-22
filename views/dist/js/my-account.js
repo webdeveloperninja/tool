@@ -1,12 +1,13 @@
+var TiBase = TiBase || {};
+TiBase.MyAccount = TiBase.MyAccount || {};
+
 (function() {
-	// Checkouts By Job
-	$.ajax({
-		/*
-		 Retrieve data
-		 */
-		url: '../tool-usage-overview',
-		type: 'GET',
-		success: function(data) {
+	'use strict';
+	TiBase.MyAccount.buildCharts = function() {
+		$.ajax({
+			url: '../tool-usage-overview',
+			type: 'GET',
+			success: function(data) {
 				var checkouts = JSON.parse(data);
 				var jobs = [];
 
@@ -22,7 +23,7 @@
 						jobs.push([checkouts[i].jobName, checkouts[i].checkoutQty]);
 					}
 				}
-				var chart = c3.generate({
+				var donutChart = c3.generate({
 					bindto: '#donut-chart',
 					data: {
 						columns: jobs,
@@ -35,8 +36,8 @@
 						title: "Jobs"
 					}
 				});
-				var chart = c3.generate({
-					bindto: '#chart-1',
+				var barChart = c3.generate({
+					bindto: '#bar-chart',
 					data: {
 						columns: jobs,
 						type : 'bar'
@@ -48,30 +49,28 @@
 						title: "My Crib"
 					}
 				});
-				// tools.forEach(function (item, index) {
-				// 	toolsGraphArr.push([item.toolName, item.qty]);
-				// 	toolsName.push(item.toolName);
-				// });
-				//
-				//
-				// var chart = c3.generate({
-				// 	bindto: '#donut-chart',
-				// 	data: {
-				// 		columns: toolsGraphArr,
-				// 		type: 'donut'
-				// 	},
-				// 	legend: {
-				// 		show: true
-				// 	},
-				// 	donut: {
-				// 		title: "My Crib"
-				// 	},
-				// 	tooltip: {
-				// 		show: false
-				// 	}
-				// });
-		}
+			}
+		});
+	};
+
+
+	TiBase.MyAccount.init = function() {
+		/*
+		* Looks for cases when loaded with success or failure ui flag for adding
+		* email, operator or job
+		* */
+		setTimeout(function() { $('.my-account .panel-body .alert').fadeOut() }, 5000);
+
+		/*
+		* Ajax call to get data and build c3 charts mounts to
+		* #donut-chart
+		* #bar-chart
+		* */
+		TiBase.MyAccount.buildCharts();
+	};
+
+	$(document).ready(function() {
+		TiBase.MyAccount.init();
 	});
 
-	setTimeout(function() { $('.my-account .panel-body .alert').fadeOut() }, 5000);
 })();
