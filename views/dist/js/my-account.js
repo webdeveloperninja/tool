@@ -49,6 +49,8 @@ TiBase.MyAccount = TiBase.MyAccount || {};
             title: "My Crib"
           }
         });
+
+        $('.loader-spinner').fadeOut();
       }
     });
   };
