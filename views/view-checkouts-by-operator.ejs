@@ -17,9 +17,6 @@
 </script>
     </head>
     <body <%if(isAuthenticated) {%> class="authenticated" <% } %>>
-    <div class="loader">
-        <img src="../../images/gear-t.png" class="img-responsive">
-    </div>
     <nav class="navbar navbar-default navbar-fixed-top __web-inspector-hide-shortcut__ <%if(isAuthenticated) {%> new-logo-app <% } %>">
       <div class="container">
         <div class="navbar-header">
@@ -31,7 +28,7 @@
           </button>
           <a class="navbar-brand" href="/" style="color: black;">
               <!-- Logo here -->
-              ToolingInventory.com
+              <img src="../../images/long-logo.png" class="img-responsive">
           </a>
         </div>
         <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse">
