@@ -50,7 +50,6 @@ TiBase.MyAccount = TiBase.MyAccount || {};
           }
         });
 
-        $('.loader-spinner').fadeOut();
       }
     });
   };

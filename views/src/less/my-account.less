@@ -5,9 +5,10 @@
   }
   .carousel-control {
     background-image: none;
-    height: 65px;
+    margin-top: 307px;
+    height: 43px;
     background-color: #43bea1;
-    border: 1px solid black;
+    border: 1px solid #000;
     .glyphicon {
       margin-top: -15px;
     }
@@ -25,21 +26,9 @@
     padding-bottom: 5px;
     float: right;
   }
-  .loader-spinner {
-    position: absolute;
-    top: 20%;
-    left: 0%;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    z-index: 1;
-    width: 400px;
-    height: auto;
-    -webkit-animation:spin 4s linear infinite;
-    -moz-animation:spin 4s linear infinite;
-    animation:spin 4s linear infinite;
+  #donut-chart, #bar-chart {
+    max-height: 320px;
+    position: relative;
+    margin-bottom: 20px;
   }
-  @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-  @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-  @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 }
