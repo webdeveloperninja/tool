@@ -594,6 +594,110 @@ app.get('/view-checkouts', function(req, res) {
   }
 });
 
+
+app.get('/choose-a-plan-free-year', function(req, res) {
+	console.log('Pay for plan hit');
+	res.render('choose-a-plan-free-year', {
+		isAuthenticated: req.isAuthenticated(),
+		user: req.user,
+		paymentErr: null,
+		usernameExists: null
+	});
+});
+
+app.post('/choose-a-plan-free-year', function(req, res) {
+  /*
+   1) Check for existing user
+   2) If username does not exist
+   3) Create stripe account
+   4) Create User object
+   5) Save user object to db
+   */
+	dbAuth.doesUsernameExistDb(req.body.username, function(exist) {
+		console.log('do I exist: ' + exist);
+		if (!exist) {
+
+			// find user id and add customer id for payment
+			// save user to database and redirect to succesfully sign up
+			var newUserObj = {
+				name: req.body.name,
+				email: req.body.email,
+				companyName: req.body.companyName,
+        phoneNumber: req.body.phoneNumber,
+				username: req.body.username,
+				password: req.body.password,
+				toolingRep: {
+					name: null,
+					email: null
+				}
+			};
+
+			dbAuth.addNewUser(newUserObj, function(err, userId) {
+				if (err) {
+					console.log(err);
+				} else {
+          /*
+           Getting Current Date in format
+           mm/dd/yy
+           */
+					var today = new Date();
+					var dd = today.getDate();
+					var mm = today.getMonth()+1; //January is 0!
+					var yyyy = today.getFullYear();
+
+					if(dd<10) {
+						dd='0'+dd
+					}
+
+					if(mm<10) {
+						mm='0'+mm
+					}
+
+					today = mm+'/'+dd+'/'+yyyy;
+          /*
+           Creating HTML to email to myself when user signs up
+           */
+					var signupAlertEmailHtml = '<h3>New User: on ' + today + '</h3>' +
+						'<p>Name: ' + newUserObj.name + '</p>' +
+						'<p>Email: ' + newUserObj.email + '</p>' +
+						'<p>User Name: ' + newUserObj.username + '</p>' +
+						'<p>Company Name: ' + newUserObj.companyName + '</p>'+
+            '<p><strong>Free Year Trial Created on ' + new Date() + '</strong></p>';
+
+					var newUserEmailHtml = '<!-- Inliner Build Version 4380b7741bb759d6cb997545f3add21ad48f010b -->\r\n<!DOCTYPE html PUBLIC \"-\/\/W3C\/\/DTD XHTML 1.0 Strict\/\/EN\" \"http:\/\/www.w3.org\/TR\/xhtml1\/DTD\/xhtml1-strict.dtd\">\r\n<html xmlns=\"http:\/\/www.w3.org\/1999\/xhtml\" xmlns=\"http:\/\/www.w3.org\/1999\/xhtml\" style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; margin: 0; padding: 0;\">\r\n  <head>\r\n    <meta http-equiv=\"Content-Type\" content=\"text\/html; charset=utf-8\" \/>\r\n    <meta name=\"viewport\" content=\"width=device-width\" \/>\r\n<!-- For development, pass document through inliner -->\r\n  <\/head>\r\n  <body style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; width: 100% !important; height: 100%; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none; background: #efefef; margin: 0; padding: 0;\" bgcolor=\"#efefef\">\r\n<table class=\"body-wrap\" style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; width: 100% !important; height: 100%; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none; background: #efefef; margin: 0; padding: 0;\" bgcolor=\"#efefef\"><tr style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; margin: 0; padding: 0;\"><td class=\"container\" style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; display: block !important; clear: both !important; max-width: 580px !important; margin: 0 auto; padding: 0;\">\r\n\r\n            <!-- Message start -->\r\n            <table style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; width: 100% !important; border-collapse: collapse; margin: 0; padding: 0;\"><tr style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; margin: 0; padding: 0;\"><td align=\"center\" class=\"masthead\" style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; color: white; background: #71bc37; margin: 0; padding: 80px 0;\" bgcolor=\"#71bc37\">\r\n\r\n                        <h1 style=\"font-size: 32px; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.25; max-width: 90%; text-transform: uppercase; margin: 0 auto; padding: 0;\">Welcome to the ToolingInventory.com family.<\/h1>\r\n\r\n                    <\/td>\r\n                <\/tr><tr style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; margin: 0; padding: 0;\"><td class=\"content\" style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; background: white; margin: 0; padding: 30px 35px;\" bgcolor=\"white\">\r\n\r\n                        <h2 style=\"font-size: 28px; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.25; margin: 0 0 20px; padding: 0;\">Hi Stranger,<\/h2>\r\n\r\n                        <p style=\"font-size: 16px; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; font-weight: normal; margin: 0 0 20px; padding: 0;\">Kielbasa venison ball tip shankle. Boudin prosciutto landjaeger, pancetta jowl turkey tri-tip porchetta beef pork loin drumstick. Frankfurter short ribs kevin pig ribeye drumstick bacon kielbasa. Pork loin brisket biltong, pork belly filet mignon ribeye pig ground round porchetta turducken turkey. Pork belly beef ribs sausage ham hock, ham doner frankfurter pork chop tail meatball beef pig meatloaf short ribs shoulder. Filet mignon ham hock kielbasa beef ribs shank. Venison swine beef ribs sausage pastrami shoulder.<\/p>\r\n\r\n                        <table style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; width: 100% !important; border-collapse: collapse; margin: 0; padding: 0;\"><tr style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; margin: 0; padding: 0;\"><td align=\"center\" style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; margin: 0; padding: 0;\">\r\n                                    <p style=\"font-size: 16px; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; font-weight: normal; margin: 0 0 20px; padding: 0;\">\r\n                                        <a href=\"https:\/\/toolinginventory.com\/tooling-inventory-features\/\" class=\"button\" style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; color: white; text-decoration: none; display: inline-block; font-weight: bold; border-radius: 4px; background: #71bc37; margin: 0; padding: 0; border-color: #71bc37; border-style: solid; border-width: 10px 20px 8px;\">More Information and Training<\/a>\r\n                                    <\/p>\r\n                                <\/td>\r\n                            <\/tr><\/table><p style=\"font-size: 16px; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; font-weight: normal; margin: 0 0 20px; padding: 0;\">By the way, if you\'re wondering where you can find more of this fine meaty filler, visit <a href=\"http:\/\/baconipsum.com\" style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; color: #71bc37; text-decoration: none; margin: 0; padding: 0;\">Bacon Ipsum<\/a>.<\/p>\r\n\r\n                        <p style=\"font-size: 16px; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; font-weight: normal; margin: 0 0 20px; padding: 0;\"><em style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; margin: 0; padding: 0;\">\u2013 Mr. Pen<\/em><\/p>\r\n\r\n                    <\/td>\r\n                <\/tr><\/table><\/td>\r\n    <\/tr><tr style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; margin: 0; padding: 0;\"><td class=\"container\" style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; display: block !important; clear: both !important; max-width: 580px !important; margin: 0 auto; padding: 0;\">\r\n\r\n            <!-- Message start -->\r\n            <table style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; width: 100% !important; border-collapse: collapse; margin: 0; padding: 0;\"><tr style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; margin: 0; padding: 0;\"><td class=\"content footer\" align=\"center\" style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; background: white none; margin: 0; padding: 30px 35px;\" bgcolor=\"white\">\r\n                        <p style=\"font-size: 14px; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; font-weight: normal; color: #888; text-align: center; margin: 0; padding: 0;\" align=\"center\">Sent by <a href=\"#\" style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; color: #888; text-decoration: none; font-weight: bold; margin: 0; padding: 0;\">Company Name<\/a>, 1234 Yellow Brick Road, OZ, 99999<\/p>\r\n                        <p style=\"font-size: 14px; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; font-weight: normal; color: #888; text-align: center; margin: 0; padding: 0;\" align=\"center\"><a href=\"mailto:\" style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; color: #888; text-decoration: none; font-weight: bold; margin: 0; padding: 0;\">hello@company.com<\/a> | <a href=\"#\" style=\"font-size: 100%; font-family: \'Avenir Next\', \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; line-height: 1.65; color: #888; text-decoration: none; font-weight: bold; margin: 0; padding: 0;\">Unsubscribe<\/a><\/p>\r\n                    <\/td>\r\n                <\/tr><\/table><\/td>\r\n    <\/tr><\/table><\/body>\r\n<\/html>\r\n';
+
+
+					email.mail(signupAlertEmailHtml, 'New User On ToolingInventory.com', 'Robert.Smith@ToolingInventory.com');
+					email.mail(newUserEmailHtml, 'Welcome to the ToolingInventory.com Family!', newUserObj.email);
+
+
+
+					res.render('login', {
+						userCreated: true,
+						noMatch: null,
+						usernameExists: null,
+						badPassword: null,
+						succesfullyCreateUser: null,
+						isAuthenticated: req.isAuthenticated()
+					});
+
+				}
+			});
+
+
+		} else {
+			res.render('choose-a-plan-free-year', {
+				isAuthenticated: req.isAuthenticated(),
+				user: req.user,
+				usernameExists: null,
+				paymentErr: null,
+				usernameExists: true
+			});
+		}
+	});
+});
+
+
 app.get('/choose-a-plan', function(req, res) {
     console.log('Pay for plan hit');
     res.render('choose-a-plan', {

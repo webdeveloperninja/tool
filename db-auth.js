@@ -11,6 +11,7 @@ var usersSchema = new mongoose.Schema({
     stripeId: String,
     toolingRep: Object,
     superUser: Boolean,
+    phoneNumber: String,
     email: String,
     contactName: String
 });
