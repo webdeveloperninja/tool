@@ -620,7 +620,9 @@ app.post('/choose-a-plan-free-year', function(req, res) {
 			// find user id and add customer id for payment
 			// save user to database and redirect to succesfully sign up
 			var newUserObj = {
-				name: req.body.name,
+				firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        referenceCode: req.body.referenceCode,
 				email: req.body.email,
 				companyName: req.body.companyName,
         phoneNumber: req.body.phoneNumber,
