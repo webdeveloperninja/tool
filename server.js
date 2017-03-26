@@ -606,19 +606,9 @@ app.get('/choose-a-plan-free-year', function(req, res) {
 });
 
 app.post('/choose-a-plan-free-year', function(req, res) {
-  /*
-   1) Check for existing user
-   2) If username does not exist
-   3) Create stripe account
-   4) Create User object
-   5) Save user object to db
-   */
 	dbAuth.doesUsernameExistDb(req.body.username, function(exist) {
 		console.log('do I exist: ' + exist);
 		if (!exist) {
-
-			// find user id and add customer id for payment
-			// save user to database and redirect to succesfully sign up
 			var newUserObj = {
 				firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -638,10 +628,264 @@ app.post('/choose-a-plan-free-year', function(req, res) {
 				if (err) {
 					console.log(err);
 				} else {
-          /*
-           Getting Current Date in format
-           mm/dd/yy
-           */
+
+				  // user ID to add 10 tools
+          var tool = {
+            userId: userId,
+            toolName: req.body.toolName,
+            toolTypeCustom: req.body.toolTypeCustom,
+            qty: req.body.qty,
+            autoOrderQty: req.body.autoOrderQty,
+            idealAmount: req.body.idealAmount
+          };
+
+
+          getMockTools(userId, function(tools) {
+            console.log('async bitch');
+            console.log(tools);
+						// 1st para in async.each() is the array of items
+						async.each(tools,
+							// 2nd param is the function that each item is passed to
+							function(item, callback){
+								// Call an asynchronous function, often a save() to DB
+								dbAuth.addNewTool(item, function(err) {
+									if (err) {
+										console.log(err);
+									} else {
+										callback();
+									}
+								});
+							},
+							// 3rd param is the function to call when everything's done
+							function(err){
+								// All tasks are done now
+								console.log('done');
+							}
+						);
+          });
+
+
+          getMockOperators(userId, function(operators) {
+						async.each(operators,
+							// 2nd param is the function that each item is passed to
+							function(item, callback){
+								dbAuth.addOperator(item, function(err) {
+									if (err) {
+
+									} else {
+										callback();
+									}
+								});
+							},
+							// 3rd param is the function to call when everything's done
+							function(err){
+								// All tasks are done now
+								console.log('done');
+							}
+						);
+          });
+
+          getMockJobs(userId, function(jobs) {
+						async.each(jobs,
+							// 2nd param is the function that each item is passed to
+							function(item, callback){
+								dbAuth.addJob(item, function(err) {
+									if (err) {
+
+									} else {
+										callback();
+									}
+								});
+							},
+							// 3rd param is the function to call when everything's done
+							function(err){
+								// All tasks are done now
+								console.log('done');
+							}
+						);
+          });
+
+
+
+
+
+          // Loop over objects and display to db;
+
+
+
+
+          function getMockJobs(userId, cb) {
+            var jobsJson = [
+              {
+                userId: userId,
+                jobName: 'This is a job name',
+                contactName: 'Contact name',
+                contractEmail: 'contra@asdf.com',
+                qtyDue: 33,
+                jobId: 3939
+              },
+							{
+								userId: userId,
+								jobName: 'This is a job name',
+								contactName: 'Contact name',
+								contractEmail: 'contra@asdf.com',
+								qtyDue: 33,
+								jobId: 3939
+							},
+							{
+								userId: userId,
+								jobName: 'This is a job name',
+								contactName: 'Contact name',
+								contractEmail: 'contra@asdf.com',
+								qtyDue: 33,
+								jobId: 3939
+							},
+							{
+								userId: userId,
+								jobName: 'This is a job name',
+								contactName: 'Contact name',
+								contractEmail: 'contra@asdf.com',
+								qtyDue: 33,
+								jobId: 3939
+							},
+							{
+								userId: userId,
+								jobName: 'This is a job name',
+								contactName: 'Contact name',
+								contractEmail: 'contra@asdf.com',
+								qtyDue: 33,
+								jobId: 3939
+							},
+							{
+								userId: userId,
+								jobName: 'This is a job name',
+								contactName: 'Contact name',
+								contractEmail: 'contra@asdf.com',
+								qtyDue: 33,
+								jobId: 3939
+							}
+            ]
+            cb(jobsJson);
+          }
+
+
+          function getMockOperators(userId, cb) {
+						var operatorsJson = [
+              {
+                userId: userId,
+                operatorName: 'Test Operator Name',
+                operatorId: 393
+              },
+							{
+								userId: userId,
+								operatorName: 'Test Operator Name',
+								operatorId: 393
+							},
+							{
+								userId: userId,
+								operatorName: 'Test Operator Name',
+								operatorId: 393
+							},
+							{
+								userId: userId,
+								operatorName: 'Test Operator Name',
+								operatorId: 393
+							},
+							{
+								userId: userId,
+								operatorName: 'Test Operator Name',
+								operatorId: 393
+							},
+							{
+								userId: userId,
+								operatorName: 'Test Operator Name',
+								operatorId: 393
+							},
+							{
+								userId: userId,
+								operatorName: 'Test Operator Name',
+								operatorId: 393
+							},
+							{
+								userId: userId,
+								operatorName: 'Test Operator Name',
+								operatorId: 393
+							}
+            ];
+						cb(operatorsJson);
+          }
+
+					function getMockTools(userId, cb) {
+					  var toolsJson = [
+              {
+                userId: userId,
+                toolName: '.250" 3 Flute Carbide EndMil',
+                toolTypeCustom: null,
+                qty: 32,
+                autoOrderQty: 2,
+                idealAmount: 29
+              },
+							{
+								userId: userId,
+								toolName: '.250" 3 Flute Carbide EndMil',
+								toolTypeCustom: null,
+								qty: 32,
+								autoOrderQty: 2,
+								idealAmount: 29
+							},
+							{
+								userId: userId,
+								toolName: '.250" 3 Flute Carbide EndMil',
+								toolTypeCustom: null,
+								qty: 32,
+								autoOrderQty: 2,
+								idealAmount: 29
+							},
+							{
+								userId: userId,
+								toolName: '.250" 3 Flute Carbide EndMil',
+								toolTypeCustom: null,
+								qty: 32,
+								autoOrderQty: 2,
+								idealAmount: 29
+							},
+							{
+								userId: userId,
+								toolName: '.250" 3 Flute Carbide EndMil',
+								toolTypeCustom: null,
+								qty: 32,
+								autoOrderQty: 2,
+								idealAmount: 29
+							},
+							{
+								userId: userId,
+								toolName: '.250" 3 Flute Carbide EndMil',
+								toolTypeCustom: null,
+								qty: 32,
+								autoOrderQty: 2,
+								idealAmount: 29
+							}
+            ];
+
+					  cb(toolsJson);
+          }
+
+
+					var toolObj = {
+						userId: req.body.userId,
+						toolName: req.body.toolName,
+						toolTypeCustom: req.body.toolTypeCustom,
+						qty: req.body.qty,
+						autoOrderQty: req.body.autoOrderQty,
+						idealAmount: req.body.idealAmount
+					}
+
+
+					// user Id to add 5 Jobs
+
+          // User id to add 5
+
+
 					var today = new Date();
 					var dd = today.getDate();
 					var mm = today.getMonth()+1; //January is 0!
