@@ -719,51 +719,51 @@ app.post('/choose-a-plan-free-year', function(req, res) {
             var jobsJson = [
               {
                 userId: userId,
-                jobName: 'This is a job name',
+                jobName: 'Drill Spline for Zimmer',
                 contactName: 'Contact name',
                 contractEmail: 'contra@asdf.com',
                 qtyDue: 33,
-                jobId: 3939
+                jobId: 39395454
               },
 							{
 								userId: userId,
-								jobName: 'This is a job name',
-								contactName: 'Contact name',
+								jobName: 'Mill Slots for 80/20',
+								contactName: 'Alison Granger',
 								contractEmail: 'contra@asdf.com',
-								qtyDue: 33,
-								jobId: 3939
+								qtyDue: 393,
+								jobId: 3939546
 							},
 							{
 								userId: userId,
-								jobName: 'This is a job name',
-								contactName: 'Contact name',
+								jobName: 'Drill and Tap Holes',
+								contactName: 'Billy Bob',
 								contractEmail: 'contra@asdf.com',
-								qtyDue: 33,
-								jobId: 3939
+								qtyDue: 3893,
+								jobId: 3939354
 							},
 							{
 								userId: userId,
-								jobName: 'This is a job name',
-								contactName: 'Contact name',
+								jobName: 'Surface Grinding',
+								contactName: 'Jon Smith',
 								contractEmail: 'contra@asdf.com',
-								qtyDue: 33,
-								jobId: 3939
+								qtyDue: 3893,
+								jobId: 3939898
 							},
 							{
 								userId: userId,
-								jobName: 'This is a job name',
-								contactName: 'Contact name',
+								jobName: 'Cut Gears out of Titanium',
+								contactName: 'James Lewis',
 								contractEmail: 'contra@asdf.com',
 								qtyDue: 33,
-								jobId: 3939
+								jobId: 3939786
 							},
 							{
 								userId: userId,
-								jobName: 'This is a job name',
-								contactName: 'Contact name',
+								jobName: 'Profile mill test plate',
+								contactName: 'Bob Smith',
 								contractEmail: 'contra@asdf.com',
 								qtyDue: 33,
-								jobId: 3939
+								jobId: 393987
 							}
             ]
             cb(jobsJson);
@@ -774,43 +774,43 @@ app.post('/choose-a-plan-free-year', function(req, res) {
 						var operatorsJson = [
               {
                 userId: userId,
-                operatorName: 'Test Operator Name',
-                operatorId: 393
+                operatorName: 'Brandon Lee',
+                operatorId: 1234
               },
 							{
 								userId: userId,
-								operatorName: 'Test Operator Name',
-								operatorId: 393
+								operatorName: 'Laura Harnes',
+								operatorId: 4321
 							},
 							{
 								userId: userId,
-								operatorName: 'Test Operator Name',
-								operatorId: 393
+								operatorName: 'Chris Burns',
+								operatorId: 6658
 							},
 							{
 								userId: userId,
-								operatorName: 'Test Operator Name',
-								operatorId: 393
+								operatorName: 'Robert Smith',
+								operatorId: 3584
 							},
 							{
 								userId: userId,
-								operatorName: 'Test Operator Name',
-								operatorId: 393
+								operatorName: 'Rick James',
+								operatorId: 6667
 							},
 							{
 								userId: userId,
-								operatorName: 'Test Operator Name',
-								operatorId: 393
+								operatorName: 'Billy Bob',
+								operatorId: 74845
 							},
 							{
 								userId: userId,
-								operatorName: 'Test Operator Name',
-								operatorId: 393
+								operatorName: 'Heather Hanson',
+								operatorId: 9857
 							},
 							{
 								userId: userId,
-								operatorName: 'Test Operator Name',
-								operatorId: 393
+								operatorName: 'James Landis',
+								operatorId: 5785
 							}
             ];
 						cb(operatorsJson);
