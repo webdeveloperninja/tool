@@ -722,50 +722,56 @@ app.post('/choose-a-plan-free-year', function(req, res) {
                 jobName: 'Drill Spline for Zimmer',
                 contactName: 'Contact name',
                 contractEmail: 'contra@asdf.com',
+                companyName: 'Franklin Electric',
                 qtyDue: 33,
-                jobId: 39395454
+                jobId: 3939545
               },
 							{
 								userId: userId,
 								jobName: 'Mill Slots for 80/20',
 								contactName: 'Alison Granger',
 								contractEmail: 'contra@asdf.com',
+                companyName: 'Mill Supply',
 								qtyDue: 393,
-								jobId: 3939546
+								jobId: 39395
 							},
 							{
 								userId: userId,
 								jobName: 'Drill and Tap Holes',
 								contactName: 'Billy Bob',
+                companyName: 'Ford Motor Company',
 								contractEmail: 'contra@asdf.com',
 								qtyDue: 3893,
-								jobId: 3939354
+								jobId: 39393
 							},
 							{
 								userId: userId,
 								jobName: 'Surface Grinding',
 								contactName: 'Jon Smith',
+                companyName: 'Salesforce.com',
 								contractEmail: 'contra@asdf.com',
 								qtyDue: 3893,
-								jobId: 3939898
+								jobId: 39398
 							},
 							{
 								userId: userId,
 								jobName: 'Cut Gears out of Titanium',
 								contactName: 'James Lewis',
+                companyName: 'Pena Mechanical Contractor',
 								contractEmail: 'contra@asdf.com',
 								qtyDue: 33,
-								jobId: 3939786
+								jobId: 39397
 							},
 							{
 								userId: userId,
 								jobName: 'Profile mill test plate',
 								contactName: 'Bob Smith',
+                companyName: '80/20 Inc',
 								contractEmail: 'contra@asdf.com',
 								qtyDue: 33,
-								jobId: 393987
+								jobId: 3939
 							}
-            ]
+            ];
             cb(jobsJson);
           }
 
@@ -820,7 +826,7 @@ app.post('/choose-a-plan-free-year', function(req, res) {
 					  var toolsJson = [
               {
                 userId: userId,
-                toolName: '.250" 3 Flute Carbide EndMil',
+                toolName: '.125" 4 Flute Carbide EndMil',
                 toolTypeCustom: null,
                 qty: 32,
                 autoOrderQty: 2,
@@ -828,7 +834,7 @@ app.post('/choose-a-plan-free-year', function(req, res) {
               },
 							{
 								userId: userId,
-								toolName: '.250" 3 Flute Carbide EndMil',
+								toolName: '.250" 4 Flute Carbide EndMil',
 								toolTypeCustom: null,
 								qty: 32,
 								autoOrderQty: 2,
@@ -836,7 +842,7 @@ app.post('/choose-a-plan-free-year', function(req, res) {
 							},
 							{
 								userId: userId,
-								toolName: '.250" 3 Flute Carbide EndMil',
+								toolName: '.375" 4 Flute Carbide EndMil',
 								toolTypeCustom: null,
 								qty: 32,
 								autoOrderQty: 2,
@@ -844,7 +850,7 @@ app.post('/choose-a-plan-free-year', function(req, res) {
 							},
 							{
 								userId: userId,
-								toolName: '.250" 3 Flute Carbide EndMil',
+								toolName: '.425" 4 Flute Carbide EndMil',
 								toolTypeCustom: null,
 								qty: 32,
 								autoOrderQty: 2,
@@ -852,19 +858,19 @@ app.post('/choose-a-plan-free-year', function(req, res) {
 							},
 							{
 								userId: userId,
-								toolName: '.250" 3 Flute Carbide EndMil',
+								toolName: '.500" 4 Flute Carbide EndMil',
 								toolTypeCustom: null,
-								qty: 32,
+								qty: 14,
 								autoOrderQty: 2,
-								idealAmount: 29
+								idealAmount: 4
 							},
 							{
 								userId: userId,
-								toolName: '.250" 3 Flute Carbide EndMil',
+								toolName: '.625" 4 Flute Carbide EndMil',
 								toolTypeCustom: null,
-								qty: 32,
-								autoOrderQty: 2,
-								idealAmount: 29
+								qty: 15,
+								autoOrderQty: 9,
+								idealAmount: 112
 							}
             ];
 
