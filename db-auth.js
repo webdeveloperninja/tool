@@ -11,8 +11,12 @@ var usersSchema = new mongoose.Schema({
     stripeId: String,
     toolingRep: Object,
     superUser: Boolean,
+    referenceCode: String,
+    phoneNumber: String,
     email: String,
-    contactName: String
+    contactName: String,
+    firstName: String,
+    lastName: String
 });
 
 var toolsSchema = new mongoose.Schema({

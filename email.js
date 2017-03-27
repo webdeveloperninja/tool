@@ -13,7 +13,7 @@ var exports = module.exports = {
         var client = nodemailer.createTransport(sgTransport(options));
 
         var email = {
-          from: 'generalMailer@toolinginventory.com',
+          from: 'Robert.Smith@ToolingInventory.com',
           to: to,
           subject:  subject,
           html: messageAsHtml
