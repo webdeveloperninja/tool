@@ -122,7 +122,16 @@
                             <a href="/remove-operator/?operatorId=<%= operators[i].operatorId %>" class="btn btn-danger action-btn" onclick="return confirm('Are you sure you want to remove operator?')">Remove Operator</a>
                         </div>                    
                     </div>
-                <% } %>   
+
+                <% } %>
+                <% if (operators.length === 0) { %>%>
+                <div class="panel panel-danger" style="margin-top: 30px;">
+                    <div class="panel-heading">
+                        <h1>There are no operators yet.</h1>
+                        <a href="/my-account" class="btn btn-primary">Add Your First Operator</a>
+                    </div>
+                </div>
+                <% } %>
                                 <!-- Go back to this hacky as f -->
                                 <div style="display:none;">
                                   <!-- A template element is needed when list is empty, TODO: needs a better solution -->
@@ -138,7 +147,6 @@
                                 </div>
                             </div>
                         </div>
-
                     <% } %>
         </div>
         <script src="../bower_components/jquery/dist/jquery.min.js"></script>
