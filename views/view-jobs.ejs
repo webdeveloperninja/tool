@@ -125,10 +125,20 @@
                         <div class="col-md-3">
                             <a data-job-id="<%= jobs[i].jobId %>" id="complete-job" href="/complete-job/?jobId=<%= jobs[i].jobId %>" class="btn btn-danger pull-right table-btn" onclick="return confirm('Are you sure you want to complete?')">Complete</a>
                             <a href="/view-job-tooling/?jobId=<%= jobs[i].jobId %>" class="btn btn-primary pull-right table-btn">Tool Usage</a>
-                        </div>                    
+                        </div>
                     </div>
                     <% } %>
-                <% } %>   
+
+                <% } %>
+
+                <% if (jobs.length === 0) { %>%>
+                    <div class="panel panel-danger" style="margin-top: 30px;">
+                        <div class="panel-heading">
+                            <h1>There are no jobs created jobs yet.</h1>
+                            <a href="/my-account" class="btn btn-primary">Add Your First Job</a>
+                        </div>
+                    </div>
+                <% } %>
                                 <!-- Go back to this hacky as f -->
                                 <div style="display:none;">
                                   <!-- A template element is needed when list is empty, TODO: needs a better solution -->

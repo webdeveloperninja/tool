@@ -197,6 +197,14 @@ src="https://www.facebook.com/tr?id=226020094424048&ev=PageView
                                                             </div>
                                                         </div>
                                                         <% } %>
+                                                    <% if (tools.length === 0) { %>%>
+                                                    <div class="panel panel-danger" style="margin-top: 30px;">
+                                                        <div class="panel-heading text-center">
+                                                            <h1>There are no tools yet.</h1>
+                                                            <a href="/add-tool" class="btn btn-primary">Add Your First Tool</a>
+                                                        </div>
+                                                    </div>
+                                                    <% } %>
                                                             <!-- Go back to this hacky as f -->
                                                             <div style="display:none;">
                                                                 <!-- A template element is needed when list is empty, TODO: needs a better solution -->
