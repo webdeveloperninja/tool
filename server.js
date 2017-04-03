@@ -961,6 +961,17 @@ app.get('/choose-a-plan', function(req, res) {
     });
 });
 
+
+app.post('/does-username-exist', function(req, res) {
+  console.log(req.body.username);
+  console.log('does username exist');
+	dbAuth.doesUsernameExistDb(req.body.username, function(exist) {
+	  console.log(exist);
+	  res.json({usernameExists:exist});
+  });
+});
+
+
 app.post('/choose-a-plan', function(req, res) {
   /*
     1) Check for existing user
