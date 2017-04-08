@@ -100,26 +100,32 @@
                                 <div class="col-sm-6">
                                     <h3 class="text-center">About You</h3>
                                     <div class="form-group">
-                                        <input placeholder="Name" class="form-control" name="name" required>
+                                        <input placeholder="First Name" class="form-control" name="firstName" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input placeholder="Last Name" class="form-control" name="lastName" required/>
                                     </div>
                                     <div class="form-group">
                                         <input placeholder="Email" class="form-control" type="email" name="email"
-                                               required>
+                                               required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input placeholder="Phone Number" class="form-control" name="phoneNumber" required/>
                                     </div>
                                     <div class="form-group">
                                         <input placeholder="Company Name" class="form-control" name="companyName"
-                                               required>
+                                               required/>
                                     </div>
                                     <div class="form-group">
-                                        <input placeholder="User Name" class="form-control" name="username" required>
+                                        <input placeholder="User Name" class="form-control" name="username" required/>
                                     </div>
                                     <div class="form-group">
                                         <input placeholder="Password" class="form-control" name="password" id="password"
-                                               type="password" required>
+                                               type="password" required/>
                                     </div>
                                     <div class="form-group">
                                         <input placeholder="Re Enter Password" class="form-control" id="password-match"
-                                               name="reEnterPassword" type="password" required>
+                                               name="reEnterPassword" type="password" required/>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -127,7 +133,7 @@
                                     <div class="form-group">
                                         <input placeholder="Card Number" data-stripe="number" id="cc-number" type="tel"
                                                class=" form-control cc-number" autocomplete="cc-number"
-                                               placeholder="•••• •••• •••• ••••" required>
+                                               placeholder="•••• •••• •••• ••••" required/>
                                     </div>
                                     <div class="form-group">
                                         <label>
@@ -136,14 +142,14 @@
                                         <div class="row">
                                             <div class="col-sm-5">
                                                 <input placeholder="MM" type="text" size="2" data-stripe="exp_month"
-                                                       class="form-control" required>
+                                                       class="form-control" required/>
                                             </div>
                                             <div class="col-sm-1">
                                                 <span class="mm-year-seperator"> / </span>
                                             </div>
                                             <div class="col-sm-5">
                                                 <input placeholder="YY" type="text" size="2" data-stripe="exp_year"
-                                                       class="form-control" required>
+                                                       class="form-control" required/>
                                             </div>
                                         </div>
                                     </div>
@@ -151,14 +157,14 @@
                                         <label>
                                             <span>CVC</span>
                                             <input data-stripe="cvc" id="cc-cvc" type="tel" class=" form-control cc-cvc"
-                                                   autocomplete="off" placeholder="•••" required>
+                                                   autocomplete="off" placeholder="•••" required/>
                                         </label>
                                     </div>
                                     <div class="form-group" style="margin-bottom: 10px;">
                                         <label>
                                             <span>Reference Code</span>
                                             <input name="referenceCode" class="form-control" id="referenceCode"
-                                                   placeholder="Reference Code ">
+                                                   placeholder="Reference Code "/>
                                         </label>
                                     </div>
                                     <input type="submit" class="submit btn btn-primary" value="Submit Payment">
@@ -175,6 +181,7 @@
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="./js/jquery.payment.js"></script>
 <script src="./js/payment-app.js"></script>
 </body>
 </html>
