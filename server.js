@@ -15,7 +15,7 @@ var dbAuth = require('./db-auth.js');
 var email = require('./email.js');
 var autoEmailOrder = require('./auto-email-order.js');
 var express = require('express');
-var stripeModeTest = false;
+var stripeModeTest = true;
 var stripeKey;
 var stripeKeys = {
   test: 'sk_test_5xGwl5dqR8CvbMJZOaqjutIQ',
@@ -40,12 +40,12 @@ app.use(flash());
 
 app.set('view engine', 'ejs');
 
-app.use(function(req, res, next) {
-  if(!req.secure) {
-    return res.redirect(['https://', req.get('Host'), req.url].join(''));
-  }
-  next();
-});
+// app.use(function(req, res, next) {
+//   if(!req.secure) {
+//     return res.redirect(['https://', req.get('Host'), req.url].join(''));
+//   }
+//   next();
+// });
 
 app.set('trust proxy', true);
 

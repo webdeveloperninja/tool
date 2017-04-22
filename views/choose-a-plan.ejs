@@ -24,6 +24,9 @@
         #notice {
             margin-bottom: 10px;
         }
+        #notice, #noticeUsername, #noticePayment {
+            display: none;
+        }
         .money #notice .panel, .money #noticeUsername .panel, .money #noticePayment .panel {
             box-shadow: none;
         }
@@ -141,14 +144,14 @@
                                         </label>
                                         <div class="row">
                                             <div class="col-sm-5">
-                                                <input placeholder="MM" type="text" size="2" data-stripe="exp_month"
+                                                <input id="month" placeholder="MM" type="text" size="2" data-stripe="exp_month"
                                                        class="form-control" required/>
                                             </div>
                                             <div class="col-sm-1">
                                                 <span class="mm-year-seperator"> / </span>
                                             </div>
                                             <div class="col-sm-5">
-                                                <input placeholder="YY" type="text" size="2" data-stripe="exp_year"
+                                                <input id="year" placeholder="YY" type="text" size="2" data-stripe="exp_year"
                                                        class="form-control" required/>
                                             </div>
                                         </div>

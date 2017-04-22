@@ -32,25 +32,36 @@ paymentApp.init = function () {
 	var $form = $('#payment-form');
 	// Main Form Submit
 	$form.submit(function (event) {
-		// Improve validation
-		if (paymentApp.validPassword && !paymentApp.usernameExists) {
-			var cardType = $.payment.cardType($('.cc-number').val());
-			$('.cc-number').toggleInputError(!$.payment.validateCardNumber($('.cc-number').val()));
-			$('.cc-exp').toggleInputError(!$.payment.validateCardExpiry($('.cc-exp').payment('cardExpiryVal')));
-			$('.cc-cvc').toggleInputError(!$.payment.validateCardCVC($('.cc-cvc').val(), cardType));
-			$('.cc-brand').text(cardType);
-			$('.validation').removeClass('text-danger text-success');
-			$('.validation').addClass($('.has-error').length ? 'text-danger' : 'text-success');
 
-			$form.find('.submit').prop('disabled', true);
+		// clear error messages
 
-			// Request a token from Stripe: this is the submit method
+		var cardType = $.payment.cardType($('.cc-number').val());
+
+		var month = $('#month').val();
+		var year = $('#year').val();
+		var cvc_num = $('.cc-cvc').val();
+
+		var isValidExpDate = $.payment.validateCardExpiry(month, year);
+		var isValidCreditCardNumber = $.payment.validateCardNumber($('.cc-number').val());
+		var isValidCVCNumber = $.payment.validateCardCVC(cvc_num);
+		var isValidPassword = paymentApp.validPassword;
+		var doesUsernameExist = paymentApp.usernameExists;
+
+		if(isValidExpDate && isValidCreditCardNumber && isValidPassword && !doesUsernameExist && isValidCVCNumber) {
 			Stripe.card.createToken($form, paymentApp.stripeResponseHandler);
+			$form.find('.submit').prop('disabled', true);
 		} else {
-			return false
+			event.preventDefault();
+			if(!isValidExpDate) {
+				paymentApp.errorMessage('Make sure you have a valid expiration date');
+			}
+			if (!isValidCreditCardNumber) {
+				paymentApp.errorMessage('Make sure you have a valid credit card number');
+			}
+			if (!isValidCVCNumber) {
+				paymentApp.errorMessage('Make sure you have a valid credit card cvc number');
+			}
 		}
-		// Prevent the form from being submitted:
-		return false;
 	});
 };
 
