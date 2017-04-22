@@ -75,12 +75,22 @@ paymentApp.passwordChange = function($password, $passwordMatch) {
 	if (passwordMatch) {
 		if (password != passwordMatch) {
 			paymentApp.errorMessage('Make sure your passwords match');
+			paymentApp.disabledSubmit();
 			paymentApp.validPassword = false;
 		} else {
 			$('#notice').css({display: 'none'});
+			paymentApp.enableSubmit();
 			paymentApp.validPassword = true;
 		}
 	}
+};
+
+paymentApp.disabledSubmit = function() {
+	$('.submit').addClass('disabled');
+};
+
+paymentApp.enableSubmit = function() {
+	$('.submit').removeClass('disabled');
 };
 
 paymentApp.setPasswordChangeListeners = function() {
@@ -134,9 +144,11 @@ paymentApp.setUsernameChangeListeners = function() {
 				if (data.usernameExists) {
 					$('#noticeUsername').show();
 					$('#noticeUsername .panel-heading').html('Username exists please choose another one');
+					paymentApp.disabledSubmit();
 					paymentApp.usernameExists = true;
 				} else {
 					$('#noticeUsername').hide();
+					paymentApp.enableSubmit();
 					paymentApp.usernameExists = false;
 				}
 			});
