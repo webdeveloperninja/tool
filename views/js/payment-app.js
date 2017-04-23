@@ -15,8 +15,8 @@ paymentApp.init = function () {
 	$('.cc-number').payment('formatCardNumber');
 	$('.cc-exp').payment('formatCardExpiry');
 	$('.cc-cvc').payment('formatCardCVC');
-	$.fn.toggleInputError = function(erred) {
-		this.parent('.form-group').toggleClass('has-error', erred);
+	$.fn.toggleInputError = function() {
+		this.parent('.form-group').toggleClass('has-error');
 		return this;
 	};
 
@@ -32,11 +32,7 @@ paymentApp.init = function () {
 	var $form = $('#payment-form');
 	// Main Form Submit
 	$form.submit(function (event) {
-
-		// clear error messages
-
-		var cardType = $.payment.cardType($('.cc-number').val());
-
+		event.preventDefault();
 		var month = $('#month').val();
 		var year = $('#year').val();
 		var cvc_num = $('.cc-cvc').val();
@@ -51,7 +47,6 @@ paymentApp.init = function () {
 			Stripe.card.createToken($form, paymentApp.stripeResponseHandler);
 			$form.find('.submit').prop('disabled', true);
 		} else {
-			event.preventDefault();
 			if(!isValidExpDate) {
 				paymentApp.errorMessage('Make sure you have a valid expiration date');
 			}
@@ -114,14 +109,14 @@ paymentApp.errorMessage = function(message) {
 };
 
 paymentApp.stripeResponseHandler = function(status, response) {
+	console.log(status);
 	// Grab the form:
 	var $form = $('#payment-form');
-	if (response.error && paymentApp.validPassword  && !paymentApp.usernameExists) { // Problem!
+	if (response.error && paymentApp.validPassword  && !paymentApp.usernameExists && status == 402) { // Problem!
 		// Show the errors on the form:
 
 		$('#noticePayment').show();
 		$('#noticePayment .panel-heading').html(response.error.message);
-
 		$form.find('.submit').prop('disabled', false); // Re-enable submission
 	} else { // Token was created!
 		$('#noticePayment').hide();
