@@ -1,6 +1,6 @@
 var paymentApp = paymentApp || {};
 
-paymentApp.testMode = true;
+paymentApp.testMode = false;
 paymentApp.usernameExists = false;
 paymentApp.stripeKey = 'pk_live_WAT0XAXb4Hw3KJvnZQVl2IuX';
 paymentApp.formErrors = [];
