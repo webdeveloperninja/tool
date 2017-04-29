@@ -144,7 +144,12 @@ app.get('/', function(req, res) {
   // query tool collection for user id
   
   // send down tools
-}); 
+});
+
+app.get('/job-app',function(req,res){
+	res.sendfile(__dirname + 'index.html');
+});
+
 
 app.get('/login', function(req, res) {
     res.render('login',{
