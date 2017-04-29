@@ -49,6 +49,12 @@ app.use(function(req, res, next) {
 
 app.set('trust proxy', true);
 
+app.use('/job-app-resources',express.static(path.join(__dirname, '/views/JobApp/dist')));
+
+app.get('/job-app',function(req,res){
+	res.sendFile(__dirname + '/views/jobapp/dist/index.html');
+});
+
 app.use(bodyParser.urlencoded({extended : false }));
 app.use(cookieParser());
 app.use(bodyParser.json({}));
