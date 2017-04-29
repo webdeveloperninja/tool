@@ -961,6 +961,17 @@ app.get('/choose-a-plan', function(req, res) {
     });
 });
 
+
+app.post('/does-username-exist', function(req, res) {
+  console.log(req.body.username);
+  console.log('does username exist');
+	dbAuth.doesUsernameExistDb(req.body.username, function(exist) {
+	  console.log(exist);
+	  res.json({usernameExists:exist});
+  });
+});
+
+
 app.post('/choose-a-plan', function(req, res) {
   /*
     1) Check for existing user
@@ -973,91 +984,6 @@ app.post('/choose-a-plan', function(req, res) {
     console.log('do I exist: ' + exist);
     if (!exist) {
       var stripeToken = req.body.stripeToken;
-      if (req.body.referenceCode.toLowerCase() == 'machinist talk') {
-        /* Base Price */
-        stripe.customers.create({
-          source: stripeToken,
-          plan: "00003",
-          email: req.body.email
-          // grab email from sign up form
-        }, function(err, customer) {
-          if (err) {
-            console.log(err);
-            res.render('choose-a-plan', {
-              isAuthenticated: req.isAuthenticated(),
-              user: req.user,
-              paymentErr: err,
-              userCreated: false,
-              noMatch: null,
-              usernameExists: null,
-              badPassword: null,
-              succesfullyCreateUser: null,
-            });
-          } else {
-            // find user id and add customer id for payment
-            // save user to database and redirect to succesfully sign up
-            var newUserObj = {
-              name: req.body.name,
-              email: req.body.email,
-              companyName: req.body.companyName,
-              username: req.body.username,
-              password: req.body.password,
-              stripeId: customer.id,
-              toolingRep: {
-                name: null,
-                email: null
-              }
-            }
-    
-            dbAuth.addNewUser(newUserObj, function(err, userId) {
-              if (err) {
-                console.log(err);
-              } else {
-                /*
-                  Getting Current Date in format 
-                  mm/dd/yy
-                */
-                var today = new Date();
-                var dd = today.getDate();
-                var mm = today.getMonth()+1; //January is 0!
-                var yyyy = today.getFullYear();
-                
-                if(dd<10) {
-                    dd='0'+dd
-                } 
-                
-                if(mm<10) {
-                    mm='0'+mm
-                } 
-                
-                today = mm+'/'+dd+'/'+yyyy;
-                /*
-                  Creating HTML to email to myself when user signs up
-                */
-              var signupAlertEmailHtml = '<h3>New User: on ' + today + '</h3>' + 
-                  '<p>Name: ' + newUserObj.name + '</p>' +
-                  '<p>Email: ' + newUserObj.email + '</p>' +
-                  '<p>User Name: ' + newUserObj.username + '</p>' +
-                  '<p>Company Name: ' + newUserObj.companyName + '</p>'+
-                  '<p>Reference Code: ' + req.body.referenceCode;
-              email.mail(signupAlertEmailHtml, 'New User On ToolingInventory.com', 'rsmith5901@gmail.com');
-    
-              res.render('login', {
-                userCreated: true,
-                noMatch: null,
-                usernameExists: null,
-                badPassword: null,
-                succesfullyCreateUser: null,
-                isAuthenticated: req.isAuthenticated()
-              });
-    
-              }
-            });
-          }
-        });  
-        /* End Base Price */
-        
-      } else {
         /* Base Price */
         stripe.customers.create({
           source: stripeToken,
@@ -1078,6 +1004,9 @@ app.post('/choose-a-plan', function(req, res) {
             // save user to database and redirect to succesfully sign up
             var newUserObj = {
               name: req.body.name,
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
+              phoneNumber: req.body.phoneNumber,
               email: req.body.email,
               companyName: req.body.companyName,
               username: req.body.username,
@@ -1093,36 +1022,304 @@ app.post('/choose-a-plan', function(req, res) {
               if (err) {
                 console.log(err);
               } else {
+
+								// user ID to add 10 tools
+								var tool = {
+									userId: userId,
+									toolName: req.body.toolName,
+									toolTypeCustom: req.body.toolTypeCustom,
+									qty: req.body.qty,
+									autoOrderQty: req.body.autoOrderQty,
+									idealAmount: req.body.idealAmount
+								};
+
+
+								getMockTools(userId, function(tools) {
+									console.log('async bitch');
+									console.log(tools);
+									// 1st para in async.each() is the array of items
+									async.each(tools,
+										// 2nd param is the function that each item is passed to
+										function(item, callback){
+											// Call an asynchronous function, often a save() to DB
+											dbAuth.addNewTool(item, function(err) {
+												if (err) {
+													console.log(err);
+												} else {
+													callback();
+												}
+											});
+										},
+										// 3rd param is the function to call when everything's done
+										function(err){
+											// All tasks are done now
+											console.log('done');
+										}
+									);
+								});
+
+
+								getMockOperators(userId, function(operators) {
+									async.each(operators,
+										// 2nd param is the function that each item is passed to
+										function(item, callback){
+											dbAuth.addOperator(item, function(err) {
+												if (err) {
+
+												} else {
+													callback();
+												}
+											});
+										},
+										// 3rd param is the function to call when everything's done
+										function(err){
+											// All tasks are done now
+											console.log('done');
+										}
+									);
+								});
+
+								getMockJobs(userId, function(jobs) {
+									async.each(jobs,
+										// 2nd param is the function that each item is passed to
+										function(item, callback){
+											dbAuth.addJob(item, function(err) {
+												if (err) {
+
+												} else {
+													callback();
+												}
+											});
+										},
+										// 3rd param is the function to call when everything's done
+										function(err){
+											// All tasks are done now
+											console.log('done');
+										}
+									);
+								});
+
+
+
+
+
+								// Loop over objects and display to db;
+
+
+
+
+								function getMockJobs(userId, cb) {
+									var jobsJson = [
+										{
+											userId: userId,
+											jobName: 'Drill Spline for Zimmer',
+											contactName: 'Contact name',
+											contractEmail: 'contra@asdf.com',
+											companyName: 'Franklin Electric',
+											qtyDue: 33,
+											jobId: 3921
+										},
+										{
+											userId: userId,
+											jobName: 'Mill Slots for 80/20',
+											contactName: 'Alison Granger',
+											contractEmail: 'contra@asdf.com',
+											companyName: 'Mill Supply',
+											qtyDue: 393,
+											jobId: 39395
+										},
+										{
+											userId: userId,
+											jobName: 'Drill and Tap Holes',
+											contactName: 'Billy Bob',
+											companyName: 'Ford Motor Company',
+											contractEmail: 'contra@asdf.com',
+											qtyDue: 3893,
+											jobId: 39393
+										},
+										{
+											userId: userId,
+											jobName: 'Surface Grinding',
+											contactName: 'Jon Smith',
+											companyName: 'Salesforce.com',
+											contractEmail: 'contra@asdf.com',
+											qtyDue: 3893,
+											jobId: 39398
+										},
+										{
+											userId: userId,
+											jobName: 'Cut Gears out of Titanium',
+											contactName: 'James Lewis',
+											companyName: 'Pena Mechanical Contractor',
+											contractEmail: 'contra@asdf.com',
+											qtyDue: 33,
+											jobId: 39397
+										},
+										{
+											userId: userId,
+											jobName: 'Profile mill test plate',
+											contactName: 'Bob Smith',
+											companyName: '80/20 Inc',
+											contractEmail: 'contra@asdf.com',
+											qtyDue: 33,
+											jobId: 3939
+										}
+									];
+									cb(jobsJson);
+								}
+
+
+								function getMockOperators(userId, cb) {
+									var operatorsJson = [
+										{
+											userId: userId,
+											operatorName: 'Brandon Lee',
+											operatorId: 1234
+										},
+										{
+											userId: userId,
+											operatorName: 'Laura Harnes',
+											operatorId: 4321
+										},
+										{
+											userId: userId,
+											operatorName: 'Chris Burns',
+											operatorId: 6658
+										},
+										{
+											userId: userId,
+											operatorName: 'Robert Smith',
+											operatorId: 3584
+										},
+										{
+											userId: userId,
+											operatorName: 'Rick James',
+											operatorId: 6667
+										},
+										{
+											userId: userId,
+											operatorName: 'Billy Bob',
+											operatorId: 74845
+										},
+										{
+											userId: userId,
+											operatorName: 'Heather Hanson',
+											operatorId: 9857
+										},
+										{
+											userId: userId,
+											operatorName: 'James Landis',
+											operatorId: 5785
+										}
+									];
+									cb(operatorsJson);
+								}
+
+								function getMockTools(userId, cb) {
+									var toolsJson = [
+										{
+											userId: userId,
+											toolName: '.125" 4 Flute Carbide EndMil',
+											toolTypeCustom: null,
+											qty: 32,
+											autoOrderQty: 2,
+											idealAmount: 29
+										},
+										{
+											userId: userId,
+											toolName: '.250" 4 Flute Carbide EndMil',
+											toolTypeCustom: null,
+											qty: 32,
+											autoOrderQty: 2,
+											idealAmount: 29
+										},
+										{
+											userId: userId,
+											toolName: '.375" 4 Flute Carbide EndMil',
+											toolTypeCustom: null,
+											qty: 32,
+											autoOrderQty: 2,
+											idealAmount: 29
+										},
+										{
+											userId: userId,
+											toolName: '.425" 4 Flute Carbide EndMil',
+											toolTypeCustom: null,
+											qty: 32,
+											autoOrderQty: 2,
+											idealAmount: 29
+										},
+										{
+											userId: userId,
+											toolName: '.500" 4 Flute Carbide EndMil',
+											toolTypeCustom: null,
+											qty: 14,
+											autoOrderQty: 2,
+											idealAmount: 4
+										},
+										{
+											userId: userId,
+											toolName: '.625" 4 Flute Carbide EndMil',
+											toolTypeCustom: null,
+											qty: 15,
+											autoOrderQty: 9,
+											idealAmount: 112
+										}
+									];
+
+									cb(toolsJson);
+								}
+
+
+								var toolObj = {
+									userId: req.body.userId,
+									toolName: req.body.toolName,
+									toolTypeCustom: req.body.toolTypeCustom,
+									qty: req.body.qty,
+									autoOrderQty: req.body.autoOrderQty,
+									idealAmount: req.body.idealAmount
+								}
+
+
+								// user Id to add 5 Jobs
+
+								// User id to add 5
+
+
+								var today = new Date();
+								var dd = today.getDate();
+								var mm = today.getMonth()+1; //January is 0!
+								var yyyy = today.getFullYear();
+
+								if(dd<10) {
+									dd='0'+dd
+								}
+
+								if(mm<10) {
+									mm='0'+mm
+								}
+
+								today = mm+'/'+dd+'/'+yyyy;
                 /*
-                  Getting Current Date in format 
-                  mm/dd/yy
-                */
-                var today = new Date();
-                var dd = today.getDate();
-                var mm = today.getMonth()+1; //January is 0!
-                var yyyy = today.getFullYear();
-                
-                if(dd<10) {
-                    dd='0'+dd
-                } 
-                
-                if(mm<10) {
-                    mm='0'+mm
-                } 
-                
-                today = mm+'/'+dd+'/'+yyyy;
-                /*
-                  Creating HTML to email to myself when user signs up
-                */
-              var signupAlertEmailHtml = '<h3>New User: on ' + today + '</h3>' + 
-                  '<p>Name: ' + newUserObj.name + '</p>' +
-                  '<p>Email: ' + newUserObj.email + '</p>' +
-                  '<p>User Name: ' + newUserObj.username + '</p>' +
-                  '<p>Company Name: ' + newUserObj.companyName + '</p>'+
-                  '<p>Reference Code: ' + req.body.referenceCode;
-              email.mail(signupAlertEmailHtml, 'New User On ToolingInventory.com', 'rsmith5901@gmail.com');
-    
-              res.render('login', {
+                 Creating HTML to email to myself when user signs up
+                 */
+								var signupAlertEmailHtml = '<h3>New User: on ' + today + '</h3>' +
+									'<p>Name: ' + newUserObj.name + '</p>' +
+									'<p>Email: ' + newUserObj.email + '</p>' +
+									'<p>User Name: ' + newUserObj.username + '</p>' +
+									'<p>Company Name: ' + newUserObj.companyName + '</p>'+
+									'<p><strong>Free Year Trial Created on ' + new Date() + '</strong></p>';
+
+								var newUserEmailHtml = '<!DOCTYPE html PUBLIC \"-\/\/W3C\/\/DTD XHTML 1.0 Strict\/\/EN\" \"http:\/\/www.w3.org\/TR\/xhtml1\/DTD\/xhtml1-strict.dtd\">\r\n<html xmlns=\"http:\/\/www.w3.org\/1999\/xhtml\" style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;\">\r\n<head style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;\">\r\n    <meta http-equiv=\"Content-Type\" content=\"text\/html; charset=utf-8\" style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;\">\r\n    <meta name=\"viewport\" content=\"width=device-width\" style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;\">\r\n\r\n    <!-- For development, pass document through inliner -->\r\n    <style type=\"text\/css\" style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;\">\r\n    * {\r\n      margin: 0;\r\n      padding: 0;\r\n      font-size: 100%;\r\n      font-family: \'Avenir Next\', \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;\r\n      line-height: 1.65; }\r\n\r\n    img {\r\n      max-width: 100%;\r\n      margin: 0 auto;\r\n      display: block; }\r\n\r\n    body,\r\n    .body-wrap {\r\n      width: 100% !important;\r\n      height: 100%;\r\n      background: #efefef;\r\n      -webkit-font-smoothing: antialiased;\r\n      -webkit-text-size-adjust: none; }\r\n\r\n    a {\r\n      color: #71bc37;\r\n      text-decoration: none; }\r\n\r\n    .text-center {\r\n      text-align: center; }\r\n\r\n    .text-right {\r\n      text-align: right; }\r\n\r\n    .text-left {\r\n      text-align: left; }\r\n\r\n    .button {\r\n      display: inline-block;\r\n      color: white;\r\n      background: #71bc37;\r\n      border: solid #71bc37;\r\n      border-width: 10px 20px 8px;\r\n      font-weight: bold;\r\n      border-radius: 4px; }\r\n\r\n    h1, h2, h3, h4, h5, h6 {\r\n      margin-bottom: 20px;\r\n      line-height: 1.25; }\r\n\r\n    h1 {\r\n      font-size: 32px; }\r\n\r\n    h2 {\r\n      font-size: 28px; }\r\n\r\n    h3 {\r\n      font-size: 24px; }\r\n\r\n    h4 {\r\n      font-size: 20px; }\r\n\r\n    h5 {\r\n      font-size: 16px; }\r\n\r\n    p, ul, ol {\r\n      font-size: 16px;\r\n      font-weight: normal;\r\n      margin-bottom: 20px; }\r\n\r\n    .container {\r\n      display: block !important;\r\n      clear: both !important;\r\n      margin: 0 auto !important;\r\n      max-width: 580px !important; }\r\n      .container table {\r\n        width: 100% !important;\r\n        border-collapse: collapse; }\r\n      .container .masthead {\r\n        padding: 80px 0;\r\n        background: #71bc37;\r\n        color: white; }\r\n        .container .masthead h1 {\r\n          margin: 0 auto !important;\r\n          max-width: 90%;\r\n          text-transform: uppercase; }\r\n      .container .content {\r\n        background: white;\r\n        padding: 30px 35px; }\r\n        .container .content.footer {\r\n          background: none; }\r\n          .container .content.footer p {\r\n            margin-bottom: 0;\r\n            color: #888;\r\n            text-align: center;\r\n            font-size: 14px; }\r\n          .container .content.footer a {\r\n            color: #888;\r\n            text-decoration: none;\r\n            font-weight: bold; }\r\n    <\/style>\r\n\r\n    <style type=\"text\/css\" style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;\">\r\n\r\n    \/* Your custom styles go here *\/\r\n\r\n    <\/style>\r\n<\/head>\r\n<body style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;height: 100%;background: #efefef;-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;width: 100% !important;\">\r\n<table class=\"body-wrap\" style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;height: 100%;background: #efefef;-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;width: 100% !important;\">\r\n    <tr style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;\">\r\n        <td class=\"container\" style=\"margin: 0 auto !important;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;display: block !important;clear: both !important;max-width: 580px !important;\">\r\n\r\n            <!-- Message start -->\r\n            <table style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;border-collapse: collapse;width: 100% !important;\">\r\n                <tr style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;\">\r\n                    <td align=\"center\" class=\"masthead\" style=\"margin: 0;padding: 80px 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;background: #71bc37;color: white;\">\r\n\r\n                        <h1 style=\"margin: 0 auto !important;padding: 0;font-size: 32px;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.25;margin-bottom: 20px;max-width: 90%;text-transform: uppercase;\">Welcome to the ToolingInventory.com family.<\/h1>\r\n\r\n                    <\/td>\r\n                <\/tr>\r\n                <tr style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;\">\r\n                    <td class=\"content\" style=\"margin: 0;padding: 30px 35px;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;background: white;\">\r\n\r\n                        <h2 style=\"margin: 0;padding: 0;font-size: 28px;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.25;margin-bottom: 20px;\">Welcome,<\/h2>\r\n\r\n                        <p style=\"margin: 0;padding: 0;font-size: 16px;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;font-weight: normal;margin-bottom: 20px;\">\r\nThank you for signing up to use ToolingInventory.com, we are a tooling inventory solution built for you. When using ToolingInventory.com you\u2019re getting more than just totals, through time we collect your data and give you useful insights. Being a beta user we look forward to hearing your feedback.\r\n                        <\/p>\r\n\r\n                        <table style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;border-collapse: collapse;width: 100% !important;\">\r\n                            <tr style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;\">\r\n                                <td align=\"center\" style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;\">\r\n                                    <p style=\"margin: 0;padding: 0;font-size: 16px;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;font-weight: normal;margin-bottom: 20px;\">\r\n                                        <a href=\"https:\/\/toolinginventory.com\/tooling-inventory-features\/\" class=\"button\" style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;color: white;text-decoration: none;display: inline-block;background: #71bc37;border: solid #71bc37;border-width: 10px 20px 8px;font-weight: bold;border-radius: 4px;\">More Information and Training<\/a>\r\n                                    <\/p>\r\n                                <\/td>\r\n                            <\/tr>\r\n                        <\/table>\r\n                        <p style=\"margin: 0;padding: 0;font-size: 16px;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;font-weight: normal;margin-bottom: 20px;\"><em style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;\">\u2013 Robert Smith<\/em><\/p>\r\n\r\n                    <\/td>\r\n                <\/tr>\r\n            <\/table>\r\n\r\n        <\/td>\r\n    <\/tr>\r\n    <tr style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;\">\r\n        <td class=\"container\" style=\"margin: 0 auto !important;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;display: block !important;clear: both !important;max-width: 580px !important;\">\r\n\r\n            <!-- Message start -->\r\n            <table style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;border-collapse: collapse;width: 100% !important;\">\r\n                <tr style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;\">\r\n                    <td class=\"content footer\" align=\"center\" style=\"margin: 0;padding: 30px 35px;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;background: none;\">\r\n                        <p style=\"margin: 0;padding: 0;font-size: 14px;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;font-weight: normal;margin-bottom: 0;color: #888;text-align: center;\">Sent by <a href=\"https:\/\/toolinginventory.com\" style=\"margin: 0;padding: 0;font-size: 100%;font-family: \'Avenir Next\', &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;line-height: 1.65;color: #888;text-decoration: none;font-weight: bold;\">ToolingInventory.com<\/a><\/p>\r\n                    <\/td>\r\n                <\/tr>\r\n            <\/table>\r\n\r\n        <\/td>\r\n    <\/tr>\r\n<\/table>\r\n<\/body>\r\n<\/html>\r\n';
+
+
+								email.mail(signupAlertEmailHtml, 'New User On ToolingInventory.com', 'Robert.Smith@ToolingInventory.com');
+								email.mail(newUserEmailHtml, 'Welcome to the ToolingInventory.com Family!', newUserObj.email);
+
+
+
+
+								res.render('login', {
                 userCreated: true,
                 usernameExists: null,
                 noMatch: null,
@@ -1136,7 +1333,7 @@ app.post('/choose-a-plan', function(req, res) {
           }
         });  
         /* End Base Price */        
-      }
+
 
       
     } else {
