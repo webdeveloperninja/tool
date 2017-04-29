@@ -52,7 +52,7 @@ app.set('trust proxy', true);
 app.use('/',express.static(path.join(__dirname, '/views/JobApp/dist')));
 
 app.get('/job-app',function(req,res){
-	res.sendFile(__dirname + '/views/jobapp/dist/index.html');
+	res.sendFile(__dirname + 'index.html');
 });
 
 app.use(bodyParser.urlencoded({extended : false }));
