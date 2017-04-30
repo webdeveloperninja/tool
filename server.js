@@ -53,7 +53,8 @@ app.use('/views/jobapp/dist/',express.static(path.join(__dirname, '/views/JobApp
 
 app.get('/job-app',function(req,res){
 	//res.sendFile(__dirname + '/views/jobapp/dist/index.html');
-  res.send('tests');
+	res.sendfile('index.html', { root: __dirname + '/views/JobApp/dist' });
+  //res.send('tests');
 });
 
 app.use(bodyParser.urlencoded({extended : false }));
