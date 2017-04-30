@@ -49,10 +49,11 @@ app.use(function(req, res, next) {
 
 app.set('trust proxy', true);
 
-app.use('/job-app-resources',express.static(path.join(__dirname, '/views/JobApp/dist')));
+app.use('/',express.static(path.join(__dirname, '/views/JobApp/dist')));
 
 app.get('/job-app',function(req,res){
-	res.sendFile(__dirname + '/views/jobapp/dist/index.html');
+	 res.sendFile(__dirname + '/views/JobApp/dist/index.html');
+	// res.render('index');
 });
 
 app.use(bodyParser.urlencoded({extended : false }));
@@ -144,7 +145,12 @@ app.get('/', function(req, res) {
   // query tool collection for user id
   
   // send down tools
-}); 
+});
+
+app.get('/job-app',function(req,res){
+	res.sendfile(__dirname + 'index.html');
+});
+
 
 app.get('/login', function(req, res) {
     res.render('login',{
