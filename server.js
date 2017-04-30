@@ -52,8 +52,8 @@ app.set('trust proxy', true);
 app.use('/',express.static(path.join(__dirname, '/views/JobApp/dist')));
 
 app.get('/job-app',function(req,res){
-	// res.sendFile(__dirname + '/views/JobApp/dist/index.html');
-  res.render('index');
+	 res.sendFile(__dirname + '/views/index.html');
+	// res.render('index');
 });
 
 app.use(bodyParser.urlencoded({extended : false }));
