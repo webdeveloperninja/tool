@@ -47,6 +47,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.set('trust proxy', true);
 
 app.use(bodyParser.urlencoded({extended : false }));
 app.use(cookieParser());
@@ -85,26 +86,12 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-// var https_redirect = function(req, res, next) {
-//     if (process.env.NODE_ENV === 'production') {
-//         if (req.headers['x-forwarded-proto'] != 'https') {
-//             return res.redirect('https://' + req.headers.host + req.url);
-//         } else {
-//             return next();
-//         }
-//     } else {
-//         return next();
-//     }
-// };
 
 var server = http.createServer(app);
 
 
 // ANGULAR
-app.set('trust proxy', true);
-
 app.use('/views/jobapp/dist/',express.static(path.join(__dirname, '/views/JobApp/dist')));
-
 app.get('/job-app',function(req,res){
 	if (req.isAuthenticated()) {
 		res.sendfile('index.html', { root: __dirname + '/views/JobApp/dist' });
@@ -133,9 +120,7 @@ app.get('/my-crib', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-  // if isAuthenticated 
   if (req.isAuthenticated()) {
-    // return stripe customer 
     dbAuth.returnToolData(req.user._id, function(err, tools) {
       console.log('Success tools');
       console.log(tools);
@@ -148,10 +133,7 @@ app.get('/', function(req, res) {
   } else {
     res.redirect('/login');
   }
-  // query tool collection for user id
-  
-  // send down tools
-}); 
+});
 
 app.get('/login', function(req, res) {
     res.render('login',{
@@ -162,7 +144,6 @@ app.get('/login', function(req, res) {
     noMatch: null,
     userCreated: null
   });
-  
 }); 
 
 app.get('/landing-form', function(req, res) {
@@ -306,27 +287,15 @@ app.post('/add', function(req, res) {
         });
         }
       });
-
-
-    
   });
-  
-  
-  
-
-
 });
 
 app.get('/checkout', function(req, res) {
-    // need to send tool id
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     var toolId = checkoutToolIdQuery(fullUrl);
     var userId = req.user._id;
     req.body.qtyRemove = null;
     dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-      console.log('success');
-      console.log(tool);
-      // find tool and render tool 
       res.render('checkout', {
         isAuthenticated: req.isAuthenticated(),
         user: req.user,
@@ -345,12 +314,9 @@ app.post('/checkout', function(req, res) {
   var operatorId = req.body.operatorId;
   var jobId = req.body.jobId;
   dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-      // find tool and render tool 
       var originalQty = tool.qty;
-      // see if userId exists in db
       dbAuth.returnSingleOperator(userId, operatorId, function(operatorObj){
         if (operatorObj.length == 0) {
-          console.log('Operator Not Found');
             res.render('checkout', {
               isAuthenticated: req.isAuthenticated(),
                 user: req.user,
@@ -372,7 +338,6 @@ app.post('/checkout', function(req, res) {
                   jobFound: false
                 });
             } else {
-              // ad job id field
           if(removeQty > originalQty) {
             dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
               // find tool and render tool 
@@ -420,9 +385,6 @@ app.post('/checkout', function(req, res) {
               }
             });
           }
-
-              
-              
             }
           });
       
