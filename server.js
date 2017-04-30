@@ -47,15 +47,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.set('trust proxy', true);
-
-app.use('/views/jobapp/dist/',express.static(path.join(__dirname, '/views/JobApp/dist')));
-
-app.get('/job-app',function(req,res){
-	//res.sendFile(__dirname + '/views/jobapp/dist/index.html');
-	res.sendfile('index.html', { root: __dirname + '/views/JobApp/dist' });
-  //res.send('tests');
-});
 
 app.use(bodyParser.urlencoded({extended : false }));
 app.use(cookieParser());
@@ -108,6 +99,20 @@ passport.deserializeUser(function(id, done) {
 
 var server = http.createServer(app);
 
+
+// ANGULAR
+app.set('trust proxy', true);
+
+app.use('/views/jobapp/dist/',express.static(path.join(__dirname, '/views/JobApp/dist')));
+
+app.get('/job-app',function(req,res){
+	if (req.isAuthenticated()) {
+		res.sendfile('index.html', { root: __dirname + '/views/JobApp/dist' });
+	} else {
+		res.redirect('/login');
+	}
+});
+// END ANGULAR
 
 app.get('/get-my-tools', function(req, res) {
   if (req.isAuthenticated()) {
