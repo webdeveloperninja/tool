@@ -1,0 +1,167 @@
+.alert {
+  position: relative;
+  .edit {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 1;
+    .glyphicon-edit {
+      margin-left: 10px;
+    }
+  }
+  &.toggle-edit {
+    .form-control {
+      display: inline-block;
+    }
+    .label-toggle {
+      display: none;
+    }
+  }
+  .form-control {
+    display: none;
+  }
+  .label-toggle {
+    display: inline-block;
+  }
+  .job-number-wrap {
+    width: 102px;
+  }
+  .content-row {
+    margin-top: 35px;
+  }
+  .user-bubble {
+    display: inline-block;
+    position: relative;
+    background-color: #44bea1;
+    color: white;
+    height: 200px;
+    position: relative;
+    width: 200px;
+    border-radius: 50%;
+    text-align: center;
+    input {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 43%;
+    }
+    .name {
+      height: 50%;
+      overflow: auto;
+      font-size: 36px;
+      margin: auto;
+      position: absolute;
+      top: 25%; left: 0; bottom: 0; right: 0;
+    }
+    .job-number-wrap {
+      position: absolute;
+      margin: auto;
+      height:0;
+      top: 25%; left: 0; bottom: 0; right: 0;
+    }
+    .job-status {
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: block;
+      margin-bottom: 20px;
+      &.job-status-progress {
+        padding-top: 20px;
+        padding-bottom: 15px;
+        margin-top: 57px;
+        bottom: -37px;
+      }
+    }
+  }
+  .contact {
+    .form-control {
+      width: 40%;
+    }
+  }
+  .content-box {
+    background-color: white;
+    padding:20px;
+    border-radius:10px;
+    h3 {
+      margin-top: 0;
+      border-bottom: 1px solid black;
+    }
+  }
+  .job-description {
+    width: 100% !important;
+  }
+  .status-form {
+    display: inline;
+    float: right;
+    margin-bottom: 0;
+    width: 260px;
+    margin-top: -7px;
+    label {
+      margin-top: 7px;
+    }
+    .form-control {
+      width: 68%;
+    }
+  }
+}
+
+.user-bubble {
+  &.machining {
+    background: -webkit-linear-gradient(30deg, #66bb6a, #43a047);
+    background: linear-gradient(60deg, #66bb6a, #43a047);
+    box-shadow: 0 12px 20px -10px rgba(76, 175, 80, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(76, 175, 80, 0.2);
+  }
+  &.staging {
+    background: linear-gradient(60deg, #26c6da, #00acc1) !important;
+    box-shadow: 0 12px 20px -10px rgba(0, 188, 212, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(0, 188, 212, 0.2) !important;
+  }
+  &.quality {
+    background: linear-gradient(60deg, #ffa726, #fb8c00) !important;
+    box-shadow: 0 12px 20px -10px rgba(255, 152, 0, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 152, 0, 0.2) !important;
+  }
+  &.shipping {
+    background: linear-gradient(60deg, #ab47bc, #8e24aa) !important;
+    box-shadow: 0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2) !important;
+  }
+  &.removed {
+    background: linear-gradient(60deg, #ef5350, #e53935) !important;
+    box-shadow: 0 12px 20px -10px rgba(244, 67, 54, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(244, 67, 54, 0.2) !important;
+  }
+}
+
+.panel-heading {
+  color: white;
+  height: 45px;
+  &.machining {
+    background: -webkit-linear-gradient(30deg, #66bb6a, #43a047);
+    background: linear-gradient(60deg, #66bb6a, #43a047);
+    box-shadow: 0 12px 20px -10px rgba(76, 175, 80, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(76, 175, 80, 0.2);
+  }
+  &.staging {
+    background: linear-gradient(60deg, #26c6da, #00acc1) !important;
+    box-shadow: 0 12px 20px -10px rgba(0, 188, 212, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(0, 188, 212, 0.2) !important;
+  }
+  &.quality {
+    background: linear-gradient(60deg, #ffa726, #fb8c00) !important;
+    box-shadow: 0 12px 20px -10px rgba(255, 152, 0, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 152, 0, 0.2) !important;
+  }
+  &.shipping {
+    background: linear-gradient(60deg, #ab47bc, #8e24aa) !important;
+    box-shadow: 0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2) !important;
+  }
+  &.removed {
+    background: linear-gradient(60deg, #ef5350, #e53935) !important;
+    box-shadow: 0 12px 20px -10px rgba(244, 67, 54, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(244, 67, 54, 0.2) !important;
+  }
+  .status-form {
+    width: 50%;
+    .label-toggle {
+      margin-top: 10px;
+      float: right;
+    }
+    select {
+      float: right;
+    }
+  }
+}

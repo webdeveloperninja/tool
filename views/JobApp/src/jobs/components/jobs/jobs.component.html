@@ -1,0 +1,127 @@
+<div class="row">
+  <div class="col-xs-12 col-lg-3 col-lg-push-9">
+    <div id="right-nav" class="thumbnail">
+      <div class="inner caption row">
+        <div class="col-lg-12 col-md-4 col-sm-5 col-xs-12">
+          <a routerLink="/add-job"
+             class="btn btn-primary add-job">Add Job</a>
+          <h3>Job Tracker</h3>
+          <h4>Closest Deadline</h4>
+          <h4><span class="label label-success ng-binding">23 Hrs 46 Mins Ago</span></h4>
+          <h4>Next Shipment</h4>
+          <h4><span class="label label-warning ng-binding">2 Hrs 2 Mins Ago</span></h4>
+          <hr/>
+          <form action="">
+            <div class="checkbox">
+              <label [ngClass]="{'line-through': !displayStatus.machining}">
+                <input type="checkbox" [checked]="displayStatus.machining" (change)="displayStatus.machining = !displayStatus.machining" />
+                <span>Machining</span>
+              </label>
+            </div>
+            <div class="checkbox">
+              <label [ngClass]="{'line-through': !displayStatus.quality}">
+                <input type="checkbox" [checked]="displayStatus.quality" (change)="displayStatus.quality = !displayStatus.quality" />
+                <span>Quality</span>
+              </label>
+            </div>
+            <div class="checkbox">
+              <label [ngClass]="{'line-through': !displayStatus.staging}">
+                <input type="checkbox" [checked]="displayStatus.staging" (change)="displayStatus.staging = !displayStatus.staging" />
+                <span>Staging</span>
+              </label>
+            </div>
+            <div class="checkbox">
+              <label [ngClass]="{'line-through': !displayStatus.waiting}">
+                <input type="checkbox" [checked]="displayStatus.waiting" (change)="displayStatus.waiting = !displayStatus.waiting" />
+                <span>Waiting</span>
+              </label>
+            </div>
+            <div class="checkbox">
+              <label [ngClass]="{'line-through': !displayStatus.shipping}">
+                <input type="checkbox" [checked]="displayStatus.shipping" (change)="displayStatus.shipping = !displayStatus.shipping" />
+                <span>Shipping</span>
+              </label>
+            </div>
+          </form>
+        </div>
+        <div class="col-lg-12 col-md-8 col-sm-7 col-xs-12">
+          <h3>Progress Tracker</h3>
+            <h5 class="ng-binding">INT1 <span><!-- ngIf: name === 'QA1' --></span></h5>
+            <p class="alert alert-info">No Deployment Running...</p>
+          </div><!-- end ngIf: !env -->
+          </div><!-- end ngIf: !env -->
+          </div>
+        </div>
+  <div class="col-xs-12 col-lg-9 col-lg-pull-3">
+    <div class="row" *ngIf="displayStatus.machining">
+      <div class="col-md-12">
+        <h3>
+          Machining
+        </h3>
+      </div>
+      <div class="col-md-4 job-wrapper machining" *ngFor="let job of jobs | filter: 1">
+        <job [job]="job"></job>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="displayStatus.staging">
+  <div class="col-md-12">
+    <h3>Staging</h3>
+  </div>
+  <div class="col-xs-12 col-lg-3 col-lg-push-9"></div>
+  <div class="col-xs-12 col-lg-9 col-lg-pull-3">
+    <div class="row">
+      <div class="col-md-4 job-wrapper staging" *ngFor="let job of jobs | filter: 0">
+        <job [job]="job"></job>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="displayStatus.quality">
+  <div class="col-md-12">
+    <h3>Quality</h3>
+  </div>
+  <div class="col-xs-12 col-lg-3 col-lg-push-9"></div>
+  <div class="col-xs-12 col-lg-9 col-lg-pull-3">
+    <div class="row">
+      <div class="col-md-4 job-wrapper quality" *ngFor="let job of jobs | filter: 2">
+        <job [job]="job"></job>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="displayStatus.shipping">
+  <div class="col-md-12">
+    <h3>Shipping</h3>
+  </div>
+  <div class="col-xs-12 col-lg-3 col-lg-push-9"></div>
+  <div class="col-xs-12 col-lg-9 col-lg-pull-3">
+    <div class="row">
+      <div class="col-md-4 job-wrapper shipping" *ngFor="let job of jobs | filter: 3">
+        <job [job]="job"></job>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="displayStatus.waiting">
+  <div class="col-md-12">
+    <h3>Waiting</h3>
+  </div>
+  <div class="col-xs-12 col-lg-3 col-lg-push-9"></div>
+  <div class="col-xs-12 col-lg-9 col-lg-pull-3">
+    <div class="row">
+      <div class="col-md-4 job-wrapper waiting" *ngFor="let job of jobs | filter: 5">
+        <job [job]="job"></job>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
