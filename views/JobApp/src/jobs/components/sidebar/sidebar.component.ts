@@ -9,7 +9,7 @@ export class SidebarComponent implements OnInit {
   jobTracker: boolean = false;
   addJob: boolean = false;
   hide: boolean = false;
-  hideShowText: string = 'Show';
+  hideShowText: string = 'Hide';
 
   @Output('changeSidebarState')
   change: EventEmitter<boolean> = new EventEmitter<boolean>();
