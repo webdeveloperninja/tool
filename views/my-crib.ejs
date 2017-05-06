@@ -118,7 +118,7 @@
 <body class="my-account text-center">
 
 <nav class="navbar navbar-default navbar-fixed-top __web-inspector-hide-shortcut__ <% if(isAuthenticated) { %> new-logo-app <% } %>">
-    <div class="container">
+    <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1">
@@ -176,7 +176,7 @@
         </div><!--/.nav-collapse -->
     </div>
     <% if (isAuthenticated) { %>
-    <div class="container admin-fixed-header-nav">
+    <div class="container-fluid admin-fixed-header-nav">
         <div class="row">
             <div class="col-sm-6">
                 <a href="/my-account" class="btn btn-default table-btn user-nav-btn">My Account</a>
@@ -196,9 +196,9 @@
     <% } %>
 </nav>
 </div>
-<div class="container" style="position: relative; z-index: 2;">
+<div class="container-fluid" style="position: relative; z-index: 2;">
     <% if (isAuthenticated) { %>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default tools-list-panel">

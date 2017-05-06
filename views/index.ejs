@@ -48,7 +48,7 @@ src="https://www.facebook.com/tr?id=226020094424048&ev=PageView
 
         <%if(isAuthenticated) {%>
          <nav class="navbar navbar-default navbar-fixed-top primary-nav <%if(isAuthenticated) {%> new-logo-app <% } %>">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="sr-only">Toggle navigation</span>
@@ -102,7 +102,7 @@ src="https://www.facebook.com/tr?id=226020094424048&ev=PageView
                 <!--/.nav-collapse -->
             </div>
             <% if (isAuthenticated) { %>
-                <div class="container admin-fixed-header-nav">
+                <div class="container-fluid admin-fixed-header-nav">
                     <div class="row">
                         <div class="col-sm-6">
                             <a href="/my-account" class="btn btn-default table-btn user-nav-btn">My Account</a>
@@ -124,7 +124,7 @@ src="https://www.facebook.com/tr?id=226020094424048&ev=PageView
         <% if(!isAuthenticated) {%>
             <% include ./src/components/primary-nav.ejs %>
         <% } %>
-        <div class="container">
+        <div class="container-fluid">
             <% if (!isAuthenticated) { %>
                 <% include ./partials/website-home.ejs %>
                     <% }  %>

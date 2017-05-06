@@ -21,7 +21,7 @@
         <img src="./images/gear-t.png" class="img-responsive">
     </div>
     <nav class="navbar navbar-default navbar-fixed-top __web-inspector-hide-shortcut__ <%if(isAuthenticated) {%> new-logo-app <% } %>">
-      <div class="container">
+      <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span>
@@ -70,7 +70,7 @@
         </div><!--/.nav-collapse -->
       </div>
       <% if (isAuthenticated) { %>
-      <div class="container admin-fixed-header-nav">
+      <div class="container-fluid admin-fixed-header-nav">
             <div class="row">
                 <div class="col-sm-6">
                     <a href="/my-account" class="btn btn-default table-btn user-nav-btn">My Account</a>
@@ -89,7 +89,7 @@
     <% } %>
     </nav>
     <% if (isAuthenticated) { %>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel tools-list-panel panel-default">
