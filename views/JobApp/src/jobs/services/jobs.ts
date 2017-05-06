@@ -22,7 +22,7 @@ export class JobsService {
     getJobs() {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this._http.get('http://localhost:3000/api/v1/jobs', {headers: headers}).map((res: Response) => { return res.json()});
+        return this._http.get('/api/v1/jobs', {headers: headers}).map((res: Response) => { return res.json()});
         //  return this._http.get('http://localhost:8080/jobs', {headers: headers}).map((res: Response) => { return res.json()});
     }
 
@@ -36,7 +36,7 @@ export class JobsService {
     updateJob(job) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this._http.post('http://localhost:3000/api/v1/job', job, {headers: headers}) // ...using post request
+        return this._http.post('/api/v1/job', job, {headers: headers}) // ...using post request
             .map((res: Response) => res.json()) // ...and calling .json() on the response to return data
             .catch((error: any) => Observable.throw(error.json().error || 'Server error')); //...
     }

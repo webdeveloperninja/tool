@@ -38,7 +38,7 @@ var JobsService = (function () {
     JobsService.prototype.getJobs = function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this._http.get('http://localhost:3000/api/v1/jobs', { headers: headers }).map(function (res) { return res.json(); });
+        return this._http.get('/api/v1/jobs', { headers: headers }).map(function (res) { return res.json(); });
         //  return this._http.get('http://localhost:8080/jobs', {headers: headers}).map((res: Response) => { return res.json()});
     };
     JobsService.prototype.getJobById = function (id) {
@@ -50,7 +50,7 @@ var JobsService = (function () {
     JobsService.prototype.updateJob = function (job) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this._http.post('http://localhost:3000/api/v1/job', job, { headers: headers }) // ...using post request
+        return this._http.post('/api/v1/job', job, { headers: headers }) // ...using post request
             .map(function (res) { return res.json(); }) // ...and calling .json() on the response to return data
             .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs__["Observable"].throw(error.json().error || 'Server error'); }); //...
     };
