@@ -11,8 +11,7 @@ export class FilterPipe implements PipeTransform {
     transform(jobs:any, status: any): any {
         if (status === undefined || jobs === undefined) return jobs;
         return jobs.filter(function(job:any){
-            console.log(job);
-            return job.jobStatus == status;
+            return job.process == status;
         });
     }
 }

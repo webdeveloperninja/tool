@@ -8,6 +8,9 @@ import { Pipe, PipeTransform } from '@angular/core';
   styleUrls: ['./jobs.component.scss']
 })
 export class JobsComponent implements OnInit {
+  private hideSidebar: boolean = true;
+  private globalHideSidebar: boolean;
+
   displayStatus = {
     machining: true,
     staging: true,
@@ -26,6 +29,17 @@ export class JobsComponent implements OnInit {
       console.log(jobs.jobs);
       this.jobs = jobs.jobs;
     })
+  }
+
+  jobClicked() {
+    console.log('working');
+  }
+
+  changeSidebarState(event) {
+    this.hideSidebar = event;
+    if (this.hideSidebar) {
+      this.globalHideSidebar = false;
+    }
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { JobsService } from '../../services/jobs';
 
 @Component({
   selector: 'job',
@@ -8,8 +9,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class JobComponent implements OnInit {
   @Input() job: any;
+  process: number;
   private _jobStatusText: string;
-
+  constructor(
+      private _jobsService: JobsService
+  ) {}
   get jobStatusText():string {
     if (this.job.jobStatus === 0) {
       return 'Staging';
@@ -25,10 +29,18 @@ export class JobComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.process = this.job.process;
   }
 
   selectJob(jobId) {
 
   }
 
+  changeProcess(processId) {
+    let jobObjId = this.job._id;
+    this.job.process = processId;
+    this._jobsService.updateJob(this.job).subscribe((data) => {
+      this.process = this.job.process;
+    });
+  }
 }

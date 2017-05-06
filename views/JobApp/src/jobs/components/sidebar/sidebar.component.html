@@ -1,0 +1,59 @@
+
+<div class="sidebar"
+  [ngClass]="{'large': !hide}">
+  <div class="btn-group" role="group" aria-label="...">
+    <button
+      type="button"
+      class="btn btn-default"
+      (click)="toggleJobTracker()"
+      *ngIf="!hide"
+      [ngClass]="{'active':jobTracker}">
+        Job Tracker
+    </button>
+    <button
+      type="button"
+      class="btn btn-default"
+      (click)="toggleAddJob()"
+      *ngIf="!hide"
+      [ngClass]="{'active':addJob}">
+        Add Job
+    </button>
+  </div>
+  <div class="body">
+    <div *ngIf="jobTracker">
+      <h3>Job Tracker</h3>
+      <form action="">
+        <label class="checkbox-inline"><input type="checkbox" value="">Machining</label>
+        <label class="checkbox-inline"><input type="checkbox" value="">Quality</label>
+        <label class="checkbox-inline"><input type="checkbox" value="">Staging</label>
+        <label class="checkbox-inline"><input type="checkbox" value="">Waiting</label>
+        <label class="checkbox-inline"><input type="checkbox" value="">Shipping</label>
+      </form>
+    </div>
+    <div *ngIf="addJob">
+      <form action="/add-job" method="POST">
+        <div class="form-group">
+          <label>Company Name: </label>
+          <input class="form-control" name="companyName" required="">
+        </div>
+        <div class="form-group">
+          <label>Job Name: </label>
+          <input class="form-control" name="jobName" required="">
+        </div>
+        <div class="form-group">
+          <label>Contact Name: </label>
+          <input class="form-control" name="contactName" required="">
+        </div>
+        <div class="form-group">
+          <label>Contact Email: </label>
+          <input class="form-control" name="contactEmail" required="">
+        </div>
+        <div class="form-group">
+          <label>Job Id: </label>
+          <input class="form-control" type="number" name="jobId" required="">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Update">
+      </form>
+    </div>
+  </div>
+</div>

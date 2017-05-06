@@ -74,6 +74,8 @@ passport.use(new passportLocal.Strategy(function( username, password, done) {
   }); 
 }));
 
+
+
 passport.serializeUser(function(user, done) {
   done(null, user.id)
 });
@@ -1432,6 +1434,7 @@ app.post('/add-job', function(req, res) {
       jobName: req.body.jobName,
       contactName: req.body.contactName,
       contactEmail: req.body.contactEmail,
+			process: req.body.process,
       dueDate: req.body.dueDate,
       qtyDue: req.body.qtyDue,
       jobId: req.body.jobId
@@ -1482,6 +1485,23 @@ app.post('/add-job', function(req, res) {
 
 });
 
+app.get('/api/v1/jobs', function(req, res) {
+		dbAuth.returnJobsData(req.user._id || '58fd55b94030270012db8345', function(err, jobs) {
+			res.json({success: true, jobs: jobs});
+		});
+});
+
+app.post('/api/v1/job', function(req, res) {
+    dbAuth.updateJob(req.body._id,req.body, function(err, doc) {
+      if(err) {
+        res.status(500);
+      } else {
+        res.status(200);
+      }
+    });
+});
+
+
 app.get('/view-jobs', function(req, res) {
   if (req.isAuthenticated()) {
     dbAuth.returnJobsData(req.user._id, function(err, jobs) {
@@ -1498,7 +1518,6 @@ app.get('/view-jobs', function(req, res) {
       user: req.user
     });
   }
-    
 });
 
 app.get('/view-jobs-production', function(req, res) {
