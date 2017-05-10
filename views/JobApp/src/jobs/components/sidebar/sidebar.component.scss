@@ -2,9 +2,9 @@
   position: fixed;
   right: 0;
   z-index: 3333;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
-  border-bottom: 1px solid black;
+  border-top: 1px solid rgba(0, 0, 0, 0.45);
+  border-left: 1px solid rgba(0, 0, 0, 0.45);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.45);
   &.large {
     width: 355px;
   }
@@ -19,6 +19,7 @@
   .body {
     padding: 20px;
     padding-top: 50px;
+    background-color: #f8f8f8;
   }
   .action {
     width: 40% !important;
@@ -26,5 +27,10 @@
   .show-hide {
     width: 20% !important;
   }
-
+  .full-width {
+    width: 100% !important;
+  }
+  .no-padding {
+    padding: 0 !important;
+  }
 }
