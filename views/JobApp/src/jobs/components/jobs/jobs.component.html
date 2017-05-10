@@ -2,12 +2,13 @@
     <div class="jobs-wrapper">
         <app-sidebar
                 (changeSidebarState)="changeSidebarState($event)"
+                (changeJobStatus)="changeJobStatus($event)"
                 hideSidebar="hideSidebar">
         </app-sidebar>
     </div>
     <div class="row">
         <div class="col-md-9" [ngClass]="{'col-md-9':hideSidebar == true, 'col-md-12': hideSidebar == false}">
-            <div class="row" *ngIf="displayStatus.machining">
+            <div class="row" *ngIf="jobStatus.machining">
                 <div class="col-md-12">
                     <h3>Machining</h3>
                 </div>
@@ -16,13 +17,16 @@
                         <div class="job-wrapper machining"
                              *ngFor="let job of jobs | filter: 1"
                              [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
-                            <job [job]="job"></job>
+                            <job
+                                [job]="job"
+                                [jobStatusText]="'Machining'">
+                            </job>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row" *ngIf="displayStatus.staging">
+            <div class="row" *ngIf="jobStatus.staging">
                 <div class="col-md-12">
                     <h3>Staging</h3>
                 </div>
@@ -31,13 +35,16 @@
                         <div class="job-wrapper staging"
                              *ngFor="let job of jobs | filter: 0"
                              [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
-                            <job [job]="job"></job>
+                            <job
+                                [job]="job"
+                                [jobStatusText]="'Staging'">
+                            </job>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row" *ngIf="displayStatus.quality">
+            <div class="row" *ngIf="jobStatus.quality">
                 <div class="col-md-12">
                     <h3>Quality</h3>
                 </div>
@@ -46,13 +53,16 @@
                         <div class="job-wrapper quality"
                              *ngFor="let job of jobs | filter: 2"
                              [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
-                            <job [job]="job"></job>
+                            <job
+                                [job]="job"
+                                [jobStatusText]="'Quality'"
+                            ></job>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row" *ngIf="displayStatus.shipping">
+            <div class="row" *ngIf="jobStatus.shipping">
                 <div class="col-md-12">
                     <h3>Shipping</h3>
                 </div>
@@ -61,13 +71,16 @@
                         <div class="job-wrapper shipping"
                              *ngFor="let job of jobs | filter: 3"
                              [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
-                            <job [job]="job"></job>
+                            <job
+                                [job]="job"
+                                [jobStatusText]="'Shipping'">
+                            </job>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row" *ngIf="displayStatus.waiting">
+            <div class="row" *ngIf="jobStatus.waiting">
                 <div class="col-md-12">
                     <h3>Waiting</h3>
                 </div>
@@ -76,7 +89,10 @@
                         <div class="job-wrapper waiting"
                              *ngFor="let job of jobs | filter: 5"
                              [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
-                            <job [job]="job"></job>
+                            <job
+                                [job]="job"
+                                [jobStatusText]="'Waiting'">
+                            </job>
                         </div>
                     </div>
                 </div>

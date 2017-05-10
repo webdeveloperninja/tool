@@ -29,11 +29,11 @@
     <div *ngIf="jobTracker">
       <h3>Job Tracker</h3>
       <form action="">
-        <label class="checkbox-inline"><input type="checkbox" value="">Machining</label>
-        <label class="checkbox-inline"><input type="checkbox" value="">Quality</label>
-        <label class="checkbox-inline"><input type="checkbox" value="">Staging</label>
-        <label class="checkbox-inline"><input type="checkbox" value="">Waiting</label>
-        <label class="checkbox-inline"><input type="checkbox" value="">Shipping</label>
+        <label class="checkbox-inline"><input type="checkbox" name="machining" (ngModelChange)="updateJobStatus($event)" [(ngModel)]="jobStatus.machining">Machining</label>
+        <label class="checkbox-inline"><input type="checkbox" name="quality" (ngModelChange)="updateJobStatus($event)" [(ngModel)]="jobStatus.quality">Quality</label>
+        <label class="checkbox-inline"><input type="checkbox" name="staging" (ngModelChange)="updateJobStatus($event)" [(ngModel)]="jobStatus.staging">Staging</label>
+        <label class="checkbox-inline"><input type="checkbox" name="waiting" (ngModelChange)="updateJobStatus($event)" [(ngModel)]="jobStatus.waiting">Waiting</label>
+        <label class="checkbox-inline"><input type="checkbox" name="shipping" (ngModelChange)="updateJobStatus($event)" [(ngModel)]="jobStatus.shipping">Shipping</label>
       </form>
     </div>
     <div *ngIf="addJob">

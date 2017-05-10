@@ -389,27 +389,6 @@ var JobComponent = (function () {
     function JobComponent(_jobsService) {
         this._jobsService = _jobsService;
     }
-    Object.defineProperty(JobComponent.prototype, "jobStatusText", {
-        get: function () {
-            if (this.job.jobStatus === 0) {
-                return 'Staging';
-            }
-            else if (this.job.jobStatus === 1) {
-                return 'Machining';
-            }
-            else if (this.job.jobStatus === 2) {
-                return 'Quality';
-            }
-            else if (this.job.jobStatus === 3) {
-                return 'Complete';
-            }
-            else if (this.job.jobStatus === 4) {
-                return 'Shipped';
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
     JobComponent.prototype.ngOnInit = function () {
         this.process = this.job.process;
     };
@@ -427,6 +406,10 @@ var JobComponent = (function () {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* Input */])(), 
         __metadata('design:type', Object)
     ], JobComponent.prototype, "job", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* Input */])(), 
+        __metadata('design:type', String)
+    ], JobComponent.prototype, "jobStatusText", void 0);
     JobComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Q" /* Component */])({
             selector: 'job',
@@ -464,7 +447,7 @@ var JobsComponent = (function () {
     function JobsComponent(_jobsService) {
         this._jobsService = _jobsService;
         this.hideSidebar = true;
-        this.displayStatus = {
+        this.jobStatus = {
             machining: true,
             staging: true,
             quality: true,
@@ -488,6 +471,9 @@ var JobsComponent = (function () {
         if (this.hideSidebar) {
             this.globalHideSidebar = false;
         }
+    };
+    JobsComponent.prototype.changeJobStatus = function (jobStatusObj) {
+        this.jobStatus = jobStatusObj;
     };
     JobsComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Q" /* Component */])({
@@ -526,7 +512,15 @@ var SidebarComponent = (function () {
         this.addJob = false;
         this.hide = false;
         this.hideShowText = 'Hide';
+        this.jobStatus = {
+            machining: true,
+            quality: true,
+            staging: true,
+            waiting: true,
+            shipping: true
+        };
         this.change = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* EventEmitter */]();
+        this.changeJobStatus = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* EventEmitter */]();
     }
     SidebarComponent.prototype.ngOnInit = function () {
         this.jobTracker = true;
@@ -573,10 +567,17 @@ var SidebarComponent = (function () {
             this.jobTracker = true;
         }
     };
+    SidebarComponent.prototype.updateJobStatus = function () {
+        this.changeJobStatus.emit(this.jobStatus);
+    };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Output */])('changeSidebarState'), 
         __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* EventEmitter */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* EventEmitter */]) === 'function' && _a) || Object)
     ], SidebarComponent.prototype, "change", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Output */])('changeJobStatus'), 
+        __metadata('design:type', (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* EventEmitter */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* EventEmitter */]) === 'function' && _b) || Object)
+    ], SidebarComponent.prototype, "changeJobStatus", void 0);
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* Input */])(), 
         __metadata('design:type', Object)
@@ -590,7 +591,7 @@ var SidebarComponent = (function () {
         __metadata('design:paramtypes', [])
     ], SidebarComponent);
     return SidebarComponent;
-    var _a;
+    var _a, _b;
 }());
 //# sourceMappingURL=C:/Users/Robert Smith/Documents/code/toolinginventory/views/JobApp/src/sidebar.component.js.map
 
@@ -1014,14 +1015,14 @@ module.exports = "<div class=\"alert alert-info job\" (click)=\"selectJob(job.jo
 /***/ 723:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\r\n    <div class=\"jobs-wrapper\">\r\n        <app-sidebar\r\n                (changeSidebarState)=\"changeSidebarState($event)\"\r\n                hideSidebar=\"hideSidebar\">\r\n        </app-sidebar>\r\n    </div>\r\n    <div class=\"row\">\r\n        <div class=\"col-md-9\" [ngClass]=\"{'col-md-9':hideSidebar == true, 'col-md-12': hideSidebar == false}\">\r\n            <div class=\"row\" *ngIf=\"displayStatus.machining\">\r\n                <div class=\"col-md-12\">\r\n                    <h3>Machining</h3>\r\n                </div>\r\n                <div class=\"col-xs-12\">\r\n                    <div class=\"row\">\r\n                        <div class=\"job-wrapper machining\"\r\n                             *ngFor=\"let job of jobs | filter: 1\"\r\n                             [ngClass]=\"{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}\">\r\n                            <job [job]=\"job\"></job>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"row\" *ngIf=\"displayStatus.staging\">\r\n                <div class=\"col-md-12\">\r\n                    <h3>Staging</h3>\r\n                </div>\r\n                <div class=\"col-xs-12 col-lg-12\">\r\n                    <div class=\"row\">\r\n                        <div class=\"job-wrapper staging\"\r\n                             *ngFor=\"let job of jobs | filter: 0\"\r\n                             [ngClass]=\"{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}\">\r\n                            <job [job]=\"job\"></job>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"row\" *ngIf=\"displayStatus.quality\">\r\n                <div class=\"col-md-12\">\r\n                    <h3>Quality</h3>\r\n                </div>\r\n                <div class=\"col-xs-12 col-lg-12\">\r\n                    <div class=\"row\">\r\n                        <div class=\"job-wrapper quality\"\r\n                             *ngFor=\"let job of jobs | filter: 2\"\r\n                             [ngClass]=\"{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}\">\r\n                            <job [job]=\"job\"></job>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"row\" *ngIf=\"displayStatus.shipping\">\r\n                <div class=\"col-md-12\">\r\n                    <h3>Shipping</h3>\r\n                </div>\r\n                <div class=\"col-xs-12 col-lg-12\">\r\n                    <div class=\"row\">\r\n                        <div class=\"job-wrapper shipping\"\r\n                             *ngFor=\"let job of jobs | filter: 3\"\r\n                             [ngClass]=\"{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}\">\r\n                            <job [job]=\"job\"></job>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"row\" *ngIf=\"displayStatus.waiting\">\r\n                <div class=\"col-md-12\">\r\n                    <h3>Waiting</h3>\r\n                </div>\r\n                <div class=\"col-xs-12 col-lg-12\">\r\n                    <div class=\"row\">\r\n                        <div class=\"job-wrapper waiting\"\r\n                             *ngFor=\"let job of jobs | filter: 5\"\r\n                             [ngClass]=\"{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}\">\r\n                            <job [job]=\"job\"></job>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n\r\n\r\n\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"container-fluid\">\r\n    <div class=\"jobs-wrapper\">\r\n        <app-sidebar\r\n                (changeSidebarState)=\"changeSidebarState($event)\"\r\n                (changeJobStatus)=\"changeJobStatus($event)\"\r\n                hideSidebar=\"hideSidebar\">\r\n        </app-sidebar>\r\n    </div>\r\n    <div class=\"row\">\r\n        <div class=\"col-md-9\" [ngClass]=\"{'col-md-9':hideSidebar == true, 'col-md-12': hideSidebar == false}\">\r\n            <div class=\"row\" *ngIf=\"jobStatus.machining\">\r\n                <div class=\"col-md-12\">\r\n                    <h3>Machining</h3>\r\n                </div>\r\n                <div class=\"col-xs-12\">\r\n                    <div class=\"row\">\r\n                        <div class=\"job-wrapper machining\"\r\n                             *ngFor=\"let job of jobs | filter: 1\"\r\n                             [ngClass]=\"{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}\">\r\n                            <job\r\n                                [job]=\"job\"\r\n                                [jobStatusText]=\"'Machining'\">\r\n                            </job>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"row\" *ngIf=\"jobStatus.staging\">\r\n                <div class=\"col-md-12\">\r\n                    <h3>Staging</h3>\r\n                </div>\r\n                <div class=\"col-xs-12 col-lg-12\">\r\n                    <div class=\"row\">\r\n                        <div class=\"job-wrapper staging\"\r\n                             *ngFor=\"let job of jobs | filter: 0\"\r\n                             [ngClass]=\"{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}\">\r\n                            <job\r\n                                [job]=\"job\"\r\n                                [jobStatusText]=\"'Staging'\">\r\n                            </job>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"row\" *ngIf=\"jobStatus.quality\">\r\n                <div class=\"col-md-12\">\r\n                    <h3>Quality</h3>\r\n                </div>\r\n                <div class=\"col-xs-12 col-lg-12\">\r\n                    <div class=\"row\">\r\n                        <div class=\"job-wrapper quality\"\r\n                             *ngFor=\"let job of jobs | filter: 2\"\r\n                             [ngClass]=\"{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}\">\r\n                            <job\r\n                                [job]=\"job\"\r\n                                [jobStatusText]=\"'Quality'\"\r\n                            ></job>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"row\" *ngIf=\"jobStatus.shipping\">\r\n                <div class=\"col-md-12\">\r\n                    <h3>Shipping</h3>\r\n                </div>\r\n                <div class=\"col-xs-12 col-lg-12\">\r\n                    <div class=\"row\">\r\n                        <div class=\"job-wrapper shipping\"\r\n                             *ngFor=\"let job of jobs | filter: 3\"\r\n                             [ngClass]=\"{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}\">\r\n                            <job\r\n                                [job]=\"job\"\r\n                                [jobStatusText]=\"'Shipping'\">\r\n                            </job>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"row\" *ngIf=\"jobStatus.waiting\">\r\n                <div class=\"col-md-12\">\r\n                    <h3>Waiting</h3>\r\n                </div>\r\n                <div class=\"col-xs-12 col-lg-12\">\r\n                    <div class=\"row\">\r\n                        <div class=\"job-wrapper waiting\"\r\n                             *ngFor=\"let job of jobs | filter: 5\"\r\n                             [ngClass]=\"{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}\">\r\n                            <job\r\n                                [job]=\"job\"\r\n                                [jobStatusText]=\"'Waiting'\">\r\n                            </job>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n\r\n\r\n\r\n</div>\r\n\r\n"
 
 /***/ }),
 
 /***/ 724:
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"sidebar\"\n  [ngClass]=\"{'large': !hide}\">\n  <div class=\"btn-group\" role=\"group\" aria-label=\"...\">\n    <button\n      type=\"button\"\n      class=\"btn btn-default action\"\n      (click)=\"toggleJobTracker()\"\n      *ngIf=\"!hide\"\n      [ngClass]=\"{'active':jobTracker}\">\n        Job Tracker\n    </button>\n    <button\n      type=\"button\"\n      class=\"btn btn-default action\"\n      (click)=\"toggleAddJob()\"\n      *ngIf=\"!hide\"\n      [ngClass]=\"{'active':addJob}\">\n        Add Job\n    </button>\n    <button\n      type=\"button\"\n      class=\"btn btn-default show-hide\"\n      (click)=\"toggleHide()\">\n      {{hideShowText}}\n    </button>\n  </div>\n  <div class=\"body\">\n    <div *ngIf=\"jobTracker\">\n      <h3>Job Tracker</h3>\n      <form action=\"\">\n        <label class=\"checkbox-inline\"><input type=\"checkbox\" value=\"\">Machining</label>\n        <label class=\"checkbox-inline\"><input type=\"checkbox\" value=\"\">Quality</label>\n        <label class=\"checkbox-inline\"><input type=\"checkbox\" value=\"\">Staging</label>\n        <label class=\"checkbox-inline\"><input type=\"checkbox\" value=\"\">Waiting</label>\n        <label class=\"checkbox-inline\"><input type=\"checkbox\" value=\"\">Shipping</label>\n      </form>\n    </div>\n    <div *ngIf=\"addJob\">\n      <form action=\"/add-job\" method=\"POST\">\n        <div class=\"form-group\">\n          <label>Company Name: </label>\n          <input class=\"form-control\" name=\"companyName\" required=\"\">\n        </div>\n        <div class=\"form-group\">\n          <label>Job Name: </label>\n          <input class=\"form-control\" name=\"jobName\" required=\"\">\n        </div>\n        <div class=\"form-group\">\n          <label>Contact Name: </label>\n          <input class=\"form-control\" name=\"contactName\" required=\"\">\n        </div>\n        <div class=\"form-group\">\n          <label>Contact Email: </label>\n          <input class=\"form-control\" name=\"contactEmail\" required=\"\">\n        </div>\n        <div class=\"form-group\">\n          <label>Job Id: </label>\n          <input class=\"form-control\" type=\"number\" name=\"jobId\" required=\"\">\n        </div>\n        <input type=\"submit\" class=\"btn btn-primary\" value=\"Update\">\n      </form>\n    </div>\n  </div>\n</div>\n"
+module.exports = "\n<div class=\"sidebar\"\n  [ngClass]=\"{'large': !hide}\">\n  <div class=\"btn-group\" role=\"group\" aria-label=\"...\">\n    <button\n      type=\"button\"\n      class=\"btn btn-default action\"\n      (click)=\"toggleJobTracker()\"\n      *ngIf=\"!hide\"\n      [ngClass]=\"{'active':jobTracker}\">\n        Job Tracker\n    </button>\n    <button\n      type=\"button\"\n      class=\"btn btn-default action\"\n      (click)=\"toggleAddJob()\"\n      *ngIf=\"!hide\"\n      [ngClass]=\"{'active':addJob}\">\n        Add Job\n    </button>\n    <button\n      type=\"button\"\n      class=\"btn btn-default show-hide\"\n      (click)=\"toggleHide()\">\n      {{hideShowText}}\n    </button>\n  </div>\n  <div class=\"body\">\n    <div *ngIf=\"jobTracker\">\n      <h3>Job Tracker</h3>\n      <form action=\"\">\n        <label class=\"checkbox-inline\"><input type=\"checkbox\" name=\"machining\" (ngModelChange)=\"updateJobStatus($event)\" [(ngModel)]=\"jobStatus.machining\">Machining</label>\n        <label class=\"checkbox-inline\"><input type=\"checkbox\" name=\"quality\" (ngModelChange)=\"updateJobStatus($event)\" [(ngModel)]=\"jobStatus.quality\">Quality</label>\n        <label class=\"checkbox-inline\"><input type=\"checkbox\" name=\"staging\" (ngModelChange)=\"updateJobStatus($event)\" [(ngModel)]=\"jobStatus.staging\">Staging</label>\n        <label class=\"checkbox-inline\"><input type=\"checkbox\" name=\"waiting\" (ngModelChange)=\"updateJobStatus($event)\" [(ngModel)]=\"jobStatus.waiting\">Waiting</label>\n        <label class=\"checkbox-inline\"><input type=\"checkbox\" name=\"shipping\" (ngModelChange)=\"updateJobStatus($event)\" [(ngModel)]=\"jobStatus.shipping\">Shipping</label>\n      </form>\n    </div>\n    <div *ngIf=\"addJob\">\n      <form action=\"/add-job\" method=\"POST\">\n        <div class=\"form-group\">\n          <label>Company Name: </label>\n          <input class=\"form-control\" name=\"companyName\" required=\"\">\n        </div>\n        <div class=\"form-group\">\n          <label>Job Name: </label>\n          <input class=\"form-control\" name=\"jobName\" required=\"\">\n        </div>\n        <div class=\"form-group\">\n          <label>Contact Name: </label>\n          <input class=\"form-control\" name=\"contactName\" required=\"\">\n        </div>\n        <div class=\"form-group\">\n          <label>Contact Email: </label>\n          <input class=\"form-control\" name=\"contactEmail\" required=\"\">\n        </div>\n        <div class=\"form-group\">\n          <label>Job Id: </label>\n          <input class=\"form-control\" type=\"number\" name=\"jobId\" required=\"\">\n        </div>\n        <input type=\"submit\" class=\"btn btn-primary\" value=\"Update\">\n      </form>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 

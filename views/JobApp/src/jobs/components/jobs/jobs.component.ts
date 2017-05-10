@@ -11,7 +11,9 @@ export class JobsComponent implements OnInit {
   private hideSidebar: boolean = true;
   private globalHideSidebar: boolean;
 
-  displayStatus = {
+
+
+  jobStatus = {
     machining: true,
     staging: true,
     quality: true,
@@ -40,6 +42,10 @@ export class JobsComponent implements OnInit {
     if (this.hideSidebar) {
       this.globalHideSidebar = false;
     }
+  }
+
+  changeJobStatus(jobStatusObj) {
+    this.jobStatus = jobStatusObj;
   }
 
 }

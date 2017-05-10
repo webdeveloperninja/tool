@@ -10,23 +10,11 @@ import { JobsService } from '../../services/jobs';
 export class JobComponent implements OnInit {
   @Input() job: any;
   process: number;
-  private _jobStatusText: string;
+  @Input() jobStatusText: string;
   constructor(
       private _jobsService: JobsService
   ) {}
-  get jobStatusText():string {
-    if (this.job.jobStatus === 0) {
-      return 'Staging';
-    } else if(this.job.jobStatus === 1) {
-      return 'Machining';
-    } else if (this.job.jobStatus === 2) {
-      return 'Quality';
-    } else if (this.job.jobStatus === 3) {
-      return 'Complete';
-    } else if (this.job.jobStatus === 4) {
-      return 'Shipped';
-    }
-  }
+
 
   ngOnInit() {
     this.process = this.job.process;
