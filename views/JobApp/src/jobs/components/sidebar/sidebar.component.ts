@@ -1,4 +1,7 @@
 import { Component, OnInit,Output, EventEmitter, Input } from '@angular/core';
+import { JobsService } from '../../services/jobs';
+import { FormBuilder, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -6,10 +9,14 @@ import { Component, OnInit,Output, EventEmitter, Input } from '@angular/core';
   styleUrls: ['sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+  jobForm: FormGroup;
+
   jobTracker: boolean = false;
   addJob: boolean = false;
   hide: boolean = false;
   hideShowText: string = 'Hide';
+  activeJob: any;
+
   jobStatus: any = {
     machining: true,
     quality: true,
@@ -28,10 +35,37 @@ export class SidebarComponent implements OnInit {
 
 
 
-  constructor() { }
+  constructor(
+      private _jobsService: JobsService,
+      private fb: FormBuilder
+  ) {
+    this.createForm();
+  }
+
+  createForm() {
+    this.jobForm = this.fb.group({
+      companyName: '',
+      jobName: '',
+      contactName: '',
+      contactEmail: '',
+      jobId: '',
+      process: ''
+    });
+  }
 
   ngOnInit() {
     this.jobTracker = true;
+    this._jobsService.getActiveJob().subscribe(job => {
+      this.activeJob = job;
+      this.jobForm.setValue({
+        companyName: this.activeJob.companyName || '',
+        jobName: this.activeJob.jobName || '',
+        contactName: this.activeJob.contactName || '',
+        contactEmail: this.activeJob.contactEmail || '',
+        jobId: this.activeJob.jobId || '',
+        process: this.activeJob.process || ''
+      });
+    });
   }
 
   toggleHide() {
@@ -77,5 +111,8 @@ export class SidebarComponent implements OnInit {
 
   updateJobStatus() {
     this.changeJobStatus.emit(this.jobStatus);
+  }
+
+  updateJob() {
   }
 }

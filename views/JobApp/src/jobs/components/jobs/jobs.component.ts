@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JobsService } from '../../services/jobs';
+import { SettingsService } from '../../services/settings';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Component({
@@ -11,31 +12,25 @@ export class JobsComponent implements OnInit {
   private hideSidebar: boolean = true;
   private globalHideSidebar: boolean;
 
-
-
-  jobStatus = {
-    machining: true,
-    staging: true,
-    quality: true,
-    shipping: true,
-    waiting: true
-  };
+  jobStatusSettings;
 
   jobs = [];
   constructor(
-      private _jobsService: JobsService
+      private _jobsService: JobsService,
+      private _settingsService: SettingsService
   ) { }
 
   ngOnInit() {
     this._jobsService.getJobs().subscribe((jobs) => {
       console.log(jobs.jobs);
       this.jobs = jobs.jobs;
+    });
+
+    this._settingsService.getJobsStatusSettings().subscribe(jobStatusSettings => {
+      this.jobStatusSettings = jobStatusSettings;
     })
   }
 
-  jobClicked() {
-    console.log('working');
-  }
 
   changeSidebarState(event) {
     this.hideSidebar = event;
@@ -45,7 +40,11 @@ export class JobsComponent implements OnInit {
   }
 
   changeJobStatus(jobStatusObj) {
-    this.jobStatus = jobStatusObj;
+    this.jobStatusSettings = jobStatusObj;
+  }
+
+  setActiveJob(job) {
+    this._jobsService.setActiveJob(job);
   }
 
 }

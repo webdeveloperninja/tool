@@ -5,6 +5,10 @@
   border-top: 1px solid rgba(0, 0, 0, 0.45);
   border-left: 1px solid rgba(0, 0, 0, 0.45);
   border-bottom: 1px solid rgba(0, 0, 0, 0.45);
+  .wrapper {
+    overflow-y: scroll;
+    height: 300px;
+  }
   &.large {
     width: 355px;
   }

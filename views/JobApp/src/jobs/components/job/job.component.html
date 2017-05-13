@@ -40,4 +40,5 @@
     <option  [ngValue]="5" [attr.selected]="process == 5">Waiting</option>
     <option  [ngValue]="3" [attr.selected]="process == 3">Shipped</option>
   </select>
+  <a [href]="'/view-job-tooling/?jobId=' + job.jobId" class="btn btn-default more-info">More Info</a>
 </div>

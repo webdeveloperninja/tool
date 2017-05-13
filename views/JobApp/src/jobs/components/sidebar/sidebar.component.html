@@ -1,4 +1,3 @@
-
 <div class="sidebar"
   [ngClass]="{'large': !hide}">
   <div class="btn-group" role="group" aria-label="...">
@@ -28,40 +27,71 @@
   </div>
   <div class="body" [ngClass]="{'no-padding': hide}">
     <div *ngIf="jobTracker">
-      <h3>Job Tracker</h3>
-      <form action="">
-        <label class="checkbox-inline"><input type="checkbox" name="machining" (ngModelChange)="updateJobStatus($event)" [(ngModel)]="jobStatus.machining">Machining</label>
-        <label class="checkbox-inline"><input type="checkbox" name="quality" (ngModelChange)="updateJobStatus($event)" [(ngModel)]="jobStatus.quality">Quality</label>
-        <label class="checkbox-inline"><input type="checkbox" name="staging" (ngModelChange)="updateJobStatus($event)" [(ngModel)]="jobStatus.staging">Staging</label>
-        <label class="checkbox-inline"><input type="checkbox" name="waiting" (ngModelChange)="updateJobStatus($event)" [(ngModel)]="jobStatus.waiting">Waiting</label>
-        <label class="checkbox-inline"><input type="checkbox" name="shipping" (ngModelChange)="updateJobStatus($event)" [(ngModel)]="jobStatus.shipping">Shipping</label>
-      </form>
+
+      <div *ngIf="activeJob" class="wrapper">
+        <h3>Selected Job</h3>
+        <form [formGroup]="jobForm" novalidate>
+          <div class="form-group">
+            <label>Company Name: </label>
+            <input class="form-control" name="companyName" formControlName="companyName">
+          </div>
+          <div class="form-group">
+            <label>Job Name: </label>
+            <input class="form-control" name="jobName" formControlName="jobName">
+          </div>
+          <div class="form-group">
+            <label>Contact Name: </label>
+            <input class="form-control" name="contactName" formControlName="contactName">
+          </div>
+          <div class="form-group">
+            <label>Contact Email: </label>
+            <input class="form-control" name="contactEmail" formControlName="contactEmail">
+          </div>
+          <div class="form-group">
+            <label>Job Id: </label>
+            <input class="form-control" type="number" name="jobId" formControlName="jobId">
+          </div>
+          <div class="form-group">
+            <label>Process</label>
+            <select name="process" class="form-control" formControlName="process">
+              <option value="">Select Stage</option>
+              <option value="1">Machining</option>
+              <option value="2">Quality</option>
+              <option value="0">Staging</option>
+              <option value="5">Waiting</option>
+              <option value="3">Shipped</option>
+            </select>
+          </div>
+          <input type="submit" class="btn btn-primary" value="Update">
+        </form>
+      </div>
+
     </div>
     <div *ngIf="addJob">
-      <form action="/add-job" method="POST">
+      <form [formGroup]="jobForm" novalidate>
         <div class="form-group">
           <label>Company Name: </label>
-          <input class="form-control" name="companyName" required="">
+          <input class="form-control" name="companyName" formControlName="companyName">
         </div>
         <div class="form-group">
           <label>Job Name: </label>
-          <input class="form-control" name="jobName" required="">
+          <input class="form-control" name="jobName" formControlName="jobName">
         </div>
         <div class="form-group">
           <label>Contact Name: </label>
-          <input class="form-control" name="contactName" required="">
+          <input class="form-control" name="contactName" formControlName="contactName">
         </div>
         <div class="form-group">
           <label>Contact Email: </label>
-          <input class="form-control" name="contactEmail" required="">
+          <input class="form-control" name="contactEmail" formControlName="contactEmail">
         </div>
         <div class="form-group">
           <label>Job Id: </label>
-          <input class="form-control" type="number" name="jobId" required="">
+          <input class="form-control" type="number" name="jobId" formControlName="jobId">
         </div>
         <div class="form-group">
           <label>Process</label>
-          <select name="process" class="form-control" required="">
+          <select name="process" class="form-control" formControlName="process">
             <option value="">Select Stage</option>
             <option value="1">Machining</option>
             <option value="2">Quality</option>
@@ -70,7 +100,7 @@
             <option value="3">Shipped</option>
           </select>
         </div>
-        <input type="submit" class="btn btn-primary" value="Update">
+        <input class="btn btn-primary" (click)="updateJob()" value="Update">
       </form>
     </div>
   </div>

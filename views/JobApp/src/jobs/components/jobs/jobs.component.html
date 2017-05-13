@@ -8,7 +8,12 @@
     </div>
     <div class="row">
         <div class="col-md-9" [ngClass]="{'col-md-9':hideSidebar == true, 'col-md-12': hideSidebar == false}">
-            <div class="row" *ngIf="jobStatus.machining">
+            <div class="row">
+                <div class="col-md-12">
+                    <job-tracker></job-tracker>
+                </div>
+            </div>
+            <div class="row" *ngIf="jobStatusSettings.machining">
                 <div class="col-md-12">
                     <h3>Machining</h3>
                 </div>
@@ -19,14 +24,15 @@
                              [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
                             <job
                                 [job]="job"
-                                [jobStatusText]="'Machining'">
+                                [jobStatusText]="'Machining'"
+                                (click)="setActiveJob(job)">
                             </job>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row" *ngIf="jobStatus.staging">
+            <div class="row" *ngIf="jobStatusSettings.staging">
                 <div class="col-md-12">
                     <h3>Staging</h3>
                 </div>
@@ -37,14 +43,15 @@
                              [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
                             <job
                                 [job]="job"
-                                [jobStatusText]="'Staging'">
+                                [jobStatusText]="'Staging'"
+                                (click)="setActiveJob(job)">
                             </job>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row" *ngIf="jobStatus.quality">
+            <div class="row" *ngIf="jobStatusSettings.quality">
                 <div class="col-md-12">
                     <h3>Quality</h3>
                 </div>
@@ -56,13 +63,14 @@
                             <job
                                 [job]="job"
                                 [jobStatusText]="'Quality'"
-                            ></job>
+                                (click)="setActiveJob(job)">
+                            </job>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row" *ngIf="jobStatus.shipping">
+            <div class="row" *ngIf="jobStatusSettings.shipping">
                 <div class="col-md-12">
                     <h3>Shipping</h3>
                 </div>
@@ -73,14 +81,15 @@
                              [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
                             <job
                                 [job]="job"
-                                [jobStatusText]="'Shipping'">
+                                [jobStatusText]="'Shipping'"
+                                (click)="setActiveJob(job)">
                             </job>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row" *ngIf="jobStatus.waiting">
+            <div class="row" *ngIf="jobStatusSettings.waiting">
                 <div class="col-md-12">
                     <h3>Waiting</h3>
                 </div>
@@ -91,7 +100,8 @@
                              [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
                             <job
                                 [job]="job"
-                                [jobStatusText]="'Waiting'">
+                                [jobStatusText]="'Waiting'"
+                                (click)="setActiveJob(job)">
                             </job>
                         </div>
                     </div>

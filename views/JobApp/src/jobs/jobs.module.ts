@@ -6,11 +6,12 @@ import { AddJobComponent } from'./components/add-job/add-job.component';
 import { JobsComponent } from './components/jobs/jobs.component';
 import { JobComponent } from './components/job/job.component';
 import { RouterModule, Routes } from '@angular/router';
-import { SingleJobComponent } from './components/single-job/single-job.component';
 import { FilterPipe } from './filter.pipe';
 import { JobStatusPipe } from './job-status.pipe';
 import { JobsService } from './services/jobs';
+import { SettingsService } from './services/settings';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { JobTracker } from './components/job-tracker/job-tracker.component';
 
 
 
@@ -21,15 +22,23 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
         ReactiveFormsModule
     ],
     declarations: [
-        SingleJobComponent,
         JobComponent,
         AddJobComponent,
         SidebarComponent,
         JobsComponent,
+        JobTracker,
         FilterPipe,
         JobStatusPipe
     ],
-    providers: [JobsService],
-    exports: [JobsComponent, JobComponent, SingleJobComponent, SidebarComponent]
+    providers: [
+        JobsService,
+        SettingsService
+    ],
+    exports: [
+        JobsComponent,
+        JobComponent,
+        SidebarComponent,
+        JobTracker
+    ]
 })
 export class JobsModule {}
