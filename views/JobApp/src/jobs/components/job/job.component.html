@@ -1,8 +1,8 @@
 <div 
   class="alert alert-info job" 
   (click)="selectJob(job.jobNumber)"
-  [attr.scrollTargetSelector]="job == activeJob ? '#myTarget' : null"
-  [ngClass]="{'active': job == activeJob}">
+  [ngClass]="{'active': job == activeJob}"
+  [attr.id]="job == activeJob ? 'myTarget' : null">
   <div class="row card">
     <div class="col-md-10 col-md-offset-1 sub-card">
       <div class="row">

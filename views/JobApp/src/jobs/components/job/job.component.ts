@@ -30,5 +30,10 @@ export class JobComponent implements OnInit {
     this._jobsService.updateJob(this.job).subscribe((data) => {
       this.process = this.job.process;
     });
+    
+
+
+   setTimeout(function(){ document.getElementById('myTarget').scrollIntoView(false)}, 0);
+
   }
 }
