@@ -2,6 +2,7 @@ var http = require('http');
 var https = require('https');
 var path = require('path');
 var async = require('async');
+var session = require('express-session')
 var passport = require('passport');
 var passportLocal = require('passport-local');
 var fs = require('fs');
@@ -13,6 +14,7 @@ var shortid = require('shortid');
 var json2csv = require('json2csv');
 var dbAuth = require('./db-auth.js');
 var email = require('./email.js');
+var cors = require('cors');
 var autoEmailOrder = require('./auto-email-order.js');
 var express = require('express');
 var stripeModeTest = false;
@@ -35,7 +37,6 @@ var app = express();
 * Heroku pipelines is da bomb
 * */
 
-
 app.use(flash());
 
 app.set('view engine', 'ejs');
@@ -45,6 +46,18 @@ app.use(function(req, res, next) {
     return res.redirect(['https://', req.get('Host'), req.url].join(''));
   }
   next();
+});
+
+app.use(function(req, res, next) {
+res.header('Access-Control-Allow-Credentials', true);
+res.header('Access-Control-Allow-Origin', req.headers.origin);
+res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+if ('OPTIONS' == req.method) {
+     res.send(200);
+ } else {
+     next();
+ }
 });
 
 app.set('trust proxy', true);
@@ -59,6 +72,8 @@ app.use(expressSession({ secret: 'secret', resave: false, saveUninitialized: fal
 app.use(express.static(__dirname + '/views')); 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(session({ secret: 'super secret' }));
 
 passport.use(new passportLocal.Strategy(function( username, password, done) {
   dbAuth.checkUserPass(username, password, function(isAuthenticatedDB, DBid) {
@@ -1485,10 +1500,17 @@ app.post('/add-job', function(req, res) {
 
 });
 
+
 app.get('/api/v1/jobs', function(req, res) {
-		dbAuth.returnJobsData(req.user._id || '58fd55b94030270012db8345', function(err, jobs) {
-			res.json({success: true, jobs: jobs});
-		});
+  console.log(req.user);
+    if (req.user) {
+      dbAuth.returnJobsData(req.user._id, function(err, jobs) {
+        res.json({success: true, jobs: jobs});
+      });
+    }
+    else {
+      res.json({success: false});
+    }
 });
 
 app.post('/api/v1/job', function(req, res) {

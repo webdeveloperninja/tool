@@ -24,7 +24,7 @@ export class JobsService {
     getJobs() {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this._http.get('/api/v1/jobs', {headers: headers}).map((res: Response) => { return res.json()});
+        return this._http.get('http://localhost:3000/api/v1/jobs', {headers: headers,withCredentials: true}).map((res: Response) => { return res.json()});
         //  return this._http.get('http://localhost:8080/jobs', {headers: headers}).map((res: Response) => { return res.json()});
     }
 
