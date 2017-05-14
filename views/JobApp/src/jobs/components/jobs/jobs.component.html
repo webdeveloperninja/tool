@@ -24,6 +24,7 @@
                              [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
                             <job
                                 [job]="job"
+                                [activeJob]="activeJob"
                                 [jobStatusText]="'Machining'"
                                 (click)="setActiveJob(job)">
                             </job>
@@ -44,6 +45,7 @@
                             <job
                                 [job]="job"
                                 [jobStatusText]="'Staging'"
+                                [activeJob]="activeJob"
                                 (click)="setActiveJob(job)">
                             </job>
                         </div>
@@ -63,6 +65,7 @@
                             <job
                                 [job]="job"
                                 [jobStatusText]="'Quality'"
+                                [activeJob]="activeJob"
                                 (click)="setActiveJob(job)">
                             </job>
                         </div>
@@ -82,6 +85,7 @@
                             <job
                                 [job]="job"
                                 [jobStatusText]="'Shipping'"
+                                [activeJob]="activeJob"
                                 (click)="setActiveJob(job)">
                             </job>
                         </div>
@@ -101,6 +105,7 @@
                             <job
                                 [job]="job"
                                 [jobStatusText]="'Waiting'"
+                                [activeJob]="activeJob"
                                 (click)="setActiveJob(job)">
                             </job>
                         </div>

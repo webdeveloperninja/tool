@@ -9,6 +9,8 @@ import { Pipe, PipeTransform } from '@angular/core';
   styleUrls: ['./jobs.component.scss']
 })
 export class JobsComponent implements OnInit {
+  activeJob: any;
+
   private hideSidebar: boolean = true;
   private globalHideSidebar: boolean;
 
@@ -28,7 +30,11 @@ export class JobsComponent implements OnInit {
 
     this._settingsService.getJobsStatusSettings().subscribe(jobStatusSettings => {
       this.jobStatusSettings = jobStatusSettings;
-    })
+    });
+
+    this._jobsService.getActiveJob().subscribe(activeJob => {
+      this.activeJob = activeJob;
+    });
   }
 
 

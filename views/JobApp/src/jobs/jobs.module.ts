@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {ScrollToModule} from 'ng2-scroll-to';
+
 
 import { AddJobComponent } from'./components/add-job/add-job.component';
 import { JobsComponent } from './components/jobs/jobs.component';
@@ -19,7 +21,8 @@ import { JobTracker } from './components/job-tracker/job-tracker.component';
     imports: [
         CommonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ScrollToModule.forRoot()
     ],
     declarations: [
         JobComponent,

@@ -11,6 +11,7 @@ export class JobComponent implements OnInit {
   @Input() job: any;
   process: number;
   @Input() jobStatusText: string;
+  @Input() activeJob: any;
   constructor(
       private _jobsService: JobsService
   ) {}
@@ -21,7 +22,6 @@ export class JobComponent implements OnInit {
   }
 
   selectJob(jobId) {
-
   }
 
   changeProcess(processId) {

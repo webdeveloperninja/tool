@@ -55,8 +55,11 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.jobTracker = true;
+    
     this._jobsService.getActiveJob().subscribe(job => {
+      this.jobTracker = true;
       this.activeJob = job;
+      this.showMenu();
       this.jobForm.setValue({
         companyName: this.activeJob.companyName || '',
         jobName: this.activeJob.jobName || '',
@@ -66,6 +69,7 @@ export class SidebarComponent implements OnInit {
         process: this.activeJob.process || ''
       });
     });
+    this.hide = true;
   }
 
   toggleHide() {
@@ -86,6 +90,14 @@ export class SidebarComponent implements OnInit {
       this.hideShowText = 'Show';
       this.change.emit(false);
     }
+  }
+
+  showMenu() {
+      this.hide = false;
+      this.hideShowText = 'Hide';
+      this.addJob = false;
+      this.jobTracker = true;
+      this.change.emit(true);
   }
 
   toggleAddJob() {
