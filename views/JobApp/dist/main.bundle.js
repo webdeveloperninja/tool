@@ -39,7 +39,7 @@ var JobsService = (function () {
     JobsService.prototype.getJobs = function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this._http.get('http://localhost:3000/api/v1/jobs', { headers: headers, withCredentials: true }).map(function (res) { return res.json(); });
+        return this._http.get('/api/v1/jobs', { headers: headers, withCredentials: true }).map(function (res) { return res.json(); });
         //  return this._http.get('http://localhost:8080/jobs', {headers: headers}).map((res: Response) => { return res.json()});
     };
     JobsService.prototype.updateJob = function (job) {
