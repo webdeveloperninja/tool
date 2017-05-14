@@ -18,7 +18,7 @@
                     <h3>Machining</h3>
                 </div>
                 <div class="col-xs-12">
-                    <div class="row">
+                    <div class="row machining">
                         <div class="job-wrapper machining"
                              *ngFor="let job of jobs | filter: 1"
                              [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
@@ -38,7 +38,7 @@
                     <h3>Staging</h3>
                 </div>
                 <div class="col-xs-12 col-lg-12">
-                    <div class="row">
+                    <div class="row staging">
                         <div class="job-wrapper staging"
                              *ngFor="let job of jobs | filter: 0"
                              [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
@@ -58,7 +58,7 @@
                     <h3>Quality</h3>
                 </div>
                 <div class="col-xs-12 col-lg-12">
-                    <div class="row">
+                    <div class="row quality">
                         <div class="job-wrapper quality"
                              *ngFor="let job of jobs | filter: 2"
                              [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
@@ -78,7 +78,7 @@
                     <h3>Shipping</h3>
                 </div>
                 <div class="col-xs-12 col-lg-12">
-                    <div class="row">
+                    <div class="row shipping">
                         <div class="job-wrapper shipping"
                              *ngFor="let job of jobs | filter: 3"
                              [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
@@ -98,7 +98,7 @@
                     <h3>Waiting</h3>
                 </div>
                 <div class="col-xs-12 col-lg-12">
-                    <div class="row">
+                    <div class="row waiting">
                         <div class="job-wrapper waiting"
                              *ngFor="let job of jobs | filter: 5"
                              [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
