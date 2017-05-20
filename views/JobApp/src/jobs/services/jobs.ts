@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers, Response} from '@angular/http';
+import { SidebarService } from './sidebar';
 import {Observable, BehaviorSubject} from 'rxjs'
 import 'rxjs/add/operator/map';
 
@@ -10,7 +11,10 @@ export class JobsService {
     currentJob: any;
     $currentJob = new BehaviorSubject("");
 
-    constructor(private _http: Http) {
+    constructor(
+        private _http: Http,
+        private _sidebarService: SidebarService
+        ) {
     }
 
     addJob(job) {
@@ -38,11 +42,18 @@ export class JobsService {
 
     setActiveJob(job) {
         this.currentJob = job;
+        this._sidebarService.openSidebar();
         this.$currentJob.next(job);
     }
 
     getActiveJob() {
         return this.$currentJob;
+    }
+
+    removeActiveJob() {
+        this.currentJob = null;
+        this.$currentJob.next(this.currentJob);
+        this._sidebarService.shutSidebar();
     }
 }
 

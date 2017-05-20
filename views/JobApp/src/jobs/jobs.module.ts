@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import {ScrollToModule} from 'ng2-scroll-to';
+import { ScrollToModule } from 'ng2-scroll-to';
 
 
 import { AddJobComponent } from'./components/add-job/add-job.component';
@@ -12,6 +12,7 @@ import { FilterPipe } from './filter.pipe';
 import { JobStatusPipe } from './job-status.pipe';
 import { JobsService } from './services/jobs';
 import { SettingsService } from './services/settings';
+import { SidebarService } from './services/sidebar';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { JobTracker } from './components/job-tracker/job-tracker.component';
 
@@ -35,7 +36,8 @@ import { JobTracker } from './components/job-tracker/job-tracker.component';
     ],
     providers: [
         JobsService,
-        SettingsService
+        SettingsService,
+        SidebarService
     ],
     exports: [
         JobsComponent,

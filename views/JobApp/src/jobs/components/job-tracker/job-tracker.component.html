@@ -1,8 +1,28 @@
-<h3>Job Tracker</h3>
-<form [formGroup]="jobStatusSettingsForm" novalidate>
-    <label class="checkbox-inline"><input type="checkbox" name="machining" formControlName="machining">Machining</label>
-    <label class="checkbox-inline"><input type="checkbox" name="quality" formControlName="quality">Quality</label>
-    <label class="checkbox-inline"><input type="checkbox" name="staging" formControlName="staging">Staging</label>
-    <label class="checkbox-inline"><input type="checkbox" name="waiting" formControlName="waiting">Waiting</label>
-    <label class="checkbox-inline"><input type="checkbox" name="shipping" formControlName="shipping">Shipping</label>
-</form>
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label>Search</label>
+                <input class="form-control" placeholder="Search Jobs">
+            </div>
+        </div>
+        <form [formGroup]="jobStatusSettingsForm" novalidate>
+            <label class="checkbox-inline"><input type="checkbox" name="machining" formControlName="machining">Machining</label>
+            <label class="checkbox-inline"><input type="checkbox" name="quality" formControlName="quality">Quality</label>
+            <label class="checkbox-inline"><input type="checkbox" name="staging" formControlName="staging">Staging</label>
+            <label class="checkbox-inline"><input type="checkbox" name="waiting" formControlName="waiting">Waiting</label>
+            <label class="checkbox-inline"><input type="checkbox" name="shipping" formControlName="shipping">Shipping</label>
+        </form>
+    </div>
+    <div class="col-md-6" *ngIf="activeJob">
+        <div class="alert alert-success active-job" role="alert">
+            <span class="sr-only">Active Tool:</span>
+            <span 
+                class="glyphicon glyphicon-remove pull-left danger"
+                (click)="removeActiveJob()">
+                </span>
+         {{activeJob.companyName}}
+            <span class="glyphicon glyphicon-arrow-right pull-right"></span>
+        </div>
+    </div>
+</div>

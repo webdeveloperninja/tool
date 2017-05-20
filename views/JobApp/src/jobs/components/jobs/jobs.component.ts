@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JobsService } from '../../services/jobs';
 import { SettingsService } from '../../services/settings';
+import { SidebarService } from '../../services/sidebar';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Component({
@@ -10,8 +11,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class JobsComponent implements OnInit {
   activeJob: any;
+  sidebarHidden: boolean = false;
 
-  private hideSidebar: boolean = true;
   private globalHideSidebar: boolean;
 
   jobStatusSettings;
@@ -19,7 +20,8 @@ export class JobsComponent implements OnInit {
   jobs = [];
   constructor(
       private _jobsService: JobsService,
-      private _settingsService: SettingsService
+      private _settingsService: SettingsService,
+      private _sidebarService: SidebarService
   ) { }
 
   ngOnInit() {
@@ -35,15 +37,14 @@ export class JobsComponent implements OnInit {
     this._jobsService.getActiveJob().subscribe(activeJob => {
       this.activeJob = activeJob;
     });
+
+    this._sidebarService.getSidebarHiddenState().subscribe(data => {
+      this.sidebarHidden = data;
+    });
+    this.sidebarHidden = false;
   }
 
 
-  changeSidebarState(event) {
-    this.hideSidebar = event;
-    if (this.hideSidebar) {
-      this.globalHideSidebar = false;
-    }
-  }
 
   changeJobStatus(jobStatusObj) {
     this.jobStatusSettings = jobStatusObj;
@@ -51,6 +52,7 @@ export class JobsComponent implements OnInit {
 
   setActiveJob(job) {
     this._jobsService.setActiveJob(job);
+    setTimeout(function(){ document.getElementById('myTarget').scrollIntoView(false)}, 0);
   }
 
 }

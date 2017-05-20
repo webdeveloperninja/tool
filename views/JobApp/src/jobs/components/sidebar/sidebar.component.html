@@ -1,73 +1,16 @@
-<div class="sidebar"
-  [ngClass]="{'large': !hide}">
-  <div class="btn-group" role="group" aria-label="...">
-    <button
-      type="button"
-      class="btn btn-default action"
-      (click)="toggleJobTracker()"
-      *ngIf="!hide"
-      [ngClass]="{'active':jobTracker}">
-        Job Tracker
-    </button>
-    <button
-      type="button"
-      class="btn btn-default action"
-      (click)="toggleAddJob()"
-      *ngIf="!hide"
-      [ngClass]="{'active':addJob}">
-        Add Job
-    </button>
-    <button
-      type="button"
-      class="btn btn-default show-hide"
-      (click)="toggleHide()"
-      [ngClass]="{'full-width': hide}">
-      {{hideShowText}}
-    </button>
-  </div>
+<div class="sidebar" [ngClass]="{'large': !hide}" *ngIf="sidebarHidden">
   <div class="body" [ngClass]="{'no-padding': hide}">
-    <div *ngIf="jobTracker">
-
-      <div *ngIf="activeJob" class="wrapper">
-        <h3>Selected Job</h3>
-        <form [formGroup]="jobForm" novalidate>
-          <div class="form-group">
-            <label>Company Name: </label>
-            <input class="form-control" name="companyName" formControlName="companyName">
+    <div class="wrapper">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert alert-success active-job">
+            <button (click)="removeActiveJob()" class="btn btn-danger">Close</button>
+            <span>
+                {{ activeJob.companyName}}
+            </span>
           </div>
-          <div class="form-group">
-            <label>Job Name: </label>
-            <input class="form-control" name="jobName" formControlName="jobName">
-          </div>
-          <div class="form-group">
-            <label>Contact Name: </label>
-            <input class="form-control" name="contactName" formControlName="contactName">
-          </div>
-          <div class="form-group">
-            <label>Contact Email: </label>
-            <input class="form-control" name="contactEmail" formControlName="contactEmail">
-          </div>
-          <div class="form-group">
-            <label>Job Id: </label>
-            <input class="form-control" type="number" name="jobId" formControlName="jobId">
-          </div>
-          <div class="form-group">
-            <label>Process</label>
-            <select name="process" class="form-control" formControlName="process">
-              <option value="">Select Stage</option>
-              <option value="1">Machining</option>
-              <option value="2">Quality</option>
-              <option value="0">Staging</option>
-              <option value="5">Waiting</option>
-              <option value="3">Shipped</option>
-            </select>
-          </div>
-          <input type="submit" class="btn btn-primary" value="Update">
-        </form>
+        </div>
       </div>
-
-    </div>
-    <div *ngIf="addJob">
       <form [formGroup]="jobForm" novalidate>
         <div class="form-group">
           <label>Company Name: </label>
@@ -92,16 +35,15 @@
         <div class="form-group">
           <label>Process</label>
           <select name="process" class="form-control" formControlName="process">
-            <option value="">Select Stage</option>
-            <option value="1">Machining</option>
-            <option value="2">Quality</option>
-            <option value="0">Staging</option>
-            <option value="5">Waiting</option>
-            <option value="3">Shipped</option>
-          </select>
+              <option value="">Select Stage</option>
+              <option value="1">Machining</option>
+              <option value="2">Quality</option>
+              <option value="0">Staging</option>
+              <option value="5">Waiting</option>
+              <option value="3">Shipped</option>
+            </select>
         </div>
-        <input class="btn btn-primary" (click)="updateJob()" value="Update">
+        <input type="submit" class="btn btn-primary" value="Update">
       </form>
-    </div>
-  </div>
+</div>
 </div>

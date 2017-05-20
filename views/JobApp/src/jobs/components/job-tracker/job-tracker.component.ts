@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../services/settings';
+import { JobsService } from '../../services/jobs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -9,7 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class JobTracker implements OnInit {
     jobStatusSettingsForm: FormGroup;
-
+    activeJob: any;
     jobStatusSettings: any = {
         machining: true,
         quality: true,
@@ -19,6 +20,7 @@ export class JobTracker implements OnInit {
     };
     constructor(
         private _settingsService: SettingsService,
+        private _jobsService: JobsService,
         private fb: FormBuilder
     ){
 
@@ -27,6 +29,10 @@ export class JobTracker implements OnInit {
         this.createForm();
         this._settingsService.getJobsStatusSettings().subscribe(jobStatusSettings => {
             this.jobStatusSettings = jobStatusSettings;
+        });
+
+        this._jobsService.getActiveJob().subscribe(activeJob => {
+            this.activeJob = activeJob;
         });
 
         this.jobStatusSettingsForm.valueChanges.subscribe(jobStatusSettings => {
@@ -52,5 +58,9 @@ export class JobTracker implements OnInit {
             waiting: true,
             shipping: true
         });
+    }
+
+    removeActiveJob() {
+        this._jobsService.removeActiveJob();
     }
 }

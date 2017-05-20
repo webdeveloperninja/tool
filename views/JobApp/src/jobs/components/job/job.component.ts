@@ -22,6 +22,7 @@ export class JobComponent implements OnInit {
   }
 
   selectJob(jobId) {
+    this._jobsService.setActiveJob(this.job);
   }
 
   changeProcess(processId) {
@@ -31,9 +32,7 @@ export class JobComponent implements OnInit {
       this.process = this.job.process;
     });
     
-
-
-   setTimeout(function(){ document.getElementById('myTarget').scrollIntoView(false)}, 0);
+    setTimeout(function(){ document.getElementById('myTarget').scrollIntoView(false)}, 0);
 
   }
 }

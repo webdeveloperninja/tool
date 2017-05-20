@@ -1,13 +1,9 @@
 <div class="container-fluid">
     <div class="jobs-wrapper">
-        <app-sidebar
-                (changeSidebarState)="changeSidebarState($event)"
-                (changeJobStatus)="changeJobStatus($event)"
-                hideSidebar="hideSidebar">
-        </app-sidebar>
+        <app-sidebar></app-sidebar>
     </div>
     <div class="row">
-        <div class="col-md-9" [ngClass]="{'col-md-9':hideSidebar == true, 'col-md-12': hideSidebar == false}">
+        <div [ngClass]="{'col-md-9':sidebarHidden == true, 'col-md-12': sidebarHidden == false}">
             <div class="row">
                 <div class="col-md-12">
                     <job-tracker></job-tracker>
@@ -21,12 +17,11 @@
                     <div class="row machining">
                         <div class="job-wrapper machining"
                              *ngFor="let job of jobs | filter: 1"
-                             [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
+                             [ngClass]="{'col-md-4':sidebarHidden == true, 'col-md-3': sidebarHidden == false}">
                             <job
                                 [job]="job"
                                 [activeJob]="activeJob"
-                                [jobStatusText]="'Machining'"
-                                (click)="setActiveJob(job)">
+                                [jobStatusText]="'Machining'">
                             </job>
                         </div>
                     </div>
@@ -41,12 +36,11 @@
                     <div class="row staging">
                         <div class="job-wrapper staging"
                              *ngFor="let job of jobs | filter: 0"
-                             [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
+                             [ngClass]="{'col-md-4':sidebarHidden == true, 'col-md-3': sidebarHidden == false}">
                             <job
                                 [job]="job"
                                 [jobStatusText]="'Staging'"
-                                [activeJob]="activeJob"
-                                (click)="setActiveJob(job)">
+                                [activeJob]="activeJob">
                             </job>
                         </div>
                     </div>
@@ -61,12 +55,11 @@
                     <div class="row quality">
                         <div class="job-wrapper quality"
                              *ngFor="let job of jobs | filter: 2"
-                             [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
+                             [ngClass]="{'col-md-4':sidebarHidden == true, 'col-md-3': sidebarHidden == false}">
                             <job
                                 [job]="job"
                                 [jobStatusText]="'Quality'"
-                                [activeJob]="activeJob"
-                                (click)="setActiveJob(job)">
+                                [activeJob]="activeJob">
                             </job>
                         </div>
                     </div>
@@ -81,12 +74,11 @@
                     <div class="row shipping">
                         <div class="job-wrapper shipping"
                              *ngFor="let job of jobs | filter: 3"
-                             [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
+                             [ngClass]="{'col-md-4':sidebarHidden == true, 'col-md-3': sidebarHidden == false}">
                             <job
                                 [job]="job"
                                 [jobStatusText]="'Shipping'"
-                                [activeJob]="activeJob"
-                                (click)="setActiveJob(job)">
+                                [activeJob]="activeJob">
                             </job>
                         </div>
                     </div>
@@ -101,12 +93,11 @@
                     <div class="row waiting">
                         <div class="job-wrapper waiting"
                              *ngFor="let job of jobs | filter: 5"
-                             [ngClass]="{'col-md-4':hideSidebar == true, 'col-md-3': hideSidebar == false}">
+                             [ngClass]="{'col-md-4':sidebarHidden == true, 'col-md-3': sidebarHidden == false}">
                             <job
                                 [job]="job"
                                 [jobStatusText]="'Waiting'"
-                                [activeJob]="activeJob"
-                                (click)="setActiveJob(job)">
+                                [activeJob]="activeJob">
                             </job>
                         </div>
                     </div>
