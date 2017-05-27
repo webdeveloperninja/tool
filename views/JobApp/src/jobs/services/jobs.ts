@@ -20,7 +20,7 @@ export class JobsService {
     addJob(job) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this._http.post('http://localhost:8080/jobs/add-job', job, {headers: headers}) // ...using post request
+        return this._http.post('/jobs/add-job', job, {headers: headers}) // ...using post request
             .map((res: Response) => res.json()) // ...and calling .json() on the response to return data
             .catch((error: any) => Observable.throw(error.json().error || 'Server error')); //...
     }

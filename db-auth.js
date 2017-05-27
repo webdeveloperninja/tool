@@ -16,7 +16,8 @@ var usersSchema = new mongoose.Schema({
     email: String,
     contactName: String,
     firstName: String,
-    lastName: String
+    lastName: String,
+    package: Number
 });
 
 var toolsSchema = new mongoose.Schema({

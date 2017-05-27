@@ -1,18 +1,11 @@
-.header {
-  border-bottom: 1px solid black;
-  .hello {
+.navbar-logo {
+    width: 250px;
+    margin-top: -10px;
+}
+
+.omni-search {
+    width: 40%;
+    display: inline-block;
     float: left;
-  }
-  .mobile-nav-admin {
-    display: none;
-  }
-  .logo {
-    max-width: 352px;
-  }
-  .navbar-header {
-    height: 83px;
-  }
-  .navbar-right {
-    margin-top: 25px;
-  }
+    margin-top: 10px;
 }

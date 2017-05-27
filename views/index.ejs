@@ -1,248 +1,76 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <% if (isAuthenticated) {%>
-        <% include ./partials/head.ejs %>
-    <% } else {%>
-<!-- Facebook Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window,document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
- fbq('init', '226020094424048'); 
-fbq('track', 'PageView');
-</script>
-<noscript>
- <img height="1" width="1" 
-src="https://www.facebook.com/tr?id=226020094424048&ev=PageView
-&noscript=1"/>
-</noscript>
-<!-- End Facebook Pixel Code -->
-        <link href="./dist/css/main.css" rel="stylesheet">
-    <% } %>
-    <style>
-        body {
-            text-align: left;
-        }
-    </style>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-77516816-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
+    <% include ./partials/head.ejs %>
 </head>
-<body <%if(isAuthenticated) {%> class="authenticated"<% } %>>
 
-        <%if(isAuthenticated) {%>
-         <nav class="navbar navbar-default navbar-fixed-top primary-nav <%if(isAuthenticated) {%> new-logo-app <% } %>">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">
-                        <!-- Logo here -->
-                        <img src="./images/long-logo.png" class="img-responsive">
-                    </a>
-                </div>
-                <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <% if (!isAuthenticated) { %>
-                            <li><a href="/">Home</a></li>
-                            <li><a href="http://blog.toolinginventory.com">Blog</a></li>
-                            <li><a href="/landing-form">Contact Us</a></li>
-                            <li><a href="/tutorials">Features</a></li>
-                            <li><a href="/choose-a-plan">Sign Up</a></li>
-                            <li><a href="/login">Log in</a></li>
-                            <% } else { %>
-                                <p class="hello">Hello,
-                                    <%= user.username %> from
-                                        <%= user.companyName %>
-                                </p>
-                                <a class="btn btn-sm btn-danger" href="/logout">Log Out</a>
-                                <a class="btn btn-sm btn-primary" href="/production">Production</a>
-                                <% if (user.superUser) { %>
-                                    <a class="btn btn-sm btn-default" href="/super-admin">Business Dashboard</a>
-                                    <% } %>
-                                        <div class="row mobile-nav-admin">
-                                            <div class="col-md-4 col-md-offset-4">
-                                                <select class="form-control" onChange="window.location.href=this.value"> 
-                                                    <option data-icon="glyphicon-heart" value="/">Tool List</option>
-                                                    <option data-icon="glyphicon-heart" value="/add-tool"><a href="/add-tool" class="">Add Tool</a></option>
-                                                    <option data-icon="glyphicon-heart" value="/view-checkouts"><a href="/view-checkouts" class="">View Checkouts</a></option>
-                                                    <option data-icon="glyphicon-heart" value="/view-operators"><a href="/view-operators" class="">View Operators</a></option>
-                                                    <option data-icon="glyphicon-heart" value="/view-jobs"><a href="/view-jobs" class="">View Jobs</a></option>
-                                                    <option data-icon="glyphicon-heart" value="/my-account"><a href="/my-account" class="">My Account</a></option>
-                                                    <option data-icon="glyphicon-heart" value="/toolsCSV"><a href="/toolsCSV" class="">Download Tool List</a></loptioni>
-                                                    <option data-icon="glyphicon-heart" value="/checkoutsCSV"><a href="/checkoutsCSV" class="">Download Tool Usage</a></option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <% } %>
-                    </ul>
-                </div>
-                <!--/.nav-collapse -->
-            </div>
-            <% if (isAuthenticated) { %>
-                <div class="container-fluid admin-fixed-header-nav">
+<body>
+    <% include ./partials/navbar.ejs %>
+        <div class="container-fluid">
+            <div class="row ti-table">
+                <div class="col-md-12">
                     <div class="row">
-                        <div class="col-sm-6">
-                            <a href="/my-account" class="btn btn-default table-btn user-nav-btn">My Account</a>
-                            <a href="/toolsCSV" class="btn btn-default table-btn user-nav-btn">Download Tool List</a>
-                            <a href="/checkoutsCSV" class="btn btn-default table-btn user-nav-btn">Download Tool Usage</a>
+                        <div class="col-md-5">
+                            Name
                         </div>
-                        <div class="col-sm-6">
-                            <a href="/add-tool" class="btn btn-default table-btn pull-right view-checkouts-btn">Add Tool</a>
-                            <a href="/my-crib" class="btn table-btn btn-default pull-right view-checkouts-btn">My Crib</a>
-                            <a href="/view-operators" class="btn btn-default table-btn pull-right view-checkouts-btn">View Operators</a>
-                            <a href="/job-app" class="btn btn-default  table-btn pull-right view-checkouts-btn">View Jobs</a>
-                            <a href="/" class="btn btn-default pull-right table-btn view-checkouts-btn active">Tool List</a>
+                        <div class="col-md-1">
+                            Qty
+                        </div>
+                        <div class="col-md-1">
+                            Min
+                        </div>
+                        <div class="col-md-5">
+                            Actions
                         </div>
                     </div>
-                </div>
-                <% } %>
-        </nav>       
-        <% } %>
-        <% if(!isAuthenticated) {%>
-            <% include ./src/components/primary-nav.ejs %>
-        <% } %>
-        <div class="container-fluid">
-            <% if (!isAuthenticated) { %>
-                <% include ./partials/website-home.ejs %>
-                    <% }  %>
-                        <% if (isAuthenticated) { %>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="panel tools-list-panel panel-default">
-                                        <div class="panel-heading">
-                                            Tool List
-                                        </div>
-                                        <div id="users">
-                                            <div class="panel-body">
-                                                <div class="row newsearch">
-                                                    <div class="col-md-6">
-                                                        <form class="form-wrapper cf">
-                                                            <input class="search home-search" type="text" placeholder="Search here..." required>
-                                                            <span class="search-flag text-center">Search</span>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <div class="row admin-header hidden-xs hidden-sm">
-                                                    <div class="col-md-5">
-                                                        Name
-                                                    </div>
-                                                    <div class="col-md-1">
-                                                        Qty
-                                                    </div>
-                                                    <div class="col-md-1">
-                                                        Min
-                                                    </div>
-                                                    <div class="col-md-5 text-center">
-                                                        Actions
-                                                    </div>
-                                                </div>
-                                                <div class="list">
-                                                    <% for (var i=0; i<tools.length; i++) {%>
-                                                        <div class="row tools-row tools-row-admin">
-                                                            <div class="col-md-5">
-                                                                <a href="/view/?toolId=<%= tools[i]._id %>" class="table-link">
-                                                                    <p class="table-value table-btn-p name name-title">
-                                                                        <%= tools[i].toolName %>
-                                                                    </p>
-                                                                </a>
-                                                            </div>
-                                                            <div class="col-md-1 text-center">
-                                                                <a href="/view/?toolId=<%= tools[i]._id %>" class="table-link">
-                                                                    <p class="table-value table-btn-p name"><span class="hidden-xl hidden-lg hidden-md">Qty: </span>
-                                                                        <%= tools[i].qty %>
-                                                                    </p>
-                                                                </a>
-                                                            </div>
-                                                            <div class="col-md-1 text-center">
-                                                                <a href="/view/?toolId=<%= tools[i]._id %>" class="table-link">
-                                                                    <p class="table-value table-btn-p name"><span class="hidden-xl hidden-lg hidden-md">Min: </span>
-                                                                        <% if(!tools[i].autoOrderQty) {%> None
-                                                                            <% } %>
-                                                                                <%= tools[i].autoOrderQty %>
-                                                                    </p>
-                                                                </a>
-                                                            </div>
-                                                            <div class="col-md-5">
-                                                                <div class="text-center">
-                                                                    <ul class="action-btns">
-                                                                        <li><a class="btn btn-primary table-btn" href="/edit/?toolId=<%= tools[i]._id %>">Edit</a></li>
-                                                                        <li><a class="btn btn-primary  table-btn" href="/checkout/?toolId=<%= tools[i]._id %>">Checkout</a></li>
-                                                                        <li><a class="btn btn-primary table-btn" href="/add/?toolId=<%= tools[i]._id %>">Add Qty</a></li>
-                                                                        <li><a class="btn btn-danger table-btn" href="/remove/?toolId=<%= tools[i]._id %>" onclick="return confirm('Are you sure you want to remove tool?')">Remove Tool</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <% } %>
-                                                    <% if (tools.length === 0) { %>%>
-                                                    <div class="panel panel-danger" style="margin-top: 30px;">
-                                                        <div class="panel-heading text-center">
-                                                            <h1>There are no tools yet.</h1>
-                                                            <a href="/add-tool" class="btn btn-primary">Add Your First Tool</a>
-                                                        </div>
-                                                    </div>
-                                                    <% } %>
-                                                            <!-- Go back to this hacky as f -->
-                                                            <div style="display:none;">
-                                                                <!-- A template element is needed when list is empty, TODO: needs a better solution -->
-                                                                <li id="hacker-item">
-                                                                    <h3 class="name"></h3>
-                                                                    <p class="city"></p>
-                                                                </li>
-                                                            </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <% } %>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end #users -->
-                                    </div>
+                    <% for (var i = 0; i < tools.length; i++) { %>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <a href="/view/?toolId=<%= tools[i]._id %>">
+                                    <p>
+                                        <%= tools[i].toolName %>
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="col-md-1">
+                                <a href="/view/?toolId=<%= tools[i]._id %>">
+                                    <p><span>Qty: </span>
+                                        <%= tools[i].qty %>
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="col-md-1">
+                                <a href="/view/?toolId=<%= tools[i]._id %>">
+                                    <p><span>Min: </span>
+                                        <% if(!tools[i].autoOrderQty) { %>
+                                            None
+                                            <% } %>
+                                                <%= tools[i].autoOrderQty %>
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="col-md-5">
+                                <div>
+                                    <a class="btn btn-primary" href="/edit/?toolId=<%= tools[i]._id %>">Edit</a>
+                                    <a class="btn btn-primary" href="/checkout/?toolId=<%= tools[i]._id %>">Checkout</a>
+                                    <a class="btn btn-primary" href="/add/?toolId=<%= tools[i]._id %>">Add Qty</a>
+                                    <a class="btn btn-danger" href="/remove/?toolId=<%= tools[i]._id %>" onclick="return confirm('Are you sure you want to remove tool?')">Remove Tool</a>
                                 </div>
                             </div>
-        </div>
-        <script src="bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="js/admin-tool-list.js"></script>
-        <script src="bower_components/list.js/dist/list.min.js"></script>
-
-        <script>
-            $(document).ready(function() {
-                var options = {
-                    valueNames: ['name', 'material']
-                };
-
-
-                var userList = new List('users', options);
-            });
-            $(window).load(function() {
-                $(".loader").fadeOut("slow");
-            });
-        </script>
+                        </div>
+                        <% } %>
+                            <% if (tools.length === 0) { %>
+                                <div class="panel panel-danger">
+                                    <div>
+                                        <h1>There are no tools yet.</h1>
+                                        <a href="/add-tool" class="btn btn-primary">Add Your First Tool</a>
+                                    </div>
+                                </div>
+                                <% } %>
+                </div>
+                <script src="bower_components/jquery/dist/jquery.min.js"></script>
+                <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
+
 </html>

@@ -14,27 +14,27 @@
       <form [formGroup]="jobForm" novalidate>
         <div class="form-group">
           <label>Company Name: </label>
-          <input class="form-control" name="companyName" formControlName="companyName">
+          <input class="form-control" name="companyName" formControlName="companyName" disabled>
         </div>
         <div class="form-group">
           <label>Job Name: </label>
-          <input class="form-control" name="jobName" formControlName="jobName">
+          <input class="form-control" name="jobName" formControlName="jobName" disabled>
         </div>
         <div class="form-group">
           <label>Contact Name: </label>
-          <input class="form-control" name="contactName" formControlName="contactName">
+          <input class="form-control" name="contactName" formControlName="contactName" disabled>
         </div>
         <div class="form-group">
           <label>Contact Email: </label>
-          <input class="form-control" name="contactEmail" formControlName="contactEmail">
+          <input class="form-control" name="contactEmail" formControlName="contactEmail" disabled>
         </div>
         <div class="form-group">
           <label>Job Id: </label>
-          <input class="form-control" type="number" name="jobId" formControlName="jobId">
+          <input class="form-control" type="number" name="jobId" formControlName="jobId" disabled>
         </div>
         <div class="form-group">
           <label>Process</label>
-          <select name="process" class="form-control" formControlName="process">
+          <select name="process" class="form-control" formControlName="process" disabled>
               <option value="">Select Stage</option>
               <option value="1">Machining</option>
               <option value="2">Quality</option>
@@ -43,7 +43,7 @@
               <option value="3">Shipped</option>
             </select>
         </div>
-        <input type="submit" class="btn btn-primary" value="Update">
+        <input type="submit" class="btn btn-primary" value="Update" disabled>
       </form>
 </div>
 </div>
