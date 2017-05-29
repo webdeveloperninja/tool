@@ -1,0 +1,23 @@
+.sidebar {
+  position: fixed;
+  right: 0;
+  height: 100%;
+  width: 365px;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border: 1px solid #3d3d3f;
+  border-top: 0;
+  border-right: 0;
+  margin-top: -2px;
+  .btn-group {
+    float: right;
+    width: 100%;
+    button {
+      width: 50%;
+      border-radius: 0px;
+    }
+  }
+  .body {
+    background-color: #f8f8f8;
+  }
+}

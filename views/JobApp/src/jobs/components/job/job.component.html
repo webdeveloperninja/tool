@@ -1,0 +1,48 @@
+<div 
+  class="alert alert-info job" 
+  (click)="selectJob(job.jobNumber)"
+  [ngClass]="{'active': job == activeJob}"
+  [attr.id]="job == activeJob ? 'myTarget' : null">
+  <div class="row card">
+    <div class="col-md-10 col-md-offset-1 sub-card">
+      <div class="row">
+        <div class="col-xs-12 h4">
+          <a class="pull-right">
+            <div style="margin: 0" class="h4 ng-binding">{{job.companyName}} - {{job.jobName}}</div>
+          </a>
+          <a class="label label-primary ng-binding">
+            #{{ job.jobId }}
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-md-8 col-lg-7">
+          <a>
+            <h4>
+              <p></p>
+              <div class="label label-primary">
+                {{ jobStatusText }}
+                <span style="margin-left: 5px" class="glyphicon glyphicon-remove-sign" title="MERGE BLOCKED BY CONFLICT"></span>
+              </div>
+            </h4>
+          </a>
+        </div>
+        <div class="blur col-xs-6 col-md-4 col-lg-5 open-pr-user text-center">
+          <a class="thumbnail pull-right">
+            <span class="label label-default">{{ job.contactName }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <select class="form-control" name="process" (ngModelChange)="changeProcess($event)" [(ngModel)]="process" scrollTo >
+    <option [selected]="!process">Select Stage</option>
+    <option  [ngValue]="1" [attr.selected]="process == 1">Machining</option>
+    <option  [ngValue]="2" [attr.selected]="process == 2">Quality</option>
+    <option  [ngValue]="0" [attr.selected]="process == 0">Staging</option>
+    <option  [ngValue]="5" [attr.selected]="process == 5">Waiting</option>
+    <option  [ngValue]="3" [attr.selected]="process == 3">Shipped</option>
+  </select>
+  <a [href]="'/view-job-tooling/?jobId=' + job.jobId" class="btn btn-default more-info">More Info</a>
+</div>

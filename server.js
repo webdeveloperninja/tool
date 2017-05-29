@@ -2,6 +2,7 @@ var http = require('http');
 var https = require('https');
 var path = require('path');
 var async = require('async');
+var session = require('express-session')
 var passport = require('passport');
 var passportLocal = require('passport-local');
 var fs = require('fs');
@@ -13,6 +14,7 @@ var shortid = require('shortid');
 var json2csv = require('json2csv');
 var dbAuth = require('./db-auth.js');
 var email = require('./email.js');
+var cors = require('cors');
 var autoEmailOrder = require('./auto-email-order.js');
 var express = require('express');
 var stripeModeTest = false;
@@ -35,7 +37,6 @@ var app = express();
 * Heroku pipelines is da bomb
 * */
 
-
 app.use(flash());
 
 app.set('view engine', 'ejs');
@@ -47,13 +48,19 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.set('trust proxy', true);
-
-app.use('/job-app-resources',express.static(path.join(__dirname, '/views/JobApp/dist')));
-
-app.get('/job-app',function(req,res){
-	res.sendFile(__dirname + '/views/jobapp/dist/index.html');
+app.use(function(req, res, next) {
+res.header('Access-Control-Allow-Credentials', true);
+res.header('Access-Control-Allow-Origin', req.headers.origin);
+res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+if ('OPTIONS' == req.method) {
+     res.send(200);
+ } else {
+     next();
+ }
 });
+
+app.set('trust proxy', true);
 
 app.use(bodyParser.urlencoded({extended : false }));
 app.use(cookieParser());
@@ -65,6 +72,8 @@ app.use(expressSession({ secret: 'secret', resave: false, saveUninitialized: fal
 app.use(express.static(__dirname + '/views')); 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(session({ secret: 'super secret' }));
 
 passport.use(new passportLocal.Strategy(function( username, password, done) {
   dbAuth.checkUserPass(username, password, function(isAuthenticatedDB, DBid) {
@@ -80,6 +89,8 @@ passport.use(new passportLocal.Strategy(function( username, password, done) {
   }); 
 }));
 
+
+
 passport.serializeUser(function(user, done) {
   done(null, user.id)
 });
@@ -92,20 +103,20 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-// var https_redirect = function(req, res, next) {
-//     if (process.env.NODE_ENV === 'production') {
-//         if (req.headers['x-forwarded-proto'] != 'https') {
-//             return res.redirect('https://' + req.headers.host + req.url);
-//         } else {
-//             return next();
-//         }
-//     } else {
-//         return next();
-//     }
-// };
 
 var server = http.createServer(app);
 
+
+// ANGULAR
+app.use('/views/jobapp/dist/',express.static(path.join(__dirname, '/views/JobApp/dist')));
+app.get('/job-app',function(req,res){
+	if (req.isAuthenticated()) {
+		res.sendfile('index.html', { root: __dirname + '/views/JobApp/dist' });
+	} else {
+		res.redirect('/login');
+	}
+});
+// END ANGULAR
 
 app.get('/get-my-tools', function(req, res) {
   if (req.isAuthenticated()) {
@@ -126,9 +137,7 @@ app.get('/my-crib', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-  // if isAuthenticated 
   if (req.isAuthenticated()) {
-    // return stripe customer 
     dbAuth.returnToolData(req.user._id, function(err, tools) {
       console.log('Success tools');
       console.log(tools);
@@ -141,10 +150,7 @@ app.get('/', function(req, res) {
   } else {
     res.redirect('/login');
   }
-  // query tool collection for user id
-  
-  // send down tools
-}); 
+});
 
 app.get('/login', function(req, res) {
     res.render('login',{
@@ -155,7 +161,6 @@ app.get('/login', function(req, res) {
     noMatch: null,
     userCreated: null
   });
-  
 }); 
 
 app.get('/landing-form', function(req, res) {
@@ -299,27 +304,15 @@ app.post('/add', function(req, res) {
         });
         }
       });
-
-
-    
   });
-  
-  
-  
-
-
 });
 
 app.get('/checkout', function(req, res) {
-    // need to send tool id
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     var toolId = checkoutToolIdQuery(fullUrl);
     var userId = req.user._id;
     req.body.qtyRemove = null;
     dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-      console.log('success');
-      console.log(tool);
-      // find tool and render tool 
       res.render('checkout', {
         isAuthenticated: req.isAuthenticated(),
         user: req.user,
@@ -338,12 +331,9 @@ app.post('/checkout', function(req, res) {
   var operatorId = req.body.operatorId;
   var jobId = req.body.jobId;
   dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
-      // find tool and render tool 
       var originalQty = tool.qty;
-      // see if userId exists in db
       dbAuth.returnSingleOperator(userId, operatorId, function(operatorObj){
         if (operatorObj.length == 0) {
-          console.log('Operator Not Found');
             res.render('checkout', {
               isAuthenticated: req.isAuthenticated(),
                 user: req.user,
@@ -365,7 +355,6 @@ app.post('/checkout', function(req, res) {
                   jobFound: false
                 });
             } else {
-              // ad job id field
           if(removeQty > originalQty) {
             dbAuth.returnSingleTool(userId, toolId, function(err, tool) {
               // find tool and render tool 
@@ -413,9 +402,6 @@ app.post('/checkout', function(req, res) {
               }
             });
           }
-
-              
-              
             }
           });
       
@@ -1463,6 +1449,7 @@ app.post('/add-job', function(req, res) {
       jobName: req.body.jobName,
       contactName: req.body.contactName,
       contactEmail: req.body.contactEmail,
+			process: req.body.process,
       dueDate: req.body.dueDate,
       qtyDue: req.body.qtyDue,
       jobId: req.body.jobId
@@ -1513,6 +1500,31 @@ app.post('/add-job', function(req, res) {
 
 });
 
+
+app.get('/api/v1/jobs', function(req, res) {
+  console.log(req.user);
+    if (req.user) {
+      dbAuth.returnJobsData(req.user._id, function(err, jobs) {
+        res.json({success: true, jobs: jobs});
+      });
+    }
+    else {
+      res.json({success: false});
+    }
+});
+
+app.post('/api/v1/job', function(req, res) {
+    dbAuth.updateJob(req.body._id,req.body, function(err, doc) {
+      if(err) {
+        res.status(500);
+      } else {
+        res.json({success: true})
+        res.status(200);
+      }
+    });
+});
+
+
 app.get('/view-jobs', function(req, res) {
   if (req.isAuthenticated()) {
     dbAuth.returnJobsData(req.user._id, function(err, jobs) {
@@ -1529,7 +1541,6 @@ app.get('/view-jobs', function(req, res) {
       user: req.user
     });
   }
-    
 });
 
 app.get('/view-jobs-production', function(req, res) {
