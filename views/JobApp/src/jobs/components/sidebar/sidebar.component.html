@@ -14,27 +14,27 @@
       <form [formGroup]="jobForm" novalidate>
         <div class="form-group">
           <label>Company Name: </label>
-          <input class="form-control" name="companyName" formControlName="companyName" disabled>
+          <input class="form-control" name="companyName" formControlName="companyName">
         </div>
         <div class="form-group">
           <label>Job Name: </label>
-          <input class="form-control" name="jobName" formControlName="jobName" disabled>
+          <input class="form-control" name="jobName" formControlName="jobName">
         </div>
         <div class="form-group">
           <label>Contact Name: </label>
-          <input class="form-control" name="contactName" formControlName="contactName" disabled>
+          <input class="form-control" name="contactName" formControlName="contactName">
         </div>
         <div class="form-group">
           <label>Contact Email: </label>
-          <input class="form-control" name="contactEmail" formControlName="contactEmail" disabled>
+          <input class="form-control" name="contactEmail" formControlName="contactEmail">
         </div>
         <div class="form-group">
           <label>Job Id: </label>
-          <input class="form-control" type="number" name="jobId" formControlName="jobId" disabled>
+          <input class="form-control" type="number" name="jobId" formControlName="jobId">
         </div>
         <div class="form-group">
           <label>Process</label>
-          <select name="process" class="form-control" formControlName="process" disabled>
+          <select name="process" class="form-control" formControlName="process">
               <option value="">Select Stage</option>
               <option value="1">Machining</option>
               <option value="2">Quality</option>
@@ -43,7 +43,11 @@
               <option value="3">Shipped</option>
             </select>
         </div>
-        <input type="submit" class="btn btn-primary" value="Update" disabled>
+        <button 
+            class="btn btn-primary"
+            (click)="updateJob()">
+          Update
+        </button>
       </form>
 </div>
 </div>

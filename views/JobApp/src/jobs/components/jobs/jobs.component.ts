@@ -25,10 +25,16 @@ export class JobsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._jobsService.getJobs().subscribe((jobs) => {
-      console.log(jobs.jobs);
-      this.jobs = jobs.jobs;
+    this._jobsService.$jobs.subscribe(jobs => {
+      if (jobs) {
+        this.jobs = jobs;
+      }
     });
+
+    this._jobsService.getJobs().subscribe((jobs) => {
+      // this.jobs = jobs.jobs;
+    });
+
 
     this._settingsService.getJobsStatusSettings().subscribe(jobStatusSettings => {
       this.jobStatusSettings = jobStatusSettings;

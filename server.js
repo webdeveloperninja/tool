@@ -1518,6 +1518,7 @@ app.post('/api/v1/job', function(req, res) {
       if(err) {
         res.status(500);
       } else {
+        res.json({success: true})
         res.status(200);
       }
     });

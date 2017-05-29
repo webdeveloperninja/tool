@@ -10,6 +10,7 @@ export class JobsService {
     job: any;
     currentJob: any;
     $currentJob = new BehaviorSubject("");
+    $jobs = new BehaviorSubject(null);
 
     constructor(
         private _http: Http,
@@ -28,16 +29,28 @@ export class JobsService {
     getJobs() {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this._http.get('/api/v1/jobs', {headers: headers, withCredentials: true}).map((res: Response) => { return res.json()});
-        //  return this._http.get('http://localhost:8080/jobs', {headers: headers}).map((res: Response) => { return res.json()});
+        return this._http.get('/api/v1/jobs', {headers: headers, withCredentials: true}).map((res: Response) => { 
+            this.$jobs.next(res.json().jobs);
+            return res.json()
+        });
     }
+
+    // updateJob(job) {
+    //     let headers = new Headers();
+    //             headers.append('Content-Type', 'application/json');
+
+    //     console.log('fucked');
+    //     return this._http.post('http://localhost:3000/api/v1/job', job, {headers: headers}).map(res => res.json());
+    // }
 
     updateJob(job) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this._http.post('/api/v1/job', job, {headers: headers}) // ...using post request
-            .map((res: Response) => res.json()) // ...and calling .json() on the response to return data
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error')); //...
+        return this._http.post('/api/v1/job', job, {headers: headers})
+            .map((res: Response) =>  {
+                return res.json() 
+        })
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error')); 
     }
 
     setActiveJob(job) {

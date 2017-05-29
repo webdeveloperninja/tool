@@ -2,7 +2,7 @@
     <div class="jobs-wrapper">
         <app-sidebar></app-sidebar>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="jobs">
         <div [ngClass]="{'col-md-9':sidebarHidden == true, 'col-md-12': sidebarHidden == false}">
             <div class="row">
                 <div class="col-md-12">

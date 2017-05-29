@@ -64,4 +64,25 @@ export class SidebarComponent implements OnInit {
     this._jobsService.removeActiveJob();
   }
 
+  updateJob() {
+    console.log('code');
+    let job = {
+      companyName: this.jobForm.value.companyName,
+      jobName: this.jobForm.value.jobName,
+      contactName: this.jobForm.value.contactName,
+      contactEmail: this.jobForm.value.contactEmail,
+      jobId: this.jobForm.value.jobId,
+      process: this.jobForm.value.process,
+      userId: this.activeJob.userId,
+      _id: this.activeJob._id
+    }
+
+    this._jobsService.updateJob(job).subscribe((data) => {
+      this._jobsService.getJobs().subscribe(data => {
+      })
+    });
+ 
+
+  }
+
 }
