@@ -791,7 +791,7 @@ thead {
         font: 13px 'Lucida sans', Arial, Helvetica;
          font-family: 'Roboto', sans-serif !important;
         color: black;
-        background-color: grey;
+        background-color: white;
         text-align: center;
     }
     
@@ -1287,6 +1287,7 @@ footer {
 
 .new-logo-app .navbar-brand img {
     max-width: 352px;
+    margin-top: -2px;
 }
 
 .new-logo-app p.hello {

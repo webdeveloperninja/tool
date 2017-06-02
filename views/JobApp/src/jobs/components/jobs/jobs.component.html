@@ -1,0 +1,112 @@
+<div class="container-fluid">
+    <div class="jobs-wrapper">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="row" *ngIf="jobs">
+        <div [ngClass]="{'col-md-9':sidebarHidden == true, 'col-md-12': sidebarHidden == false}">
+            <div class="row">
+                <div class="col-md-12">
+                    <job-tracker></job-tracker>
+                </div>
+            </div>
+            <div class="row" *ngIf="jobStatusSettings.machining">
+                <div class="col-md-12">
+                </div>
+                <div class="col-xs-12">
+                    <div class="row machining">
+                        <div class="job-wrapper machining"
+                             *ngFor="let job of jobs | filter: 1"
+                             [ngClass]="{'col-md-4':sidebarHidden == true, 'col-md-3': sidebarHidden == false}">
+                            <job
+                                [job]="job"
+                                [activeJob]="activeJob"
+                                [jobStatusText]="'Machining'">
+                            </job>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="jobStatusSettings.staging">
+                <div class="col-md-12">
+                    <h3>Staging</h3>
+                </div>
+                <div class="col-xs-12 col-lg-12">
+                    <div class="row staging">
+                        <div class="job-wrapper staging"
+                             *ngFor="let job of jobs | filter: 0"
+                             [ngClass]="{'col-md-4':sidebarHidden == true, 'col-md-3': sidebarHidden == false}">
+                            <job
+                                [job]="job"
+                                [jobStatusText]="'Staging'"
+                                [activeJob]="activeJob">
+                            </job>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="jobStatusSettings.quality">
+                <div class="col-md-12">
+                    <h3>Quality</h3>
+                </div>
+                <div class="col-xs-12 col-lg-12">
+                    <div class="row quality">
+                        <div class="job-wrapper quality"
+                             *ngFor="let job of jobs | filter: 2"
+                             [ngClass]="{'col-md-4':sidebarHidden == true, 'col-md-3': sidebarHidden == false}">
+                            <job
+                                [job]="job"
+                                [jobStatusText]="'Quality'"
+                                [activeJob]="activeJob">
+                            </job>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="jobStatusSettings.shipping">
+                <div class="col-md-12">
+                    <h3>Shipping</h3>
+                </div>
+                <div class="col-xs-12 col-lg-12">
+                    <div class="row shipping">
+                        <div class="job-wrapper shipping"
+                             *ngFor="let job of jobs | filter: 3"
+                             [ngClass]="{'col-md-4':sidebarHidden == true, 'col-md-3': sidebarHidden == false}">
+                            <job
+                                [job]="job"
+                                [jobStatusText]="'Shipping'"
+                                [activeJob]="activeJob">
+                            </job>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="jobStatusSettings.waiting">
+                <div class="col-md-12">
+                    <h3>Waiting</h3>
+                </div>
+                <div class="col-xs-12 col-lg-12">
+                    <div class="row waiting">
+                        <div class="job-wrapper waiting"
+                             *ngFor="let job of jobs | filter: 5"
+                             [ngClass]="{'col-md-4':sidebarHidden == true, 'col-md-3': sidebarHidden == false}">
+                            <job
+                                [job]="job"
+                                [jobStatusText]="'Waiting'"
+                                [activeJob]="activeJob">
+                            </job>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+

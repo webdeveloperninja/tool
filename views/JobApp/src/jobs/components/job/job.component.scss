@@ -1,0 +1,57 @@
+
+.job {
+  &.active {
+    background-color: #43bea1!important;
+    border: black!important;
+    box-shadow: 3px 3px 5px 6px #ccc !important;
+  }
+  .more-info {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .card {
+    padding: 9px;
+    margin-top: -38px;
+    border-radius: 3px;
+  }
+  &.alert-info {
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    border-radius: 3px;
+    background: #fff;
+    border: none;
+  }
+  .sub-card {
+    background: linear-gradient(60deg, #66bb6a, #43a047);
+    box-shadow: 0 12px 20px -10px rgba(76, 175, 80, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(76, 175, 80, 0.2);
+    margin: 0;
+    width: 100%;
+  }
+  .pull-right {
+    color: white;
+  }
+
+  .label-info {
+    background-color: white;
+    color: #51ab55;
+    padding-left: 0px;
+    font-weight: 100;
+    .description {
+      color: #999999;
+    }
+  }
+  hr {
+    border-top-color:  #efeaea;
+  }
+  .updated {
+    line-height: 22px;
+    color: #999999;
+    font-size: 12px;
+  }
+  .glyphicon-refresh {
+    margin-right: 8px;
+  }
+}
+
+.body {
+  background-color: #eeeeee !important;
+}

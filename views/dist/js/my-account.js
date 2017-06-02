@@ -9,46 +9,51 @@ TiBase.MyAccount = TiBase.MyAccount || {};
       type: 'GET',
       success: function(data) {
         var checkouts = JSON.parse(data);
-        var jobs = [];
+        if (checkouts.length > 0) {
+					var jobs = [];
 
-        for (var i=0; i<checkouts.length; i++) {
-          var match = false;
-          for (var b=0; b<jobs.length; b++) {
-            if (checkouts[i].jobName == jobs[b][0]) {
-              match = true;
-              jobs[b][1] += checkouts[i].checkoutQty;
-            }
-          }
-          if (match === false) {
-            jobs.push([checkouts[i].jobName, checkouts[i].checkoutQty]);
-          }
+					for (var i=0; i<checkouts.length; i++) {
+						var match = false;
+						for (var b=0; b<jobs.length; b++) {
+							if (checkouts[i].jobName == jobs[b][0]) {
+								match = true;
+								jobs[b][1] += checkouts[i].checkoutQty;
+							}
+						}
+						if (match === false) {
+							jobs.push([checkouts[i].jobName, checkouts[i].checkoutQty]);
+						}
+					}
+					var donutChart = c3.generate({
+						bindto: '#donut-chart',
+						data: {
+							columns: jobs,
+							type : 'donut'
+						},
+						legend: {
+							show: true
+						},
+						donut: {
+							title: "Jobs"
+						}
+					});
+					var barChart = c3.generate({
+						bindto: '#bar-chart',
+						data: {
+							columns: jobs,
+							type : 'bar'
+						},
+						legend: {
+							show: true
+						},
+						donut: {
+							title: "My Crib"
+						}
+					});
+				} else {
+          $('#carousel-example-generic').append('<div class="panel panel-danger"><div class="panel-heading"><h1 class="text-center">You have no checkouts</h1><br></div></div>')
         }
-        var donutChart = c3.generate({
-          bindto: '#donut-chart',
-          data: {
-            columns: jobs,
-            type : 'donut'
-          },
-          legend: {
-            show: true
-          },
-          donut: {
-            title: "Jobs"
-          }
-        });
-        var barChart = c3.generate({
-          bindto: '#bar-chart',
-          data: {
-            columns: jobs,
-            type : 'bar'
-          },
-          legend: {
-            show: true
-          },
-          donut: {
-            title: "My Crib"
-          }
-        });
+
       }
     });
   };

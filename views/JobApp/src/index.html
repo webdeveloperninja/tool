@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JobApp</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <base href="">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    .loader {
+      border: 16px solid #f3f3f3; /* Light grey */
+      border-top: 16px solid #3498db; /* Blue */
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    body {
+      scroll-behavior: smooth;
+    }
+  </style>
+  <script>
+window.bringIntoView_started = 0;
+window.bringIntoView_ends = 0;
+window.bringIntoView_y = 0;
+window.bringIntoView_tick = function() {
+  var distanceLeft, dt, duration, t, travel;
+  t = Date.now();
+  if (t < window.bringIntoView_ends) {
+    dt = t - window.bringIntoView_started;
+    duration = window.bringIntoView_ends - window.bringIntoView_started;
+    distanceLeft = window.bringIntoView_y - document.body.scrollTop;
+      travel = distanceLeft * (dt / duration);
+      document.body.scrollTop += travel;
+      window.requestAnimationFrame(window.bringIntoView_tick);
+  } else {
+    document.body.scrollTop = window.bringIntoView_y;
+  }
+};
+window.bringIntoView = function(e, duration) {
+  window.bringIntoView_started = Date.now();
+  window.bringIntoView_ends = window.bringIntoView_started + duration;
+  window.bringIntoView_y = Math.min(document.body.scrollTop + e.getBoundingClientRect().top, document.body.scrollHeight - window.innerHeight);
+  window.requestAnimationFrame(window.bringIntoView_tick);
+};
+    </script>
+</head>
+<body>
+  <app-root></app-root>
+  <script
+          src="https://code.jquery.com/jquery-2.2.4.min.js"
+          integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+          crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

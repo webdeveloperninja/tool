@@ -11,8 +11,13 @@ var usersSchema = new mongoose.Schema({
     stripeId: String,
     toolingRep: Object,
     superUser: Boolean,
+    referenceCode: String,
+    phoneNumber: String,
     email: String,
-    contactName: String
+    contactName: String,
+    firstName: String,
+    lastName: String,
+    package: Number
 });
 
 var toolsSchema = new mongoose.Schema({
@@ -42,6 +47,7 @@ var jobsSchema = new mongoose.Schema({
     jobName: String,
     contactName: String,
     contactEmail: String,
+    process: Number,
     dueDate: Date,
     qtyDue: Number,
     jobId: Number
@@ -207,6 +213,12 @@ var exports = module.exports = {
                 var query = {_id:toolId};
                 tools.findOneAndUpdate(query, newTool, {upsert:true}, function(err, doc){
                     cb(err);
+                });
+            },
+            updateJob: function(jobObjId, newJob, cb) {
+                var query = {_id: jobObjId};
+                jobs.findOneAndUpdate(query, newJob, {upsert: true}, function(err, doc) {
+                  cb(err, doc);
                 });
             },
             addToolQty: function(userId, toolId, addQty, cb) {

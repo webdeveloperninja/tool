@@ -17,9 +17,6 @@
 </script>
     </head>
     <body <%if(isAuthenticated) {%> class="authenticated" <% } %>>
-    <div class="loader">
-        <img src="../../images/gear-t.png" class="img-responsive">
-    </div>
     <nav class="navbar navbar-default navbar-fixed-top __web-inspector-hide-shortcut__ <%if(isAuthenticated) {%> new-logo-app <% } %>">
       <div class="container">
         <div class="navbar-header">
@@ -31,7 +28,7 @@
           </button>
           <a class="navbar-brand" href="/" style="color: black;">
               <!-- Logo here -->
-              ToolingInventory.com
+              <img src="../../images/long-logo.png" class="img-responsive">
           </a>
         </div>
         <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse">
@@ -57,7 +54,7 @@
                 <option data-icon="glyphicon-heart" value="/">Tool List</option>
                 <option data-icon="glyphicon-heart" value="/add-tool"><a href="/add-tool" class="">Add Tool</a></option>
                 <option data-icon="glyphicon-heart" value="/view-checkouts"><a href="/view-checkouts" class="">View Checkouts</a></option>
-                <option data-icon="glyphicon-heart" value="/view-jobs"><a href="/view-jobs" class="">View Jobs</a></option>
+                <option data-icon="glyphicon-heart" value="/view-jobs"><a href="/job-app" class="">View Jobs</a></option>
                 <option data-icon="glyphicon-heart" value="/view-operators"><a href="/view-operators" class="">View Operators</a></option>
                 <option data-icon="glyphicon-heart" value="/my-account"><a href="/my-account" class="">My Account</a></option>
                 <option data-icon="glyphicon-heart" value="/toolsCSV"><a href="/toolsCSV" class="">Download Tool List</a></loptioni>
