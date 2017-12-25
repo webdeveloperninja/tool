@@ -40,12 +40,12 @@ app.use(flash());
 
 app.set('view engine', 'ejs');
 
-app.use(function(req, res, next) {
-  if(!req.secure) {
-    return res.redirect(['https://', req.get('Host'), req.url].join(''));
-  }
-  next();
-});
+// app.use(function(req, res, next) {
+//   if(!req.secure) {
+//     return res.redirect(['https://', req.get('Host'), req.url].join(''));
+//   }
+//   next();
+// });
 
 app.set('trust proxy', true);
 
