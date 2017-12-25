@@ -1,5 +1,4 @@
 var http = require('http');
-var https = require('https');
 var path = require('path');
 var async = require('async');
 var passport = require('passport');
